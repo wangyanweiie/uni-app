@@ -63,6 +63,7 @@
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-prettier": "^5.0.0",
         "eslint-plugin-vue": "^9.15.1",
+        "husky": "^8.0.3",
         "lodash-es": "^4.17.21",
         "uview-plus": "^3.1.32",
         "vue": "^3.2.45",
