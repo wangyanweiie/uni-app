@@ -1,4 +1,4 @@
-import { onMounted, ref, watch, nextTick } from 'vue';
+import { onMounted, ref, watch, nextTick, onBeforeMount } from 'vue';
 import _ from 'lodash-es';
 
 export default function useIndex(props: any, emit: Function) {
@@ -14,9 +14,9 @@ export default function useIndex(props: any, emit: Function) {
      */
     watch(
         () => props.modelValue,
-        (newValue) => {
+        newValue => {
             text.value = newValue;
-        }
+        },
     );
 
     /**
@@ -25,14 +25,14 @@ export default function useIndex(props: any, emit: Function) {
     const text = ref<string>('');
 
     /**
+     * 渲染组件类型
+     */
+    const selectType = ref<string>('radio');
+
+    /**
      * 是否展示弹出层
      */
     const showPopup = ref<boolean>(false);
-
-    /**
-     * 渲染组件类型
-     */
-    const showComType = ref<string>(props.showType);
 
     /**
      * 搜索框关键词
@@ -97,9 +97,9 @@ export default function useIndex(props: any, emit: Function) {
 
         // 反显上一次选择的值
         if (text.value) {
-            switch (showComType.value) {
+            switch (selectType.value) {
                 case 'radio':
-                    sourceList.value.forEach((item) => {
+                    sourceList.value.forEach(item => {
                         if (item.label === text.value) {
                             radioValue.value = item.value;
                         }
@@ -108,10 +108,10 @@ export default function useIndex(props: any, emit: Function) {
 
                 case 'checkbox':
                     let boxValue: any = [];
-                    sourceList.value.forEach((item) => {
+                    sourceList.value.forEach(item => {
                         String(text.value)
                             .split(',')
-                            .forEach((value) => {
+                            .forEach(value => {
                                 if (value === item.label) {
                                     boxValue.push(item.value);
                                 }
@@ -144,9 +144,13 @@ export default function useIndex(props: any, emit: Function) {
      * FIXME: 解决 "单选过滤后选择 - 清空过滤条件 - 相同位置会出现假选中状态" 的问题
      */
     function handleUpdateDom() {
-        showComType.value = '';
+        selectType.value = '';
         nextTick(() => {
-            showComType.value = props.showType;
+            if (props.multiple) {
+                selectType.value = 'checkbox';
+            } else {
+                selectType.value = 'radio';
+            }
         });
     }
 
@@ -163,7 +167,7 @@ export default function useIndex(props: any, emit: Function) {
      */
     function delIntersection(arr1: (number | string)[], arr2: (number | string)[]) {
         const arr = [...arr1, ...arr2];
-        const newArr = arr.filter((item) => {
+        const newArr = arr.filter(item => {
             return !(arr1.includes(item) && arr2.includes(item));
         });
         return newArr;
@@ -186,7 +190,7 @@ export default function useIndex(props: any, emit: Function) {
                 lastCheckboxValue.value.push(filterList[i]);
             } else {
                 // ② 若包含，判断是否存在于当前展示的下拉列表中，并判断是否在本次选中的集合中
-                const isShow = showList.value.map((item) => item.value).includes(filterList[i]);
+                const isShow = showList.value.map(item => item.value).includes(filterList[i]);
                 const isSelect = e.includes(filterList[i]);
 
                 // 若存在于当前展示的下拉列表，但未被本次选中 ==> 从 lastCheckboxValue 集合中剔除
@@ -229,7 +233,7 @@ export default function useIndex(props: any, emit: Function) {
             showList.value = sourceList.value;
         } else {
             let list: Record<string, any>[] = [];
-            sourceList.value.forEach((value) => {
+            sourceList.value.forEach(value => {
                 if (value.label.match(e)) {
                     list.push(value);
                 }
@@ -252,10 +256,10 @@ export default function useIndex(props: any, emit: Function) {
      * 确认选择
      */
     function handleButtonConfirm() {
-        switch (showComType.value) {
+        switch (selectType.value) {
             case 'radio':
                 let label: string = '';
-                sourceList.value.forEach((item) => {
+                sourceList.value.forEach(item => {
                     if (String(radioValue.value) === String(item.value)) {
                         label = item.label;
                     }
@@ -271,8 +275,8 @@ export default function useIndex(props: any, emit: Function) {
 
             case 'checkbox':
                 let labelList: string[] = [];
-                sourceList.value.forEach((item) => {
-                    checkboxValue.value.forEach((value) => {
+                sourceList.value.forEach(item => {
+                    checkboxValue.value.forEach(value => {
                         if (value === item.value) {
                             labelList.push(item.label);
                         }
@@ -298,13 +302,25 @@ export default function useIndex(props: any, emit: Function) {
         handlePopupClose();
     }
 
+    /**
+     * 页面渲染
+     */
+    onBeforeMount(() => {
+        // 单选 or 多选
+        if (props.multiple) {
+            selectType.value = 'checkbox';
+        } else {
+            selectType.value = 'radio';
+        }
+    });
+
     return {
         text,
         handleTextClear,
         showPopup,
         handlePopupOpen,
         handlePopupClose,
-        showComType,
+        selectType,
         handleButtonConfirm,
         handleButtonCancel,
         keyword,

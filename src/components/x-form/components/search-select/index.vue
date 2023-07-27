@@ -14,7 +14,13 @@
             </view>
 
             <view class="button-wrap">
-                <u-button type="primary" text="选择" size="small" @click="handlePopupOpen"></u-button>
+                <u-button
+                    type="primary"
+                    text="选择"
+                    size="small"
+                    :disabled="schema?.attributes?.disabled"
+                    @click="handlePopupOpen"
+                ></u-button>
             </view>
         </view>
 
@@ -33,6 +39,7 @@
                         text="选择"
                         size="small"
                         style="margin-left: 10rpx"
+                        :disabled="schema?.attributes?.disabled"
                         @click="handlePopupOpen"
                     ></u-button>
                     <slot></slot>

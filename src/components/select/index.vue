@@ -1,5 +1,11 @@
 <template>
-    <data-select v-model="myModelValue" :localdata="dataSource" :placeholder="placeholder"></data-select>
+    <data-select
+        v-model="myModelValue"
+        :localdata="dataSource"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        @change="handleChange"
+    ></data-select>
 </template>
 
 <script lang="ts" setup>
@@ -12,11 +18,18 @@ import { useVModel } from '@vueuse/core';
  */
 const props = withDefaults(
     defineProps<{
+        /** 双向绑定的值 */
         modelValue: string | number;
+        /** 下拉请求接口 */
         api?: any;
+        /** 下拉请求接口参数 */
         apiParams?: Object;
+        /** 单选/复选框静态列表 */
         options?: Record<string, string | number>[];
-        placeholder: string;
+        /** 提示文字 */
+        placeholder?: string;
+        /** 是否禁用 */
+        disabled?: boolean;
     }>(),
     {
         modelValue: '',
@@ -28,6 +41,7 @@ const props = withDefaults(
             return [];
         },
         placeholder: '请选择',
+        disabled: false,
     },
 );
 
@@ -36,7 +50,7 @@ const props = withDefaults(
  */
 const emits = defineEmits<{
     (e: 'update:modelValue', value: string | number): void;
-    (e: 'callBack', value: object): any;
+    (e: 'change', value: object): any;
 }>();
 
 /**
@@ -77,20 +91,21 @@ async function loadData() {
 }
 
 /**
- * 监听
+ * 改变下拉项
+ * @param e 下拉项的 value
  */
-watch(
-    () => myModelValue.value,
-    (newValue: any) => {
-        let obj = dataSource.value.filter(item => item.value === newValue);
+function handleChange(e: number | string) {
+    let obj = dataSource.value.filter(item => item.value === e);
 
-        // 返回当前下拉的 label value 对象
-        if (obj.length) {
-            emits('callBack', obj[0] || {});
-        }
-    },
-);
+    // 返回当前下拉的 label value 对象
+    if (obj.length) {
+        emits('change', obj[0]);
+    }
+}
 
+/**
+ * 静态数据需要二次赋值
+ */
 watch(
     () => props.options,
     (newValue: any) => {

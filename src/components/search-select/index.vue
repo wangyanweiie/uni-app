@@ -1,19 +1,29 @@
 <template>
     <view style="width: 100%">
         <!-- 纯文本展示样式 -->
-        <!-- <view class="wrap">
-            <view v-if="!text" class="content-placeholder">{{ placeholder }}</view>
-            <view v-else class="content-text">{{ text }}</view>
+        <view class="wrap">
+            <view>
+                <view v-if="!text" class="content-placeholder">{{ placeholder }}</view>
+                <view v-else class="content-text">{{ text }}</view>
+            </view>
+
             <view v-if="showClear" class="clear-wrap">
                 <u-icon name="close-circle-fill" size="40" @click="handleTextClear"></u-icon>
             </view>
+
             <view class="button-wrap">
-                <u-button type="primary" text="选择" size="small" @click="handlePopupOpen"></u-button>
+                <u-button
+                    type="primary"
+                    text="选择"
+                    size="small"
+                    :disabled="disabled"
+                    @click="handlePopupOpen"
+                ></u-button>
             </view>
-        </view> -->
+        </view>
 
         <!-- 输入框禁用样式 -->
-        <u-input v-model="text" border="none" disabled :placeholder="placeholder">
+        <!-- <u-input v-model="text" border="none" disabled :placeholder="placeholder">
             <template #suffix>
                 <view style="display: flex">
                     <u-icon v-if="showClear" name="close-circle-fill" size="40" @click="handleTextClear"></u-icon>
@@ -21,13 +31,14 @@
                         type="primary"
                         text="选择"
                         size="small"
+                        :disabled="disabled"
                         style="margin-left: 10rpx"
                         @click="handlePopupOpen"
                     ></u-button>
                     <slot></slot>
                 </view>
             </template>
-        </u-input>
+        </u-input> -->
 
         <!-- 弹出层 -->
         <u-popup mode="left" :show="showPopup" :custom-style="popupStyle" :close-on-click-overlay="closeOnClickOverlay">
@@ -44,7 +55,7 @@
                 ></u-search>
                 <scroll-view scroll-y="true" style="height: 69%">
                     <!-- 单选 -->
-                    <view v-if="showComType === 'radio'">
+                    <view v-if="selectType === 'radio'">
                         <view class="radio-style">
                             <u-radio-group v-model="radioValue" placement="column" @change="handleRadioChange">
                                 <u-radio
@@ -63,7 +74,7 @@
                     </view>
 
                     <!-- 复选 -->
-                    <view v-if="showComType === 'checkbox'">
+                    <view v-if="selectType === 'checkbox'">
                         <view class="checkbox-style">
                             <u-checkbox-group v-model="checkboxValue" placement="column" @change="handleCheckChange">
                                 <u-checkbox
@@ -122,8 +133,10 @@ const props = withDefaults(
         placeholder?: string;
         /** 是否可清空 */
         showClear?: boolean;
-        /** 类型 */
-        showType?: 'radio' | 'checkbox';
+        /** 是否禁用 */
+        disabled?: boolean;
+        /** 是否多选 */
+        multiple?: boolean;
         /** 是否可点击遮罩层关闭 */
         closeOnClickOverlay?: boolean;
         /** 下拉请求接口 */
@@ -131,18 +144,19 @@ const props = withDefaults(
         /** 下拉请求接口参数 */
         apiParams?: any;
         /** 单选/复选框静态列表 */
-        options?: any;
+        options?: Record<string, string | number>[];
     }>(),
     {
         modelValue: '',
         placeholder: '请点击右侧选择',
         showClear: false,
-        showType: 'radio',
+        disabled: false,
+        multiple: false,
         closeOnClickOverlay: false,
         api: null,
         apiParams: () => ({}),
         options: () => [],
-    }
+    },
 );
 
 /**
@@ -159,7 +173,7 @@ const {
     handleTextClear,
     showPopup,
     handlePopupOpen,
-    showComType,
+    selectType,
     handleButtonCancel,
     handleButtonConfirm,
     keyword,

@@ -9,6 +9,7 @@
                         class="uni-select__input-text"
                         :style="{ fontSize: '14px' }"
                         :placeholder="typePlaceholder"
+                        :disabled="disabled"
                         @input="handleFuzzySearch"
                     />
                     <uni-icons v-if="current && clear" type="clear" color="#c0c4cc" size="24" @click="clearVal" />
@@ -189,7 +190,7 @@ export default {
                     this.emit(defValue);
                 }
             }
-            const def = this.mixinDatacomResData.find((item) => item.value === defValue);
+            const def = this.mixinDatacomResData.find(item => item.value === defValue);
             this.current = def ? this.formatItemName(def) : '';
         },
 
@@ -200,7 +201,7 @@ export default {
         isDisabled(value) {
             let isDisabled = false;
 
-            this.mixinDatacomResData.forEach((item) => {
+            this.mixinDatacomResData.forEach(item => {
                 if (item.value === value) {
                     isDisabled = item.disable;
                 }
@@ -274,7 +275,7 @@ export default {
          */
         handleFuzzySearch() {
             this.mixinDatacomResData = [];
-            this.mixinDatacomResData = this.localdata.filter((item) => item.label.indexOf(this.current) !== -1);
+            this.mixinDatacomResData = this.localdata.filter(item => item.label.indexOf(this.current) !== -1);
         },
     },
 };

@@ -23,7 +23,7 @@ export default function useIndex(props: Props, emit: Function) {
     /**
      * 渲染组件类型
      */
-    const selectType = ref<string>('checkbox');
+    const selectType = ref<string>('radio');
 
     /**
      * 是否展示弹出层
@@ -100,7 +100,7 @@ export default function useIndex(props: Props, emit: Function) {
                     sourceList.value.forEach((item: Options) => {
                         String(selectLabel.value)
                             .split(',')
-                            .forEach((value) => {
+                            .forEach(value => {
                                 if (value === item.label) {
                                     boxValue.push(item.value);
                                 }
@@ -156,7 +156,7 @@ export default function useIndex(props: Props, emit: Function) {
      */
     function delIntersection(arr1: (number | string)[], arr2: (number | string)[]) {
         const arr = [...arr1, ...arr2];
-        const newArr = arr.filter((item) => {
+        const newArr = arr.filter(item => {
             return !(arr1.includes(item) && arr2.includes(item));
         });
         return newArr;
@@ -270,7 +270,7 @@ export default function useIndex(props: Props, emit: Function) {
             case 'checkbox':
                 let labelList: string[] = [];
                 sourceList.value.forEach((item: Options) => {
-                    checkboxValue.value.forEach((value) => {
+                    checkboxValue.value.forEach(value => {
                         if (value === item.value) {
                             labelList.push(item.label);
                         }
@@ -315,7 +315,7 @@ export default function useIndex(props: Props, emit: Function) {
             checkboxValue.value = val as string[];
             let labelList: string[] = [];
             sourceList.value.forEach((item: Options) => {
-                checkboxValue.value?.forEach((value) => {
+                checkboxValue.value?.forEach(value => {
                     if (value === item.value) {
                         labelList.push(item.label);
                     }
