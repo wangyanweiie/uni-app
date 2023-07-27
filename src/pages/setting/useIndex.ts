@@ -2,12 +2,12 @@ import { clearToken, getStorage } from '@/utils/uni-storage';
 import { onMounted, ref } from 'vue';
 import { showToast } from '@/utils/messageTip';
 import download from '@/utils/uni-download';
-// import HTTP from '@/api/login/index';
+import RequestAPI from '@/api/login/index';
 // import checkUpdates from '@/uni_modules/uni-upgrade-center-app/utils/check-update';
 
-const BASE_URL = import.meta.env.VITE_API_URL as string;
-
 export default function useIndex() {
+    const BASE_URL = import.meta.env.VITE_API_URL as string;
+
     /**
      * 展示信息
      */
@@ -38,9 +38,9 @@ export default function useIndex() {
     /**
      * 修改密码
      */
-    function toChangePassword() {
+    function handleChangePassword() {
         uni.navigateTo({
-            url: `/pages/setting/change-password`,
+            url: `/pages/setting/change-passward`,
         });
     }
 
@@ -48,35 +48,18 @@ export default function useIndex() {
      * 更新版本
      */
     async function checkUpdate() {
-        // if (BASE_URL && BASE_URL.indexOf('qms') === -1) {
-        //     checkUpdateTest();
-        // } else {
-        //     checkUpdate();
-        // }
-        checkUpdateProduct();
-    }
-
-    /**
-     * 生产环境
-     */
-    async function checkUpdateProduct() {
+        // uni-admin
         // #ifdef APP-PLUS
-        try {
-            // await checkUpdates();
-        } catch (error: any) {
-            showToast(error.result.message);
-        }
+        // try {
+        //     await checkUpdates();
+        // } catch (error: any) {
+        //     showToast(error.result.message);
+        // }
         // #endif
-    }
 
-    /**
-     * 测试环境
-     */
-    async function checkUpdateTest() {
-        // 下载到本地
         // #ifdef APP-PLUS
         download(
-            'http://121.41.28.31:9000/xilong/xilong.apk',
+            'http://121.41.28.31:9000/lvling/lvling-cs.apk',
             {},
             (e: string) => {
                 {
@@ -95,11 +78,11 @@ export default function useIndex() {
      * 退出登录
      */
     async function showLogout() {
-        // const res = await HTTP.logout();
-        // if (res) {
-        //     clearToken();
-        //     uni.reLaunch({ url: '/pages/login/index' });
-        // }
+        const res = await RequestAPI.logout();
+        if (res) {
+            clearToken();
+            uni.reLaunch({ url: '/pages/login/index' });
+        }
     }
 
     /**
@@ -127,6 +110,6 @@ export default function useIndex() {
         downloadProgress,
         showLogout,
         checkUpdate,
-        toChangePassword,
+        handleChangePassword,
     };
 }

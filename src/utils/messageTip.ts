@@ -2,7 +2,7 @@
  * 提示信息
  * @param {string} message 提示信息
  */
-export function showToast(title = '未知错误', icon = 'none', mask = true, duration = 1500) {
+export function showToast(title = '未知错误', icon = 'none', mask = false, duration = 1500) {
     uni.showToast({
         title,
         icon: icon as 'none' | 'success' | 'loading' | 'error' | 'fail' | 'exception' | undefined,

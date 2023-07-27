@@ -42,7 +42,7 @@ export default function useScan(searchCode: (code: string) => void) {
             success: ({ result }) => {
                 code = result;
             },
-            fail: (error) => {
+            fail: error => {
                 uni.showToast({
                     title: '不可扫码',
                     icon: 'none',
@@ -136,7 +136,7 @@ export default function useScan(searchCode: (code: string) => void) {
     });
 
     /**
-     * 页面销毁后，注销监听，和initAndListen()方法配套使用
+     * 页面销毁后，注销监听，和 initAndListen() 方法配套使用
      */
     onUnmounted(() => {
         // #ifdef APP-PLUS

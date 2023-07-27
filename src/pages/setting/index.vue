@@ -24,7 +24,7 @@
                 title="修改密码"
                 size="large"
                 is-link
-                @click="toChangePassword"
+                @click="handleChangePassword"
             ></u-cell>
             <u-cell
                 icon="attach"
@@ -65,7 +65,8 @@
 
 <script lang="ts" setup>
 import useIndex from './useIndex';
-const { userInfo, iconStyle, showProgressModal, downloadProgress, showLogout, checkUpdate, toChangePassword } =
+
+const { userInfo, iconStyle, showProgressModal, downloadProgress, showLogout, checkUpdate, handleChangePassword } =
     useIndex();
 </script>
 <style lang="scss" scoped>

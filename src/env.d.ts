@@ -9,3 +9,4 @@ declare module '*.vue' {
 
 declare module 'uview-plus';
 declare module 'lodash-es';
+declare module '@vueuse/core';
