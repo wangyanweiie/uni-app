@@ -1,3 +1,3 @@
 <template>
-    <div>demo</div>
+    <view class="view-wrap">demo</view>
 </template>

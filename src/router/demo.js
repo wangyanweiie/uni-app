@@ -6,13 +6,13 @@ module.exports = [
         },
     },
     {
-        path: 'pages/demo/table',
+        path: 'pages/demo/table/index',
         style: {
             navigationBarTitleText: '表格',
         },
     },
     {
-        path: 'pages/demo/form',
+        path: 'pages/demo/form/index',
         style: {
             navigationBarTitleText: '表单',
         },

@@ -62,16 +62,14 @@ export interface XTableProp {
     tableHeader: HeaderItem[];
     /** 静态表格数据 */
     tableDataProp: Record<string, any>[];
-    /** 是否展示标题 */
-    isShowTitle: boolean;
     /** 是否为分页格式 */
-    isDividePage: boolean;
+    dividePage: boolean;
     /** 是否渲染 loading */
-    isLoading: boolean;
+    loading: boolean;
     /** 是否可选 */
-    isSelect: boolean;
+    selectable: boolean;
     /** 是否渲染斑马纹 */
-    isStripe: boolean;
+    stripe: boolean;
     /** 决定行颜色字段 */
     colorField: string;
     /** 可滑动的最小高度 */

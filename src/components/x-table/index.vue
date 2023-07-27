@@ -2,7 +2,7 @@
     <view class="wrap">
         <!-- 顶部操作区域 -->
         <view class="operation">
-            <view v-if="isShowTitle" class="operation_text"> {{ title }} </view>
+            <view v-if="title" class="operation_text"> {{ title }} </view>
             <view class="operation_button">
                 <slot name="operation" :check-rows="checkRows" />
             </view>
@@ -13,9 +13,9 @@
             <uni-table
                 ref="uniTableRef"
                 :key="key"
-                :type="isSelect ? 'selection' : ''"
-                :loading="isLoading ? tableLoading : false"
-                :stripe="isStripe"
+                :type="selectable ? 'selection' : ''"
+                :loading="loading ? tableLoading : false"
+                :stripe="stripe"
                 :empty-text="emptyText"
                 border
                 class="table"
@@ -32,7 +32,7 @@
                                 handleFixedStyle(
                                     headerItem?.fixedProps?.direction,
                                     headerItem?.fixedProps?.distance,
-                                    '#f5f6f8'
+                                    '#f5f6f8',
                                 )
                             "
                         >
@@ -66,7 +66,7 @@
                                 handleFixedStyle(
                                     headerItem?.fixedProps?.direction,
                                     headerItem?.fixedProps?.distance,
-                                    '#fff'
+                                    '#fff',
                                 )
                             "
                         >
@@ -78,22 +78,24 @@
                                 <slot :name="`${headerItem.prop}`" :row="dataItem" :index="dataIndex" />
                             </view>
 
-                            <view v-else>
+                            <!-- 动态渲染 tag -->
+                            <view
+                                v-else-if="
+                                    headerItem.expression?.(dataItem, headerItem) &&
+                                    headerItem.expression?.(dataItem, headerItem) !== 'default'
+                                "
+                            >
                                 <u-tag
-                                    v-if="
-                                        headerItem.expression?.(dataItem, headerItem) &&
-                                        headerItem.expression?.(dataItem, headerItem) !== 'default'
-                                    "
                                     :text="dataItem?.[headerItem.prop]"
                                     :type="headerItem.expression?.(dataItem, headerItem)"
                                     plain
                                 >
                                 </u-tag>
-                                <!-- text -->
+                            </view>
 
-                                <view v-else>
-                                    {{ dataItem?.[headerItem.prop] }}
-                                </view>
+                            <!-- 纯文本 -->
+                            <view v-else>
+                                {{ dataItem?.[headerItem.prop] }}
                             </view>
                         </uni-td>
                     </template>
@@ -146,16 +148,14 @@ const props = withDefaults(
         tableHeader?: HeaderItem[];
         /** 静态表格数据 */
         tableDataProp?: Record<string, any>[];
-        /** 是否展示标题 */
-        isShowTitle?: boolean;
         /** 是否为分页格式 */
-        isDividePage?: boolean;
+        dividePage?: boolean;
         /** 是否渲染 loading */
-        isLoading?: boolean;
+        loading?: boolean;
         /** 是否可选 */
-        isSelect?: boolean;
+        selectable?: boolean;
         /** 是否渲染斑马纹 */
-        isStripe?: boolean;
+        stripe?: boolean;
         /** 决定行颜色字段 */
         colorField?: string;
         /** 可滑动的最小高度 */
@@ -179,14 +179,13 @@ const props = withDefaults(
         }),
         tableHeader: () => [],
         tableDataProp: () => [],
-        isShowTitle: true,
-        isDividePage: true,
-        isLoading: false,
-        isSelect: false,
-        isStripe: false,
+        dividePage: true,
+        loading: false,
+        selectable: false,
+        stripe: false,
         colorField: 'color',
         scrollStyle: () => ({}),
-    }
+    },
 );
 
 /**

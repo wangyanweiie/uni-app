@@ -97,7 +97,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: Function) {
         // 更新每页渲染数量
         pagination.value.pageSize = props.paginationProp?.pageSize || 10;
 
-        if (props.api && props.isDividePage) {
+        if (props.api && props.dividePage) {
             // 1.动态赋值，分页接口
             tableLoading.value = true;
 
@@ -129,7 +129,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: Function) {
                 tableData.value = res.data[props.apiKeyMap?.returnRecordKey || 'records'] || [];
                 tableLoading.value = false;
             }
-        } else if (props.api && !props.isDividePage) {
+        } else if (props.api && !props.dividePage) {
             // 2.动态赋值，非分页接口，不渲染分页
             tableLoading.value = true;
             pagination.value.pageSize = -1;
@@ -148,12 +148,12 @@ export default function useIndex(props: Partial<XTableProp>, emit: Function) {
 
             tableData.value = res.data || [];
             tableLoading.value = false;
-        } else if (!props.api && props.isDividePage && props.tableDataProp?.length) {
+        } else if (!props.api && props.dividePage && props.tableDataProp?.length) {
             // 3.静态赋值，假分页
             pagination.value.page = 1;
             pagination.value.total = props.tableDataProp.length;
             tableData.value = props.tableDataProp.slice(0, pagination.value.pageSize);
-        } else if (!props.api && !props.isDividePage && props.tableDataProp?.length) {
+        } else if (!props.api && !props.dividePage && props.tableDataProp?.length) {
             // 4.静态赋值，不渲染分页
             pagination.value.pageSize = -1;
             tableData.value = props.tableDataProp;
@@ -203,7 +203,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: Function) {
     function handleFixedStyle(
         direction: string = '',
         distance: string = '0',
-        color: string
+        color: string,
     ): Partial<FixedStyleFunReturn> {
         switch (direction) {
             case 'left':
