@@ -1,5 +1,8 @@
 module.exports = {
     easycom: {
+        // 是否开启自动扫描，开启后将会自动扫描符合 components/组件名称/组件名称.vue 目录结构的组件
+        autoscan: true,
+        // 以正则方式自定义组件匹配规则
         custom: {
             '^u-(.*)': 'uview-plus/components/u-$1/u-$1.vue',
             '^uni-(.*)': '@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue',
@@ -11,18 +14,19 @@ module.exports = {
         selectedColor: '#2196f3',
         backgroundColor: '#fff',
         height: '50px',
+        fontSize: '12px',
         list: [
             {
                 pagePath: 'pages/index/index',
-                iconPath: '',
+                iconPath: 'static/product.png',
                 text: '生产',
-                selectedIconPath: '',
+                selectedIconPath: 'static/product-active.png',
             },
             {
                 pagePath: 'pages/setting/index',
-                iconPath: '',
+                iconPath: 'static/setting.png',
                 text: '设置',
-                selectedIconPath: '',
+                selectedIconPath: 'static/setting-active.png',
             },
         ],
     },

@@ -29,14 +29,38 @@ export default function useIndex() {
     const menuList = ref<menuItem[]>(
         [
             {
-                label: '图片水印',
-                value: '图片水印',
+                label: 'watermark',
+                value: 'watermark',
                 subMenu: [
                     {
-                        label: '水印测试',
+                        label: 'watermark',
                         value: 'sycs',
                         icon: '',
                         path: '/pages/watermark/index',
+                    },
+                ],
+            },
+            {
+                label: 'demo',
+                value: 'demo',
+                subMenu: [
+                    {
+                        label: 'demo',
+                        value: 'demo',
+                        icon: '',
+                        path: '/pages/demo/index',
+                    },
+                    {
+                        label: 'table',
+                        value: 'table',
+                        icon: '',
+                        path: '/pages/demo/table',
+                    },
+                    {
+                        label: 'form',
+                        value: 'form',
+                        icon: '',
+                        path: '/pages/demo/form',
                     },
                 ],
             },

@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { ref, nextTick } from 'vue';
 import dayjs from 'dayjs';
-import { UPLOAD_URL } from '../../constant/index';
+import { UPLOAD_URL } from '@/constant/index';
 
 /**
  * 画布宽度
@@ -53,7 +53,7 @@ function setImg(url: string) {
      */
     uni.getImageInfo({
         src: url,
-        success: (res) => {
+        success: res => {
             uni.showLoading({
                 title: '水印添加中...',
                 mask: true,
@@ -92,7 +92,7 @@ function setImg(url: string) {
                             destWidth: w.value,
                             destHeight: h.value,
                             fileType: 'png',
-                            success: async (res) => {
+                            success: async res => {
                                 // 保存生成的图片路径
                                 src.value = res.tempFilePath;
 
@@ -107,7 +107,7 @@ function setImg(url: string) {
                 }, 500);
             });
         },
-        fail: (err) => {
+        fail: err => {
             console.log(err);
         },
     });
@@ -118,7 +118,7 @@ function setImg(url: string) {
  * @param url 图片路径
  */
 async function uploadFile(url: string) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         uni.uploadFile({
             url: UPLOAD_URL,
             filePath: url,
@@ -127,11 +127,11 @@ async function uploadFile(url: string) {
             formData: {
                 appSign: 'app',
             },
-            success: (res) => {
+            success: res => {
                 src.value = JSON.parse(res.data).data;
                 resolve(JSON.parse(res.data).data);
             },
-            fail: (err) => {
+            fail: err => {
                 console.log(err);
                 resolve(false);
             },

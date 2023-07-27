@@ -3,11 +3,10 @@ import { onMounted, ref } from 'vue';
 import { showToast } from '@/utils/messageTip';
 import download from '@/utils/uni-download';
 import RequestAPI from '@/api/login/index';
+import { BASE_URL } from '@/constant/index';
 // import checkUpdates from '@/uni_modules/uni-upgrade-center-app/utils/check-update';
 
 export default function useIndex() {
-    const BASE_URL = import.meta.env.VITE_API_URL as string;
-
     /**
      * 展示信息
      */
@@ -77,8 +76,24 @@ export default function useIndex() {
     /**
      * 退出登录
      */
-    async function showLogout() {
+    function showLogout() {
+        uni.showModal({
+            title: '',
+            content: '是否确认退出登录？',
+            success: res => {
+                if (res.confirm) {
+                    confirmLogout();
+                }
+            },
+        });
+    }
+
+    /**
+     * 确认退出
+     */
+    async function confirmLogout() {
         const res = await RequestAPI.logout();
+
         if (res) {
             clearToken();
             uni.reLaunch({ url: '/pages/login/index' });
@@ -91,7 +106,7 @@ export default function useIndex() {
     onMounted(() => {
         userInfo.value.account = getStorage('userInfo').account;
         userInfo.value.userName = getStorage('userInfo').userName;
-        userInfo.value.organizationName = getStorage('userInfo').organizationName;
+        userInfo.value.organizationName = getStorage('userInfo').companyName;
         userInfo.value.roles = getStorage('userInfo').roles.toString();
         userInfo.value.api = BASE_URL;
 

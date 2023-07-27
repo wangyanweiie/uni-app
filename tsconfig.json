@@ -1,18 +1,62 @@
+// {
+//   "extends": "@vue/tsconfig/tsconfig.json",
+//   "compilerOptions": {
+//     "sourceMap": true,
+//     "baseUrl": ".",
+//     "paths": {
+//       "@/*": ["./src/*"]
+//     },
+//     "lib": ["esnext", "dom"],
+//     "types": [
+//       "@dcloudio/types",
+//       "@ttou/uview-typings/v3",
+//       "@ttou/uview-typings/refs"
+//     ],
+//     "typeRoots": ["@/types/index.d.ts"]
+//   },
+//   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+// }
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
-  "compilerOptions": {
-    "sourceMap": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
+    "compilerOptions": {
+        "target": "esnext",
+        "useDefineForClassFields": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "strict": true,
+        "jsx": "preserve",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "lib": ["esnext", "dom"],
+        "skipLibCheck": true,
+        "types": [
+            "@dcloudio/types",
+            "node",
+            "jest",
+            "vitest/globals"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        },
+        "allowJs": true,
     },
-    "lib": ["esnext", "dom"],
-    "types": [
-      "@dcloudio/types",
-      "@ttou/uview-typings/v3",
-      "@ttou/uview-typings/refs"
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.vue",
+        "types/**/*.d.ts",
+        "types/**/*.ts",
+        "build/**/*.ts",
+        "build/**/*.d.ts",
+        "mock/**/*.ts",
+        "vite.config.ts",
     ],
-    "typeRoots": ["@/types/index.d.ts"]
-  },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+    "exclude": [
+        "node_modules",
+        "tests/**/*.ts",
+        "tests/**/*.tsx",
+        "docs",
+        "src/uni_modules"
+    ],
 }
