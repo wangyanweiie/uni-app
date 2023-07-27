@@ -1,43 +1,74 @@
 <template>
-    <view class="content">
-        <view class="text-area">
-            <text class="title">{{ title }}</text>
-        </view>
-        <view>
-            <u-button type="primary" plain text="点击按钮"></u-button>
+    <view class="view-wrap menu">
+        <view v-for="menu in menuList" :key="menu.label" class="menu__menu-item">
+            <view class="menu__title">
+                <text>{{ menu.label }}</text>
+            </view>
+
+            <view class="menu__menu-wrap">
+                <view v-for="sub in menu.subMenu" :key="sub.label" class="menu__submenu" @click="navigateTo(sub)">
+                    <u-icon class="menu__icon" color="#fff" custom-prefix="iconfont" :name="sub.icon" size="60rpx">
+                    </u-icon>
+                    <view class="menu__sub-label">
+                        <text>
+                            {{ sub.label }}
+                        </text>
+                    </view>
+                </view>
+            </view>
         </view>
     </view>
 </template>
+<script lang="ts" setup>
+import useIndex from './useIndex';
 
-<script setup lang="ts">
-import { ref } from 'vue';
-const title = ref('Hello');
+const { menuList, navigateTo } = useIndex();
 </script>
+<style lang="scss" scoped>
+.menu {
+    &__menu-item {
+        margin-bottom: 30rpx;
+    }
 
-<style>
-.content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+    &__title {
+        color: #2196f3;
+        font-size: 32rpx;
+        margin-bottom: 10rpx;
+    }
 
-.logo {
-    height: 200rpx;
-    width: 200rpx;
-    margin-top: 200rpx;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 50rpx;
-}
+    &__menu-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
 
-.text-area {
-    display: flex;
-    justify-content: center;
-}
+    &__submenu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 160rpx;
+        height: 160rpx;
+        padding: 16rpx;
+        margin: 16rpx;
+        color: #fff;
+        background: #2196f3;
+        border-radius: 10rpx;
+        box-shadow: 0 2px 12px 0 rgba(33, 150, 243, 0.1);
+    }
 
-.title {
-    font-size: 36rpx;
-    color: #8f8f94;
+    &__icon {
+        font-size: 60rpx;
+    }
+
+    &__sub-label {
+        margin-top: 10rpx;
+        font-size: 28rpx;
+
+        text {
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+    }
 }
 </style>

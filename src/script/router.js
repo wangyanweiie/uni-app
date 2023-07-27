@@ -5,9 +5,7 @@ module.exports = {
             '^uni-(.*)': '@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue',
         },
     },
-
     pages: [],
-
     tabBar: {
         color: '#7A7E83',
         selectedColor: '#2196f3',
@@ -28,7 +26,6 @@ module.exports = {
             },
         ],
     },
-
     globalStyle: {
         navigationBarTextStyle: 'black',
         navigationBarTitleText: 'uni-app',

@@ -29,6 +29,12 @@
             "style": {
                 "navigationBarTitleText": "修改密码"
             }
+        },
+        {
+            "path": "pages/watermark/index",
+            "style": {
+                "navigationBarTitleText": "图片水印"
+            }
         }
     ],
     "tabBar": {

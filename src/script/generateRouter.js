@@ -105,9 +105,10 @@ const handleUpdateRouter = url => {
 
     fileUrlList.splice(loginRouterIndex, 1);
     fileUrlList.unshift(loginRouter);
+    console.log('fileUrlList => ' + fileUrlList);
 
     // 从 router.js 中获取默认配置
-    const routerConfig = require('./base.js');
+    const routerConfig = require('./router.js');
 
     // 更新 routerConfig 中的 pages
     routerConfig.pages = fileUrlList;
