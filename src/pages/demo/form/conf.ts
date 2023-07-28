@@ -5,14 +5,14 @@ import type { Schema } from '@/components/x-form/interface';
  */
 export const schemas: Schema[] = [
     {
-        type: 'BaseDivider',
-        prop: '',
-        label: 'BaseDivider',
-    },
-    {
         type: 'BaseTitle',
         prop: '',
         label: 'BaseTitle',
+    },
+    {
+        type: 'BaseDivider',
+        prop: '',
+        label: 'BaseDivider',
     },
     {
         type: 'ScanInput',

@@ -10,7 +10,7 @@
             </view>
 
             <view v-if="schema?.attributes?.clearable" class="clear-wrap">
-                <u-icon name="close-circle-fill" size="40" @click="handleClear"></u-icon>
+                <u-icon name="close-circle-fill" size="40rpx" @click="handleClear"></u-icon>
             </view>
 
             <view class="button-wrap">

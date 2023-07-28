@@ -11,7 +11,7 @@
             @confirm="handleConfirm"
         >
             <template #suffix>
-                <u-icon name="scan" size="60" @click="handlePhotoScan"></u-icon>
+                <u-icon name="scan" size="50rpx" @click="handlePhotoScan"></u-icon>
             </template>
         </u-input>
     </view>

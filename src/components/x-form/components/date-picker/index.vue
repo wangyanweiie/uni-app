@@ -13,7 +13,7 @@
                 <u-icon
                     v-if="schema?.attributes?.clearable"
                     name="close-circle-fill"
-                    size="40"
+                    size="40rpx"
                     @click="handleClear"
                 ></u-icon>
             </view>
