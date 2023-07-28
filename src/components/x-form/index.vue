@@ -5,7 +5,7 @@
                 <uni-col v-for="item in schemas" :key="item.prop" :span="item.span ? item.span : 24">
                     <!-- divider -->
                     <view v-if="item.type === 'BaseDivider'">
-                        <u-divider v-bind="item?.attributes"></u-divider>
+                        <u-divider v-bind="item?.attributes" :text="item.label"></u-divider>
                     </view>
 
                     <!-- title -->
@@ -59,7 +59,7 @@ const props = withDefaults(
     }>(),
     {
         schemaList: () => [],
-        labelWidth: 200,
+        labelWidth: 100,
     },
 );
 
@@ -117,6 +117,6 @@ defineExpose({
     font-size: 32rpx;
     width: 100%;
     color: #2196f3;
-    margin-top: 30rpx;
+    margin: 20rpx 0;
 }
 </style>

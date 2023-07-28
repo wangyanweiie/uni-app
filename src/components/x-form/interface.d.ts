@@ -142,8 +142,6 @@ export interface Schema {
 
     /** 用于保存下拉 label 字段 */
     labelField?: string;
-    /** 用于扫码查询入参的字段 */
-    scanQueryField?: string;
     /** 是否默认聚焦 */
     defaultFocus?: boolean;
 

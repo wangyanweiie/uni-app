@@ -1,4 +1,4 @@
-import { Schema } from '../../interface';
+import type { Schema } from '../../interface';
 
 /**
  * Props

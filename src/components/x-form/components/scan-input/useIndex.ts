@@ -105,7 +105,7 @@ export default function useIndex(props: Props, emit: Function) {
         // 查询接口入参
         const parmas: Record<string, string | Number> = {
             ...props.schema.apiParams,
-            [props.schema.scanQueryField || props.schema.prop]: code,
+            [props.schema.prop]: code,
         };
 
         // 调用查询接口
@@ -218,7 +218,7 @@ export default function useIndex(props: Props, emit: Function) {
                     isClear: false,
                 });
             },
-            fail: (error) => {
+            fail: error => {
                 uni.showToast({
                     title: '已取消扫码',
                     icon: 'none',

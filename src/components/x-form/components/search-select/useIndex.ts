@@ -330,6 +330,9 @@ export default function useIndex(props: Props, emit: Function) {
      * 页面渲染
      */
     onBeforeMount(() => {
+        // 下拉列表赋值
+        handleSearchSelect();
+
         // 单选 or 多选
         if (props.schema?.attributes?.multiple) {
             selectType.value = 'checkbox';
@@ -339,9 +342,6 @@ export default function useIndex(props: Props, emit: Function) {
 
         // 默认值
         if (props.schema?.attributes?.defaultValue) {
-            // 下拉列表赋值
-            handleSearchSelect();
-
             // 回显 label 与 value
             handleValueAndLabel(props.schema?.attributes?.defaultValue);
 

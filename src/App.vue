@@ -35,10 +35,6 @@ onHide(() => {
 <style lang="scss">
 /* 注意要写在第一行，同时给 style 标签加入 lang="scss"属性 */
 @import 'uview-plus/index.scss';
-</style>
-<style lang="scss">
-@import './assets/iconfont.css';
-</style>
-<style lang="scss">
 @import './styles/index.scss';
+@import './assets/iconfont.css';
 </style>

@@ -21,7 +21,7 @@ module.exports = {
     rules: {
         'unit-no-unknown': null,
         // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器
-        'no-descending-specificity': null, 
+        'no-descending-specificity': null,
         'selector-pseudo-element-no-unknown': [
             true,
             {

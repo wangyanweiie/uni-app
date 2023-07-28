@@ -1,3 +1,5 @@
+import type { Options } from '@/interface/select';
+
 /**
  * 1.合并单元格 demo
  */
@@ -28,4 +30,20 @@ export function combineCell(list: any) {
     }
 
     return list;
+}
+
+/**
+ * 2.将枚举转换为 options
+ */
+export function transformEnumToOptions(enumeration: Record<string, string | number>): Options[] {
+    const list = Object.entries(enumeration);
+
+    return list
+        .map(([label, value]) => {
+            return {
+                label,
+                value: value as number,
+            };
+        })
+        .slice(list.length / 2);
 }

@@ -74,13 +74,13 @@ const courseList = [
  * 改变爱好
  */
 function handleHobby(e: any) {
-    console.log(e);
+    console.log('select', e);
 }
 
 /**
  * 改变课程
  */
 function handleCourse(e: any) {
-    console.log(e);
+    console.log('search-select', e);
 }
 </script>

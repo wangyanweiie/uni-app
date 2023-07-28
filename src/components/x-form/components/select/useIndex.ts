@@ -63,10 +63,11 @@ export default function useIndex(props: Props, emit: Function) {
      * 页面渲染之前
      */
     onBeforeMount(async () => {
+        // 下拉列表赋值
+        handleSelect();
+
         // 默认值
         if (props.schema?.defaultValue) {
-            handleSelect();
-
             selectList.value.forEach((item: Options) => {
                 if (item.value === props.schema?.defaultValue) {
                     selectValue.value = item.value;
