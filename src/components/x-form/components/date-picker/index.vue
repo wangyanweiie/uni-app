@@ -22,7 +22,7 @@
         <date-picker
             :show="showPicker"
             :value="dateValue"
-            :type="datePickType"
+            :type="dateType"
             :show-tips="true"
             :show-seconds="true"
             @confirm="handleConfirm"
@@ -58,7 +58,7 @@ const props = withDefaults(
                 type: 'DatePicker',
             };
         },
-    },
+    }
 );
 
 /**
@@ -74,8 +74,8 @@ const emit = defineEmits<{
 const {
     showPicker,
     dateValue,
-    datePickType,
-    dateTimeFormat,
+    dateType,
+    dateFormat,
     handleOpen,
     handleClear,
     handleCancel,
@@ -94,6 +94,7 @@ defineExpose({
 </script>
 <style lang="scss" scoped>
 .wrap {
+    width: 100%;
     height: 70rpx;
 }
 

@@ -16,14 +16,15 @@
                     @change="handleCourse"
                 ></x-search-select>
             </u-form-item>
-            <!-- <u-form-item label="出生日期" required prop="date">
+            <u-form-item label="日期" required prop="date">
                 <x-date-picker
                     v-model="form.date"
-                    datePickType="datetime"
-                    datetimeFormat="YYYY-MM-DD HH:mm:ss"
+                    dateType="datetime"
+                    dateFormat="YYYY-MM-DD HH:mm:ss"
                     :clearable="true"
+                    @change="handleDate"
                 ></x-date-picker>
-            </u-form-item> -->
+            </u-form-item>
         </u-form>
 
         <view style="margin: 10px">
@@ -56,7 +57,7 @@ const rules = ref({
     name: [{ required: true, message: '姓名不能为空' }],
     hobby: [{ required: true, message: '爱好不能为空' }],
     course: [{ required: true, message: '课程不能为空' }],
-    date: [{ required: true, message: '出生日期不能为空' }],
+    date: [{ required: true, message: '日期不能为空' }],
 });
 
 /**
@@ -97,6 +98,13 @@ function handleHobby(e: any) {
  */
 function handleCourse(e: any) {
     console.log('search-select', e);
+}
+
+/**
+ * 改变日期
+ */
+function handleDate(e: any) {
+    console.log('date-picker', e);
 }
 
 /**

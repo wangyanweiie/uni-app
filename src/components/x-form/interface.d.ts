@@ -41,9 +41,9 @@ export interface Attributes {
 
     // ============ BaseDatePicker ============
     /** 日期类型 */
-    datePickType: 'time' | 'date' | 'datetime';
+    dateType: 'time' | 'date' | 'datetime';
     /** 日期组件处理格式 */
-    dateTimeFormat: 'YYYY-MM-DD HH' | 'YYYY-MM-DD HH:mm' | 'YYYY-MM-DD HH:mm:ss';
+    dateFormat: 'YYYY-MM-DD HH' | 'YYYY-MM-DD HH:mm' | 'YYYY-MM-DD HH:mm:ss';
 
     // ============ SearchSelect ============
     /** 是否多选 */

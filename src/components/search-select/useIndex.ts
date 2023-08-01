@@ -1,7 +1,8 @@
 import { onMounted, ref, watch, nextTick, onBeforeMount } from 'vue';
 import _ from 'lodash-es';
+import type { Options, Props } from './interface';
 
-export default function useIndex(props: any, emit: Function) {
+export default function useIndex(props: Props, emit: Function) {
     /**
      * 页面渲染
      */
@@ -16,7 +17,7 @@ export default function useIndex(props: any, emit: Function) {
         () => props.modelValue,
         newValue => {
             text.value = newValue;
-        },
+        }
     );
 
     /**
@@ -42,8 +43,8 @@ export default function useIndex(props: any, emit: Function) {
     /**
      * 单选/复选框下拉列表
      */
-    const sourceList = ref<Record<string, any>[]>([]); // 源数据
-    const showList = ref<Record<string, any>[]>([]); // 筛选后展示的列表
+    const sourceList = ref<Options[]>([]); // 源数据
+    const showList = ref<Options[]>([]); // 筛选后展示的列表
 
     /**
      * 单选框
@@ -62,7 +63,7 @@ export default function useIndex(props: any, emit: Function) {
     function handleTextClear() {
         text.value = '';
         emit('update:modelValue', text.value);
-        emit('clear', text.value);
+        emit('clear');
     }
 
     /**
@@ -81,7 +82,7 @@ export default function useIndex(props: any, emit: Function) {
             }
         } else {
             // 静态赋值
-            sourceList.value = props.options;
+            sourceList.value = props.options as Options[];
             showList.value = sourceList.value;
         }
     }
@@ -99,7 +100,7 @@ export default function useIndex(props: any, emit: Function) {
         if (text.value) {
             switch (selectType.value) {
                 case 'radio':
-                    sourceList.value.forEach(item => {
+                    sourceList.value.forEach((item: Options) => {
                         if (item.label === text.value) {
                             radioValue.value = item.value;
                         }
@@ -108,7 +109,7 @@ export default function useIndex(props: any, emit: Function) {
 
                 case 'checkbox':
                     let boxValue: any = [];
-                    sourceList.value.forEach(item => {
+                    sourceList.value.forEach((item: Options) => {
                         String(text.value)
                             .split(',')
                             .forEach(value => {
@@ -232,10 +233,10 @@ export default function useIndex(props: any, emit: Function) {
         if (!e) {
             showList.value = sourceList.value;
         } else {
-            let list: Record<string, any>[] = [];
-            sourceList.value.forEach(value => {
-                if (value.label.match(e)) {
-                    list.push(value);
+            let list: Options[] = [];
+            sourceList.value.forEach((item: Options) => {
+                if (item.label.match(e)) {
+                    list.push(item);
                 }
             });
             showList.value = list;

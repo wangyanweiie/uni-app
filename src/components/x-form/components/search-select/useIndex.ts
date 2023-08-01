@@ -70,7 +70,7 @@ export default function useIndex(props: Props, emit: Function) {
             }
         } else {
             // 静态赋值
-            sourceList.value = props.schema.options;
+            sourceList.value = props.schema.options as Options[];
             showList.value = sourceList.value;
         }
     }

@@ -108,7 +108,7 @@ export const schemas: Schema[] = [
         prop: 'DatePicker1',
         label: '日期选择框',
         attributes: {
-            datePickType: 'date',
+            dateType: 'date',
             placeholder: 'DatePicker',
             clearable: true,
         },
@@ -119,8 +119,8 @@ export const schemas: Schema[] = [
         prop: 'DatePicker2',
         label: '日期选择框',
         attributes: {
-            datePickType: 'datetime',
-            dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
+            dateType: 'datetime',
+            dateFormat: 'YYYY-MM-DD HH:mm:ss',
             placeholder: 'DatePicker',
             clearable: true,
         },

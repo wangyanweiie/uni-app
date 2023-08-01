@@ -110,13 +110,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import useIndex from './useIndex';
+import type { Options } from './interface';
 
 const inputStyle = ref({ padding: '5px' });
 const popupStyle = ref({ padding: '20px', width: '80%' });
 const buttonStyle = ref({ margin: '0 5px' });
 const radioStyle = ref({ marginTop: '15px' });
 const checkboxStyle = ref({ marginTop: '15px' });
-const bottomButtonStyle = ref({ marginBottom: '120px' });
 
 /**
  * props
@@ -140,7 +140,7 @@ const props = withDefaults(
         /** 下拉请求接口参数 */
         apiParams?: any;
         /** 单选/复选框静态列表 */
-        options?: Record<string, string | number>[];
+        options?: Options[];
     }>(),
     {
         modelValue: '',
@@ -152,7 +152,7 @@ const props = withDefaults(
         api: null,
         apiParams: () => ({}),
         options: () => [],
-    },
+    }
 );
 
 /**
@@ -160,8 +160,8 @@ const props = withDefaults(
  */
 const emit = defineEmits<{
     (e: 'update:modelValue', val: string): void;
-    (e: 'clear', val: any): void;
     (e: 'change', val: any): void;
+    (e: 'clear'): void;
 }>();
 
 const {
@@ -185,6 +185,7 @@ const {
 
 <style lang="scss" scoped>
 .wrap {
+    width: 100%;
     height: 70rpx;
     position: relative;
 

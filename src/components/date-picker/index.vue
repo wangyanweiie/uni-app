@@ -4,25 +4,20 @@
             <view class="content__left" @click="handleOpen">
                 <view v-if="dateValue">{{ dateValue }}</view>
                 <view v-else class="content__left__placeholder">
-                    {{ schema?.attributes?.placeholder || '请选择日期' }}
+                    {{ placeholder }}
                 </view>
             </view>
 
             <!-- 清空 -->
             <view class="content__right">
-                <u-icon
-                    v-if="schema?.attributes?.clearable"
-                    name="close-circle-fill"
-                    size="40rpx"
-                    @click="handleClear"
-                ></u-icon>
+                <u-icon v-if="clearable" name="close-circle-fill" size="40rpx" @click="handleClear"></u-icon>
             </view>
         </view>
 
         <date-picker
             :show="showPicker"
             :value="dateValue"
-            :type="datePickType"
+            :type="dateType"
             :show-tips="true"
             :show-seconds="true"
             @confirm="handleConfirm"
@@ -40,32 +35,42 @@ export default {
 <script setup lang="ts">
 import useIndex from './useIndex';
 import DatePicker from './Datepicker.vue';
-import type { Schema } from '../../interface';
 
 /**
  * props
  */
 const props = withDefaults(
     defineProps<{
-        schema: Schema;
-        form: Record<string, any>;
+        /** 双向绑定的值 => 用于展示的 label */
+        modelValue: string;
+        /** 提示文字 */
+        placeholder?: string;
+        /** 是否可清空 */
+        clearable?: boolean;
+        /** 是否禁用 */
+        disabled?: boolean;
+        /** 日期类型 */
+        dateType?: 'time' | 'date' | 'datetime';
+        /** 日期组件处理格式 */
+        dateFormat?: 'YYYY-MM-DD HH' | 'YYYY-MM-DD HH:mm' | 'YYYY-MM-DD HH:mm:ss';
     }>(),
     {
-        schema: () => {
-            return {
-                prop: '',
-                label: '',
-                type: 'DatePicker',
-            };
-        },
-    },
+        modelValue: '',
+        placeholder: '请选择日期',
+        clearable: false,
+        disabled: false,
+        dateType: 'date',
+        dateFormat: 'YYYY-MM-DD HH:mm:ss',
+    }
 );
 
 /**
  * emit
  */
 const emit = defineEmits<{
-    (e: 'handleEmit', val: { value: string; schema: Schema }): void;
+    (e: 'update:modelValue', val: string): void;
+    (e: 'change', val: any): void;
+    (e: 'clear'): void;
 }>();
 
 /**
@@ -74,26 +79,18 @@ const emit = defineEmits<{
 const {
     showPicker,
     dateValue,
-    datePickType,
-    dateTimeFormat,
+    dateType,
+    dateFormat,
     handleOpen,
     handleClear,
     handleCancel,
     handleDatePickFormat,
     handleConfirm,
 } = useIndex(props, emit);
-
-/**
- * 暴露的属性与方法
- */
-defineExpose({
-    setData(val: string) {
-        handleDatePickFormat(val);
-    },
-});
 </script>
 <style lang="scss" scoped>
 .wrap {
+    width: 100%;
     height: 70rpx;
 }
 
