@@ -104,10 +104,10 @@ export default function useIndex() {
      * 组件挂载
      */
     onMounted(() => {
-        userInfo.value.account = getStorage('userInfo').account;
-        userInfo.value.userName = getStorage('userInfo').userName;
-        userInfo.value.organizationName = getStorage('userInfo').companyName;
-        userInfo.value.roles = getStorage('userInfo').roles.toString();
+        userInfo.value.account = getStorage('userInfo')?.account;
+        userInfo.value.userName = getStorage('userInfo')?.userName;
+        userInfo.value.organizationName = getStorage('userInfo')?.companyName;
+        userInfo.value.roles = getStorage('userInfo')?.roles?.toString();
         userInfo.value.api = BASE_URL;
 
         // 获取应用版本

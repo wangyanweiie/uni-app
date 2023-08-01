@@ -7,8 +7,8 @@
                 <view v-else class="content-text">{{ text }}</view>
             </view>
 
-            <view v-if="showClear" class="clear-wrap">
-                <u-icon name="close-circle-fill" size="40" @click="handleTextClear"></u-icon>
+            <view v-if="clearable" class="clear-wrap">
+                <u-icon name="close-circle-fill" size="40rpx" @click="handleTextClear"></u-icon>
             </view>
 
             <view class="button-wrap">
@@ -26,7 +26,7 @@
         <!-- <u-input v-model="text" border="none" disabled :placeholder="placeholder">
             <template #suffix>
                 <view style="display: flex">
-                    <u-icon v-if="showClear" name="close-circle-fill" size="40" @click="handleTextClear"></u-icon>
+                    <u-icon v-if="clearable" name="close-circle-fill" size="40rpx" @click="handleTextClear"></u-icon>
                     <u-button
                         type="primary"
                         text="选择"
@@ -53,45 +53,41 @@
                     @search="handleSearchSearch"
                     @clear="handleSearchClear"
                 ></u-search>
-                <scroll-view scroll-y="true" style="height: 69%">
-                    <!-- 单选 -->
-                    <view v-if="selectType === 'radio'">
-                        <view class="radio-style">
-                            <u-radio-group v-model="radioValue" placement="column" @change="handleRadioChange">
-                                <u-radio
-                                    v-for="(item, index) in showList"
-                                    :key="index"
-                                    :label="item.label"
-                                    :name="item.value"
-                                    size="22px"
-                                    icon-size="16px"
-                                    label-size="16px"
-                                    :custom-style="radioStyle"
-                                >
-                                </u-radio>
-                            </u-radio-group>
-                        </view>
-                    </view>
 
-                    <!-- 复选 -->
-                    <view v-if="selectType === 'checkbox'">
-                        <view class="checkbox-style">
-                            <u-checkbox-group v-model="checkboxValue" placement="column" @change="handleCheckChange">
-                                <u-checkbox
-                                    v-for="(item, index) in showList"
-                                    :key="index"
-                                    :label="item.label"
-                                    :name="item.value"
-                                    size="22px"
-                                    icon-size="16px"
-                                    label-size="16px"
-                                    :custom-style="checkboxStyle"
-                                >
-                                </u-checkbox>
-                            </u-checkbox-group>
-                        </view>
-                    </view>
-                </scroll-view>
+                <!-- 单选 -->
+                <view v-if="selectType === 'radio'" class="radio-style">
+                    <u-radio-group v-model="radioValue" placement="column" @change="handleRadioChange">
+                        <u-radio
+                            v-for="(item, index) in showList"
+                            :key="index"
+                            :label="item.label"
+                            :name="item.value"
+                            size="22px"
+                            icon-size="16px"
+                            label-size="16px"
+                            :custom-style="radioStyle"
+                        >
+                        </u-radio>
+                    </u-radio-group>
+                </view>
+
+                <!-- 复选 -->
+                <view v-if="selectType === 'checkbox'" class="checkbox-style">
+                    <u-checkbox-group v-model="checkboxValue" placement="column" @change="handleCheckChange">
+                        <u-checkbox
+                            v-for="(item, index) in showList"
+                            :key="index"
+                            :label="item.label"
+                            :name="item.value"
+                            size="22px"
+                            icon-size="16px"
+                            label-size="16px"
+                            :custom-style="checkboxStyle"
+                        >
+                        </u-checkbox>
+                    </u-checkbox-group>
+                </view>
+
                 <view class="button-styles">
                     <u-button
                         type="primary"
@@ -132,7 +128,7 @@ const props = withDefaults(
         /** 提示文字 */
         placeholder?: string;
         /** 是否可清空 */
-        showClear?: boolean;
+        clearable?: boolean;
         /** 是否禁用 */
         disabled?: boolean;
         /** 是否多选 */
@@ -149,7 +145,7 @@ const props = withDefaults(
     {
         modelValue: '',
         placeholder: '请点击右侧选择',
-        showClear: false,
+        clearable: false,
         disabled: false,
         multiple: false,
         closeOnClickOverlay: false,
@@ -231,30 +227,24 @@ const {
 }
 
 .info-box {
-    height: 95vh;
+    height: 100%;
+    position: relative;
 
     .radio-style {
-        height: 75vh;
+        height: 85%;
         overflow-y: auto;
     }
 
     .checkbox-style {
-        height: 75vh;
+        height: 85%;
         overflow-y: auto;
     }
 
-    // .button-styles {
-    //     margin-top: 30rpx;
-    //     height: 15vh;
-    //     display: flex;
-    //     flex-wrap: nowrap;
-    // }
-}
-.button-styles {
-    margin-top: 30rpx;
-    height: 15vh;
-    display: flex;
-    flex-wrap: nowrap;
-    margin-bottom: 20px;
+    .button-styles {
+        margin-top: 30rpx;
+        position: static;
+        bottom: 20rpx;
+        display: flex;
+    }
 }
 </style>

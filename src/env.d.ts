@@ -10,3 +10,4 @@ declare module '*.vue' {
 declare module 'uview-plus';
 declare module 'lodash-es';
 declare module '@vueuse/core';
+declare module 'uni-pages-hot-modules';

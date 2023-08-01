@@ -16,14 +16,14 @@
                     @change="handleCourse"
                 ></x-search-select>
             </u-form-item>
-            <u-form-item label="出生日期" required prop="date">
+            <!-- <u-form-item label="出生日期" required prop="date">
                 <x-date-picker
                     v-model="form.date"
                     datePickType="datetime"
                     datetimeFormat="YYYY-MM-DD HH:mm:ss"
                     :clearable="true"
                 ></x-date-picker>
-            </u-form-item>
+            </u-form-item> -->
         </u-form>
 
         <view style="margin: 10px">
