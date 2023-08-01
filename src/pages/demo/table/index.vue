@@ -10,9 +10,18 @@
             title="日志"
         >
             <!-- 顶部操作 -->
-            <template #operation="{ row }">
-                <u-button type="warning" size="small" style="width: 60px">关闭</u-button>
-                <u-button type="success" size="small" style="width: 60px; margin-left: 10px">复核</u-button>
+            <template #operation="{ checkRows }">
+                <u-button type="warning" size="small" style="width: 60px" @click="handleClose(checkRows)">
+                    关闭
+                </u-button>
+                <u-button
+                    type="success"
+                    size="small"
+                    style="width: 60px; margin-left: 10px"
+                    @click="handleReview(checkRows)"
+                >
+                    复核
+                </u-button>
             </template>
 
             <template #status="{ row }">
@@ -21,7 +30,7 @@
 
             <!-- 操作列 -->
             <template #action="{ row }">
-                <u-button type="primary" size="small" style="width: 60px">删除</u-button>
+                <u-button type="primary" size="small" style="width: 60px" @click="handleDelete(row)">删除</u-button>
             </template>
         </x-table>
     </view>
@@ -52,4 +61,25 @@ const apiParams = {
  * 表格列
  */
 const columns = columnList;
+
+/**
+ * 关闭
+ */
+function handleClose(checkRows: Record<string, any>[]) {
+    console.log('close', checkRows);
+}
+
+/**
+ * 复核
+ */
+function handleReview(checkRows: Record<string, any>[]) {
+    console.log('review', checkRows);
+}
+
+/**
+ * 删除
+ */
+function handleDelete(row: Record<string, any>[]) {
+    console.log('delete', row);
+}
 </script>

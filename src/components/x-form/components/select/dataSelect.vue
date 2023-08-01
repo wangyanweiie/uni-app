@@ -87,7 +87,7 @@ export default {
         },
         clear: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         defItem: {
             type: Number,
@@ -189,7 +189,7 @@ export default {
                     this.emit(defValue);
                 }
             }
-            const def = this.mixinDatacomResData.find((item) => item.value === defValue);
+            const def = this.mixinDatacomResData.find(item => item.value === defValue);
             this.current = def ? this.formatItemName(def) : '';
         },
 
@@ -200,7 +200,7 @@ export default {
         isDisabled(value) {
             let isDisabled = false;
 
-            this.mixinDatacomResData.forEach((item) => {
+            this.mixinDatacomResData.forEach(item => {
                 if (item.value === value) {
                     isDisabled = item.disable;
                 }
@@ -274,7 +274,7 @@ export default {
          */
         handleFuzzySearch() {
             this.mixinDatacomResData = [];
-            this.mixinDatacomResData = this.localdata.filter((item) => item.label.indexOf(this.current) !== -1);
+            this.mixinDatacomResData = this.localdata.filter(item => item.label.indexOf(this.current) !== -1);
         },
     },
 };

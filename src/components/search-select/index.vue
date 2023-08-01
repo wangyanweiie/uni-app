@@ -164,8 +164,8 @@ const props = withDefaults(
  */
 const emit = defineEmits<{
     (e: 'update:modelValue', val: string): void;
-    (e: 'handleClearText', val: any): void;
-    (e: 'handleConfirmSelect', val: any): void;
+    (e: 'clear', val: any): void;
+    (e: 'change', val: any): void;
 }>();
 
 const {

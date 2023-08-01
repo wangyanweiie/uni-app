@@ -5,6 +5,7 @@
             :localdata="selectList"
             placeholder="请选择"
             v-bind="schema?.attributes"
+            :clear="schema?.attributes?.clearable"
             @change="handleChange"
         ></data-select>
     </view>

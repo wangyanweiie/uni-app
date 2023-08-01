@@ -2,20 +2,33 @@
     <view class="view-wrap">
         <u-form ref="formRef" :model="form" :rules="rules" label-width="80">
             <u-form-item label="姓名" required prop="name">
-                <u-input v-model="form.name" border="none" placeholder="请输入" />
+                <u-input v-model="form.name" border="none" placeholder="请输入" :clearable="true" />
             </u-form-item>
             <u-form-item label="爱好" required prop="hobby">
-                <x-select v-model="form.hobby" :options="hobbyList" @change="handleHobby" />
+                <x-select v-model="form.hobby" :options="hobbyList" :clearable="true" @change="handleHobby" />
             </u-form-item>
             <u-form-item label="课程" required prop="course">
                 <x-search-select
                     v-model="form.course"
                     :options="courseList"
+                    :clearable="true"
                     :multiple="true"
-                    @handle-confirm-select="handleCourse"
+                    @change="handleCourse"
                 ></x-search-select>
             </u-form-item>
+            <u-form-item label="出生日期" required prop="date">
+                <x-date-picker
+                    v-model="form.date"
+                    datePickType="datetime"
+                    datetimeFormat="YYYY-MM-DD HH:mm:ss"
+                    :clearable="true"
+                ></x-date-picker>
+            </u-form-item>
         </u-form>
+
+        <view style="margin: 10px">
+            <u-button type="success" style="width: 200px" @click="handleSubmit">提交</u-button>
+        </view>
     </view>
 </template>
 <script lang="ts" setup>
@@ -33,6 +46,7 @@ const form = ref<Record<string, any>>({
     name: '',
     hobby: '',
     course: '',
+    date: '',
 });
 
 /**
@@ -42,6 +56,7 @@ const rules = ref({
     name: [{ required: true, message: '姓名不能为空' }],
     hobby: [{ required: true, message: '爱好不能为空' }],
     course: [{ required: true, message: '课程不能为空' }],
+    date: [{ required: true, message: '出生日期不能为空' }],
 });
 
 /**
@@ -82,5 +97,20 @@ function handleHobby(e: any) {
  */
 function handleCourse(e: any) {
     console.log('search-select', e);
+}
+
+/**
+ * 提交
+ */
+function handleSubmit() {
+    // 表单校验
+    const valid = formRef.value.validate();
+
+    if (!valid) {
+        return;
+    }
+
+    // 获取表单数据
+    console.log('form', form.value);
 }
 </script>

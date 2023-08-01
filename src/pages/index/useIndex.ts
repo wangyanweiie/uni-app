@@ -45,10 +45,10 @@ export default function useIndex() {
                 value: 'demo',
                 subMenu: [
                     {
-                        label: 'demo',
-                        value: 'demo',
+                        label: 'Base',
+                        value: 'Base',
                         icon: '',
-                        path: '/pages/demo/index',
+                        path: '/pages/demo/base/index',
                     },
                     {
                         label: 'table',

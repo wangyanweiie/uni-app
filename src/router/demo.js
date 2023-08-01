@@ -1,8 +1,8 @@
 module.exports = [
     {
-        path: 'pages/demo/index',
+        path: 'pages/demo/base/index',
         style: {
-            navigationBarTitleText: 'demo',
+            navigationBarTitleText: 'Base',
         },
     },
     {

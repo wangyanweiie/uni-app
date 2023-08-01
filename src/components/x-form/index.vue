@@ -94,13 +94,17 @@ const {
  * 暴露的属性与方法
  */
 defineExpose({
-    updateForm(params: Record<string, any>) {
-        form.value = { ...form.value, ...params };
-        handleUpdateForm();
-    },
+    getForm,
     validForm,
     resetForm,
-    getForm,
+    updateForm(params: Record<string, any>) {
+        form.value = {
+            ...form.value,
+            ...params,
+        };
+
+        handleUpdateForm();
+    },
 });
 </script>
 <style lang="scss" scoped>

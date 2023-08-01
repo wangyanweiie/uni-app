@@ -4,6 +4,7 @@
         :localdata="dataSource"
         :placeholder="placeholder"
         :disabled="disabled"
+        :clear="clearable"
         @change="handleChange"
     ></data-select>
 </template>
@@ -30,6 +31,8 @@ const props = withDefaults(
         placeholder?: string;
         /** 是否禁用 */
         disabled?: boolean;
+        /** 是否可清空 */
+        clearable: boolean;
     }>(),
     {
         modelValue: '',
@@ -42,6 +45,7 @@ const props = withDefaults(
         },
         placeholder: '请选择',
         disabled: false,
+        clearable: false,
     },
 );
 

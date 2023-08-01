@@ -62,7 +62,7 @@ export default function useIndex(props: any, emit: Function) {
     function handleTextClear() {
         text.value = '';
         emit('update:modelValue', text.value);
-        emit('handleClearText', text.value);
+        emit('clear', text.value);
     }
 
     /**
@@ -267,7 +267,7 @@ export default function useIndex(props: any, emit: Function) {
 
                 text.value = label;
                 emit('update:modelValue', text.value);
-                emit('handleConfirmSelect', { value: radioValue.value });
+                emit('change', { value: radioValue.value });
 
                 // console.log('当前选择的单选框 label:', text.value);
                 // console.log('当前选择的单选框 value:', checkboxValue.value);
@@ -285,7 +285,7 @@ export default function useIndex(props: any, emit: Function) {
 
                 text.value = labelList.toString();
                 emit('update:modelValue', text.value);
-                emit('handleConfirmSelect', { value: checkboxValue.value });
+                emit('change', { value: checkboxValue.value });
 
                 // console.log('当前选择的复选框 label 字符串:', text.value);
                 // console.log('当前选择的复选框 value 集合:', checkboxValue.value);

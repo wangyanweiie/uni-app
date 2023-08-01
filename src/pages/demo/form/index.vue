@@ -34,6 +34,6 @@ function handleSubmit() {
 
     // 获取表单数据
     form.value = formRef.value.getForm();
-    console.log('form => ' + form.value);
+    console.log('form', form.value);
 }
 </script>
