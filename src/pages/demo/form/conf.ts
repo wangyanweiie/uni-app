@@ -1,4 +1,5 @@
 import type { Schema } from '@/components/x-form/interface';
+import RequestAPI from '@/api/menu-list';
 
 /**
  * 表单配置项
@@ -66,7 +67,7 @@ export const schemas: Schema[] = [
     },
     {
         type: 'BaseSelect',
-        prop: 'BaseSelect',
+        prop: 'BaseSelect1',
         label: '单选下拉框',
         options: [
             { label: '跑步', value: 1 },
@@ -79,11 +80,22 @@ export const schemas: Schema[] = [
             placeholder: 'BaseSelect',
             clearable: true,
         },
-        rules: [{ required: true, message: '单选下拉框不能为空' }],
+        rules: [{ required: true, message: '静态单选下拉框不能为空' }],
+    },
+    {
+        type: 'BaseSelect',
+        prop: 'BaseSelect2',
+        label: '单选下拉框',
+        api: RequestAPI.getUserName,
+        attributes: {
+            placeholder: 'BaseSelect',
+            clearable: true,
+        },
+        rules: [{ required: true, message: '动态单选下拉框不能为空' }],
     },
     {
         type: 'SearchSelect',
-        prop: 'SearchSelect',
+        prop: 'SearchSelect1',
         label: '多选下拉框',
         options: [
             { label: '语文', value: 1 },
@@ -101,7 +113,19 @@ export const schemas: Schema[] = [
             placeholder: 'SearchSelect',
             clearable: true,
         },
-        rules: [{ required: true, message: '多选下拉框不能为空' }],
+        rules: [{ required: true, message: '静态多选下拉框不能为空' }],
+    },
+    {
+        type: 'SearchSelect',
+        prop: 'SearchSelect2',
+        label: '多选下拉框',
+        api: RequestAPI.getUserName,
+        attributes: {
+            multiple: true,
+            placeholder: 'SearchSelect',
+            clearable: true,
+        },
+        rules: [{ required: true, message: '动态多选下拉框不能为空' }],
     },
     {
         type: 'DatePicker',

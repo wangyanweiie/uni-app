@@ -90,10 +90,10 @@ export interface Schema {
         | 'BaseRadio'
         | 'BaseSelect'
         | 'BaseUpload'
-        | 'DatePicker'
-        | 'InputNumber'
         | 'ScanInput'
-        | 'SearchSelect';
+        | 'SearchSelect'
+        | 'DatePicker'
+        | 'InputNumber';
 
     /** 字段名 */
     prop: string;

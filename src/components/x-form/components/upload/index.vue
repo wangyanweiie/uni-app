@@ -1,11 +1,11 @@
 <template>
     <view class="wrap">
         <u-upload
-            name="1"
+            name="upload"
             :file-list="fileList"
             v-bind="schema?.attributes"
-            width="140"
-            height="140"
+            width="80rpx"
+            height="80rpx"
             @delete="handleDelete"
             @after-read="handleAfterRead"
         >
@@ -37,7 +37,7 @@ const props = withDefaults(
                 type: 'BaseUpload',
             };
         },
-    },
+    }
 );
 
 /**

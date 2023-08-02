@@ -207,6 +207,7 @@ export default function useIndex(props: Props, emit: Function) {
             isClear: true,
         });
 
+        // #ifdef APP-PLUS
         uni.scanCode({
             onlyFromCamera: true,
             scanType: ['qrCode', 'barCode'],
@@ -220,7 +221,7 @@ export default function useIndex(props: Props, emit: Function) {
             },
             fail: error => {
                 uni.showToast({
-                    title: '已取消扫码',
+                    title: '扫码失败',
                     icon: 'none',
                     duration: 3000,
                 });
@@ -232,6 +233,7 @@ export default function useIndex(props: Props, emit: Function) {
                 }
             },
         });
+        // #endif
     }
 
     /**

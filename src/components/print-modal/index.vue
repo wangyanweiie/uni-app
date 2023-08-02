@@ -29,6 +29,9 @@ import { usePrint, Brand, PrinterLanguage } from './use-print';
 import { Buffer } from 'buffer';
 import { getStorage } from '@/utils/uni-storage';
 
+/**
+ * props
+ */
 const props = withDefaults(
     defineProps<{
         /** 打印弹窗是否展示 */
@@ -45,6 +48,9 @@ const props = withDefaults(
     }
 );
 
+/**
+ * emits
+ */
 const emits = defineEmits<{
     (e: 'update:modelValue', value: boolean): void;
 }>();
@@ -85,7 +91,7 @@ const { devices, startBluetoothSearch, connectBluetooth, stopBluetoothSearch, ac
     usePrint(getStorage('BrandAndLanguage'));
 
 /**
- * confirm
+ * 确认打印
  */
 async function confirmPrint(): Promise<void> {
     const res = await print(props.printString, props.rowData);
@@ -96,13 +102,13 @@ async function confirmPrint(): Promise<void> {
 
     // 关闭蓝牙
     closeBluetooth();
+
     popupRef.value.close();
     emits('update:modelValue', false);
-    return;
 }
 
 /**
- * cancel
+ * 取消打印
  */
 async function cancelPrint(): Promise<void> {
     // 停止蓝牙搜索

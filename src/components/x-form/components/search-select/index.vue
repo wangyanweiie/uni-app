@@ -222,7 +222,7 @@ defineExpose({
 }
 
 .info-box {
-    height: 100%;
+    height: 95vh;
     position: relative;
 
     .radio-style {

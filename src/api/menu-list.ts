@@ -17,7 +17,7 @@ export default {
     /**
      * 用户列表
      */
-    getUser: (): Promise<any> => get('/api/v1/user/manage/select'),
+    getUserName: (): Promise<any> => commonSelect(166, 'user_name'),
 
     /**
      * 公司名称
