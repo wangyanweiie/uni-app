@@ -61,39 +61,42 @@
                     @clear="handleSearchClear"
                 ></u-search>
 
-                <!-- 单选 -->
-                <view v-if="selectType === 'radio'" class="radio-style">
-                    <u-radio-group v-model="radioValue" placement="column" @change="handleRadioChange">
-                        <u-radio
-                            v-for="(item, index) in showList"
-                            :key="index"
-                            :label="item.label"
-                            :name="item.value"
-                            size="22px"
-                            icon-size="16px"
-                            label-size="16px"
-                            :custom-style="radioStyle"
-                        >
-                        </u-radio>
-                    </u-radio-group>
-                </view>
+                <view v-if="showList.length" class="select-style">
+                    <!-- 单选 -->
+                    <view v-if="selectType === 'radio'">
+                        <u-radio-group v-model="radioValue" placement="column" @change="handleRadioChange">
+                            <u-radio
+                                v-for="(item, index) in showList"
+                                :key="index"
+                                :label="item.label"
+                                :name="item.value"
+                                size="22px"
+                                icon-size="16px"
+                                label-size="16px"
+                                :custom-style="radioStyle"
+                            >
+                            </u-radio>
+                        </u-radio-group>
+                    </view>
 
-                <!-- 复选 -->
-                <view v-if="selectType === 'checkbox'" class="checkbox-style">
-                    <u-checkbox-group v-model="checkboxValue" placement="column" @change="handleCheckChange">
-                        <u-checkbox
-                            v-for="(item, index) in showList"
-                            :key="index"
-                            :label="item.label"
-                            :name="item.value"
-                            size="22px"
-                            icon-size="16px"
-                            label-size="16px"
-                            :custom-style="checkboxStyle"
-                        >
-                        </u-checkbox>
-                    </u-checkbox-group>
+                    <!-- 复选 -->
+                    <view v-if="selectType === 'checkbox'">
+                        <u-checkbox-group v-model="checkboxValue" placement="column" @change="handleCheckChange">
+                            <u-checkbox
+                                v-for="(item, index) in showList"
+                                :key="index"
+                                :label="item.label"
+                                :name="item.value"
+                                size="22px"
+                                icon-size="16px"
+                                label-size="16px"
+                                :custom-style="checkboxStyle"
+                            >
+                            </u-checkbox>
+                        </u-checkbox-group>
+                    </view>
                 </view>
+                <view v-else class="empty-style"></view>
 
                 <!-- 按钮 -->
                 <view class="button-styles">
@@ -225,14 +228,13 @@ defineExpose({
     height: 95vh;
     position: relative;
 
-    .radio-style {
+    .select-style {
         height: 85%;
         overflow-y: auto;
     }
 
-    .checkbox-style {
+    .empty-style {
         height: 85%;
-        overflow-y: auto;
     }
 
     .button-styles {

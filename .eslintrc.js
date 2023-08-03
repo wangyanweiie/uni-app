@@ -23,13 +23,21 @@ module.exports = {
         sourceType: 'module',
     },
     rules: {
+        /**
+         * 'off' <==> 0
+         * 'warn' <==> 1
+         * 'error' <==> 2
+         */
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'prettier/prettier': 'error',
         'vue/component-name-in-template-casing': ['error', 'kebab-case'],
+        // 组件名称以驼峰格式命名
         'vue/multi-word-component-names': 'off',
-        'vue/no-unused-vars': 'off',
+        // 不要重复引入一个模块
+        'no-duplicate-imports': 'error',
         // 声明但未使用的变量
+        'no-unused-vars': 'off',
         '@typescript-eslint/no-unused-vars': ['off'],
         // any
         '@typescript-eslint/no-explicit-any': ['off'],
@@ -38,14 +46,15 @@ module.exports = {
             'error',
             {
                 allowDestructuring: false,
-                allowedNames: ['that'],
+                allowedNames: ['that', '_this'],
             },
         ],
-        // emit
-        'vue/require-explicit-emits': [
-            2,
+        // 箭头函数
+        'arrow-parens': [
+            'error',
+            'as-needed',
             {
-                allowProps: true,
+                requireForBlockBody: false,
             },
         ],
     },

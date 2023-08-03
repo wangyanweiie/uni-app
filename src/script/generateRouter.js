@@ -108,7 +108,7 @@ const handleUpdateRouter = url => {
     console.log('fileUrlList => ' + fileUrlList);
 
     // 从 router.js 中获取默认配置
-    const routerConfig = require('./router.js');
+    const routerConfig = require('./baseRouter.js');
 
     // 更新 routerConfig 中的 pages
     routerConfig.pages = fileUrlList;

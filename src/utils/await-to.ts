@@ -1,5 +1,7 @@
 /**
  * await to
+ * @param promise 请求方法
+ * @param errorExt 错误提示
  */
 export function to(promise?: any, errorExt?: any) {
     return promise
