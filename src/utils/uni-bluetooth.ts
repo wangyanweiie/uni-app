@@ -48,10 +48,10 @@ export class UniBluetooth {
 
         return new Promise((resolve, reject) => {
             uni.openBluetoothAdapter({
-                success: (res) => {
+                success: res => {
                     resolve(res);
                 },
-                fail: (err) => {
+                fail: err => {
                     reject(err);
                 },
             });
@@ -69,10 +69,10 @@ export class UniBluetooth {
 
         return new Promise((resolve, reject) => {
             uni.getBluetoothAdapterState({
-                success: (res) => {
+                success: res => {
                     resolve(res);
                 },
-                fail: (error) => {
+                fail: error => {
                     reject(error);
                 },
             });
@@ -92,10 +92,10 @@ export class UniBluetooth {
         return new Promise((resolve, reject) => {
             uni.startBluetoothDevicesDiscovery({
                 ...options,
-                success: (res) => {
+                success: res => {
                     resolve(res);
                 },
-                fail: (err) => {
+                fail: err => {
                     reject(err);
                 },
             });
@@ -113,10 +113,10 @@ export class UniBluetooth {
 
         return new Promise((resolve, reject) => {
             uni.stopBluetoothDevicesDiscovery({
-                success: (res) => {
+                success: res => {
                     resolve(res);
                 },
-                fail: (err) => {
+                fail: err => {
                     reject(err);
                 },
             });
@@ -150,10 +150,10 @@ export class UniBluetooth {
             uni.createBLEConnection({
                 deviceId,
                 timeout,
-                success: (res) => {
+                success: res => {
                     resolve(res);
                 },
-                fail: (err) => {
+                fail: err => {
                     reject(err);
                 },
             });
@@ -173,10 +173,10 @@ export class UniBluetooth {
         return new Promise((resolve, reject) => {
             uni.closeBLEConnection({
                 deviceId,
-                success: (res) => {
+                success: res => {
                     resolve(res);
                 },
-                fail: (err) => {
+                fail: err => {
                     reject(err);
                 },
             });
@@ -208,10 +208,10 @@ export class UniBluetooth {
         return new Promise((resolve, reject) => {
             uni.getBLEDeviceServices({
                 deviceId,
-                success: (res) => {
+                success: res => {
                     resolve(res);
                 },
-                fail: (err) => {
+                fail: err => {
                     reject(err);
                 },
             });
@@ -233,10 +233,10 @@ export class UniBluetooth {
             uni.getBLEDeviceCharacteristics({
                 deviceId,
                 serviceId,
-                success: (res) => {
+                success: res => {
                     resolve(res);
                 },
-                fail: (err) => {
+                fail: err => {
                     reject(err);
                 },
             });
@@ -262,10 +262,10 @@ export class UniBluetooth {
                 serviceId,
                 value,
                 characteristicId,
-                success: (res) => {
+                success: res => {
                     resolve(res);
                 },
-                fail: (err) => {
+                fail: err => {
                     reject(err);
                 },
             });
@@ -307,7 +307,7 @@ export class UniBluetooth {
         serviceId: string,
         characteristicId: string,
         value: any,
-        gap = 100
+        gap = 100,
     ) {
         return new Promise((resolve, reject) => {
             const unit8buff = Array.from(value);
@@ -348,7 +348,7 @@ export class UniBluetooth {
                             sendData();
                         }, gap);
                     })
-                    .catch((err) => {
+                    .catch(err => {
                         reject(err);
                     });
 
@@ -374,9 +374,9 @@ export class UniBluetooth {
 
                     // 获取低功率蓝牙服务特征值
                     Promise.all(
-                        services.map((service: any) => this.getBLEDeviceCharacteristics(deviceId, service.uuid))
+                        services.map((service: any) => this.getBLEDeviceCharacteristics(deviceId, service.uuid)),
                     )
-                        .then((charRes) => {
+                        .then(charRes => {
                             const result: any = [];
 
                             // 筛选出可写特征值
@@ -412,11 +412,11 @@ export class UniBluetooth {
 
                             resolve(result);
                         })
-                        .catch((charRes) => {
+                        .catch(charRes => {
                             reject(charRes);
                         });
                 })
-                .catch((err) => {
+                .catch(err => {
                     reject(err);
                 });
         });
@@ -445,11 +445,11 @@ export class UniBluetooth {
 
         return new Promise((resolve, reject) => {
             uni.closeBluetoothAdapter({
-                success: (res) => {
+                success: res => {
                     console.log('CLOSE: ', res);
                     resolve(res);
                 },
-                fail: (err) => {
+                fail: err => {
                     reject(err);
                 },
             });

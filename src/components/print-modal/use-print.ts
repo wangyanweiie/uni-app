@@ -162,10 +162,10 @@ export function usePrint(option: UsePrintOption) {
         bluetooth.value.onBluetoothDeviceFound((discoveredDevices: any) => {
             devices.value.push(
                 ...discoveredDevices.devices.filter((device: any) => {
-                    const duplicated = devices.value.some((findDevice) => findDevice.deviceId === device.deviceId);
+                    const duplicated = devices.value.some(findDevice => findDevice.deviceId === device.deviceId);
 
                     return !duplicated && device.name;
-                })
+                }),
             );
         });
 
@@ -174,7 +174,7 @@ export function usePrint(option: UsePrintOption) {
             bluetooth.value.startBluetoothDevicesDiscovery({
                 // 是否允许重复上报同一设备
                 allowDuplicatesKey: false,
-            })
+            }),
         );
 
         if (searchErr) {
@@ -252,7 +252,7 @@ export function usePrint(option: UsePrintOption) {
         // ZEBRA
         if (option.brand === Brand.Zebra) {
             const matchedCharacteristic = serviceList.find(
-                (char) => char.characteristicId.toLowerCase() === ZEBRA_WRITABLE_CHARACTERISTIC_ID
+                char => char.characteristicId.toLowerCase() === ZEBRA_WRITABLE_CHARACTERISTIC_ID,
             );
 
             // error
@@ -289,7 +289,7 @@ export function usePrint(option: UsePrintOption) {
     async function print(
         printString: string | string[] = '123',
         rowData?: Buffer,
-        encoding: string = DEFAULT_ENCODING
+        encoding: string = DEFAULT_ENCODING,
     ) {
         if (!currentDevice.value) {
             showToast('未连接至打印机');
@@ -330,7 +330,7 @@ export function usePrint(option: UsePrintOption) {
 
             // 连续写入进行打印
             const [printErr] = await to(
-                bluetooth.value?.writeBLECharacteristicValueAll(deviceId, serviceId, characteristicId, data, 200)
+                bluetooth.value?.writeBLECharacteristicValueAll(deviceId, serviceId, characteristicId, data, 200),
             );
 
             if (printErr) {
@@ -364,7 +364,7 @@ export function usePrint(option: UsePrintOption) {
 
                 // 连续写入进行打印
                 const [printErr] = await to(
-                    bluetooth.value?.writeBLECharacteristicValueAll(deviceId, serviceId, characteristicId, data, 200)
+                    bluetooth.value?.writeBLECharacteristicValueAll(deviceId, serviceId, characteristicId, data, 200),
                 );
 
                 if (printErr) {
