@@ -2,13 +2,17 @@ import { get, post } from '@/utils/uni-request';
 
 export default {
     /**
-     * app-登录
+     * 登录
      */
     login: (data: any) => post('/api/v1/user/manage/login', data),
     /**
      * 退出登录
      */
     logout: () => get('/api/v1/user/manage/logout'),
+    /**
+     * 校验 token 有效性
+     */
+    checkToken: () => get(''),
     /**
      * 修改用户密码
      */

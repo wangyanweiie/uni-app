@@ -1,45 +1,38 @@
 <template>
-    <view style="width: 100%">
+    <view class="wrap">
         <!-- 纯文本展示样式 -->
-        <view class="wrap">
+        <view class="content">
             <view>
-                <view v-if="!selectLabel" class="content-placeholder">
-                    {{ schema?.attributes?.placeholder ?? '请选择' }}
-                </view>
-                <view v-else class="content-text">{{ selectLabel }}</view>
+                <view v-if="!text" class="content-placeholder">{{ placeholder }}</view>
+                <view v-else class="content-text">{{ text }}</view>
             </view>
 
-            <view v-if="schema?.attributes?.clearable" class="clear-wrap">
-                <u-icon name="close-circle-fill" size="40rpx" @click="handleClear"></u-icon>
+            <view v-if="clearable" class="clear-style">
+                <u-icon name="close-circle-fill" size="40rpx" @click="handleTextClear"></u-icon>
             </view>
 
-            <view class="button-wrap">
+            <view class="button-style">
                 <u-button
                     type="primary"
                     text="选择"
                     size="small"
-                    :disabled="schema?.attributes?.disabled"
+                    :disabled="disabled"
                     @click="handlePopupOpen"
                 ></u-button>
             </view>
         </view>
 
         <!-- 输入框禁用样式 -->
-        <!-- <u-input v-model="selectLabel" border="none" placeholder="请选择" disabled v-bind="schema?.attributes">
+        <!-- <u-input v-model="text" border="none" disabled :placeholder="placeholder">
             <template #suffix>
                 <view style="display: flex">
-                    <u-icon
-                        v-if="schema?.attributes?.clearable"
-                        name="close-circle-fill"
-                        size="40"
-                        @click="handleClear"
-                    ></u-icon>
+                    <u-icon v-if="clearable" name="close-circle-fill" size="40rpx" @click="handleTextClear"></u-icon>
                     <u-button
                         type="primary"
                         text="选择"
                         size="small"
+                        :disabled="disabled"
                         style="margin-left: 10rpx"
-                        :disabled="schema?.attributes?.disabled"
                         @click="handlePopupOpen"
                     ></u-button>
                     <slot></slot>
@@ -48,8 +41,8 @@
         </u-input> -->
 
         <!-- 弹出层 -->
-        <u-popup mode="left" :show="showPopup" :custom-style="popupStyle" :close-on-click-overlay="false">
-            <view class="info-box">
+        <u-popup mode="left" :show="showPopup" :custom-style="popupStyle" :close-on-click-overlay="closeOnClickOverlay">
+            <view class="popup">
                 <!-- 查询 -->
                 <u-search
                     v-model="keyword"
@@ -98,10 +91,19 @@
                 </view>
                 <view v-else class="empty-style"></view>
 
-                <!-- 按钮 -->
-                <view class="button-styles">
-                    <u-button type="primary" text="取消" :custom-style="buttonStyle" @click="handleCancel"></u-button>
-                    <u-button type="success" text="确定" :custom-style="buttonStyle" @click="handleConfirm"></u-button>
+                <view class="button-style">
+                    <u-button
+                        type="primary"
+                        text="取消"
+                        :custom-style="buttonStyle"
+                        @click="handleButtonCancel"
+                    ></u-button>
+                    <u-button
+                        type="success"
+                        text="确定"
+                        :custom-style="buttonStyle"
+                        @click="handleButtonConfirm"
+                    ></u-button>
                 </view>
             </view>
         </u-popup>
@@ -111,7 +113,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import useIndex from './useIndex';
-import type { Schema, Options } from '../../interface';
+import type { Options } from './interface';
 
 const inputStyle = ref({ padding: '5px' });
 const popupStyle = ref({ padding: '20px', width: '80%' });
@@ -124,16 +126,35 @@ const checkboxStyle = ref({ marginTop: '15px' });
  */
 const props = withDefaults(
     defineProps<{
-        schema: Schema;
+        /** 双向绑定的值 => 用于展示的 label */
+        modelValue: string;
+        /** 提示文字 */
+        placeholder?: string;
+        /** 是否可清空 */
+        clearable?: boolean;
+        /** 是否禁用 */
+        disabled?: boolean;
+        /** 是否多选 */
+        multiple?: boolean;
+        /** 是否可点击遮罩层关闭 */
+        closeOnClickOverlay?: boolean;
+        /** 下拉请求接口 */
+        api?: any;
+        /** 下拉请求接口参数 */
+        apiParams?: any;
+        /** 单选/复选框静态列表 */
+        options?: Options[];
     }>(),
     {
-        schema: () => {
-            return {
-                prop: '',
-                label: '',
-                type: 'SearchSelect',
-            };
-        },
+        modelValue: '',
+        placeholder: '请点击右侧选择',
+        clearable: false,
+        disabled: false,
+        multiple: false,
+        closeOnClickOverlay: false,
+        api: null,
+        apiParams: () => ({}),
+        options: () => [],
     },
 );
 
@@ -141,47 +162,36 @@ const props = withDefaults(
  * emit
  */
 const emit = defineEmits<{
-    (e: 'handleSelect', val: { value: Options; schema: Schema; isClear: boolean }): void;
+    (e: 'update:modelValue', val: string): void;
+    (e: 'change', val: any): void;
+    (e: 'clear'): void;
 }>();
 
 const {
-    selectType,
-    selectLabel,
-    sourceList,
+    text,
+    handleTextClear,
     showPopup,
-    keyword,
-    radioValue,
-    checkboxValue,
-    showList,
-    handleClear,
     handlePopupOpen,
-    handlePopupClose,
-    handleConfirm,
-    handleCancel,
+    selectType,
+    handleButtonCancel,
+    handleButtonConfirm,
+    keyword,
     handleSearchSearch,
     handleSearchClear,
+    radioValue,
     handleRadioChange,
+    checkboxValue,
     handleCheckChange,
-    handleSearchSelect,
-    handleValueAndLabel,
+    showList,
 } = useIndex(props, emit);
-
-/**
- * 暴露的属性与方法
- */
-defineExpose({
-    async setData(val: string | number) {
-        // 处理值
-        handleValueAndLabel(val);
-
-        // 下拉列表赋值
-        handleSearchSelect();
-    },
-});
 </script>
 
 <style lang="scss" scoped>
 .wrap {
+    width: 100%;
+}
+
+.content {
     width: 100%;
     height: 70rpx;
     position: relative;
@@ -209,13 +219,13 @@ defineExpose({
         left: 0;
     }
 
-    .clear-wrap {
+    .clear-style {
         padding: 6px;
         position: absolute;
         right: 120rpx;
     }
 
-    .button-wrap {
+    .button-style {
         width: 116rpx;
         display: flex;
         align-items: center;
@@ -224,7 +234,7 @@ defineExpose({
     }
 }
 
-.info-box {
+.popup {
     height: 95vh;
     position: relative;
 
@@ -237,7 +247,7 @@ defineExpose({
         height: 85%;
     }
 
-    .button-styles {
+    .button-style {
         margin-top: 30rpx;
         position: static;
         bottom: 20rpx;

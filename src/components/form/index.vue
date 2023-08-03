@@ -56,7 +56,7 @@ export default {
 <script setup lang="ts">
 import useIndex from './useIndex';
 import type { Schema } from './interface';
-import { components } from './components/index';
+import { components } from './components/register';
 
 /**
  * props
@@ -64,11 +64,11 @@ import { components } from './components/index';
 const props = withDefaults(
     defineProps<{
         schemaList: Schema[];
-        labelWidth?: number;
+        labelWidth?: string;
     }>(),
     {
         schemaList: () => [],
-        labelWidth: 100,
+        labelWidth: '200rpx',
     },
 );
 
@@ -133,3 +133,4 @@ defineExpose({
     margin: 20rpx 0;
 }
 </style>
+./components/register

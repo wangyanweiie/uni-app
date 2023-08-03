@@ -11,3 +11,11 @@ declare module 'uview-plus';
 declare module 'lodash-es';
 declare module '@vueuse/core';
 declare module 'uni-pages-hot-modules';
+
+declare module 'uview-plus' {
+    global {
+        interface Uni {
+            $u: $u;
+        }
+    }
+}

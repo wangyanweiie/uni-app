@@ -245,7 +245,6 @@ export default {
             }
 
             this.showSelector = !this.showSelector;
-
             this.mixinDatacomResData = [];
             this.mixinDatacomResData = _.cloneDeep(this.localdata);
         },

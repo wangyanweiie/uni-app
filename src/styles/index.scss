@@ -2,3 +2,13 @@
     padding: 10rpx 24rpx;
     box-sizing: border-box;
 }
+
+.button-wrap {
+    display: flex;
+    margin: 30rpx 0;
+    
+    &__item {
+        flex-grow: 1;
+        margin: 0 10rpx;
+    }
+}

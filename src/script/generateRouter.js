@@ -25,19 +25,19 @@ const routerPath = path.join(__dirname, '../router');
 const readDir = url => {
     // 将 router 文件夹下的文件生成列表
     const fileList = fs.readdirSync(url);
-    console.log('fileList => ' + fileList);
+    console.log('路由文件 => ' + fileList);
 
     const urlObj = {};
 
     fileList.map(item => {
         // 获取每一个路由文件的路径
         const location = path.join(url, item);
+        console.log('路由文件路径 => ' + location);
 
         // 将路由文件路径作为 key value 生成对象
         urlObj[location] = location;
     });
 
-    console.log('urlObj => ' + urlObj);
     return urlObj;
 };
 

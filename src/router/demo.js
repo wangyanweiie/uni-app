@@ -6,15 +6,21 @@ module.exports = [
         },
     },
     {
+        path: 'pages/demo/form/index',
+        style: {
+            navigationBarTitleText: '表单',
+        },
+    },
+    {
         path: 'pages/demo/table/index',
         style: {
             navigationBarTitleText: '表格',
         },
     },
     {
-        path: 'pages/demo/form/index',
+        path: 'pages/demo/combine-table/index',
         style: {
-            navigationBarTitleText: '表单',
+            navigationBarTitleText: '合并单元格',
         },
     },
 ];

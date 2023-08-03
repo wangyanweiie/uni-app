@@ -1,6 +1,6 @@
 <template>
     <view class="view-wrap">
-        <u-form ref="formRef" :model="form" :rules="rules" label-width="80">
+        <u-form ref="formRef" :model="form" :rules="rules" label-width="160rpx">
             <u-form-item label="姓名" required prop="name">
                 <u-input v-model="form.name" border="none" placeholder="请输入" :clearable="true" />
             </u-form-item>
@@ -27,13 +27,30 @@
             </u-form-item>
         </u-form>
 
-        <view style="margin: 10px">
-            <u-button type="success" style="width: 200px" @click="handleSubmit">提交</u-button>
+        <!-- 二次确认 -->
+        <x-modal v-model="show" title="详情" @confirm="confirmSubmit">
+            <template #default>
+                <view>哈哈哈哈哈</view>
+            </template>
+        </x-modal>
+
+        <view class="button-wrap">
+            <u-button class="button-wrap__item" type="warning" @click="handleDetail">详情</u-button>
+            <u-button class="button-wrap__item" type="primary" @click="confirmSubmit(STATUS['保存'])">保存</u-button>
+            <u-button class="button-wrap__item" type="success" @click="handleSubmit">提交</u-button>
         </view>
     </view>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
+
+/**
+ * 保存/提交枚举
+ */
+enum STATUS {
+    '保存' = 1,
+    '提交' = 2,
+}
 
 /**
  * form ref
@@ -108,17 +125,47 @@ function handleDate(e: any) {
 }
 
 /**
+ * 是否展示弹窗
+ */
+const show = ref<boolean>(false);
+
+/**
+ * 详情
+ */
+function handleDetail() {
+    show.value = true;
+}
+
+/**
  * 提交
  */
-function handleSubmit() {
+async function handleSubmit() {
     // 表单校验
-    const valid = formRef.value.validate();
+    const valid = await formRef.value.validate();
 
     if (!valid) {
         return;
     }
 
+    uni.showModal({
+        title: '',
+        content: '是否确认提交？',
+        success: res => {
+            if (res.confirm) {
+                confirmSubmit(STATUS['提交']);
+            }
+        },
+    });
+}
+
+/**
+ * 确认提交
+ */
+function confirmSubmit(status: number) {
     // 获取表单数据
-    console.log('form', form.value);
+    console.log('form', {
+        ...form.value,
+        status,
+    });
 }
 </script>

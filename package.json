@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "serve": "uni",
+        "serve:cs": "concurrently \"uni --port 3100 --mode cs\" \"node src/script/generateRouter.js\"",
         "dev:app": "uni -p app",
         "dev:app-android": "uni -p app-android",
         "dev:app-ios": "uni -p app-ios",
@@ -78,6 +79,8 @@
         "@typescript-eslint/eslint-plugin": "^6.2.1",
         "@vue/eslint-config-typescript": "^11.0.3",
         "@vue/tsconfig": "^0.1.3",
+        "chokidar": "^3.5.3",
+        "concurrently": "^8.2.0",
         "eslint": "^8.46.0",
         "eslint-config-prettier": "^8.9.0",
         "eslint-plugin-prettier": "^5.0.0",

@@ -1,26 +1,35 @@
 import { createSSRApp } from 'vue';
 import App from './App.vue';
 import uviewPlus from 'uview-plus';
-
-// 全局注册组件
-import XForm from '@/components/x-form/index.vue'; // 表单
-import XTable from '@/components/x-table/index.vue'; // 表格
-import XSelect from '@/components/x-select/index.vue'; // 单选
-import XSearchSelect from '@/components/x-search-select/index.vue'; // 多选
-import XDatePicker from '@/components/x-date-picker/index.vue'; // 日期
+import { components } from '@/components/register';
 
 export function createApp() {
     const app = createSSRApp(App);
 
     app.use(uviewPlus);
 
-    app.component('XForm', XForm);
-    app.component('XTable', XTable);
-    app.component('XSelect', XSelect);
-    app.component('XSearchSelect', XSearchSelect);
-    app.component('XDatePicker', XDatePicker);
+    // 全局注册组件
+    components.map(item => {
+        app.component(item.name, item.value);
+    });
+
+    /**
+     * 捕获全局未处理的异常
+     * @param err 错误文件
+     * @param vm vue 实例
+     * @param info
+     */
+    app.config.errorHandler = (err, vm, info) => {
+        console.error('发生未捕获的异常');
+
+        console.error('err: %o', err);
+        console.error('vm: %o', vm);
+        console.error('info: %o', info);
+    };
 
     return {
         app,
     };
 }
+
+uni.$u.config.unit = 'rpx';

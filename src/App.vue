@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app';
-import { getStorage } from '@/utils/uni-storage';
+import { clearToken, getStorage } from '@/utils/uni-storage';
+import RequestAPI from '@/api/login/index';
 
 onShow(() => {
     console.log('App Show');
@@ -10,16 +11,26 @@ onHide(() => {
     console.log('App Hide');
 });
 
-onLaunch(() => {
+onLaunch(async () => {
     console.log('App Launch');
 
     const token = getStorage('token');
 
-    // 存在 token，首页
+    // 存在 token
     if (token) {
+        // 校验 token 有效性
+        // const res = await RequestAPI.checkToken();
+
+        // if (!res) {
+        //     clearToken();
+        //     uni.navigateTo({ url: '/pages/login/index' });
+        //     return;
+        // }
+
+        // 跳转到首页
         uni.switchTab({ url: '/pages/index/index' });
     } else {
-        // 不存在 token 登录页
+        // 不存在 token，跳转到登录页
         uni.navigateTo({ url: '/pages/login/index' });
     }
 });
