@@ -2,7 +2,7 @@ import { onMounted, ref, watch, nextTick, onBeforeMount } from 'vue';
 import _ from 'lodash-es';
 import type { Options, Props } from './interface';
 
-export default function useIndex(props: Props, emit: Function) {
+export default function useIndex(props: Props, emit: any) {
     /**
      * 页面渲染
      */
@@ -17,7 +17,7 @@ export default function useIndex(props: Props, emit: Function) {
         () => props.modelValue,
         newValue => {
             text.value = newValue;
-        }
+        },
     );
 
     /**
@@ -108,7 +108,7 @@ export default function useIndex(props: Props, emit: Function) {
                     break;
 
                 case 'checkbox':
-                    let boxValue: any = [];
+                    const boxValue: any = [];
                     sourceList.value.forEach((item: Options) => {
                         String(text.value)
                             .split(',')
@@ -233,7 +233,7 @@ export default function useIndex(props: Props, emit: Function) {
         if (!e) {
             showList.value = sourceList.value;
         } else {
-            let list: Options[] = [];
+            const list: Options[] = [];
             sourceList.value.forEach((item: Options) => {
                 if (item.label.match(e)) {
                     list.push(item);
@@ -275,7 +275,7 @@ export default function useIndex(props: Props, emit: Function) {
                 break;
 
             case 'checkbox':
-                let labelList: string[] = [];
+                const labelList: string[] = [];
                 sourceList.value.forEach(item => {
                     checkboxValue.value.forEach(value => {
                         if (value === item.value) {

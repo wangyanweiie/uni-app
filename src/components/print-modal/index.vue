@@ -45,7 +45,7 @@ const props = withDefaults(
         modelValue: false,
         printString: '',
         rowData: () => Buffer.from([]),
-    }
+    },
 );
 
 /**
@@ -71,7 +71,7 @@ watch(
         } else {
             popupRef.value.close();
         }
-    }
+    },
 );
 
 /**

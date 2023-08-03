@@ -3,7 +3,7 @@ import type { Options } from '../../interface';
 import type { Props } from '../interface';
 import _ from 'lodash-es';
 
-export default function useIndex(props: Props, emit: Function) {
+export default function useIndex(props: Props, emit: any) {
     /**
      * 单选框
      */
@@ -96,7 +96,7 @@ export default function useIndex(props: Props, emit: Function) {
                     break;
 
                 case 'checkbox':
-                    let boxValue: any = [];
+                    const boxValue: any = [];
                     sourceList.value.forEach((item: Options) => {
                         String(selectLabel.value)
                             .split(',')
@@ -226,7 +226,7 @@ export default function useIndex(props: Props, emit: Function) {
         if (!e) {
             showList.value = sourceList.value;
         } else {
-            let list: Options[] = [];
+            const list: Options[] = [];
             sourceList.value.forEach((item: Options) => {
                 if (item.label.match(e)) {
                     list.push(item);
@@ -268,7 +268,7 @@ export default function useIndex(props: Props, emit: Function) {
                 break;
 
             case 'checkbox':
-                let labelList: string[] = [];
+                const labelList: string[] = [];
                 sourceList.value.forEach((item: Options) => {
                     checkboxValue.value.forEach(value => {
                         if (value === item.value) {
@@ -313,7 +313,7 @@ export default function useIndex(props: Props, emit: Function) {
             });
         } else {
             checkboxValue.value = val as string[];
-            let labelList: string[] = [];
+            const labelList: string[] = [];
             sourceList.value.forEach((item: Options) => {
                 checkboxValue.value?.forEach(value => {
                     if (value === item.value) {

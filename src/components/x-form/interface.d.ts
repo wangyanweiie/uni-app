@@ -83,6 +83,8 @@ export interface ComponentPropsParams {
 export interface Schema {
     /** 组件类型 */
     type:
+        | 'Slot'
+        | 'FormSlot'
         | 'BaseDivider'
         | 'BaseTitle'
         | 'BaseInput'

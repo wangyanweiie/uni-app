@@ -19,8 +19,8 @@
             <u-form-item label="日期" required prop="date">
                 <x-date-picker
                     v-model="form.date"
-                    dateType="datetime"
-                    dateFormat="YYYY-MM-DD HH:mm:ss"
+                    date-type="datetime"
+                    date-format="YYYY-MM-DD HH:mm:ss"
                     :clearable="true"
                     @change="handleDate"
                 ></x-date-picker>

@@ -18,9 +18,9 @@ fs.cp(
     // 拷贝整个目录，包括子目录
     { recursive: true },
 
-    (err) => {
+    err => {
         if (err) {
             console.error(err);
         }
-    }
+    },
 );

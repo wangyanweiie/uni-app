@@ -2,7 +2,7 @@ import { ref, onBeforeMount } from 'vue';
 import type { Schema } from '../../interface';
 import dayjs from 'dayjs';
 
-export default function useIndex(props: { schema: Schema; form: Record<string, any> }, emit: Function) {
+export default function useIndex(props: { schema: Schema; form: Record<string, any> }, emit: any) {
     /**
      * 日期选择器的值
      */

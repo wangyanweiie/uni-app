@@ -1,7 +1,8 @@
 <template>
-    <view class="wrap">
-        <canvas class="canvas" :style="{ width: w + 'px', height: h + 'px' }" canvas-id="firstCanvas"></canvas>
-        <button class="button" @click="getImg">获取图片</button>
+    <view class="view-wrap wrap">
+        <u-button type="primary" class="wrap__btn" @click="getImg">获取图片</u-button>
+
+        <canvas class="wrap__canvas" :style="{ width: w + 'px', height: h + 'px' }" canvas-id="firstCanvas"></canvas>
         <image mode="aspectFill" :src="src" @click="preview"></image>
     </view>
 </template>
@@ -143,6 +144,10 @@ async function uploadFile(url: string) {
  * 预览图片
  */
 function preview() {
+    if (!src.value) {
+        return;
+    }
+
     uni.previewImage({
         urls: [src.value],
         current: 0,
@@ -157,22 +162,22 @@ function preview() {
     align-items: center;
     justify-content: center;
     position: relative;
-}
 
-.canvas {
-    border: 2rpx solid pink;
-    background: pink;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
+    &__btn {
+        margin-bottom: 20px;
+    }
 
-    /* 定位到页面之外隐藏 */
-    position: absolute;
-    top: -1000px;
-    left: -1000px;
-}
+    &__canvas {
+        border: 2rpx solid pink;
+        background: pink;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
 
-.button {
-    margin: 10px;
+        /* 定位到页面之外隐藏 */
+        position: absolute;
+        top: -1000px;
+        left: -1000px;
+    }
 }
 </style>

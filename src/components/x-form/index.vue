@@ -2,26 +2,35 @@
     <view class="view-wrap">
         <u-form ref="formRef" :model="form" :rules="rules" :label-width="labelWidth">
             <uni-row>
-                <uni-col v-for="item in schemas" :key="item.prop" :span="item.span ? item.span : 24">
-                    <!-- divider -->
+                <uni-col v-for="item in schemas" :key="item.prop" :span="item.span ?? 24">
+                    <!-- 1.分隔线 -->
                     <view v-if="item.type === 'BaseDivider'">
                         <u-divider v-bind="item?.attributes" :text="item.label"></u-divider>
                     </view>
 
-                    <!-- title -->
+                    <!-- 2.标题 -->
                     <view v-if="item.type === 'BaseTitle'">
                         <view class="base-title">{{ item.label }}</view>
                     </view>
 
+                    <!-- 3.插槽 -->
+                    <slot v-if="item.type === 'Slot'" :name="item.prop" :form="form" :schema="item"> </slot>
+
+                    <!-- 4.表单子项 -->
                     <u-form-item
-                        v-if="item.hidden !== true && item.prop"
+                        v-if="!item.hidden && item.prop"
                         :key="item.prop"
                         :label="item.label"
                         :prop="item.prop"
                         :required="item.rules ? true : false"
                     >
+                        <!-- ① 插槽 -->
+                        <slot v-if="item.type === 'FormSlot'" :name="item.prop" :form="form" :schema="item"></slot>
+
+                        <!-- ② 自定义组件 -->
                         <component
                             :is="components[item.type]"
+                            v-else
                             :ref="(el: unknown) => handleCompInstance(el, item.prop)"
                             :schema="item"
                             :form="form"

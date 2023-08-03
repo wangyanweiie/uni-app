@@ -69,6 +69,7 @@ export const schemas: Schema[] = [
         type: 'BaseSelect',
         prop: 'BaseSelect1',
         label: '单选下拉框',
+        labelField: 'BaseSelect1Label',
         options: [
             { label: '跑步', value: 1 },
             { label: '足球', value: 2 },
@@ -86,17 +87,26 @@ export const schemas: Schema[] = [
         type: 'BaseSelect',
         prop: 'BaseSelect2',
         label: '单选下拉框',
+        labelField: 'BaseSelect2Label',
         api: RequestAPI.getUserName,
         attributes: {
             placeholder: 'BaseSelect',
             clearable: true,
         },
         rules: [{ required: true, message: '动态单选下拉框不能为空' }],
+        componentProps: ({ value, form, schemas, schema, result }) => {
+            console.log('value', value);
+            console.log('form', form);
+            console.log('schemas', schemas);
+            console.log('schema', schema);
+            console.log('result', result);
+        },
     },
     {
         type: 'SearchSelect',
         prop: 'SearchSelect1',
         label: '多选下拉框',
+        labelField: 'SearchSelect1Label',
         options: [
             { label: '语文', value: 1 },
             { label: '数学', value: 2 },
@@ -119,6 +129,7 @@ export const schemas: Schema[] = [
         type: 'SearchSelect',
         prop: 'SearchSelect2',
         label: '多选下拉框',
+        labelField: 'SearchSelect2Label',
         api: RequestAPI.getUserName,
         attributes: {
             multiple: true,

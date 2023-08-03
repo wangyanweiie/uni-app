@@ -2,7 +2,7 @@ import { ref, onBeforeMount } from 'vue';
 import type { Options } from '../../interface';
 import type { Props, RequestObj } from '../interface';
 
-export default function useIndex(props: Props, emit: Function) {
+export default function useIndex(props: Props, emit: any) {
     /**
      * 下拉值
      */
@@ -26,9 +26,11 @@ export default function useIndex(props: Props, emit: Function) {
         if (e) {
             // 根据 value 过滤出当前下拉项的 label
             selectLabel.value = selectList.value.filter((item: Options) => item.value === e)[0]?.label;
+            selectValue.value = e;
         } else {
             // 清空
             selectLabel.value = '';
+            selectValue.value = '';
         }
 
         emit('handleSelect', {

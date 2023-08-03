@@ -104,6 +104,7 @@ export default {
             default: '',
         },
     },
+    emits: ['change', 'input', 'update:modelValue'],
 
     data() {
         return {
@@ -250,14 +251,15 @@ export default {
         },
 
         formatItemName(item) {
-            let { label, value, channel_code } = item;
+            const { label, value } = item;
+            let { channel_code } = item;
             channel_code = channel_code ? `(${channel_code})` : '';
 
             if (this.format) {
                 // 格式化输出
                 let str = '';
                 str = this.format;
-                for (let key in item) {
+                for (const key in item) {
                     str = str.replace(new RegExp(`{${key}}`, 'g'), item[key]);
                 }
                 return str;
@@ -281,7 +283,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $uni-base-color: #6a6a6a !default;
 $uni-main-color: #333 !default;
 $uni-secondary-color: #909399 !default;

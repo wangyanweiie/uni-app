@@ -2,7 +2,7 @@ import { ref, nextTick, onBeforeMount } from 'vue';
 import type { Props } from '../interface';
 import { keepDecimalPrecision } from './hooks';
 
-export default function useIndex(props: Props, emit: Function) {
+export default function useIndex(props: Props, emit: any) {
     /**
      * 输入框的值
      */
@@ -54,7 +54,7 @@ export default function useIndex(props: Props, emit: Function) {
             return null;
         }
 
-        // 最小值
+        // 最大值
         if (max.value && num > max.value) {
             uni.showToast({
                 title: `最大值：${max.value}`,

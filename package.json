@@ -39,8 +39,7 @@
         "build:quickapp-webview-union": "uni build -p quickapp-webview-union",
         "type-check": "vue-tsc --noEmit",
         "prepare": "husky install",
-        "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
-        "lint:css": "stylelint **/*.{vue,scss,css} --fix",
+        "lint": "eslint  src --ext .vue,.ts,.js --fix",
         "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md,less,sass,scss,sty}\""
     },
     "dependencies": {

@@ -1,7 +1,7 @@
 import { ref, onBeforeMount } from 'vue';
 import type { Props } from '../interface';
 
-export default function useIndex(props: Props, emit: Function) {
+export default function useIndex(props: Props, emit: any) {
     /**
      * 输入框的值
      */

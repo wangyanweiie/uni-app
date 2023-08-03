@@ -2,7 +2,7 @@ import { nextTick, onBeforeMount, ref } from 'vue';
 import type { Props, RequestObj } from '../interface';
 import { SCAN_MODE } from '../const';
 
-export default function useIndex(props: Props, emit: Function) {
+export default function useIndex(props: Props, emit: any) {
     /**
      * 输入框的值
      */
@@ -103,7 +103,7 @@ export default function useIndex(props: Props, emit: Function) {
         }
 
         // 查询接口入参
-        const parmas: Record<string, string | Number> = {
+        const parmas: Record<string, string | number> = {
             ...props.schema.apiParams,
             [props.schema.prop]: code,
         };

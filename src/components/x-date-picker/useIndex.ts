@@ -2,7 +2,7 @@ import { ref, onBeforeMount } from 'vue';
 import dayjs from 'dayjs';
 import type { Props } from './interface';
 
-export default function useIndex(props: Props, emit: Function) {
+export default function useIndex(props: Props, emit: any) {
     /**
      * 日期选择器的值
      */

@@ -4,6 +4,7 @@
             v-model="inputValue"
             border="none"
             placeholder="请输入文本"
+            :auto-height="true"
             v-bind="schema.attributes"
             @blur="handleBlur"
         ></u-textarea>

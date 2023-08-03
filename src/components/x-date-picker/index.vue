@@ -61,7 +61,7 @@ const props = withDefaults(
         disabled: false,
         dateType: 'date',
         dateFormat: 'YYYY-MM-DD HH:mm:ss',
-    }
+    },
 );
 
 /**

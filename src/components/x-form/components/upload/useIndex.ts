@@ -2,7 +2,7 @@ import { ref, onBeforeMount } from 'vue';
 import type { Props } from '../interface';
 import { UPLOAD_URL } from '../const';
 
-export default function useIndex(props: Props, emit: Function) {
+export default function useIndex(props: Props, emit: any) {
     /**
      * 图片路径列表
      */
@@ -18,7 +18,7 @@ export default function useIndex(props: Props, emit: Function) {
      * @param e index，name，file
      */
     async function handleAfterRead(e: { file: any; name: string; index: number }) {
-        let list: any = [].concat(e.file);
+        const list: any = [].concat(e.file);
         let length = fileList.value.length;
 
         list.map((item: any) => {
@@ -62,15 +62,15 @@ export default function useIndex(props: Props, emit: Function) {
      * @return 返回的参数
      */
     async function handleUpload(url: string) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             uni.uploadFile({
                 url: UPLOAD_URL,
                 filePath: url,
                 name: 'file',
-                success: (res) => {
+                success: res => {
                     resolve(JSON.parse(res.data).data);
                 },
-                fail: (error) => {
+                fail: error => {
                     console.log(error);
                     resolve(false);
                 },

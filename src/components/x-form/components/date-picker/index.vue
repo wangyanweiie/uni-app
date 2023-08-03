@@ -58,7 +58,7 @@ const props = withDefaults(
                 type: 'DatePicker',
             };
         },
-    }
+    },
 );
 
 /**

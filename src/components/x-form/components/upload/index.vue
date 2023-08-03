@@ -37,7 +37,7 @@ const props = withDefaults(
                 type: 'BaseUpload',
             };
         },
-    }
+    },
 );
 
 /**

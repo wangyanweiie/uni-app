@@ -3,7 +3,7 @@
         <x-form ref="formRef" :schema-list="schemas"></x-form>
 
         <view style="margin: 10px">
-            <u-button type="success" style="width: 200px" @click="handleSubmit">提交</u-button>
+            <u-button type="success" @click="handleSubmit">提交</u-button>
         </view>
     </view>
 </template>
@@ -24,9 +24,9 @@ const form = ref<Record<string, any>>({});
 /**
  * 提交
  */
-function handleSubmit() {
+async function handleSubmit() {
     // 表单校验
-    const valid = formRef.value.validForm();
+    const valid = await formRef.value.validForm();
 
     if (!valid) {
         return;

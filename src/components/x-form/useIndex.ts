@@ -15,7 +15,7 @@ import type {
  * @param props 组件传参
  * @param emit 自定义事件
  */
-export default function useIndex(props: XFormProps, emit: Function) {
+export default function useIndex(props: XFormProps, emit: any) {
     /**
      * 配置表单列表
      */
@@ -267,7 +267,7 @@ export default function useIndex(props: XFormProps, emit: Function) {
                         (uploadItem: { name: string; url: string }) => {
                             // 处理 name url
                             if (!uploadItem.name && uploadItem.url) {
-                                let splitList = uploadItem.url.split('/');
+                                const splitList = uploadItem.url.split('/');
                                 uploadItem.name = splitList[splitList.length - 1];
                             }
 

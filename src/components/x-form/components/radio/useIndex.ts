@@ -2,7 +2,7 @@ import { ref, onBeforeMount } from 'vue';
 import type { Options } from '../../interface';
 import type { Props } from '../interface';
 
-export default function useIndex(props: Props, emit: Function) {
+export default function useIndex(props: Props, emit: any) {
     /**
      * 单选值
      */

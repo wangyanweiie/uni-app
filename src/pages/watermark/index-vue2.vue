@@ -29,7 +29,7 @@ export default {
             uni.chooseImage({
                 count: 1,
                 sizeType: 'compressed',
-                success: (res) => {
+                success: res => {
                     that.setimg(res.tempFilePaths[0]);
                 },
             });
@@ -49,7 +49,7 @@ export default {
              */
             uni.getImageInfo({
                 src: url,
-                success: (res) => {
+                success: res => {
                     uni.showLoading({
                         title: '水印添加中...',
                         mask: true,
@@ -85,7 +85,7 @@ export default {
                                 // 把当前画布指定区域的内容导出生成指定大小的图片，并返回文件路径
                                 uni.canvasToTempFilePath({
                                     canvasId: 'firstCanvas',
-                                    success: (res) => {
+                                    success: res => {
                                         that.src = res.tempFilePath;
                                     },
                                     complete: () => {

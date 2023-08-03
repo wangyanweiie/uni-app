@@ -10,12 +10,12 @@ let count = 0;
 /**
  * 需要重写 pages.json 的路径
  */
-let writePath = path.join(__dirname, '../pages.json');
+const writePath = path.join(__dirname, '../pages.json');
 
 /**
  * 路由文件夹路径
  */
-let routerPath = path.join(__dirname, '../router');
+const routerPath = path.join(__dirname, '../router');
 
 /**
  * @description 读取 router 下的所有路由文件
@@ -27,7 +27,7 @@ const readDir = url => {
     const fileList = fs.readdirSync(url);
     console.log('fileList => ' + fileList);
 
-    let urlObj = {};
+    const urlObj = {};
 
     fileList.map(item => {
         // 获取每一个路由文件的路径
@@ -79,7 +79,7 @@ const handleUpdateRouter = url => {
     const fileList = fs.readdirSync(url);
 
     // 存放所有路由文件的路径
-    let fileUrlList = [];
+    const fileUrlList = [];
 
     fileList.map(item => {
         const location = path.join(url, item);

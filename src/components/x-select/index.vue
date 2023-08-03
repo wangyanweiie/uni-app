@@ -13,6 +13,7 @@
 import { onMounted, ref, watch } from 'vue';
 import DataSelect from './dataSelect.vue';
 import { useVModel } from '@vueuse/core';
+import type { Options } from './interface';
 
 /**
  * props
@@ -24,9 +25,9 @@ const props = withDefaults(
         /** 下拉请求接口 */
         api?: any;
         /** 下拉请求接口参数 */
-        apiParams?: Object;
+        apiParams?: Record<string, string | number>;
         /** 单选/复选框静态列表 */
-        options?: Record<string, string | number>[];
+        options?: Options[];
         /** 提示文字 */
         placeholder?: string;
         /** 是否禁用 */
@@ -99,7 +100,7 @@ async function loadData() {
  * @param e 下拉项的 value
  */
 function handleChange(e: number | string) {
-    let obj = dataSource.value.filter(item => item.value === e);
+    const obj = dataSource.value.filter(item => item.value === e);
 
     // 返回当前下拉的 label value 对象
     if (obj.length) {

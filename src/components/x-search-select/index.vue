@@ -152,7 +152,7 @@ const props = withDefaults(
         api: null,
         apiParams: () => ({}),
         options: () => [],
-    }
+    },
 );
 
 /**
@@ -202,7 +202,7 @@ const {
     }
 
     .content-text {
-        width: 50%;
+        width: 70%;
         height: 24px;
         line-height: 24px;
         margin: 10rpx 10rpx 0 0;

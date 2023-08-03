@@ -13,7 +13,7 @@ import type {
  * @param props 组件传参
  * @param emit 自定义事件
  */
-export default function useIndex(props: Partial<XTableProp>, emit: Function) {
+export default function useIndex(props: Partial<XTableProp>, emit: any) {
     /**
      * key
      */

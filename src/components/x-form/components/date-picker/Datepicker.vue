@@ -47,38 +47,43 @@
                         <view class="picker-calendar-view-item">{{ week }}</view>
                     </view>
                     <view
-                        v-for="(date, dateIndex) in calendar"
-                        :key="dateIndex"
+                        v-for="(calendarItem, calendarItemIndex) in calendar"
+                        :key="calendarItemIndex"
                         class="picker-calendar-view"
-                        @click="onSelectDate(date)"
+                        @click="onSelectDate(calendarItem)"
                     >
                         <!-- 背景样式 -->
                         <view
-                            v-show="date.bgStyle.type"
-                            :class="'picker-calendar-view-' + date.bgStyle.type"
-                            :style="{ background: date.bgStyle.background }"
+                            v-show="calendarItem.bgStyle.type"
+                            :class="'picker-calendar-view-' + calendarItem.bgStyle.type"
+                            :style="{ background: calendarItem.bgStyle.background }"
                         ></view>
 
                         <!-- 正常和选中样式 -->
                         <view
                             class="picker-calendar-view-item"
                             :style="{
-                                opacity: date.statusStyle.opacity,
-                                color: date.statusStyle.color,
-                                background: date.statusStyle.background,
+                                opacity: calendarItem.statusStyle.opacity,
+                                color: calendarItem.statusStyle.color,
+                                background: calendarItem.statusStyle.background,
                             }"
                         >
-                            <text>{{ date.title }}</text>
+                            <text>{{ calendarItem.title }}</text>
                         </view>
 
                         <!-- 小圆点样式 -->
                         <view
                             class="picker-calendar-view-dot"
-                            :style="{ opacity: date.dotStyle.opacity, background: date.dotStyle.background }"
+                            :style="{
+                                opacity: calendarItem.dotStyle.opacity,
+                                background: calendarItem.dotStyle.background,
+                            }"
                         ></view>
 
                         <!-- 信息样式 -->
-                        <view v-show="date.tips" class="picker-calendar-view-tips">{{ date.tips }}</view>
+                        <view v-show="calendarItem.tips" class="picker-calendar-view-tips">{{
+                            calendarItem.tips
+                        }}</view>
                     </view>
                 </swiper-item>
             </swiper>
@@ -211,7 +216,7 @@ const DateTools = {
      * @param date Date对象
      */
     getHoliday(date) {
-        let holidays = {
+        const holidays = {
             '0101': '元旦',
             '0214': '情人',
             '0308': '妇女',
@@ -229,7 +234,7 @@ const DateTools = {
             1224: '平安',
             1225: '圣诞',
         };
-        let value = this.format(date, 'mmdd');
+        const value = this.format(date, 'mmdd');
         if (holidays[value]) return holidays[value];
         return false;
     },
@@ -239,7 +244,7 @@ const DateTools = {
      * @param s 日期字符串
      * @return 返回Date对象
      */
-    parse: (s) => new Date(s.replace(/(年|月|-)/g, '/').replace(/(日)/g, '')),
+    parse: s => new Date(s.replace(/(年|月|-)/g, '/').replace(/(日)/g, '')),
 
     /**
      * 比较日期是否为同一天
@@ -257,7 +262,7 @@ const DateTools = {
      * @return 返回格式化后的字符串
      */
     format(d, f) {
-        var o = {
+        const o = {
             'm+': d.getMonth() + 1,
             'd+': d.getDate(),
             'h+': d.getHours(),
@@ -266,7 +271,7 @@ const DateTools = {
             'q+': Math.floor((d.getMonth() + 3) / 3),
         };
         if (/(y+)/.test(f)) f = f.replace(RegExp.$1, (d.getFullYear() + '').substr(4 - RegExp.$1.length));
-        for (var k in o)
+        for (const k in o)
             if (new RegExp('(' + k + ')').test(f))
                 f = f.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
         return f;
@@ -279,7 +284,7 @@ const DateTools = {
      * @return 返回Date对象
      */
     inverse(s, f) {
-        var o = {
+        const o = {
             y: '',
             m: '',
             d: '',
@@ -287,9 +292,9 @@ const DateTools = {
             i: '',
             s: '',
         };
-        let d = new Date();
+        const d = new Date();
         if (s.length != f.length) return d;
-        for (let i in f) if (o[f[i]] != undefined) o[f[i]] += s[i];
+        for (const i in f) if (o[f[i]] != undefined) o[f[i]] += s[i];
         if (o.y) d.setFullYear(o.y.length < 4 ? (d.getFullYear() + '').substr(0, 4 - o.y.length) + o.y : o.y);
         o.m && d.setMonth(o.m - 1, 1);
         o.d && d.setDate(o.d - 0);
@@ -306,12 +311,12 @@ const DateTools = {
      * @return Array
      */
     getCalendar(date, proc) {
-        let it = new Date(date),
+        const it = new Date(date),
             calendars = [];
         it.setDate(1);
         it.setDate(it.getDate() - ((it.getDay() == 0 ? 7 : it.getDay()) - 1)); //偏移量
         for (let i = 0; i < 42; i++) {
-            let tmp = {
+            const tmp = {
                 dateObj: new Date(it),
                 title: it.getDate(),
                 isOtherMonth: it.getMonth() < date.getMonth() || it.getMonth() > date.getMonth(),
@@ -329,7 +334,7 @@ const DateTools = {
      * @return Date对象
      */
     getDateToMonth(d, v) {
-        let n = new Date(d);
+        const n = new Date(d);
         n.setMonth(v, 1);
         return n;
     },
@@ -341,7 +346,7 @@ const DateTools = {
      * @return 字符串 时:分[:秒]
      */
     formatTimeArray(t, s) {
-        let r = [...t];
+        const r = [...t];
         if (!s) r.length = 2;
         r.forEach((v, k) => (r[k] = ('0' + v).slice(-2)));
         return r.join(':');
@@ -402,6 +407,7 @@ export default {
             default: '结束',
         },
     },
+    emits: ['cancel', 'confirm'],
 
     data() {
         return {
@@ -485,20 +491,20 @@ export default {
             this.isContainTime = this.type.indexOf('time') >= 0;
 
             // 将字符串解析为Date对象
-            let parseDateStr = (str) => (this.format ? DateTools.inverse(str, this.format) : DateTools.parse(str));
+            const parseDateStr = str => (this.format ? DateTools.inverse(str, this.format) : DateTools.parse(str));
             if (value) {
                 if (this.isMultiSelect) {
                     Array.isArray(value) &&
                         value.forEach((dateStr, index) => {
-                            let date = parseDateStr(dateStr);
-                            let time = [date.getHours(), date.getMinutes(), date.getSeconds()];
+                            const date = parseDateStr(dateStr);
+                            const time = [date.getHours(), date.getMinutes(), date.getSeconds()];
                             if (index == 0) this.beginTime = time;
                             else this.endTime = time;
                             this.checkeds.push(date);
                         });
                 } else {
                     if (this.type == 'time') {
-                        let date = parseDateStr('2019/1/1 ' + value);
+                        const date = parseDateStr('2019/1/1 ' + value);
                         this.beginTime = [date.getHours(), date.getMinutes(), date.getSeconds()];
                         this.onShowTimePicker('begin');
                     } else {
@@ -592,7 +598,7 @@ export default {
             }
 
             // 标记选中项
-            this.checkeds.forEach((date) => {
+            this.checkeds.forEach(date => {
                 if (DateTools.isSameDay(date, item.dateObj)) {
                     item.statusStyle.background = this.color;
                     item.statusStyle.color = '#fff';
@@ -606,7 +612,7 @@ export default {
 
             // 节假日或今日的日期标点
             if (item.statusStyle.background != this.color) {
-                let holiday = this.showHoliday ? DateTools.getHoliday(item.dateObj) : false;
+                const holiday = this.showHoliday ? DateTools.getHoliday(item.dateObj) : false;
                 if (holiday || DateTools.isSameDay(new Date(), item.dateObj)) {
                     item.title = holiday || item.title;
                     item.dotStyle.background = this.color;
@@ -656,9 +662,9 @@ export default {
          * 刷新日历
          */
         refreshCalendars(refresh = false) {
-            let date = new Date(this.date);
-            let before = DateTools.getDateToMonth(date, date.getMonth() - 1);
-            let after = DateTools.getDateToMonth(date, date.getMonth() + 1);
+            const date = new Date(this.date);
+            const before = DateTools.getDateToMonth(date, date.getMonth() - 1);
+            const after = DateTools.getDateToMonth(date, date.getMonth() + 1);
 
             if (this.calendarIndex == 0) {
                 if (refresh) {
@@ -689,7 +695,7 @@ export default {
          */
         onSwiperChange(e) {
             this.calendarIndex = e.detail.current;
-            let calendar = this.calendars[this.calendarIndex];
+            const calendar = this.calendars[this.calendarIndex];
             // 取中间一天，保证是当前的月份
             this.date = new Date(calendar[22].dateObj);
             this.refreshCalendars();
@@ -705,7 +711,7 @@ export default {
 
             // 从小到大排序
             this.checkeds.sort((a, b) => a - b);
-            this.calendars.forEach((calendar) => {
+            this.calendars.forEach(calendar => {
                 // 重新处理
                 calendar.forEach(this.procCalendar);
             });
@@ -744,20 +750,20 @@ export default {
          * 确定
          */
         onConfirm() {
-            let result = {
+            const result = {
                 value: null,
                 date: null,
             };
 
             // 定义默认格式
-            let defaultFormat = {
+            const defaultFormat = {
                 date: 'yyyy/mm/dd',
                 time: 'hh:ii' + (this.showSeconds ? ':ss' : ''),
                 datetime: '',
             };
             defaultFormat['datetime'] = defaultFormat.date + ' ' + defaultFormat.time;
 
-            let fillTime = (date, timeArr) => {
+            const fillTime = (date, timeArr) => {
                 date.setHours(timeArr[0], timeArr[1]);
 
                 if (this.showSeconds) {
@@ -766,13 +772,13 @@ export default {
             };
 
             if (this.type == 'time') {
-                let date = new Date();
+                const date = new Date();
                 fillTime(date, this.beginTime);
                 result.value = DateTools.format(date, this.format ? this.format : defaultFormat.time);
                 result.date = date;
             } else {
                 if (this.isMultiSelect) {
-                    let values = [],
+                    const values = [],
                         dates = [];
                     if (this.checkeds.length < 2)
                         return uni.showToast({
@@ -780,23 +786,23 @@ export default {
                             title: '请选择两个日期',
                         });
                     this.checkeds.forEach((date, index) => {
-                        let newDate = new Date(date);
+                        const newDate = new Date(date);
                         if (this.isContainTime) {
-                            let time = [this.beginTime, this.endTime];
+                            const time = [this.beginTime, this.endTime];
                             fillTime(newDate, time[index]);
                         }
                         values.push(
                             DateTools.format(
                                 newDate,
-                                this.format ? this.format : defaultFormat[this.isContainTime ? 'datetime' : 'date']
-                            )
+                                this.format ? this.format : defaultFormat[this.isContainTime ? 'datetime' : 'date'],
+                            ),
                         );
                         dates.push(newDate);
                     });
                     result.value = values;
                     result.date = dates;
                 } else {
-                    let newDate = new Date(this.checkeds[0]);
+                    const newDate = new Date(this.checkeds[0]);
                     if (this.isContainTime) {
                         newDate.setHours(this.beginTime[0], this.beginTime[1]);
                         if (this.showSeconds) {
@@ -805,7 +811,7 @@ export default {
                     }
                     result.value = DateTools.format(
                         newDate,
-                        this.format ? this.format : defaultFormat[this.isContainTime ? 'datetime' : 'date']
+                        this.format ? this.format : defaultFormat[this.isContainTime ? 'datetime' : 'date'],
                     );
                     result.date = newDate;
                 }
