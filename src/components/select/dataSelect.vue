@@ -12,8 +12,8 @@
                         :disabled="disabled"
                         @input="handleFuzzySearch"
                     />
-                    <uni-icons v-if="current && clear" type="clear" color="#c0c4cc" size="24" @click="clearVal" />
-                    <uni-icons v-else :type="showSelector ? 'top' : 'bottom'" size="14" color="#999" />
+                    <uni-icons v-if="current && clear" type="clear" color="#C6C7CB" size="44rpx" @click="clearVal" />
+                    <uni-icons v-else :type="showSelector ? 'top' : 'bottom'" size="28rpx" color="#999" />
                 </view>
                 <view v-if="showSelector" class="uni-select--mask" @click="toggleSelector" />
                 <view v-if="showSelector" class="uni-select__selector">

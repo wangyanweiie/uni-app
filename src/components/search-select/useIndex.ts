@@ -16,14 +16,25 @@ export default function useIndex(props: Props, emit: any) {
     watch(
         () => props.modelValue,
         newValue => {
-            text.value = newValue;
+            selectLabel.value = newValue;
         },
     );
 
     /**
      * 双向绑定的值
      */
-    const text = ref<string>('');
+    const selectLabel = ref<string>('');
+
+    /**
+     * 单选框
+     */
+    const radioValue = ref<string | number>(); // 当前单选值
+
+    /**
+     * 复选框
+     */
+    const checkboxValue = ref<(string | number)[]>([]); // 当前复选值
+    const lastCheckboxValue = ref<(string | number)[]>([]); // 上一次的复选值
 
     /**
      * 渲染组件类型
@@ -47,22 +58,11 @@ export default function useIndex(props: Props, emit: any) {
     const showList = ref<Options[]>([]); // 筛选后展示的列表
 
     /**
-     * 单选框
-     */
-    const radioValue = ref<string | number>(); // 当前单选值
-
-    /**
-     * 复选框
-     */
-    const checkboxValue = ref<(string | number)[]>([]); // 当前复选值
-    const lastCheckboxValue = ref<(string | number)[]>([]); // 上一次的复选值
-
-    /**
      * 清空文本值
      */
-    function handleTextClear() {
-        text.value = '';
-        emit('update:modelValue', text.value);
+    function handleClear() {
+        selectLabel.value = '';
+        emit('update:modelValue', selectLabel.value);
         emit('clear');
     }
 
@@ -91,17 +91,22 @@ export default function useIndex(props: Props, emit: any) {
      * 打开弹出层
      */
     function handlePopupOpen() {
+        // 禁用
+        if (props?.disabled) {
+            return;
+        }
+
         // 静态赋值时需要二次触发才能拿到数据
         if (!props.api) {
             handleSearchSelect();
         }
 
         // 反显上一次选择的值
-        if (text.value) {
+        if (selectLabel.value) {
             switch (selectType.value) {
                 case 'radio':
                     sourceList.value.forEach((item: Options) => {
-                        if (item.label === text.value) {
+                        if (item.label === selectLabel.value) {
                             radioValue.value = item.value;
                         }
                     });
@@ -110,7 +115,7 @@ export default function useIndex(props: Props, emit: any) {
                 case 'checkbox':
                     const boxValue: any = [];
                     sourceList.value.forEach((item: Options) => {
-                        String(text.value)
+                        String(selectLabel.value)
                             .split(',')
                             .forEach(value => {
                                 if (value === item.label) {
@@ -266,11 +271,11 @@ export default function useIndex(props: Props, emit: any) {
                     }
                 });
 
-                text.value = label;
-                emit('update:modelValue', text.value);
+                selectLabel.value = label;
+                emit('update:modelValue', selectLabel.value);
                 emit('change', { value: radioValue.value });
 
-                // console.log('当前选择的单选框 label:', text.value);
+                // console.log('当前选择的单选框 label:', selectLabel.value);
                 // console.log('当前选择的单选框 value:', checkboxValue.value);
                 break;
 
@@ -284,11 +289,11 @@ export default function useIndex(props: Props, emit: any) {
                     });
                 });
 
-                text.value = labelList.toString();
-                emit('update:modelValue', text.value);
+                selectLabel.value = labelList.toString();
+                emit('update:modelValue', selectLabel.value);
                 emit('change', { value: checkboxValue.value });
 
-                // console.log('当前选择的复选框 label 字符串:', text.value);
+                // console.log('当前选择的复选框 label 字符串:', selectLabel.value);
                 // console.log('当前选择的复选框 value 集合:', checkboxValue.value);
                 break;
         }
@@ -316,8 +321,8 @@ export default function useIndex(props: Props, emit: any) {
     });
 
     return {
-        text,
-        handleTextClear,
+        selectLabel,
+        handleClear,
         showPopup,
         handlePopupOpen,
         handlePopupClose,

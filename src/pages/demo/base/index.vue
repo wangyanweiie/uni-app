@@ -2,7 +2,7 @@
     <view class="view-wrap">
         <u-form ref="formRef" :model="form" :rules="rules" label-width="160rpx">
             <u-form-item label="姓名" required prop="name">
-                <u-input v-model="form.name" border="none" placeholder="请输入" :clearable="true" />
+                <u-input v-model="form.name" border="surround" placeholder="请输入" :clearable="true" />
             </u-form-item>
             <u-form-item label="爱好" required prop="hobby">
                 <x-select v-model="form.hobby" :options="hobbyList" :clearable="true" @change="handleHobby" />
@@ -22,6 +22,7 @@
                     date-type="datetime"
                     date-format="YYYY-MM-DD HH:mm:ss"
                     :clearable="true"
+                    :disabled="true"
                     @change="handleDate"
                 ></x-date-picker>
             </u-form-item>

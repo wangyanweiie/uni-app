@@ -101,8 +101,9 @@
                                 hover-class="picker-display-link-active"
                                 :style="{ color }"
                                 @click="onShowTimePicker('begin')"
-                                >{{ BeginTimeTitle }}</view
                             >
+                                {{ BeginTimeTitle }}
+                            </view>
                         </view>
 
                         <view class="picker-display">
@@ -115,8 +116,9 @@
                                 hover-class="picker-display-link-active"
                                 :style="{ color }"
                                 @click="onShowTimePicker('end')"
-                                >{{ EndTimeTitle }}</view
                             >
+                                {{ EndTimeTitle }}
+                            </view>
                         </view>
                     </block>
 
@@ -131,8 +133,9 @@
                                 hover-class="picker-display-link-active"
                                 :style="{ color }"
                                 @click="onShowTimePicker('begin')"
-                                >{{ BeginTimeTitle }}</view
                             >
+                                {{ BeginTimeTitle }}
+                            </view>
                         </view>
                     </block>
                 </view>
@@ -189,16 +192,18 @@
                             :hover-stay-time="100"
                             hover-class="picker-btn-active"
                             @click="onCancelTime"
-                            >取消</view
                         >
+                            取消
+                        </view>
                         <view
                             class="picker-btn"
                             :style="{ color }"
                             :hover-stay-time="100"
                             hover-class="picker-btn-active"
                             @click="onConfirmTime"
-                            >确定</view
                         >
+                            确定
+                        </view>
                     </view>
                 </view>
             </view>

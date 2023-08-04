@@ -1,6 +1,7 @@
 <template>
     <view class="wrap">
-        <view class="content">
+        <!-- 纯文本展示样式 -->
+        <!-- <view class="content">
             <view class="content__left" @click="handleOpen">
                 <view v-if="dateValue">{{ dateValue }}</view>
                 <view v-else class="content__left__placeholder">
@@ -8,11 +9,29 @@
                 </view>
             </view>
 
-            <!-- 清空 -->
             <view class="content__right">
                 <u-icon v-if="clearable" name="close-circle-fill" size="40rpx" @click="handleClear"></u-icon>
             </view>
-        </view>
+        </view> -->
+
+        <!-- 输入框禁用样式 -->
+        <u-input
+            v-model="dateValue"
+            :border="border"
+            :placeholder="placeholder"
+            :readonly="!disabled"
+            :disabled="disabled"
+            prefix-icon="calendar"
+            prefix-icon-style="font-size: 40rpx"
+            @click="handleOpen"
+        >
+            <template #suffix>
+                <!-- uviewPlus 标签不支持 .stop，但 view 标签可以 -->
+                <view v-if="dateValue && clearable && !disabled" class="suffix-wrap" @click.stop="handleClear">
+                    <u-icon name="close-circle-fill" color="#C6C7CB" size="40rpx"></u-icon>
+                </view>
+            </template>
+        </u-input>
 
         <date-picker
             :show="showPicker"
@@ -43,6 +62,8 @@ const props = withDefaults(
     defineProps<{
         /** 双向绑定的值 => 用于展示的 label */
         modelValue: string;
+        /** 边框 */
+        border: 'surround' | 'bottom' | 'none';
         /** 提示文字 */
         placeholder?: string;
         /** 是否可清空 */
@@ -56,6 +77,7 @@ const props = withDefaults(
     }>(),
     {
         modelValue: '',
+        border: 'surround',
         placeholder: '请选择日期',
         clearable: false,
         disabled: false,
@@ -107,5 +129,9 @@ const {
             color: #cccfd6;
         }
     }
+}
+
+.suffix-wrap {
+    display: flex;
 }
 </style>

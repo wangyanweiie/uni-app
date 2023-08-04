@@ -1,14 +1,14 @@
 <template>
     <view class="wrap">
         <!-- 纯文本展示样式 -->
-        <view class="content">
+        <!-- <view class="content">
             <view>
-                <view v-if="!text" class="content-placeholder">{{ placeholder }}</view>
-                <view v-else class="content-text">{{ text }}</view>
+                <view v-if="!selectLabel" class="content-placeholder">{{ placeholder }}</view>
+                <view v-else class="content-text">{{ selectLabel }}</view>
             </view>
 
             <view v-if="clearable" class="clear-style">
-                <u-icon name="close-circle-fill" size="40rpx" @click="handleTextClear"></u-icon>
+                <u-icon name="close-circle-fill" size="40rpx" @click="handleClear"></u-icon>
             </view>
 
             <view class="button-style">
@@ -20,25 +20,24 @@
                     @click="handlePopupOpen"
                 ></u-button>
             </view>
-        </view>
+        </view> -->
 
         <!-- 输入框禁用样式 -->
-        <!-- <u-input v-model="text" border="none" disabled :placeholder="placeholder">
+        <u-input
+            v-model="selectLabel"
+            :border="border"
+            :placeholder="placeholder"
+            :readonly="!disabled"
+            :disabled="disabled"
+            @click="handlePopupOpen"
+        >
             <template #suffix>
-                <view style="display: flex">
-                    <u-icon v-if="clearable" name="close-circle-fill" size="40rpx" @click="handleTextClear"></u-icon>
-                    <u-button
-                        type="primary"
-                        text="选择"
-                        size="small"
-                        :disabled="disabled"
-                        style="margin-left: 10rpx"
-                        @click="handlePopupOpen"
-                    ></u-button>
-                    <slot></slot>
+                <!-- uviewPlus 标签不支持 .stop，但 view 标签可以 -->
+                <view v-if="selectLabel && clearable && !disabled" class="suffix-wrap" @click.stop="handleClear">
+                    <u-icon name="close-circle-fill" color="#C6C7CB" size="40rpx"></u-icon>
                 </view>
             </template>
-        </u-input> -->
+        </u-input>
 
         <!-- 弹出层 -->
         <u-popup mode="left" :show="showPopup" :custom-style="popupStyle" :close-on-click-overlay="closeOnClickOverlay">
@@ -128,6 +127,8 @@ const props = withDefaults(
     defineProps<{
         /** 双向绑定的值 => 用于展示的 label */
         modelValue: string;
+        /** 边框 */
+        border: 'surround' | 'bottom' | 'none';
         /** 提示文字 */
         placeholder?: string;
         /** 是否可清空 */
@@ -147,6 +148,7 @@ const props = withDefaults(
     }>(),
     {
         modelValue: '',
+        border: 'surround',
         placeholder: '请点击右侧选择',
         clearable: false,
         disabled: false,
@@ -168,8 +170,8 @@ const emit = defineEmits<{
 }>();
 
 const {
-    text,
-    handleTextClear,
+    selectLabel,
+    handleClear,
     showPopup,
     handlePopupOpen,
     selectType,
@@ -253,5 +255,9 @@ const {
         bottom: 20rpx;
         display: flex;
     }
+}
+
+.suffix-wrap {
+    display: flex;
 }
 </style>

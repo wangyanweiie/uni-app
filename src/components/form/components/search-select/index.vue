@@ -1,7 +1,7 @@
 <template>
     <view class="wrap">
         <!-- 纯文本展示样式 -->
-        <view class="content">
+        <!-- <view class="content">
             <view>
                 <view v-if="!selectLabel" class="content-placeholder">
                     {{ schema?.attributes?.placeholder ?? '请选择' }}
@@ -22,30 +22,28 @@
                     @click="handlePopupOpen"
                 ></u-button>
             </view>
-        </view>
+        </view> -->
 
         <!-- 输入框禁用样式 -->
-        <!-- <u-input v-model="selectLabel" border="none" placeholder="请选择" disabled v-bind="schema?.attributes">
+        <u-input
+            v-model="selectLabel"
+            border="surround"
+            placeholder="请选择"
+            :readonly="!schema?.attributes?.disabled"
+            v-bind="schema?.attributes"
+            @click="handlePopupOpen"
+        >
             <template #suffix>
-                <view style="display: flex">
-                    <u-icon
-                        v-if="schema?.attributes?.clearable"
-                        name="close-circle-fill"
-                        size="40"
-                        @click="handleClear"
-                    ></u-icon>
-                    <u-button
-                        type="primary"
-                        text="选择"
-                        size="small"
-                        style="margin-left: 10rpx"
-                        :disabled="schema?.attributes?.disabled"
-                        @click="handlePopupOpen"
-                    ></u-button>
-                    <slot></slot>
+                <!-- uviewPlus 标签不支持 .stop，但 view 标签可以 -->
+                <view
+                    v-if="selectLabel && schema?.attributes?.clearable && !schema?.attributes?.disabled"
+                    class="suffix-wrap"
+                    @click.stop="handleClear"
+                >
+                    <u-icon name="close-circle-fill" color="#C6C7CB" size="40rpx"></u-icon>
                 </view>
             </template>
-        </u-input> -->
+        </u-input>
 
         <!-- 弹出层 -->
         <u-popup mode="left" :show="showPopup" :custom-style="popupStyle" :close-on-click-overlay="false">
@@ -55,7 +53,7 @@
                     v-model="keyword"
                     placeholder="请输入关键字"
                     :input-style="inputStyle"
-                    search-icon-size="20px"
+                    search-icon-size="40rpx"
                     @custom="handleSearchSearch"
                     @search="handleSearchSearch"
                     @clear="handleSearchClear"
@@ -181,6 +179,10 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
+// :deep(.u-input__content) {
+//     height: 70rpx;
+// }
+
 .wrap {
     width: 100%;
 }
@@ -247,5 +249,9 @@ defineExpose({
         bottom: 20rpx;
         display: flex;
     }
+}
+
+.suffix-wrap {
+    display: flex;
 }
 </style>

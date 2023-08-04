@@ -1,14 +1,18 @@
 <template>
     <view class="radio-style">
-        <u-radio-group v-model="radioValue" v-bind="schema?.attributes" placement="row">
+        <u-radio-group
+            v-model="radioValue"
+            size="34rpx"
+            label-size="28rpx"
+            active-color="#19BE6B"
+            placement="row"
+            v-bind="schema?.attributes"
+        >
             <u-radio
                 v-for="(item, index) in radioList"
                 :key="index"
                 :label="item.label"
                 :name="item.value"
-                size="22px"
-                icon-size="14px"
-                label-size="14px"
                 :custom-style="{ marginRight: '40rpx' }"
                 @change="handleChange(item)"
             >

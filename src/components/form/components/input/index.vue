@@ -2,7 +2,7 @@
     <view class="wrap">
         <u-input
             v-model="inputValue"
-            border="none"
+            border="surround"
             placeholder="请输入文本"
             v-bind="schema?.attributes"
             @blur="handleBlur"
@@ -74,9 +74,9 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-:deep(.u-input__content) {
-    height: 70rpx;
-}
+// :deep(.u-input__content) {
+//     height: 70rpx;
+// }
 
 .wrap {
     height: 70rpx;

@@ -64,7 +64,7 @@ import { components } from './components/register';
 const props = withDefaults(
     defineProps<{
         schemaList: Schema[];
-        labelWidth?: string;
+        labelWidth?: string | number;
     }>(),
     {
         schemaList: () => [],
@@ -117,14 +117,14 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
-:deep(.u-form-item__body) {
-    border-bottom: 1px rgb(214, 215, 217) solid;
-}
+// :deep(.u-form-item__body) {
+//     border-bottom: 1px rgb(214, 215, 217) solid;
+// }
 
-// 影响到 uni-row 的布局
-:deep(.u-form-item__body__right__message) {
-    height: 0;
-}
+// // 影响到 uni-row 的布局
+// :deep(.u-form-item__body__right__message) {
+//     height: 0;
+// }
 
 .base-title {
     font-size: 32rpx;
@@ -133,4 +133,3 @@ defineExpose({
     margin: 20rpx 0;
 }
 </style>
-./components/register

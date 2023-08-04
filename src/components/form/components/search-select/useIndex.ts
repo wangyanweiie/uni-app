@@ -1,9 +1,14 @@
-import { onMounted, ref, nextTick, onBeforeMount } from 'vue';
+import { ref, nextTick, onBeforeMount } from 'vue';
 import type { Options } from '../../interface';
 import type { Props } from '../interface';
 import _ from 'lodash-es';
 
 export default function useIndex(props: Props, emit: any) {
+    /**
+     * 选中值对应的 label
+     */
+    const selectLabel = ref<string>('');
+
     /**
      * 单选框
      */
@@ -14,11 +19,6 @@ export default function useIndex(props: Props, emit: any) {
      */
     const checkboxValue = ref<(string | number)[]>([]); // 当前复选值
     const lastCheckboxValue = ref<(string | number)[]>([]); // 上一次的复选值
-
-    /**
-     * 选中值对应的 label
-     */
-    const selectLabel = ref<string>('');
 
     /**
      * 渲染组件类型
@@ -79,6 +79,11 @@ export default function useIndex(props: Props, emit: any) {
      * 打开弹出层
      */
     function handlePopupOpen() {
+        // 禁用
+        if (props.schema.attributes?.disabled) {
+            return;
+        }
+
         // 静态赋值时需要二次触发才能拿到数据
         if (!props.schema.api) {
             handleSearchSelect();

@@ -27,7 +27,8 @@ export default function useIndex(props: Props, emit: any) {
      * 打开选择器
      */
     async function handleOpen() {
-        if (props.disabled) {
+        // 禁用
+        if (props?.disabled) {
             return;
         }
 

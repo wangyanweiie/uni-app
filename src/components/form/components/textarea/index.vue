@@ -2,7 +2,7 @@
     <view>
         <u-textarea
             v-model="inputValue"
-            border="none"
+            border="surround"
             placeholder="请输入文本"
             :auto-height="true"
             v-bind="schema.attributes"
@@ -49,7 +49,7 @@ const emit = defineEmits<{
 /**
  * useIndex
  */
-const { inputValue, handleBlur, handleChange } = useIndex(props, emit);
+const { inputValue, handleBlur } = useIndex(props, emit);
 
 /**
  * 暴露的属性与方法

@@ -3,7 +3,7 @@
         <u-input
             v-model="inputValue"
             :focus="focusStatus"
-            border="none"
+            border="surround"
             v-bind="schema?.attributes"
             @focus="handleFocus"
             @blur="handleBlur"
@@ -75,7 +75,7 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
-:deep(.u-input__content) {
-    height: 70rpx;
-}
+// :deep(.u-input__content) {
+//     height: 70rpx;
+// }
 </style>

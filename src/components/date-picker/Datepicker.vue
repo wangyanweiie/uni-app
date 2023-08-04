@@ -101,8 +101,9 @@
                                 hover-class="picker-display-link-active"
                                 :style="{ color }"
                                 @click="onShowTimePicker('begin')"
-                                >{{ BeginTimeTitle }}</view
                             >
+                                {{ BeginTimeTitle }}
+                            </view>
                         </view>
 
                         <view class="picker-display">
@@ -115,8 +116,9 @@
                                 hover-class="picker-display-link-active"
                                 :style="{ color }"
                                 @click="onShowTimePicker('end')"
-                                >{{ EndTimeTitle }}</view
                             >
+                                {{ EndTimeTitle }}
+                            </view>
                         </view>
                     </block>
 
@@ -131,8 +133,9 @@
                                 hover-class="picker-display-link-active"
                                 :style="{ color }"
                                 @click="onShowTimePicker('begin')"
-                                >{{ BeginTimeTitle }}</view
                             >
+                                {{ BeginTimeTitle }}
+                            </view>
                         </view>
                     </block>
                 </view>

@@ -29,6 +29,10 @@ export interface Attributes {
     /** 是否渲染边框 */
     border: 'surround' | 'bottom' | 'none';
 
+    // ============ BaseInput | ScanInput | InputNumber | SearchSelect | DatePicker ============
+    /** 是否只读 */
+    readonly: boolean;
+
     // ============ InputNumber ============
     /** 最小值 */
     min: number;
@@ -156,7 +160,7 @@ export interface Schema {
  */
 export interface XFormProps {
     schemaList: Schema[];
-    labelWidth?: number;
+    labelWidth?: string | number;
 }
 
 /**

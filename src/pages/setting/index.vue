@@ -1,9 +1,15 @@
 <template>
     <view>
         <u-cell-group>
-            <u-cell icon="account" :icon-style="iconStyle" title="账号" size="large" :value="userInfo.account"></u-cell>
             <u-cell
                 icon="account-fill"
+                :icon-style="iconStyle"
+                title="账号"
+                size="large"
+                :value="userInfo.account"
+            ></u-cell>
+            <u-cell
+                icon="account"
                 :icon-style="iconStyle"
                 title="用户名"
                 size="large"
@@ -41,6 +47,7 @@
                 clickable
                 @click="checkUpdate"
             ></u-cell>
+            <u-cell icon="tags" :icon-style="iconStyle" title="API" size="large" :value="userInfo.api"></u-cell>
         </u-cell-group>
 
         <view style="margin: 24rpx">

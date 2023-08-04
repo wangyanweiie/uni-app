@@ -27,6 +27,7 @@ export default function useIndex(props: { schema: Schema; form: Record<string, a
      * 打开选择器
      */
     async function handleOpen() {
+        // 禁用
         if (props.schema?.attributes?.disabled) {
             return;
         }
