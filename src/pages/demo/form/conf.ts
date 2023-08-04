@@ -1,5 +1,6 @@
-import type { Schema } from '@/components/x-form/interface';
-import RequestAPI from '@/api/menu-list';
+import type { Schema } from '@/components/form/interface';
+import MenuListAPI from '@/api/menu-list';
+import RequestAPI from '@/api/demo/index';
 
 /**
  * 表单配置项
@@ -17,8 +18,9 @@ export const schemas: Schema[] = [
     },
     {
         type: 'ScanInput',
-        prop: 'ScanInput',
+        prop: 'cylinderCode',
         label: '扫码框',
+        api: RequestAPI.cylinderInfoScan,
         scanCodeMode: 'commonScanCodeAndClear',
         defaultFocus: true,
         attributes: {
@@ -26,6 +28,15 @@ export const schemas: Schema[] = [
             clearable: true,
         },
         rules: [{ required: true, message: '扫码框不能为空' }],
+        componentProps: ({ value, form, schemas, schema, result }) => {
+            if (result === 'success') {
+                console.log('value', value);
+                console.log('form', form);
+                console.log('schemas', schemas);
+                console.log('schema', schema);
+                console.log('result', result);
+            }
+        },
     },
     {
         type: 'BaseInput',
@@ -80,6 +91,7 @@ export const schemas: Schema[] = [
         attributes: {
             placeholder: 'BaseSelect',
             clearable: true,
+            disabled: true,
         },
         rules: [{ required: true, message: '静态单选下拉框不能为空' }],
     },
@@ -88,19 +100,12 @@ export const schemas: Schema[] = [
         prop: 'BaseSelect2',
         label: '单选下拉框',
         labelField: 'BaseSelect2Label',
-        api: RequestAPI.getUserName,
+        api: MenuListAPI.getUserName,
         attributes: {
             placeholder: 'BaseSelect',
             clearable: true,
         },
         rules: [{ required: true, message: '动态单选下拉框不能为空' }],
-        componentProps: ({ value, form, schemas, schema, result }) => {
-            console.log('value', value);
-            console.log('form', form);
-            console.log('schemas', schemas);
-            console.log('schema', schema);
-            console.log('result', result);
-        },
     },
     {
         type: 'SearchSelect',
@@ -131,7 +136,7 @@ export const schemas: Schema[] = [
         prop: 'SearchSelect2',
         label: '多选下拉框',
         labelField: 'SearchSelect2Label',
-        api: RequestAPI.getUserName,
+        api: MenuListAPI.getUserName,
         attributes: {
             multiple: true,
             placeholder: 'SearchSelect',

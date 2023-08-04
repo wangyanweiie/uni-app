@@ -12,6 +12,8 @@ export interface Options {
 export interface Props {
     /** 双向绑定的值 => 用于展示的 label */
     modelValue: string;
+    /** 边框 */
+    border?: 'surround' | 'bottom' | 'none';
     /** 提示文字 */
     placeholder?: string;
     /** 是否可清空 */

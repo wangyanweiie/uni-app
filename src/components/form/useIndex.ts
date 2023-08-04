@@ -191,6 +191,8 @@ export default function useIndex(props: XFormProps, emit: any) {
      * @param event schema 为回调的表单项，value 是扫码查询后所返回的参数
      */
     async function handleScanSuccess(event: ScanSuccessEvent) {
+        console.log('扫码成功', event);
+
         // 将扫码结果合并到 form 表单
         form.value = {
             ...form.value,
@@ -225,6 +227,8 @@ export default function useIndex(props: XFormProps, emit: any) {
      * @param event schema 为回调的表单项，value 是扫码查询后所返回的参数
      */
     async function handleScanFail(event: ScanFailEvent) {
+        console.log('扫码失败', event);
+
         // 联动回调
         if (event.schema.componentProps) {
             await event.schema.componentProps({

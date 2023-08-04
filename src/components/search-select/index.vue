@@ -32,9 +32,14 @@
             @click="handlePopupOpen"
         >
             <template #suffix>
-                <!-- uviewPlus 标签不支持 .stop，但 view 标签可以 -->
-                <view v-if="selectLabel && clearable && !disabled" class="suffix-wrap" @click.stop="handleClear">
-                    <u-icon name="close-circle-fill" color="#C6C7CB" size="40rpx"></u-icon>
+                <view class="suffix-wrap">
+                    <!-- uviewPlus 标签不支持 .stop，但 view 标签可以 -->
+                    <view v-if="selectLabel && clearable && !disabled" @click.stop="handleClear">
+                        <u-icon name="close-circle-fill" color="#C6C7CB" size="40rpx"></u-icon>
+                    </view>
+                    <view v-else>
+                        <u-icon :name="showPopup ? 'arrow-up' : 'arrow-down'" color="#C6C7CB" size="20rpx"></u-icon>
+                    </view>
                 </view>
             </template>
         </u-input>
@@ -128,7 +133,7 @@ const props = withDefaults(
         /** 双向绑定的值 => 用于展示的 label */
         modelValue: string;
         /** 边框 */
-        border: 'surround' | 'bottom' | 'none';
+        border?: 'surround' | 'bottom' | 'none';
         /** 提示文字 */
         placeholder?: string;
         /** 是否可清空 */
@@ -149,7 +154,7 @@ const props = withDefaults(
     {
         modelValue: '',
         border: 'surround',
-        placeholder: '请点击右侧选择',
+        placeholder: '请选择',
         clearable: false,
         disabled: false,
         multiple: false,
@@ -259,5 +264,6 @@ const {
 
 .suffix-wrap {
     display: flex;
+    align-items: center;
 }
 </style>

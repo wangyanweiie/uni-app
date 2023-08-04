@@ -5,8 +5,6 @@
             :focus="focusStatus"
             border="surround"
             v-bind="schema?.attributes"
-            @focus="handleFocus"
-            @blur="handleBlur"
             @clear="handleClear"
             @confirm="handleConfirm"
         >
@@ -57,8 +55,7 @@ const emit = defineEmits<{
 /**
  * useIndex
  */
-const { inputValue, focusStatus, handleFocus, handleBlur, handleClear, handleConfirm, handlePDAScan, handlePhotoScan } =
-    useIndex(props, emit);
+const { inputValue, focusStatus, handleClear, handleConfirm, handlePDAScan, handlePhotoScan } = useIndex(props, emit);
 
 /**
  * useScan

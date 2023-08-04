@@ -5,7 +5,12 @@
                 <uni-col v-for="item in schemas" :key="item.prop" :span="item.span ?? 24">
                     <!-- 1.分隔线 -->
                     <view v-if="item.type === 'BaseDivider'">
-                        <u-divider v-bind="item?.attributes" :text="item.label"></u-divider>
+                        <u-divider
+                            :text="item.label"
+                            text-color="#2196f3"
+                            text-size="32rpx"
+                            v-bind="item?.attributes"
+                        ></u-divider>
                     </view>
 
                     <!-- 2.标题 -->

@@ -29,6 +29,20 @@ export interface Attributes {
     /** 是否渲染边框 */
     border: 'surround' | 'bottom' | 'none';
 
+    // ============ BaseDivider ============
+    /** 是否虚线 */
+    dashed: boolean;
+    /** 是否细线 */
+    hairline: boolean;
+    /** 文本大小 */
+    textSize: string | number;
+    /** 文本颜色 */
+    textColor: string;
+    /** 内容文本的位置 */
+    textPosition: 'center' | 'left' | 'right';
+    /** 线条颜色 */
+    lineColor: string;
+
     // ============ BaseInput | ScanInput | InputNumber | SearchSelect | DatePicker ============
     /** 是否只读 */
     readonly: boolean;
@@ -125,7 +139,6 @@ export interface Schema {
      * commonScanCodeAndClear 普通扫码模式：扫码成功后返回结果、不重置条码；扫码失败后重置表单
      * continuousScanCode 连续扫码模式：扫码成功后返回结果、并重置条码；扫码失败后不重置表单、并且重新聚焦
      * continuousScanCodeAndClear 连续扫码模式：扫码成功后返回结果、并重置条码；扫码失败后重置表单、并且重新聚焦
-     *
      * onlyResetCode 扫码成功后返回结果、不重置条码；扫码失败只清空条码、并且重新聚焦
      */
     scanCodeMode?:

@@ -179,6 +179,7 @@
                         <view v-for="(v, i) in 60" :key="i">{{ i < 10 ? '0' + i : i }}秒</view>
                     </picker-view-column>
                 </picker-view>
+
                 <view class="picker-modal-footer">
                     <view class="picker-modal-footer-info">
                         <view class="picker-display">

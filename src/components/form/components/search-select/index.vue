@@ -34,13 +34,17 @@
             @click="handlePopupOpen"
         >
             <template #suffix>
-                <!-- uviewPlus 标签不支持 .stop，但 view 标签可以 -->
-                <view
-                    v-if="selectLabel && schema?.attributes?.clearable && !schema?.attributes?.disabled"
-                    class="suffix-wrap"
-                    @click.stop="handleClear"
-                >
-                    <u-icon name="close-circle-fill" color="#C6C7CB" size="40rpx"></u-icon>
+                <view class="suffix-wrap">
+                    <!-- uviewPlus 标签不支持 .stop，但 view 标签可以 -->
+                    <view
+                        v-if="selectLabel && schema?.attributes?.clearable && !schema?.attributes?.disabled"
+                        @click.stop="handleClear"
+                    >
+                        <u-icon name="close-circle-fill" color="#C6C7CB" size="40rpx"></u-icon>
+                    </view>
+                    <view v-else>
+                        <u-icon :name="showPopup ? 'arrow-up' : 'arrow-down'" color="#C6C7CB" size="20rpx"></u-icon>
+                    </view>
                 </view>
             </template>
         </u-input>
@@ -253,5 +257,6 @@ defineExpose({
 
 .suffix-wrap {
     display: flex;
+    align-items: center;
 }
 </style>

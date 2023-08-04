@@ -14,26 +14,6 @@ export default function useIndex(props: Props, emit: any) {
     const focusStatus = ref<boolean>(false);
 
     /**
-     * 输入框聚焦回调
-     */
-    function handleFocus() {
-        focusStatus.value = true;
-    }
-
-    /**
-     * 输入框失焦回调
-     */
-    function handleBlur(e: string | number) {
-        focusStatus.value = false;
-
-        emit('handleEmit', {
-            value: e,
-            schema: props.schema,
-            isClear: e ? false : true,
-        });
-    }
-
-    /**
      * 输入框清空回调
      */
     function handleClear() {
@@ -123,7 +103,7 @@ export default function useIndex(props: Props, emit: any) {
      * @param res 扫码成功后接口返回的值
      */
     function handleScanSuccess(res: RequestObj) {
-        switch (props.schema?.codeScanningMode) {
+        switch (props.schema?.scanCodeMode) {
             case SCAN_MODE.MODE_ONE:
             case SCAN_MODE.MODE_TWO:
             case SCAN_MODE.MODE_FIVE:
@@ -151,7 +131,7 @@ export default function useIndex(props: Props, emit: any) {
      * 查询失败处理
      */
     function handleScanError() {
-        switch (props.schema?.codeScanningMode) {
+        switch (props.schema?.scanCodeMode) {
             case SCAN_MODE.MODE_ONE:
                 emit('handleScanFail', {
                     schema: props.schema,
@@ -270,8 +250,6 @@ export default function useIndex(props: Props, emit: any) {
     return {
         inputValue,
         focusStatus,
-        handleFocus,
-        handleBlur,
         handleClear,
         handleConfirm,
         handlePDAScan,

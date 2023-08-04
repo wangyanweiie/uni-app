@@ -4,17 +4,34 @@
         <view class="uni-stat-box" :class="{ 'uni-stat__active': current }">
             <view class="uni-select" :class="{ 'uni-select--disabled': disabled }">
                 <view class="uni-select__input-box" @click="toggleSelector">
-                    <input
+                    <!-- <input
                         v-model="current"
                         class="uni-select__input-text"
                         :style="{ fontSize: '14px' }"
                         :placeholder="typePlaceholder"
-                        :disabled="disabled"
                         @input="handleFuzzySearch"
                     />
                     <uni-icons v-if="current && clear" type="clear" color="#C6C7CB" size="44rpx" @click="clearVal" />
-                    <uni-icons v-else :type="showSelector ? 'top' : 'bottom'" size="28rpx" color="#999" />
+                    <uni-icons v-else :type="showSelector ? 'top' : 'bottom'" size="28rpx" color="#999" /> -->
+
+                    <u-input
+                        v-model="current"
+                        border="none"
+                        class="uni-select__input-text"
+                        :style="{ fontSize: '14px' }"
+                        :placeholder="typePlaceholder"
+                        :disabled="disabled"
+                        @change="handleFuzzySearch"
+                    ></u-input>
+
+                    <view v-if="current && clear" @click.stop="clearVal">
+                        <u-icon name="close-circle-fill" color="#C6C7CB" size="40rpx"></u-icon>
+                    </view>
+                    <view v-else>
+                        <u-icon :name="showSelector ? 'arrow-up' : 'arrow-down'" color="#C6C7CB" size="20rpx"></u-icon>
+                    </view>
                 </view>
+
                 <view v-if="showSelector" class="uni-select--mask" @click="toggleSelector" />
                 <view v-if="showSelector" class="uni-select__selector">
                     <view class="uni-popper__arrow"></view>
@@ -29,9 +46,16 @@
                             class="uni-select__selector-item"
                             @click="change(item)"
                         >
-                            <text :class="{ 'uni-select__selector__disabled': item.disable }">{{
-                                formatItemName(item)
-                            }}</text>
+                            <text
+                                :class="{ 'uni-select__selector__disabled': item.disable }"
+                                :style="{
+                                    width: '100%',
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'auto',
+                                }"
+                            >
+                                {{ formatItemName(item) }}
+                            </text>
                         </view>
                     </scroll-view>
                 </view>
