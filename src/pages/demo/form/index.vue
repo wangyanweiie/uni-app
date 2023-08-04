@@ -4,6 +4,7 @@
         <x-form ref="formRef" :schema-list="schemas"></x-form>
 
         <view class="button-wrap">
+            <u-button class="button-wrap__item" type="primary" @click="confirmSubmit(STATUS['保存'])"> 保存 </u-button>
             <u-button class="button-wrap__item" type="success" @click="handleSubmit">提交</u-button>
         </view>
     </view>
@@ -11,6 +12,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { schemas } from './conf';
+/**
+ * 保存/提交枚举
+ */
+enum STATUS {
+    '保存' = 1,
+    '提交' = 2,
+}
 
 /**
  * form ref
@@ -38,7 +46,7 @@ async function handleSubmit() {
         content: '是否确认提交？',
         success: res => {
             if (res.confirm) {
-                confirmSubmit();
+                confirmSubmit(STATUS['提交']);
             }
         },
     });
@@ -47,9 +55,12 @@ async function handleSubmit() {
 /**
  * 确认提交
  */
-function confirmSubmit() {
+function confirmSubmit(status: number) {
     // 获取表单数据
     form.value = formRef.value.getForm();
-    console.log('form', form.value);
+    console.log('form', {
+        ...form.value,
+        status,
+    });
 }
 </script>

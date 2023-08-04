@@ -26,7 +26,7 @@
             placeholder="请选择日期"
             prefix-icon="calendar"
             prefix-icon-style="font-size: 40rpx"
-            :readonly="!schema?.attributes?.disabled"
+            readonly
             v-bind="schema?.attributes"
             @click="handleOpen"
         >
@@ -116,10 +116,6 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
-// :deep(.u-input__content) {
-//     height: 70rpx;
-// }
-
 .wrap {
     width: 100%;
     height: 70rpx;

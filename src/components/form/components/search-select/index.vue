@@ -29,7 +29,7 @@
             v-model="selectLabel"
             border="surround"
             placeholder="请选择"
-            :readonly="!schema?.attributes?.disabled"
+            readonly
             v-bind="schema?.attributes"
             @click="handlePopupOpen"
         >
@@ -183,10 +183,6 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-// :deep(.u-input__content) {
-//     height: 70rpx;
-// }
-
 .wrap {
     width: 100%;
 }

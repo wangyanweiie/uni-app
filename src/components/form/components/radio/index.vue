@@ -3,7 +3,6 @@
         <u-radio-group
             v-model="radioValue"
             size="34rpx"
-            label-size="28rpx"
             active-color="#19BE6B"
             placement="row"
             v-bind="schema?.attributes"
@@ -13,6 +12,7 @@
                 :key="index"
                 :label="item.label"
                 :name="item.value"
+                label-size="28rpx"
                 :custom-style="{ marginRight: '40rpx' }"
                 @change="handleChange(item)"
             >

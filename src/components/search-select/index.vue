@@ -25,9 +25,9 @@
         <!-- 输入框禁用样式 -->
         <u-input
             v-model="selectLabel"
+            readonly
             :border="border"
             :placeholder="placeholder"
-            :readonly="!disabled"
             :disabled="disabled"
             @click="handlePopupOpen"
         >

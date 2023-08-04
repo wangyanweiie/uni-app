@@ -1,5 +1,5 @@
 <template>
-    <view class="view-wrap">
+    <view class="form-wrap">
         <u-form ref="formRef" :model="form" :rules="rules" :label-width="labelWidth">
             <uni-row>
                 <uni-col v-for="item in schemas" :key="item.prop" :span="item.span ?? 24">
@@ -122,15 +122,6 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
-// :deep(.u-form-item__body) {
-//     border-bottom: 1px rgb(214, 215, 217) solid;
-// }
-
-// // 影响到 uni-row 的布局
-// :deep(.u-form-item__body__right__message) {
-//     height: 0;
-// }
-
 .base-title {
     font-size: 32rpx;
     width: 100%;

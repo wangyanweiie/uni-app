@@ -25,7 +25,7 @@
                 <uni-tr class="table_header">
                     <template v-for="(headerItem, headerIndex) in tableHeader" :key="headerIndex">
                         <uni-th
-                            :width="headerItem?.width || 150"
+                            :width="headerItem?.width || 120"
                             :align="headerItem?.align || 'center'"
                             :class="['table_header_th']"
                             :style="

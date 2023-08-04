@@ -60,9 +60,3 @@ defineExpose({
     },
 });
 </script>
-
-<style lang="scss" scoped>
-// :deep(.u-input__content) {
-//     height: 70rpx;
-// }
-</style>

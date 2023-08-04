@@ -9,7 +9,7 @@
             @clear="handleClear"
         >
             <template #suffix>
-                <view v-if="schema?.inputSlots" style="display: flex">
+                <view v-if="schema?.inputSlots" class="suffix-wrap">
                     <text v-if="schema?.inputSlots?.renderType === 'text'">{{ schema?.inputSlots?.content }}</text>
                     <u-tag
                         v-else-if="schema?.inputSlots?.renderType === 'tag'"
@@ -74,11 +74,12 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-// :deep(.u-input__content) {
-//     height: 70rpx;
-// }
-
 .wrap {
     height: 70rpx;
+}
+
+.suffix-wrap {
+    display: flex;
+    align-items: center;
 }
 </style>

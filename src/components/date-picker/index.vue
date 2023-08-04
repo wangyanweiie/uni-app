@@ -17,9 +17,9 @@
         <!-- 输入框禁用样式 -->
         <u-input
             v-model="dateValue"
+            readonly
             :border="border"
             :placeholder="placeholder"
-            :readonly="!disabled"
             :disabled="disabled"
             prefix-icon="calendar"
             prefix-icon-style="font-size: 40rpx"
