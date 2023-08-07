@@ -38,6 +38,12 @@
       }
     },
     {
+      "path": "pages/demo/web-view/index",
+      "style": {
+        "navigationBarTitleText": "WebView"
+      }
+    },
+    {
       "path": "pages/index/index",
       "style": {
         "navigationBarTitleText": "首页"

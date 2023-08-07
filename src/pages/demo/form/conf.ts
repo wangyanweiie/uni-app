@@ -7,14 +7,14 @@ import RequestAPI from '@/api/demo/index';
  */
 export const schemas: Schema[] = [
     {
-        type: 'BaseTitle',
-        prop: '',
-        label: 'BaseTitle',
-    },
-    {
         type: 'BaseDivider',
         prop: '',
         label: 'BaseDivider',
+    },
+    {
+        type: 'BaseTitle',
+        prop: '',
+        label: 'BaseTitle',
     },
     {
         type: 'ScanInput',

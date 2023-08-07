@@ -23,4 +23,10 @@ module.exports = [
             navigationBarTitleText: '合并单元格',
         },
     },
+    {
+        path: 'pages/demo/web-view/index',
+        style: {
+            navigationBarTitleText: 'WebView',
+        },
+    },
 ];

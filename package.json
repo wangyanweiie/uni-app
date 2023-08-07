@@ -2,7 +2,7 @@
     "name": "uni-template",
     "version": "1.0.0",
     "scripts": {
-        "serve": "uni",
+        "serve": "concurrently \"uni\" \"node src/script/generateRouter.js\"",
         "serve:cs": "concurrently \"uni --port 3100 --mode cs\" \"node src/script/generateRouter.js\"",
         "dev:app": "uni -p app",
         "dev:app-android": "uni -p app-android",
