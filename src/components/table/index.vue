@@ -97,7 +97,7 @@
 
                             <!-- 文本 -->
                             <view v-else>
-                                {{ data?.[header.prop] }}
+                                {{ data?.[header.prop] || header?.placeholder }}
                             </view>
                         </uni-td>
                     </template>

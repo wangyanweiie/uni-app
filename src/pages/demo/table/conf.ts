@@ -62,6 +62,12 @@ export const columnList = [
         width: 200,
     },
     {
+        prop: 'address',
+        label: 'IP地址',
+        placeholder: '/',
+        width: 200,
+    },
+    {
         prop: 'image',
         label: '图片',
         type: 'image',
