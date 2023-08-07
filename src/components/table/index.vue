@@ -23,79 +23,81 @@
             >
                 <!-- 表头行 -->
                 <uni-tr class="table_header">
-                    <template v-for="(headerItem, headerIndex) in tableHeader" :key="headerIndex">
+                    <template v-for="header in tableHeader" :key="header.prop">
                         <uni-th
-                            :width="headerItem?.width || 120"
-                            :align="headerItem?.align || 'center'"
+                            :width="header?.width || 120"
+                            :align="header?.align || 'center'"
                             :class="['table_header_th']"
-                            :style="
-                                handleFixedStyle(
-                                    headerItem?.fixedProps?.direction,
-                                    headerItem?.fixedProps?.distance,
-                                    '#f5f6f8',
-                                )
-                            "
+                            :style="handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#f5f6f8')"
                         >
-                            <text v-if="headerItem?.required" class="table_header_required">*</text>
-                            <text>{{ headerItem.label }}</text>
+                            <text v-if="header?.required" class="table_header_required">*</text>
+                            <text>{{ header.label }}</text>
                         </uni-th>
                     </template>
                 </uni-tr>
 
                 <!-- 表格数据行 -->
                 <uni-tr
-                    v-for="(dataItem, dataIndex) in tableData"
+                    v-for="(data, dataIndex) in tableData"
                     :key="dataIndex"
                     :class="[
                         'table_content',
-                        props.colorField && dataItem[props.colorField] === ROW_COLOR['红色'] ? 'red' : '',
-                        props.colorField && dataItem[props.colorField] === ROW_COLOR['黄色'] ? 'yellow' : '',
+                        props.colorField && data[props.colorField] === ROW_COLOR['红色'] ? 'red' : '',
+                        props.colorField && data[props.colorField] === ROW_COLOR['黄色'] ? 'yellow' : '',
                     ]"
-                    @click="handleRowClick(dataItem)"
+                    @click="handleRowClick(data)"
                 >
-                    <template v-for="(headerItem, headerIndex) in tableHeader" :key="headerIndex">
+                    <template v-for="header in tableHeader" :key="header.prop">
                         <uni-td
-                            :align="headerItem?.align || 'center'"
+                            :align="header?.align || 'center'"
+                            :style="handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#fff')"
                             :class="[
                                 'table_content_td',
-                                headerItem.prop === 'action' ? 'table_content_action' : '',
-                                props.colorField && dataItem[props.colorField] === ROW_COLOR['红色'] ? 'red' : '',
-                                props.colorField && dataItem[props.colorField] === ROW_COLOR['黄色'] ? 'yellow' : '',
+                                props.colorField && data[props.colorField] === ROW_COLOR['红色'] ? 'red' : '',
+                                props.colorField && data[props.colorField] === ROW_COLOR['黄色'] ? 'yellow' : '',
                             ]"
-                            :style="
-                                handleFixedStyle(
-                                    headerItem?.fixedProps?.direction,
-                                    headerItem?.fixedProps?.distance,
-                                    '#fff',
-                                )
-                            "
                         >
                             <!-- 索引列 -->
-                            <view v-if="headerItem?.prop === 'index'">{{ dataIndex + 1 }}</view>
+                            <view v-if="header?.prop === 'index'">{{ dataIndex + 1 }}</view>
 
-                            <!-- 操作列 | slot -->
-                            <view v-else-if="headerItem?.prop === 'action' || headerItem?.type === 'slot'">
-                                <slot :name="`${headerItem.prop}`" :row="dataItem" :index="dataIndex" />
+                            <!-- 操作列 -->
+                            <view v-else-if="header?.prop === 'action'" class="table_content_action">
+                                <slot :name="`${header.prop}`" :row="data" :index="dataIndex" />
                             </view>
 
-                            <!-- 动态渲染 tag -->
-                            <view
-                                v-else-if="
-                                    headerItem.expression?.(dataItem, headerItem) &&
-                                    headerItem.expression?.(dataItem, headerItem) !== 'default'
-                                "
-                            >
+                            <!-- 标签 -->
+                            <view v-else-if="header?.type === 'tag' && header?.expression?.(data, header.prop)">
                                 <u-tag
-                                    :text="dataItem?.[headerItem.prop]"
-                                    :type="headerItem.expression?.(dataItem, headerItem)"
-                                    plain
+                                    :text="header?.expression(data, header.prop)?.text"
+                                    :type="header?.expression(data, header.prop)?.type"
+                                    :plain="true"
+                                    :plain-fill="true"
+                                    size="mini"
                                 >
                                 </u-tag>
                             </view>
 
-                            <!-- 纯文本 -->
+                            <!-- 图片 -->
+                            <view
+                                v-else-if="header?.type === 'image' && header?.expression?.(data, header.prop)"
+                                class="table_content_image"
+                            >
+                                <image
+                                    v-for="(item, index) in header?.expression(data, header.prop)"
+                                    :key="index"
+                                    :src="item"
+                                    @click="handlePreview(item)"
+                                ></image>
+                            </view>
+
+                            <!-- 插槽 -->
+                            <view v-else-if="header?.type === 'slot'">
+                                <slot :name="`${header.prop}`" :row="data" :index="dataIndex" />
+                            </view>
+
+                            <!-- 文本 -->
                             <view v-else>
-                                {{ dataItem?.[headerItem.prop] }}
+                                {{ data?.[header.prop] }}
                             </view>
                         </uni-td>
                     </template>
@@ -210,8 +212,9 @@ const {
     pagination,
     loadData,
     handlePaginationChange,
-    handleFixedStyle,
+    handleFixed,
     validate,
+    handlePreview,
 } = useIndex(props, emit);
 
 /**
@@ -257,6 +260,10 @@ defineExpose({
 
         &_button {
             display: flex;
+
+            :deep(.u-button) {
+                margin: 0 10rpx;
+            }
         }
     }
 
@@ -286,10 +293,27 @@ defineExpose({
                 }
             }
 
+            // 图片
+            &_image {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                image {
+                    width: 60rpx;
+                    height: 60rpx;
+                    margin-right: 10rpx;
+                }
+            }
+
             // 操作列
             &_action {
-                view {
-                    display: flex;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                :deep(.u-button) {
+                    margin: 0 10rpx;
                 }
             }
         }

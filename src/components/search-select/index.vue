@@ -97,13 +97,13 @@
 
                 <view class="button-style">
                     <u-button
-                        type="primary"
+                        type="info"
                         text="取消"
                         :custom-style="buttonStyle"
                         @click="handleButtonCancel"
                     ></u-button>
                     <u-button
-                        type="success"
+                        type="primary"
                         text="确定"
                         :custom-style="buttonStyle"
                         @click="handleButtonConfirm"

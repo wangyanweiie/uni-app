@@ -11,28 +11,12 @@
         >
             <!-- 顶部操作 -->
             <template #operation="{ checkRows }">
-                <u-button type="warning" size="small" :style="{ width: '60px' }" @click="handleClose(checkRows)">
-                    关闭
-                </u-button>
-                <u-button
-                    type="success"
-                    size="small"
-                    :style="{ width: '60px', marginLeft: '10px' }"
-                    @click="handleReview(checkRows)"
-                >
-                    复核
-                </u-button>
-            </template>
-
-            <template #status="{ row }">
-                {{ row.statusName }}
+                <u-button type="error" size="small" @click="handleClose(checkRows)"> 批量删除 </u-button>
             </template>
 
             <!-- 操作列 -->
             <template #action="{ row }">
-                <u-button type="primary" size="small" :style="{ width: '60px' }" @click="handleDelete(row)">
-                    删除
-                </u-button>
+                <u-button type="error" size="small" style="width: 120rpx" @click="handleDelete([row])"> 删除 </u-button>
             </template>
         </x-table>
     </view>
@@ -72,16 +56,9 @@ function handleClose(checkRows: Record<string, any>[]) {
 }
 
 /**
- * 复核
- */
-function handleReview(checkRows: Record<string, any>[]) {
-    console.log('review', checkRows);
-}
-
-/**
  * 删除
  */
-function handleDelete(row: Record<string, any>[]) {
-    console.log('delete', row);
+function handleDelete(rows: Record<string, any>[]) {
+    console.log('delete', rows);
 }
 </script>

@@ -1,3 +1,11 @@
+/**
+ * 状态枚举
+ */
+enum STATUS {
+    '成功' = 1,
+    '失败' = 2,
+}
+
 export const columnList = [
     {
         prop: 'index',
@@ -32,12 +40,34 @@ export const columnList = [
     {
         prop: 'status',
         label: '状态',
-        type: 'slot',
+        type: 'tag',
+        expression: (data: Record<string, any>, prop: string) => {
+            let type: string;
+
+            if (data[prop] === STATUS['成功']) {
+                type = 'success';
+            } else {
+                type = 'error';
+            }
+
+            return {
+                text: STATUS[data[prop]],
+                type,
+            };
+        },
     },
     {
         prop: 'ip',
         label: 'IP',
         width: 200,
+    },
+    {
+        prop: 'image',
+        label: '图片',
+        type: 'image',
+        expression: (data: Record<string, any>, prop: string) => {
+            return ['http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg'];
+        },
     },
     {
         prop: 'action',

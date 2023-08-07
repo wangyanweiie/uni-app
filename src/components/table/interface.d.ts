@@ -10,8 +10,8 @@ export interface HeaderItem {
     width?: number | string;
     /** 居中方式 */
     align?: 'left' | 'center' | 'right';
-    /** 单元格类型 */
-    type?: 'slot';
+    /** 单元格渲染类型 */
+    type?: 'tag' | 'image' | 'slot';
     /** 表头是否渲染必填标识 */
     required?: boolean;
     /** 固定列样式 */
@@ -19,7 +19,8 @@ export interface HeaderItem {
         direction: 'left' | 'right';
         distance?: string;
     };
-    [key: string]: any;
+    /** 渲染标签/图片函数 */
+    expression?: (data: Record<string, any>, prop: string) => any;
 }
 
 /**

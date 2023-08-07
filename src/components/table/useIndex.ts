@@ -200,11 +200,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
      * @param color 背景颜色
      * @returns Partial<FixedStyleFunReturn>
      */
-    function handleFixedStyle(
-        direction: string = '',
-        distance: string = '0',
-        color: string,
-    ): Partial<FixedStyleFunReturn> {
+    function handleFixed(direction: string = '', distance: string = '0', color: string): Partial<FixedStyleFunReturn> {
         switch (direction) {
             case 'left':
                 return {
@@ -260,6 +256,15 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
     }
 
     /**
+     * 图片预览
+     */
+    function handlePreview(url: string) {
+        uni.previewImage({
+            urls: [url],
+        });
+    }
+
+    /**
      * 监听 tableDataProp
      * 静态赋值时需要二次赋值才能拿到数据
      * 导致问题：由于一直监听，嵌套输入框输入时，每输入一个字符都会刷新列表，导致输入框失焦
@@ -301,7 +306,8 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
         pagination,
         loadData,
         handlePaginationChange,
-        handleFixedStyle,
+        handleFixed,
         validate,
+        handlePreview,
     };
 }
