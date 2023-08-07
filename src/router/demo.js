@@ -17,16 +17,4 @@ module.exports = [
             navigationBarTitleText: '表格',
         },
     },
-    {
-        path: 'pages/demo/combine-table/index',
-        style: {
-            navigationBarTitleText: '合并单元格',
-        },
-    },
-    {
-        path: 'pages/demo/web-view/index',
-        style: {
-            navigationBarTitleText: 'WebView',
-        },
-    },
 ];

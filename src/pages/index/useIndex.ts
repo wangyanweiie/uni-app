@@ -29,18 +29,6 @@ export default function useIndex() {
     const menuList = ref<menuItem[]>(
         [
             {
-                label: 'watermark',
-                value: 'watermark',
-                subMenu: [
-                    {
-                        label: 'watermark',
-                        value: 'sycs',
-                        icon: '',
-                        path: '/pages/watermark/index',
-                    },
-                ],
-            },
-            {
                 label: 'demo',
                 value: 'demo',
                 subMenu: [
@@ -62,17 +50,29 @@ export default function useIndex() {
                         icon: '',
                         path: '/pages/demo/table/index',
                     },
+                ],
+            },
+            {
+                label: 'other',
+                value: 'other',
+                subMenu: [
+                    {
+                        label: 'watermark',
+                        value: 'sycs',
+                        icon: '',
+                        path: '/pages/other/watermark/index',
+                    },
                     {
                         label: 'Combine',
                         value: 'Combine',
                         icon: '',
-                        path: '/pages/demo/combine-table/index',
+                        path: '/pages/other/combine-table/index',
                     },
                     {
                         label: 'WebView',
                         value: 'WebView',
                         icon: '',
-                        path: '/pages/demo/web-view/index',
+                        path: '/pages/other/web-view/index',
                     },
                 ],
             },
