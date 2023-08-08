@@ -1,3 +1,5 @@
+import { HeaderItem } from '@/components/table/interface';
+
 /**
  * 状态枚举
  */
@@ -11,9 +13,6 @@ export const columnList = [
         prop: 'index',
         label: '#',
         width: 50,
-        // fixedProps: {
-        //     direction: 'left',
-        // },
     },
     {
         prop: 'addTime',
@@ -41,17 +40,17 @@ export const columnList = [
         prop: 'status',
         label: '状态',
         type: 'tag',
-        expression: (data: Record<string, any>, prop: string) => {
+        expression: (data: Record<string, any>, header: HeaderItem) => {
             let type: string;
 
-            if (data[prop] === STATUS['成功']) {
+            if (data[header.prop] === STATUS['成功']) {
                 type = 'success';
             } else {
                 type = 'error';
             }
 
             return {
-                text: STATUS[data[prop]],
+                text: STATUS[data[header.prop]],
                 type,
             };
         },
@@ -63,15 +62,20 @@ export const columnList = [
     },
     {
         prop: 'address',
-        label: 'IP地址',
-        placeholder: '/',
-        width: 200,
+        label: '地址',
+        expression: (data: Record<string, any>, header: HeaderItem) => {
+            if (data[header.prop]) {
+                return data[header.prop];
+            } else {
+                return '/';
+            }
+        },
     },
     {
         prop: 'image',
         label: '图片',
         type: 'image',
-        expression: (data: Record<string, any>, prop: string) => {
+        expression: (data: Record<string, any>, header: HeaderItem) => {
             return ['http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg'];
         },
     },

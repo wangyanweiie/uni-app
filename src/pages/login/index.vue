@@ -11,7 +11,7 @@
                 <text>UNI-APP</text>
             </view>
 
-            <u-form ref="formRef" :model="form" :rules="rules" label-width="80" class="login__form">
+            <u-form ref="formRef" :model="form" :rules="rules" label-width="120rpx" class="login__form">
                 <u-form-item label="用户名" required prop="account">
                     <u-input
                         v-model="form.account"

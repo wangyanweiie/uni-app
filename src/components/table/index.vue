@@ -66,10 +66,10 @@
                             </view>
 
                             <!-- 标签 -->
-                            <view v-else-if="header?.type === 'tag' && header?.expression?.(data, header.prop)">
+                            <view v-else-if="header?.type === 'tag' && header?.expression?.(data, header)">
                                 <u-tag
-                                    :text="header?.expression(data, header.prop)?.text"
-                                    :type="header?.expression(data, header.prop)?.type"
+                                    :text="header?.expression(data, header)?.text"
+                                    :type="header?.expression(data, header)?.type"
                                     :plain="true"
                                     :plain-fill="true"
                                     size="mini"
@@ -79,11 +79,11 @@
 
                             <!-- 图片 -->
                             <view
-                                v-else-if="header?.type === 'image' && header?.expression?.(data, header.prop)"
+                                v-else-if="header?.type === 'image' && header?.expression?.(data, header)"
                                 class="table_content_image"
                             >
                                 <image
-                                    v-for="(item, index) in header?.expression(data, header.prop)"
+                                    v-for="(item, index) in header?.expression(data, header)"
                                     :key="index"
                                     :src="item"
                                     @click="handlePreview(item)"
@@ -97,7 +97,13 @@
 
                             <!-- 文本 -->
                             <view v-else>
-                                {{ data?.[header.prop] || header?.placeholder }}
+                                <view v-if="header?.expression?.(data, header)">
+                                    {{ header?.expression?.(data, header) }}
+                                </view>
+
+                                <view v-else>
+                                    {{ data?.[header.prop] }}
+                                </view>
                             </view>
                         </uni-td>
                     </template>
@@ -194,7 +200,7 @@ const props = withDefaults(
  * emit
  */
 const emit = defineEmits<{
-    (e: 'handleRowClick', row: Record<string, any>): void;
+    (e: 'rowClick', row: Record<string, any>): void;
 }>();
 
 /**

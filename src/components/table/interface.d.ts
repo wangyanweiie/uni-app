@@ -8,8 +8,6 @@ export interface HeaderItem {
     label: string;
     /** 表格列宽度 */
     width?: number | string;
-    /** 为空时渲染占位值 */
-    placeholder: string | number;
     /** 居中方式 */
     align?: 'left' | 'center' | 'right';
     /** 表头是否渲染必填标识 */
@@ -21,8 +19,8 @@ export interface HeaderItem {
     };
     /** 单元格渲染类型 */
     type?: 'tag' | 'image' | 'slot';
-    /** 渲染标签/图片的数据处理函数 */
-    expression?: (row: Record<string, any>, prop: string) => any;
+    /** 渲染标签/图片/文本格式化的数据处理函数 */
+    expression?: (row: Record<string, any>, header: HeaderItem) => any;
 }
 
 /**

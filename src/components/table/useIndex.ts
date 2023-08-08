@@ -44,7 +44,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
      * @param row 行数据
      */
     function handleRowClick(row: Record<string, any>) {
-        emit('handleRowClick', row);
+        emit('rowClick', row);
     }
 
     /**

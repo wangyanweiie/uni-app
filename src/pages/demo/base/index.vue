@@ -22,7 +22,6 @@
                     date-type="datetime"
                     date-format="YYYY-MM-DD HH:mm:ss"
                     :clearable="true"
-                    :disabled="true"
                     @change="handleDate"
                 ></x-date-picker>
             </u-form-item>
