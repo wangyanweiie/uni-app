@@ -1,5 +1,5 @@
 import { onMounted, ref, onUnmounted } from 'vue';
-import { showToast } from '@/utils/messageTip';
+import { showToast } from '@/utils/uni-message';
 
 export default function useScan(searchCode: (code: string) => void) {
     /**

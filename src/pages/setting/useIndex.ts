@@ -1,16 +1,16 @@
-import { clearToken, getStorage } from '@/utils/uni-storage';
 import { onMounted, ref } from 'vue';
-import { showToast } from '@/utils/messageTip';
-import download from '@/utils/uni-download';
-import RequestAPI from '@/api/login/index';
 import { BASE_URL } from '@/constant/index';
+import download from '@/utils/uni-download';
+import { getStorage, clearStorage } from '@/utils/uni-storage';
+import { clearForage } from '@/utils/localForage';
+import RequestAPI from '@/api/login/index';
 // import checkUpdates from '@/uni_modules/uni-upgrade-center-app/utils/check-update';
 
 export default function useIndex() {
     /**
      * 展示信息
      */
-    const userInfo = ref<any>({
+    const userInfo = ref<Record<string, string>>({
         account: '',
         userName: '',
         roles: '',
@@ -40,6 +40,9 @@ export default function useIndex() {
     function handleChangePassword() {
         uni.navigateTo({
             url: `/pages/setting/change-passward`,
+            success: () => {
+                clearStorage();
+            },
         });
     }
 
@@ -95,7 +98,12 @@ export default function useIndex() {
         const res = await RequestAPI.logout();
 
         if (res) {
-            clearToken();
+            // 清空 localStorage
+            clearStorage();
+
+            // 清空 indexedDB
+            // clearForage();
+
             uni.reLaunch({ url: '/pages/login/index' });
         }
     }
@@ -113,7 +121,7 @@ export default function useIndex() {
         // 获取应用版本
         // #ifdef APP-PLUS
         plus.runtime.getProperty(plus.runtime.appid as string, wgtinfo => {
-            userInfo.value.version = wgtinfo.version;
+            userInfo.value.version = wgtinfo.version as string;
         });
         // #endif
     });

@@ -1,7 +1,8 @@
 import { onMounted, ref } from 'vue';
 import menuAPI from '@/api/menu-list';
 import RequestAPI from '@/api/login/index';
-import { getStorage, saveStorage } from '@/utils/uni-storage';
+import { saveStorage } from '@/utils/uni-storage';
+import { saveForage } from '@/utils/localForage';
 
 import cloud from '@/assets/images/login_cloud.png';
 import order from '@/assets/images/login_order.png';
@@ -18,6 +19,9 @@ interface loginForm {
  * useLogin
  */
 export default function useLogin() {
+    /**
+     * 图片列表
+     */
     const imageList = ref<any>({
         cloud: cloud,
         order: order,
@@ -25,33 +29,27 @@ export default function useLogin() {
         analysis: analysis,
     });
 
+    /**
+     * form ref
+     */
     const formRef = ref();
 
+    /**
+     * 表单
+     */
     const form = ref<loginForm>({
         account: '',
         password: '',
         companyId: '',
     });
 
+    /**
+     * 校验规则
+     */
     const rules = ref({
-        account: [
-            {
-                required: true,
-                message: '用户名不能为空',
-            },
-        ],
-        password: [
-            {
-                required: true,
-                message: '密码不能为空',
-            },
-        ],
-        companyId: [
-            {
-                required: true,
-                message: '组织不能为空',
-            },
-        ],
+        account: [{ required: true, message: '用户名不能为空' }],
+        password: [{ required: true, message: '密码不能为空' }],
+        companyId: [{ required: true, message: '组织不能为空' }],
     });
 
     /**
@@ -90,9 +88,13 @@ export default function useLogin() {
             return;
         }
 
-        // 存储 token 与 用户信息到本地
+        // 存储 token 与 用户信息到 localStorage
         saveStorage('token', res.data.token);
         saveStorage('userInfo', res.data);
+
+        // 存储 token 与 用户信息到 indexedDB
+        // saveForage('token', res.data.token);
+        // saveForage('userInfo', res.data);
 
         // 跳转页面
         uni.switchTab({ url: '/pages/index/index' });

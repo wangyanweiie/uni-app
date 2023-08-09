@@ -25,8 +25,8 @@
                 <uni-tr class="table_header">
                     <template v-for="header in tableHeader" :key="header.prop">
                         <uni-th
-                            :width="header?.width || 120"
-                            :align="header?.align || 'center'"
+                            :width="header?.width ?? 120"
+                            :align="header?.align ?? 'center'"
                             :class="['table_header_th']"
                             :style="handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#f5f6f8')"
                         >
@@ -49,7 +49,7 @@
                 >
                     <template v-for="header in tableHeader" :key="header.prop">
                         <uni-td
-                            :align="header?.align || 'center'"
+                            :align="header?.align ?? 'center'"
                             :style="handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#fff')"
                             :class="[
                                 'table_content_td',
@@ -97,13 +97,7 @@
 
                             <!-- 文本 -->
                             <view v-else>
-                                <view v-if="header?.expression?.(data, header)">
-                                    {{ header?.expression?.(data, header) }}
-                                </view>
-
-                                <view v-else>
-                                    {{ data?.[header.prop] }}
-                                </view>
+                                {{ header?.expression?.(data, header) ?? data?.[header.prop] }}
                             </view>
                         </uni-td>
                     </template>

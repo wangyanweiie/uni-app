@@ -1,7 +1,7 @@
 <template>
     <view class="view-wrap">
         <view>
-            <u-form ref="formRef" :label-width="80" :model="form" :rules="rules">
+            <u-form ref="formRef" label-width="180rpx" :model="form" :rules="rules">
                 <u-form-item label="原密码" required prop="oldPassword"
                     ><u-input v-model="form.oldPassword" type="text" placeholder="请输入用户名"
                 /></u-form-item>

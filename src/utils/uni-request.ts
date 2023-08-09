@@ -1,6 +1,6 @@
-import type { HttpType } from '../interface/http';
-import { clearToken } from './uni-storage';
-import { hideLoading, showLoading, showToast } from './messageTip';
+import type { HttpType } from '@/interface/http';
+import { getStorage, removeStorage } from '@/utils/uni-storage';
+import { hideLoading, showLoading, showToast } from '@/utils/uni-message';
 
 /**
  * 服务地址
@@ -17,7 +17,7 @@ enum CODE_STATUS {
 
 export function HTTP(method: HttpType, url: string, data: any, loading = true) {
     // 获取 token
-    const token = uni.getStorageSync('token');
+    const token = getStorage('token');
 
     if (loading) {
         showLoading('请求中', loading);
@@ -64,7 +64,7 @@ function handleResponse(res: any, resolve: any) {
     } else {
         switch (code) {
             case CODE_STATUS['未登录']:
-                clearToken();
+                removeStorage('token');
 
                 uni.showToast({
                     title: '登录失效，请重新登录',

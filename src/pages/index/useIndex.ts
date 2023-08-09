@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { getStorage } from '@/utils/uni-storage';
 
 interface subMenuItem {
@@ -21,7 +21,7 @@ export default function useIndex() {
     /**
      * 权限数组
      */
-    const authPermission = ref<any[]>(getStorage('userInfo').appPerms || []);
+    const authPermission = getStorage('userInfo')?.appPerms || [];
 
     /**
      * 菜单列表

@@ -1,6 +1,6 @@
 import { ref } from 'vue';
-import { clearToken, getStorage } from '@/utils/uni-storage';
-import { showToast } from '@/utils/messageTip';
+import { getStorage, clearStorage } from '@/utils/uni-storage';
+import { showToast } from '@/utils/uni-message';
 import RequestAPI from '@/api/login/index';
 
 interface changePasswordForm {
@@ -79,7 +79,7 @@ export default function useChangePassword() {
             showToast('修改成功');
 
             setTimeout(() => {
-                clearToken();
+                clearStorage();
                 uni.navigateTo({ url: '/pages/login/index' });
             }, 1000);
         }

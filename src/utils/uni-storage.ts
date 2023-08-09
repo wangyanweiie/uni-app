@@ -22,13 +22,12 @@ export function getStorage(key: string) {
  * @returns
  */
 export function removeStorage(key: string) {
-    return uni.removeStorageSync(key);
+    uni.removeStorageSync(key);
 }
 
 /**
- * 清除TOKEN
- * @param {string} tokenKey token key值
+ * 全部清除
  */
-export function clearToken(tokenKey = 'token') {
-    uni.setStorageSync(tokenKey, null);
+export function clearStorage() {
+    uni.clearStorageSync();
 }
