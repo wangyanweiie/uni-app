@@ -57,14 +57,14 @@ export interface XTableProp {
     apiParams: Record<string, string | number>;
     /** 请求接口字段映射 */
     apiKeyMap: Partial<APIKeyMap>;
+    /** 是否为分页格式 */
+    dividePage: boolean;
     /** 分页设置 */
     paginationProp: Record<string, number>;
     /** 表头列表 */
     tableHeader: HeaderItem[];
     /** 静态表格数据 */
     tableDataProp: Record<string, any>[];
-    /** 是否为分页格式 */
-    dividePage: boolean;
     /** 是否渲染 loading */
     loading: boolean;
     /** 是否可选 */

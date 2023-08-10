@@ -144,14 +144,14 @@ const props = withDefaults(
         apiParams?: Record<string, string | number>;
         /** 请求接口字段映射 */
         apiKeyMap?: APIKeyMap;
+        /** 是否为分页格式 */
+        dividePage?: boolean;
         /** 分页设置 */
         paginationProp?: Record<string, number>;
         /** 表头列表 */
         tableHeader?: HeaderItem[];
         /** 静态表格数据 */
         tableDataProp?: Record<string, any>[];
-        /** 是否为分页格式 */
-        dividePage?: boolean;
         /** 是否渲染 loading */
         loading?: boolean;
         /** 是否可选 */
@@ -176,12 +176,12 @@ const props = withDefaults(
             returnPagesKey: 'pages',
             returnRecordKey: 'records',
         }),
+        dividePage: true,
         paginationProp: () => ({
             pageSize: 10,
         }),
         tableHeader: () => [],
         tableDataProp: () => [],
-        dividePage: true,
         loading: false,
         selectable: false,
         stripe: false,

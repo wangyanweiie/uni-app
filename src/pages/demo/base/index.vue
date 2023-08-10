@@ -25,12 +25,18 @@
                     @change="handleDate"
                 ></x-date-picker>
             </u-form-item>
+            <u-form-item label="图片" required prop="uploads">
+                <x-upload v-model="form.uploads"></x-upload>
+            </u-form-item>
+            <u-form-item label="视频" required prop="videos">
+                <x-upload v-model="form.videos" accept="video"></x-upload>
+            </u-form-item>
         </u-form>
 
         <!-- 二次确认 -->
         <x-modal v-model="show" title="详情" @confirm="confirmSubmit">
             <template #default>
-                <view>哈哈哈哈哈</view>
+                <view>我是详情</view>
             </template>
         </x-modal>
 
@@ -65,6 +71,8 @@ const form = ref<Record<string, any>>({
     hobby: '',
     course: '',
     date: '',
+    uploads: 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
+    videos: 'http://192.168.3.38:9000/lvling/1691669393119why.mp4',
 });
 
 /**
@@ -75,6 +83,8 @@ const rules = ref({
     hobby: [{ required: true, message: '爱好不能为空' }],
     course: [{ required: true, message: '课程不能为空' }],
     date: [{ required: true, message: '日期不能为空' }],
+    uploads: [{ required: true, message: '图片不能为空' }],
+    videos: [{ required: true, message: '视频不能为空' }],
 });
 
 /**
@@ -122,6 +132,13 @@ function handleCourse(e: any) {
  */
 function handleDate(e: any) {
     console.log('date-picker', e);
+}
+
+/**
+ * 预览
+ */
+function handlePreview(e: any) {
+    console.log('preview', e);
 }
 
 /**

@@ -73,7 +73,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
     /**
      * 查询条件
      */
-    const queryParams = ref<Record<string, string | number>>({});
+    const searchData = ref<Record<string, string | number>>({});
 
     /**
      * 分页设置
@@ -92,10 +92,10 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
         clearSelection();
 
         // 保存请求的查询条件，分页时切换页码时作为入参
-        queryParams.value = query;
+        searchData.value = query;
 
         // 更新每页渲染数量
-        pagination.value.pageSize = props.paginationProp?.pageSize || 10;
+        pagination.value.pageSize = props.paginationProp?.pageSize ?? 10;
 
         if (props.api && props.dividePage) {
             // 1.动态赋值，分页接口
@@ -104,8 +104,8 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
             const params = {
                 ...props.apiParams,
                 ...query,
-                [props.apiKeyMap?.queryCurrentPageKey || 'page']: pagination.value.page,
-                [props.apiKeyMap?.queryPageSizeKey || 'limit']: pagination.value.pageSize,
+                [props.apiKeyMap?.queryCurrentPageKey ?? 'page']: pagination.value.page,
+                [props.apiKeyMap?.queryPageSizeKey ?? 'limit']: pagination.value.pageSize,
             };
 
             const res: any = await props.api(params);
@@ -117,16 +117,16 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
 
             // 当在指定页查询时，若查询到的页数 pages 大于零且小于当前所在页 current，则置为第一页重新查询
             if (
-                res.data[props.apiKeyMap?.returnCurrentPageKey || 'current'] >
-                    res.data[props.apiKeyMap?.returnPagesKey || 'pages'] &&
-                res.data[props.apiKeyMap?.returnPagesKey || 'pages'] > 0
+                res.data[props.apiKeyMap?.returnCurrentPageKey ?? 'current'] >
+                    res.data[props.apiKeyMap?.returnPagesKey ?? 'pages'] &&
+                res.data[props.apiKeyMap?.returnPagesKey ?? 'pages'] > 0
             ) {
                 pagination.value.page = 1;
-                loadData(queryParams.value);
+                loadData(searchData.value);
             } else {
-                pagination.value.page = res.data[props.apiKeyMap?.returnCurrentPageKey || 'current'];
-                pagination.value.total = res.data[props.apiKeyMap?.returnTotalKey || 'total'];
-                tableData.value = res.data[props.apiKeyMap?.returnRecordKey || 'records'] || [];
+                pagination.value.page = res.data[props.apiKeyMap?.returnCurrentPageKey ?? 'current'];
+                pagination.value.total = res.data[props.apiKeyMap?.returnTotalKey ?? 'total'];
+                tableData.value = res.data[props.apiKeyMap?.returnRecordKey ?? 'records'] ?? [];
                 tableLoading.value = false;
             }
         } else if (props.api && !props.dividePage) {
@@ -146,7 +146,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
                 return;
             }
 
-            tableData.value = res.data || [];
+            tableData.value = res.data ?? [];
             tableLoading.value = false;
         } else if (!props.api && props.dividePage && props.tableDataProp?.length) {
             // 3.静态赋值，假分页
@@ -186,7 +186,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
         pagination.value.page = e.current;
 
         if (props.api) {
-            loadData(queryParams.value);
+            loadData(searchData.value);
         } else {
             handleFalsePage();
         }
