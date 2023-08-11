@@ -1,19 +1,19 @@
-import Form from '@/components/form/index.vue';
-import Table from '@/components/table/index.vue';
-import Select from '@/components/select/index.vue';
-import SearchSelect from '@/components/search-select/index.vue';
-import DatePicker from '@/components/date-picker/index.vue';
-import Upload from '@/components/upload/index.vue';
-import PrintModal from '@/components/print-modal/index.vue';
-import Modal from '@/components/modal/index.vue';
+import XForm from '@/components/x-form/index.vue';
+import XTable from '@/components/x-table/index.vue';
+import XSelect from '@/components/x-select/index.vue';
+import XSearchSelect from '@/components/x-search-select/index.vue';
+import XDatePicker from '@/components/x-date-picker/index.vue';
+import XUpload from '@/components/x-upload/index.vue';
+import XPrintModal from '@/components/x-print-modal/index.vue';
+import XModal from '@/components/x-modal/index.vue';
 
 export const components = [
-    { name: 'XForm', value: Form },
-    { name: 'XTable', value: Table },
-    { name: 'XSelect', value: Select },
-    { name: 'XSearchSelect', value: SearchSelect },
-    { name: 'XDatePicker', value: DatePicker },
-    { name: 'XUpload', value: Upload },
-    { name: 'XPrintModal', value: PrintModal },
-    { name: 'XModal', value: Modal },
+    { name: 'XForm', value: XForm },
+    { name: 'XTable', value: XTable },
+    { name: 'XSelect', value: XSelect },
+    { name: 'XSearchSelect', value: XSearchSelect },
+    { name: 'XDatePicker', value: XDatePicker },
+    { name: 'XUpload', value: XUpload },
+    { name: 'XPrintModal', value: XPrintModal },
+    { name: 'XModal', value: XModal },
 ];
