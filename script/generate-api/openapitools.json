@@ -6,8 +6,8 @@
         "generators": {
             "v2.0": {
                 "generatorName": "typescript-axios",
-                "output": "./src/api",
-                "inputSpec": "./src/json/api.json",
+                "output": "../../src/api",
+                "inputSpec": "../../src/json/api.json",
                 "templateDir": "./template",
                 "additionalProperties": {
                     "apiPackage": "api",
