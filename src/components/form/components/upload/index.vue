@@ -3,13 +3,13 @@
         <u-upload
             name="upload"
             :file-list="fileList"
-            v-bind="schema?.attributes"
             width="80rpx"
             height="80rpx"
+            v-bind="schema?.attributes"
             @delete="handleDelete"
             @after-read="handleAfterRead"
         >
-            <u-image width="80rpx" height="80rpx" src="./images/photo.png" />
+            <u-image width="60rpx" height="60rpx" src="./images/upload.png" />
         </u-upload>
     </view>
 </template>
@@ -66,5 +66,7 @@ defineExpose({
 <style lang="scss" scoped>
 .wrap {
     height: 70rpx;
+    display: flex;
+    align-items: center;
 }
 </style>

@@ -14,6 +14,16 @@ export default function useIndex(props: Props, emit: any) {
     const uploadValue = ref<string>('');
 
     /**
+     * 是否展示遮罩层
+     */
+    const showOverlay = ref<boolean>(false);
+
+    /**
+     * 当前点击视频路径
+     */
+    const videoUrl = ref<string>('');
+
+    /**
      * @description 读取图片后的处理函数
      * @param e index，name，file
      */
@@ -83,6 +93,41 @@ export default function useIndex(props: Props, emit: any) {
     }
 
     /**
+     * 图片预览
+     */
+    function handleImagePreview(url: string) {
+        uni.previewImage({
+            urls: [url],
+            current: 0,
+        });
+    }
+
+    /**
+     * 视频预览
+     */
+    function handleVideoPreview(url: string) {
+        videoUrl.value = url;
+        showOverlay.value = true;
+    }
+
+    /**
+     * 删除图片/视频
+     */
+    function handleItemDelete(index: number) {
+        uni.showModal({
+            title: '',
+            content: '是否确认删除？',
+            success: res => {
+                if (res.confirm) {
+                    fileList.value.splice(index, 1);
+                    uploadValue.value = fileList.value.map((item: any) => item.url).join(',');
+                    emit('update:modelValue', uploadValue.value);
+                }
+            },
+        });
+    }
+
+    /**
      * @description 用于处理表单赋值或者是默认值，将其转化为可渲染的数据
      * @param params 图片地址
      */
@@ -124,7 +169,12 @@ export default function useIndex(props: Props, emit: any) {
 
     return {
         fileList,
+        showOverlay,
+        videoUrl,
         handleAfterRead,
         handleDelete,
+        handleImagePreview,
+        handleVideoPreview,
+        handleItemDelete,
     };
 }

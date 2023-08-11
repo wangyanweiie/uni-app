@@ -301,7 +301,7 @@ export function usePrint(option: UsePrintOption) {
         // 获取蓝牙可写服务和特征值
         const [err, res] = await to(bluetooth.value?.getWriteableServiceAndCharacteristicList(deviceId));
 
-        if (err || !res) {
+        if (err ?? !res) {
             showToast('获取可写特征值列表失败');
             return false;
         }

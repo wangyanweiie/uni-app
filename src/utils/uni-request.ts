@@ -80,7 +80,7 @@ function handleResponse(res: any, resolve: any) {
             default:
                 // 其余未处理，统一返回未知错误
                 uni.showToast({
-                    title: res.data.message || '未知错误',
+                    title: res.data.message ?? '未知错误',
                     icon: 'none',
                     duration: 2000,
                 });

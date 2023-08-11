@@ -4,6 +4,7 @@
             v-model="inputValue"
             :focus="focusStatus"
             border="surround"
+            placeholder="请扫码/手输"
             v-bind="schema?.attributes"
             @clear="handleClear"
             @confirm="handleConfirm"

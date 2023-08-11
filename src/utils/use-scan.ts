@@ -106,7 +106,7 @@ export default function useScan(searchCode: (code: string) => void) {
 
         console.log('扫码结果:', code, codeType);
 
-        handlePDAScan(code || '');
+        handlePDAScan(code ?? '');
     }
 
     /**

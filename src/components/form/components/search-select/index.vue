@@ -1,30 +1,5 @@
 <template>
     <view class="wrap">
-        <!-- 纯文本展示样式 -->
-        <!-- <view class="content">
-            <view>
-                <view v-if="!selectLabel" class="content-placeholder">
-                    {{ schema?.attributes?.placeholder ?? '请选择' }}
-                </view>
-                <view v-else class="content-text">{{ selectLabel }}</view>
-            </view>
-
-            <view v-if="schema?.attributes?.clearable" class="clear-style">
-                <u-icon name="close-circle-fill" size="40rpx" @click="handleClear"></u-icon>
-            </view>
-
-            <view class="button-style">
-                <u-button
-                    type="primary"
-                    text="选择"
-                    size="small"
-                    :disabled="schema?.attributes?.disabled"
-                    @click="handlePopupOpen"
-                ></u-button>
-            </view>
-        </view> -->
-
-        <!-- 输入框禁用样式 -->
         <u-input
             v-model="selectLabel"
             border="surround"
@@ -185,49 +160,6 @@ defineExpose({
 <style lang="scss" scoped>
 .wrap {
     width: 100%;
-}
-
-.content {
-    width: 100%;
-    height: 70rpx;
-    position: relative;
-
-    .content-placeholder {
-        width: 70%;
-        height: 24px;
-        line-height: 24px;
-        margin: 10rpx 10rpx 0 0;
-        white-space: nowrap;
-        overflow-x: scroll;
-        color: #cccfd6;
-        position: absolute;
-        left: 0;
-    }
-
-    .content-text {
-        width: 70%;
-        height: 24px;
-        line-height: 24px;
-        margin: 10rpx 10rpx 0 0;
-        white-space: nowrap;
-        overflow-x: scroll;
-        position: absolute;
-        left: 0;
-    }
-
-    .clear-style {
-        padding: 6px;
-        position: absolute;
-        right: 120rpx;
-    }
-
-    .button-style {
-        width: 116rpx;
-        display: flex;
-        align-items: center;
-        position: absolute;
-        right: 5rpx;
-    }
 }
 
 .popup {

@@ -6,7 +6,7 @@ export class UniBluetooth {
     CODE_INFO: any;
 
     constructor(options: any = {}) {
-        this.SEND_SIZE = options.sendSize || 200;
+        this.SEND_SIZE = options.sendSize ?? 200;
         this.CODE_INFO = {
             0: '正常',
             10000: '未初始化蓝牙适配器',
@@ -392,7 +392,7 @@ export class UniBluetooth {
 
                                     // 订阅特征值变化
                                     // if (characteristic.properties.notify
-                                    //     || characteristic.properties.indicate
+                                    //     ?? characteristic.properties.indicate
                                     // ) {
                                     //     uni.notifyBLECharacteristicValueChange({
                                     //         deviceId,
@@ -482,6 +482,6 @@ export class UniBluetooth {
      * @param { number } code 编码
      */
     transferErrorCode(code: string) {
-        return this.CODE_INFO[`${code}`] || '未知错误';
+        return this.CODE_INFO[`${code}`] ?? '未知错误';
     }
 }

@@ -1,12 +1,6 @@
 <template>
     <view class="radio-style">
-        <u-radio-group
-            v-model="radioValue"
-            size="34rpx"
-            active-color="#19BE6B"
-            placement="row"
-            v-bind="schema?.attributes"
-        >
+        <u-radio-group v-model="radioValue" size="34rpx" placement="row" v-bind="schema?.attributes">
             <u-radio
                 v-for="(item, index) in radioList"
                 :key="index"

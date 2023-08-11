@@ -148,15 +148,15 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
 
             tableData.value = res.data ?? [];
             tableLoading.value = false;
-        } else if (!props.api && props.dividePage && props.tableDataProp?.length) {
+        } else if (!props.api && props.dividePage && props.data?.length) {
             // 3.静态赋值，假分页
             pagination.value.page = 1;
-            pagination.value.total = props.tableDataProp.length;
-            tableData.value = props.tableDataProp.slice(0, pagination.value.pageSize);
-        } else if (!props.api && !props.dividePage && props.tableDataProp?.length) {
+            pagination.value.total = props.data.length;
+            tableData.value = props.data.slice(0, pagination.value.pageSize);
+        } else if (!props.api && !props.dividePage && props.data?.length) {
             // 4.静态赋值，不渲染分页
             pagination.value.pageSize = -1;
-            tableData.value = props.tableDataProp;
+            tableData.value = props.data;
         } else {
             // 5.置空，不渲染分页
             pagination.value.pageSize = -1;
@@ -173,9 +173,9 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
     function handleFalsePage(): void {
         const skipNum: number = (pagination.value.page - 1) * pagination.value.pageSize;
         tableData.value =
-            skipNum + pagination.value.page >= props.tableDataProp!.length
-                ? props.tableDataProp!.slice(skipNum, props.tableDataProp!.length)
-                : props.tableDataProp!.slice(skipNum, skipNum + pagination.value.pageSize);
+            skipNum + pagination.value.page >= props.data!.length
+                ? props.data!.slice(skipNum, props.data!.length)
+                : props.data!.slice(skipNum, skipNum + pagination.value.pageSize);
     }
 
     /**
@@ -261,17 +261,18 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
     function handlePreview(url: string) {
         uni.previewImage({
             urls: [url],
+            current: 0,
         });
     }
 
     /**
-     * 监听 tableDataProp
+     * 监听 data
      * 静态赋值时需要二次赋值才能拿到数据
      * 导致问题：由于一直监听，嵌套输入框输入时，每输入一个字符都会刷新列表，导致输入框失焦
      * 解决办法：暂时通过在指定页面手动调用 loadData 进行二次赋值
      */
-    // const stopWatchTableDataProp = watch(
-    //     () => props.tableDataProp,
+    // const stopWatchdata = watch(
+    //     () => props.data,
     //     (newValue: Record<string, any>[]) => {
     //         loadData({});
     //     },
@@ -291,7 +292,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
      * 页面卸载
      */
     // onUnmounted(() => {
-    //     stopWatchTableDataProp();
+    //     stopWatchdata();
     // });
 
     return {

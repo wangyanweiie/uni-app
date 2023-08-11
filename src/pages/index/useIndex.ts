@@ -21,7 +21,7 @@ export default function useIndex() {
     /**
      * 权限数组
      */
-    const authPermission = getStorage('userInfo')?.appPerms || [];
+    const authPermission = getStorage('userInfo')?.appPerms ?? [];
 
     /**
      * 菜单列表
@@ -84,7 +84,7 @@ export default function useIndex() {
         //             return sub.value.some(val => authPermission.value.includes(val));
         //         }
 
-        //         return authPermission.value.includes(sub.value || menu.value);
+        //         return authPermission.value.includes(sub.value ?? menu.value);
         //     }),
         // }))
         // .filter(menu => menu.subMenu.length > 0),

@@ -8,7 +8,7 @@
             </view>
 
             <view v-if="clearable" class="clear-style">
-                <u-icon name="close-circle-fill" size="40rpx" @click="handleClear"></u-icon>
+                <u-icon name="close-circle-fill" size="40rpx" color="#C6C7CB" @click="handleClear"></u-icon>
             </view>
 
             <view class="button-style">

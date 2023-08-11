@@ -151,7 +151,7 @@ const props = withDefaults(
         /** 表头列表 */
         tableHeader?: HeaderItem[];
         /** 静态表格数据 */
-        tableDataProp?: Record<string, any>[];
+        data?: Record<string, any>[];
         /** 是否渲染 loading */
         loading?: boolean;
         /** 是否可选 */
@@ -181,7 +181,7 @@ const props = withDefaults(
             pageSize: 10,
         }),
         tableHeader: () => [],
-        tableDataProp: () => [],
+        data: () => [],
         loading: false,
         selectable: false,
         stripe: false,

@@ -20,6 +20,7 @@ export interface Options {
  * schema 其他属性类型
  */
 export interface Attributes {
+    // ============ 所有组件共用属性 ============
     /** 提示文字 */
     placeholder: string;
     /** 是否禁用 */
@@ -28,20 +29,6 @@ export interface Attributes {
     clearable: boolean;
     /** 是否渲染边框 */
     border: 'surround' | 'bottom' | 'none';
-
-    // ============ BaseDivider ============
-    /** 是否虚线 */
-    dashed: boolean;
-    /** 是否细线 */
-    hairline: boolean;
-    /** 文本大小 */
-    textSize: string | number;
-    /** 文本颜色 */
-    textColor: string;
-    /** 内容文本的位置 */
-    textPosition: 'center' | 'left' | 'right';
-    /** 线条颜色 */
-    lineColor: string;
 
     // ============ BaseInput | ScanInput | InputNumber | SearchSelect | DatePicker ============
     /** 是否只读 */
@@ -57,15 +44,48 @@ export interface Attributes {
     /** 是否强制保留精度  */
     keepPrecision: boolean;
 
-    // ============ BaseDatePicker ============
+    // ============ DatePicker ============
     /** 日期类型 */
     dateType: 'time' | 'date' | 'datetime';
     /** 日期组件处理格式 */
     dateFormat: 'YYYY-MM-DD HH' | 'YYYY-MM-DD HH:mm' | 'YYYY-MM-DD HH:mm:ss';
 
-    // ============ SearchSelect ============
+    // ============ SearchSelect | BaseUpload ============
     /** 是否多选 */
     multiple: boolean;
+
+    // ============ BaseDivider ============
+    /** 是否虚线 */
+    dashed: boolean;
+    /** 是否细线 */
+    hairline: boolean;
+    /** 文本大小 */
+    textSize: string | number;
+    /** 文本颜色 */
+    textColor: string;
+    /** 内容文本的位置 */
+    textPosition: 'center' | 'left' | 'right';
+    /** 线条颜色 */
+    lineColor: string;
+
+    // ============ BaseUpload ============
+    /** 最大上传数量 */
+    maxCount: number;
+    /** 是否展示缩略图 */
+    previewImage: boolean;
+    /** 是否展示内部预览图 */
+    previewFullImage: boolean;
+    /** 内部预览图宽度 */
+    width: string | number;
+    /** 内部预览图高度 */
+    height: string | number;
+    /** 是否可删除 */
+    deletable: boolean;
+    /** 接收文件的类型，只有微信小程序支持 'media' | 'all'，H5页面支持 'file' */
+    // accept: 'all' | 'media' | 'file' | 'image' | 'video';
+    accept: 'image' | 'video';
+    /** 图片或视频拾取模式 */
+    capture: ['album'] | ['camera'] | ['album', 'camera'];
 
     [key: string]: any;
 }
