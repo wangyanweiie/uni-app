@@ -15,7 +15,7 @@
                         v-if="deletable && !disabled"
                         name="close-circle-fill"
                         size="30rpx"
-                        color="#C6C7CB"
+                        color="#373737"
                         class="preview__item__icon"
                         @click="handleItemDelete(index)"
                     ></u-icon>
@@ -33,7 +33,7 @@
                         v-if="deletable && !disabled"
                         name="close-circle-fill"
                         size="30rpx"
-                        color="#C6C7CB"
+                        color="#373737"
                         class="preview__item__icon"
                         @click="handleItemDelete(index)"
                     ></u-icon>
@@ -174,14 +174,13 @@ defineExpose({
 
     .preview {
         max-width: 450rpx;
-        margin-right: 10rpx;
         overflow-x: auto;
         display: flex;
 
         &__item {
             width: 80rpx;
             height: 80rpx;
-            margin-right: 10rpx;
+            margin: 0 16rpx 16rpx 0;
             position: relative;
 
             &__video,
@@ -216,14 +215,5 @@ defineExpose({
             transform: translate(-50%, -50%);
         }
     }
-}
-
-:deep(.u-upload__button) {
-    margin: 0;
-}
-
-:deep(.u-upload__wrap__other) {
-    width: 80rpx;
-    height: 80rpx;
 }
 </style>

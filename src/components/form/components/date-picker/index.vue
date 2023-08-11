@@ -4,8 +4,6 @@
             v-model="dateValue"
             border="surround"
             placeholder="请选择日期"
-            prefix-icon="calendar"
-            prefix-icon-style="font-size: 40rpx"
             readonly
             v-bind="schema?.attributes"
             @click="handleOpen"
@@ -18,6 +16,9 @@
                     @click.stop="handleClear"
                 >
                     <u-icon name="close-circle-fill" color="#C6C7CB" size="40rpx"></u-icon>
+                </view>
+                <view v-else>
+                    <u-icon name="calendar" color="#C6C7CB" size="40rpx"></u-icon>
                 </view>
             </template>
         </u-input>

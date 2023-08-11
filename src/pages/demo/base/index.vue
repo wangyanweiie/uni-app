@@ -33,7 +33,7 @@
             </u-form-item>
         </u-form>
 
-        <!-- 二次确认 -->
+        <!-- 弹窗 -->
         <x-modal v-model="show" title="详情" @confirm="confirmSubmit">
             <template #default>
                 <view>我是详情</view>

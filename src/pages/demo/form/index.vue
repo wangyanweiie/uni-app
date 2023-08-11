@@ -1,7 +1,11 @@
 <template>
     <view class="view-wrap">
         <!-- 表单 -->
-        <x-form ref="formRef" :schema-list="schemas"></x-form>
+        <x-form ref="formRef" :schema-list="schemas">
+            <template #BaseUpload2="{ form: formData }">
+                <x-upload v-model="formData.BaseUpload2" accept="video"></x-upload>
+            </template>
+        </x-form>
 
         <view class="button-wrap">
             <u-button class="button-wrap__item" type="primary" @click="confirmSubmit(STATUS['保存'])"> 保存 </u-button>

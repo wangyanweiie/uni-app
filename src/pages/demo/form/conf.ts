@@ -24,7 +24,6 @@ export const schemas: Schema[] = [
         scanCodeMode: 'commonScanCodeAndClear',
         defaultFocus: true,
         attributes: {
-            placeholder: 'ScanInput',
             clearable: true,
         },
         rules: [{ required: true, message: '扫码框不能为空' }],
@@ -40,72 +39,47 @@ export const schemas: Schema[] = [
     },
     {
         type: 'BaseInput',
-        prop: 'BaseInput1',
-        label: '基础输入框1',
+        prop: 'BaseInput',
+        label: '基础输入框',
         attributes: {
             placeholder: '自动生成',
-            disabled: true,
         },
-        rules: [{ required: true, message: '基础输入框1不能为空' }],
-    },
-    {
-        type: 'BaseInput',
-        prop: 'BaseInput2',
-        label: '基础输入框2',
-        attributes: {
-            clearable: true,
-        },
-        rules: [{ required: true, message: '基础输入框2不能为空' }],
+        rules: [{ required: true, message: '基础输入框不能为空' }],
     },
     {
         type: 'BaseRadio',
-        prop: 'BaseRadio1',
-        label: '单选框1',
+        prop: 'BaseRadio',
+        label: '单选框',
         options: [
             { label: '男', value: 1 },
             { label: '女', value: 2 },
         ],
         attributes: {
             placeholder: '自动生成',
-            disabled: true,
         },
-        rules: [{ required: true, message: '单选框1不能为空' }],
-    },
-    {
-        type: 'BaseRadio',
-        prop: 'BaseRadio2',
-        label: '单选框2',
-        options: [
-            { label: '男', value: 1 },
-            { label: '女', value: 2 },
-        ],
-        rules: [{ required: true, message: '单选框2不能为空' }],
+        rules: [{ required: true, message: '单选框不能为空' }],
     },
     {
         type: 'InputNumber',
-        prop: 'InputNumber1',
-        label: '数字输入框1',
-        attributes: {
-            min: 1,
-            max: 100,
-            precision: 5,
-            placeholder: '自动生成',
-            disabled: true,
-        },
-        rules: [{ required: true, message: '数字输入框不能为空' }],
-    },
-    {
-        type: 'InputNumber',
-        prop: 'InputNumber2',
-        label: '数字输入框2',
+        prop: 'InputNumber',
+        label: '数字输入框',
         attributes: {
             min: 1,
             max: 100,
             precision: 5,
             keepPrecision: true,
-            clearable: true,
+            placeholder: '自动生成',
         },
         rules: [{ required: true, message: '数字输入框不能为空' }],
+    },
+    {
+        type: 'BaseTextarea',
+        prop: 'BaseTextarea',
+        label: '文本输入框',
+        attributes: {
+            placeholder: '自动生成',
+        },
+        rules: [{ required: true, message: '文本输入框不能为空' }],
     },
     {
         type: 'BaseSelect',
@@ -121,7 +95,6 @@ export const schemas: Schema[] = [
         ],
         attributes: {
             placeholder: '自动生成',
-            disabled: true,
         },
         rules: [{ required: true, message: '静态单选下拉框不能为空' }],
     },
@@ -132,6 +105,7 @@ export const schemas: Schema[] = [
         labelField: 'BaseSelect2Label',
         api: MenuListAPI.getUserName,
         attributes: {
+            placeholder: '自动生成',
             clearable: true,
         },
         rules: [{ required: true, message: '动态单选下拉框不能为空' }],
@@ -155,7 +129,6 @@ export const schemas: Schema[] = [
         attributes: {
             placeholder: '自动生成',
             multiple: true,
-            disabled: true,
         },
         rules: [{ required: true, message: '静态多选下拉框不能为空' }],
     },
@@ -166,6 +139,7 @@ export const schemas: Schema[] = [
         labelField: 'SearchSelect2Label',
         api: MenuListAPI.getUserName,
         attributes: {
+            placeholder: '自动生成',
             multiple: true,
             clearable: true,
         },
@@ -176,9 +150,8 @@ export const schemas: Schema[] = [
         prop: 'DatePicker1',
         label: '日期选择框1',
         attributes: {
-            dateType: 'date',
             placeholder: '自动生成',
-            disabled: true,
+            dateType: 'date',
         },
         rules: [{ required: true, message: '日期选择框不能为空' }],
     },
@@ -187,6 +160,7 @@ export const schemas: Schema[] = [
         prop: 'DatePicker2',
         label: '日期选择框2',
         attributes: {
+            placeholder: '自动生成',
             dateType: 'datetime',
             dateFormat: 'YYYY-MM-DD HH:mm:ss',
             clearable: true,
@@ -194,16 +168,15 @@ export const schemas: Schema[] = [
         rules: [{ required: true, message: '日期选择框不能为空' }],
     },
     {
-        type: 'BaseTextarea',
-        prop: 'BaseTextarea',
-        label: '文本输入框',
-        rules: [{ required: true, message: '文本输入框不能为空' }],
+        type: 'BaseUpload',
+        prop: 'BaseUpload1',
+        label: '图片',
+        rules: [{ required: true, message: '图片不能为空' }],
     },
     {
-        type: 'BaseUpload',
-        prop: 'BaseUpload',
-        label: '上传',
-        fileList: [],
-        rules: [{ required: true, message: '上传不能为空' }],
+        type: 'FormSlot',
+        prop: 'BaseUpload2',
+        label: '视频',
+        rules: [{ required: true, message: '视频不能为空' }],
     },
 ];

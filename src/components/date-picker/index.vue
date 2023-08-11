@@ -21,14 +21,15 @@
             :border="border"
             :placeholder="placeholder"
             :disabled="disabled"
-            prefix-icon="calendar"
-            prefix-icon-style="font-size: 40rpx"
             @click="handleOpen"
         >
             <template #suffix>
                 <!-- uviewPlus 标签不支持 .stop，但 view 标签可以 -->
                 <view v-if="dateValue && clearable && !disabled" class="suffix-wrap" @click.stop="handleClear">
                     <u-icon name="close-circle-fill" color="#C6C7CB" size="40rpx"></u-icon>
+                </view>
+                <view v-else>
+                    <u-icon name="calendar" color="#C6C7CB" size="40rpx"></u-icon>
                 </view>
             </template>
         </u-input>
