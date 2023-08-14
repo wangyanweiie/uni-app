@@ -1,14 +1,6 @@
 import { nextTick, onBeforeMount, ref } from 'vue';
 import { handleValue, handleLabelAndValue } from './handleForm';
-import type {
-    Schema,
-    XFormProps,
-    EmitEvent,
-    SelectEvent,
-    DatePickerEvent,
-    ScanSuccessEvent,
-    ScanFailEvent,
-} from './interface';
+import type { Schema, XFormProps, EmitEvent, SelectEvent, ScanSuccessEvent, ScanFailEvent } from './interface';
 
 /**
  * useIndex
@@ -20,14 +12,6 @@ export default function useIndex(props: XFormProps, emit: any) {
      * 配置表单列表
      */
     const schemas = ref<Schema[]>(props.schemaList);
-
-    /**
-     * 表单项样式
-     */
-    const schemaStyle = ref<Record<string, string | number>>({
-        width: '100%',
-        margin: 0,
-    });
 
     /**
      * 表单 ref
@@ -321,7 +305,6 @@ export default function useIndex(props: XFormProps, emit: any) {
 
     return {
         schemas,
-        schemaStyle,
         formRef,
         form,
         rules,

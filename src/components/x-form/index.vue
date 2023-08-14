@@ -21,7 +21,7 @@
                     <!-- 3.插槽 -->
                     <slot v-if="item.type === 'Slot'" :name="item.prop" :form="form" :schema="item"> </slot>
 
-                    <!-- 2.表单子项 -->
+                    <!-- 4.表单子项 -->
                     <u-form-item
                         v-if="!item.hidden && item.prop"
                         :key="item.prop"
@@ -39,7 +39,6 @@
                             :ref="(el: unknown) => handleCompInstance(el, item.prop)"
                             :schema="item"
                             :form="form"
-                            :style="schemaStyle"
                             @handle-emit="handleEmit"
                             @handle-select="handleSelect"
                             @handle-scan-success="handleScanSuccess"
@@ -89,7 +88,6 @@ const emit = defineEmits<{
  */
 const {
     schemas,
-    schemaStyle,
     formRef,
     form,
     rules,

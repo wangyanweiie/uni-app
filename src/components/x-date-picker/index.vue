@@ -1,20 +1,5 @@
 <template>
     <view class="wrap">
-        <!-- 纯文本展示样式 -->
-        <!-- <view class="content">
-            <view class="content__left" @click="handleOpen">
-                <view v-if="dateValue">{{ dateValue }}</view>
-                <view v-else class="content__left__placeholder">
-                    {{ placeholder }}
-                </view>
-            </view>
-
-            <view class="content__right">
-                <u-icon v-if="clearable" name="close-circle-fill" size="40rpx" @click="handleClear"></u-icon>
-            </view>
-        </view> -->
-
-        <!-- 输入框禁用样式 -->
         <u-input
             v-model="dateValue"
             readonly
@@ -114,22 +99,6 @@ const {
 <style lang="scss" scoped>
 .wrap {
     width: 100%;
-    height: 70rpx;
-}
-
-.content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 70rpx;
-
-    &__left {
-        width: 100%;
-
-        &__placeholder {
-            color: #cccfd6;
-        }
-    }
 }
 
 .suffix-wrap {

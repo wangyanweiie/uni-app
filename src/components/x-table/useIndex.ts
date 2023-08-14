@@ -193,7 +193,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
     }
 
     /**
-     * FIXME: 虽然实现了需求，但方式不可行
+     * FIXME: 虽然实现了需求，但方式不可行，待优化
      * @description 设置固定列样式
      * @param direction 固定方向
      * @param distance 固定距离

@@ -135,7 +135,7 @@ export default function useIndex(props: Props, emit: any) {
 
     /**
      * 手动更新渲染 DOM
-     * FIXME: 解决 "单选过滤后选择 - 清空过滤条件 - 相同位置会出现假选中状态" 的问题
+     * 解决 "单选过滤后选择 - 清空过滤条件 - 相同位置会出现假选中状态" 的问题
      */
     function handleUpdateDom() {
         selectType.value = '';
@@ -169,7 +169,7 @@ export default function useIndex(props: Props, emit: any) {
 
     /**
      * 整合复选数据
-     * FIXME: 解决直接赋值会导致：勾选 -- 过滤 -- 再次勾选，会清空过滤前已选中值的问题
+     * 解决直接赋值会导致：勾选 -- 过滤 -- 再次勾选，会清空过滤前已选中值的问题
      */
     function mergeChecked(e: (number | string)[]) {
         const filterList = delIntersection(lastCheckboxValue.value, e);

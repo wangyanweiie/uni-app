@@ -65,7 +65,7 @@ defineExpose({
 </script>
 <style lang="scss" scoped>
 .wrap {
-    height: 70rpx;
+    width: 100%;
     display: flex;
     align-items: center;
 }

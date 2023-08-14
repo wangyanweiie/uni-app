@@ -1,12 +1,14 @@
 <template>
-    <data-select
-        v-model="myModelValue"
-        :localdata="dataSource"
-        :placeholder="placeholder"
-        :disabled="disabled"
-        :clear="clearable"
-        @change="handleChange"
-    ></data-select>
+    <view class="wrap">
+        <data-select
+            v-model="myModelValue"
+            :localdata="dataSource"
+            :placeholder="placeholder"
+            :disabled="disabled"
+            :clear="clearable"
+            @change="handleChange"
+        ></data-select>
+    </view>
 </template>
 
 <script lang="ts" setup>
@@ -134,3 +136,8 @@ defineExpose({
     loadData,
 });
 </script>
+<style lang="scss" scoped>
+.wrap {
+    width: 100%;
+}
+</style>

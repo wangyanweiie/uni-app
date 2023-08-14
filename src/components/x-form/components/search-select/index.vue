@@ -38,8 +38,8 @@
                     @clear="handleSearchClear"
                 ></u-search>
 
+                <!-- 选择框 -->
                 <view v-if="showList.length" class="select-style">
-                    <!-- 单选 -->
                     <view v-if="selectType === 'radio'">
                         <u-radio-group v-model="radioValue" placement="column" @change="handleRadioChange">
                             <u-radio
@@ -56,7 +56,6 @@
                         </u-radio-group>
                     </view>
 
-                    <!-- 复选 -->
                     <view v-if="selectType === 'checkbox'">
                         <u-checkbox-group v-model="checkboxValue" placement="column" @change="handleCheckChange">
                             <u-checkbox

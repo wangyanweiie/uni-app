@@ -147,9 +147,16 @@ export interface Schema {
     hidden?: boolean;
     /** 表单校验 */
     rules?: Rules[];
-
-    /** 插槽 */
-    inputSlots?: InputSlots;
+    /** 查询接口 */
+    api?: (params: Record<string, any>) => Promise<any>;
+    /** 查询接口入参 */
+    apiParams?: Record<string, any>;
+    /** 静态下拉列表 */
+    options?: Options[];
+    /** 用于保存下拉 label 字段 */
+    labelField?: string;
+    /** 图片列表 */
+    fileList?: Record<string, any>[];
     /** 其他属性 */
     attributes?: Partial<Attributes>;
 
@@ -167,23 +174,10 @@ export interface Schema {
         | 'continuousScanCode'
         | 'continuousScanCodeAndClear'
         | 'onlyResetCode';
-
-    /** 静态下拉列表 */
-    options?: Options[];
-    /** 图片列表 */
-    fileList?: Record<string, any>[];
-
-    // ============ BaseSelect | ScanInput ============
-    /** 查询接口 */
-    api?: (params: Record<string, any>) => Promise<any>;
-    /** 查询接口入参 */
-    apiParams?: Record<string, any>;
-
-    /** 用于保存下拉 label 字段 */
-    labelField?: string;
     /** 是否默认聚焦 */
     defaultFocus?: boolean;
-
+    /** 插槽 */
+    inputSlots?: InputSlots;
     /** 联动函数 */
     componentProps?: (params: ComponentPropsParams) => Promise<void> | void;
 }
@@ -214,13 +208,6 @@ export interface SelectEvent {
     isClear?: boolean;
 }
 
-/**
- * handleDatePicker 方法参数
- */
-export interface DatePickerEvent {
-    value: string;
-    schema: Schema;
-}
 /**
  * handleScanSuccess 方法参数
  */
