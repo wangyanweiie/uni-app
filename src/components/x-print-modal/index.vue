@@ -1,26 +1,26 @@
 <template>
-    <uni-popup ref="popupRef" type="dialog">
-        <uni-popup-dialog
-            title="附近可用蓝牙列表"
-            cancel-text="取消搜索"
-            confirm-text="确认"
-            :before-close="true"
-            @confirm="confirmPrint"
-            @close="cancelPrint"
-        >
-            <view class="bluetooth-list">
-                <view
-                    v-for="(device, index) in devices"
-                    :key="index"
-                    class="bluetooth-item"
-                    :class="activeClass(device, 'bluetooth-item--active')"
-                    @click="connectBluetooth(device)"
-                >
-                    <text>{{ device.name }}</text>
-                </view>
+    <u-modal
+        :show="show"
+        title="附近可用蓝牙列表牙"
+        show-cancel-button
+        cancel-text="取消搜索"
+        confirm-text="确认"
+        close-on-click-overlay
+        @confirm="confirmPrint"
+        @cancel="cancelPrint"
+    >
+        <view class="bluetooth-list">
+            <view
+                v-for="(device, index) in devices"
+                :key="index"
+                class="bluetooth-item"
+                :class="activeClass(device, 'bluetooth-item--active')"
+                @click="connectBluetooth(device)"
+            >
+                <text>{{ device.name }}</text>
             </view>
-        </uni-popup-dialog>
-    </uni-popup>
+        </view>
+    </u-modal>
 </template>
 
 <script setup lang="ts">
@@ -56,9 +56,9 @@ const emits = defineEmits<{
 }>();
 
 /**
- * 弹窗实例
+ * 弹窗是否展示
  */
-const popupRef = ref();
+const show = ref<boolean>(false);
 
 /**
  * 更新弹窗状态
@@ -66,11 +66,7 @@ const popupRef = ref();
 watch(
     () => props.modelValue,
     (value: boolean) => {
-        if (value) {
-            popupRef.value.open();
-        } else {
-            popupRef.value.close();
-        }
+        show.value = value;
     },
 );
 
@@ -103,7 +99,7 @@ async function confirmPrint(): Promise<void> {
     // 关闭蓝牙
     closeBluetooth();
 
-    popupRef.value.close();
+    show.value = false;
     emits('update:modelValue', false);
 }
 
@@ -117,7 +113,7 @@ async function cancelPrint(): Promise<void> {
     // 关闭蓝牙
     closeBluetooth();
 
-    popupRef.value.close();
+    show.value = false;
     emits('update:modelValue', false);
 }
 </script>

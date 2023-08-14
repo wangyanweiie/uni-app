@@ -3,32 +3,28 @@
         <!-- 缩略图 -->
         <view class="preview">
             <template v-for="(item, index) in fileList" :key="index">
-                <view v-if="item.url?.indexOf('mp4') !== -1" class="preview__item">
+                <view class="preview__item">
+                    <!-- 视频 -->
                     <u-image
+                        v-if="item.url?.indexOf('mp4') !== -1"
                         :width="width"
                         :height="height"
                         src="./images/video.png"
                         class="preview__item__video"
                         @click="handleVideoPreview(item.url)"
                     ></u-image>
-                    <u-icon
-                        v-if="deletable && !disabled"
-                        name="close-circle-fill"
-                        size="30rpx"
-                        color="#373737"
-                        class="preview__item__icon"
-                        @click="handleItemDelete(index)"
-                    ></u-icon>
-                </view>
 
-                <view v-else class="preview__item">
+                    <!-- 图片 -->
                     <u-image
+                        v-else
                         :width="width"
                         :height="height"
                         :src="item.url"
                         class="preview__item__image"
                         @click="handleImagePreview(item.url)"
                     ></u-image>
+
+                    <!-- 删除 -->
                     <u-icon
                         v-if="deletable && !disabled"
                         name="close-circle-fill"
@@ -58,8 +54,9 @@
 
         <!-- 
             上传组件
-            :file-list="fileList" 不可预览视频，故手写预览区；
-            此时传入的 previewImage、previewFullImage 参数不再作用
+            通过 :file-list="fileList" 展示的缩略图不可预览视频，故不再传入 fileList，手写预览区；
+            而且由于不传入 fileList ，超出最大上传数量后上传按钮不再自动隐藏，需要手动隐藏；
+            PS：此时传入的 previewImage、previewFullImage 参数不再起作用；
          -->
         <u-upload
             name="upload"

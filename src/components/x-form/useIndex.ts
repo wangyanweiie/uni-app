@@ -1,5 +1,5 @@
 import { nextTick, onBeforeMount, ref } from 'vue';
-import { handleBaseInput, handleBaseSelect } from './handleForm';
+import { handleValue, handleLabelAndValue } from './handleForm';
 import type {
     Schema,
     XFormProps,
@@ -77,7 +77,7 @@ export default function useIndex(props: XFormProps, emit: any) {
     }
 
     /**
-     * @description 处理个别组件 prop 为空 string、null、或者是 hidden 为 true 等情况 (比如 divider、title 等，他们的 prop 没什么意义)
+     * @description 过滤个别组件 prop 为空 string、null、或者是 hidden 为 true 等情况 (比如 divider、title 等)
      * @param item 表单项配置
      * @return boolean
      */
@@ -117,7 +117,7 @@ export default function useIndex(props: XFormProps, emit: any) {
     }
 
     /**
-     * @description BaseInput | InputNumber | BaseTextarea | BaseUpload | ScanInput | DatePicker 组件回调
+     * @description BaseInput | InputNumber | BaseTextarea | BaseRadio | DatePicker | BaseUpload | ScanInput 组件回调
      * @param event schema 为回调的表单项，value 是回调的值
      */
     async function handleEmit(event: EmitEvent) {
@@ -136,7 +136,7 @@ export default function useIndex(props: XFormProps, emit: any) {
         }
 
         // 将组件值同步到 form 表单
-        handleBaseInput(form.value, event);
+        handleValue(form.value, event);
 
         // 清空或者赋值都要触发联动回调
         if (event.schema.componentProps) {
@@ -157,7 +157,7 @@ export default function useIndex(props: XFormProps, emit: any) {
     }
 
     /**
-     * @description BaseRadio | BaseSelect | SearchSelect 组件回调
+     * @description BaseSelect | SearchSelect 组件回调
      * @param event schema 为回调的表单项，value 是选中的值
      */
     async function handleSelect(event: SelectEvent) {
@@ -166,7 +166,7 @@ export default function useIndex(props: XFormProps, emit: any) {
         }
 
         // 将组件值同步到 form 表单
-        handleBaseSelect(form.value, event);
+        handleLabelAndValue(form.value, event);
 
         // 清空或者赋值都要触发联动回调
         if (event.schema.componentProps) {

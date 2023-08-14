@@ -39,21 +39,31 @@ export default function useIndex(props: { schema: Schema; form: Record<string, a
                 case 'time':
                     // dateValue.value = dayjs(dateValue.value).format('HH:mm:ss');
                     break;
+
                 case 'date':
                     dateValue.value = dayjs(dateValue.value).format('YYYY-MM-DD');
                     break;
+
                 case 'datetime':
                     switch (dateFormat.value) {
                         case 'YYYY-MM-DD HH':
                             dateValue.value = `${dayjs(dateValue.value).format('YYYY-MM-DD HH')}:00:00`;
                             break;
+
                         case 'YYYY-MM-DD HH:mm':
                             dateValue.value = `${dayjs(dateValue.value).format('YYYY-MM-DD HH:mm')}:00`;
                             break;
+
                         case 'YYYY-MM-DD HH:mm:ss':
                             dateValue.value = dayjs(dateValue.value).format('YYYY-MM-DD HH:mm:ss');
                             break;
+
+                        default:
+                            break;
                     }
+                    break;
+
+                default:
                     break;
             }
         } else {
@@ -62,21 +72,31 @@ export default function useIndex(props: { schema: Schema; form: Record<string, a
                 case 'time':
                     dateValue.value = dayjs().format('HH:mm:ss');
                     break;
+
                 case 'date':
                     dateValue.value = dayjs().format('YYYY-MM-DD');
                     break;
+
                 case 'datetime':
                     switch (dateFormat.value) {
                         case 'YYYY-MM-DD HH':
                             dateValue.value = `${dayjs().format('YYYY-MM-DD HH')}:00:00`;
                             break;
+
                         case 'YYYY-MM-DD HH:mm':
                             dateValue.value = `${dayjs().format('YYYY-MM-DD HH:mm')}:00`;
                             break;
+
                         case 'YYYY-MM-DD HH:mm:ss':
                             dateValue.value = dayjs().format('YYYY-MM-DD HH:mm:ss');
                             break;
+
+                        default:
+                            break;
                     }
+                    break;
+
+                default:
                     break;
             }
         }
@@ -97,11 +117,16 @@ export default function useIndex(props: { schema: Schema; form: Record<string, a
                 dateValue.value = e;
                 // dateValue.value = dayjs(e).format('HH:mm:ss');
                 break;
+
             case 'date':
                 dateValue.value = dayjs(e).format('YYYY-MM-DD');
                 break;
+
             case 'datetime':
                 dateValue.value = dayjs(e).format(dateFormat.value);
+                break;
+
+            default:
                 break;
         }
     }

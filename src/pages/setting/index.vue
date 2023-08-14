@@ -47,6 +47,14 @@
                 clickable
                 @click="checkUpdate"
             ></u-cell>
+            <u-cell
+                icon="coupon"
+                :icon-style="iconStyle"
+                title="打印设备"
+                size="large"
+                :value="userInfo.printBrand"
+                @click="checkUpdate"
+            ></u-cell>
             <u-cell icon="tags" :icon-style="iconStyle" title="API" size="large" :value="userInfo.api"></u-cell>
         </u-cell-group>
 

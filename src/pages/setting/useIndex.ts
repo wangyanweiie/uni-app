@@ -14,8 +14,9 @@ export default function useIndex() {
         account: '',
         userName: '',
         roles: '',
-        version: '',
         organizationName: '',
+        version: '',
+        printBrand: '',
         api: '',
     });
 
@@ -114,8 +115,9 @@ export default function useIndex() {
     onMounted(() => {
         userInfo.value.account = getStorage('userInfo')?.account;
         userInfo.value.userName = getStorage('userInfo')?.userName;
-        userInfo.value.organizationName = getStorage('userInfo')?.companyName;
         userInfo.value.roles = getStorage('userInfo')?.roles?.toString();
+        userInfo.value.organizationName = getStorage('userInfo')?.companyName;
+        userInfo.value.printBrand = getStorage('BrandAndLanguage').brand;
         userInfo.value.api = BASE_URL;
 
         // 获取应用版本
