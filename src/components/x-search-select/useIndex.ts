@@ -1,4 +1,4 @@
-import { onMounted, ref, watch, nextTick, onBeforeMount } from 'vue';
+import { onMounted, ref, watchEffect, nextTick, onBeforeMount } from 'vue';
 import _ from 'lodash-es';
 import type { Options, Props } from './interface';
 
@@ -11,19 +11,18 @@ export default function useIndex(props: Props, emit: any) {
     });
 
     /**
-     * 监听 props
-     */
-    watch(
-        () => props.modelValue,
-        newValue => {
-            selectLabel.value = newValue;
-        },
-    );
-
-    /**
      * 双向绑定的值
      */
     const selectLabel = ref<string>('');
+
+    /**
+     * 监听 props
+     */
+    watchEffect(() => {
+        if (props.modelValue) {
+            selectLabel.value = props.modelValue;
+        }
+    });
 
     /**
      * 单选框
@@ -102,35 +101,32 @@ export default function useIndex(props: Props, emit: any) {
         }
 
         // 反显上一次选择的值
-        if (selectLabel.value) {
-            switch (selectType.value) {
-                case 'radio':
-                    sourceList.value.forEach((item: Options) => {
-                        if (item.label === selectLabel.value) {
-                            radioValue.value = item.value;
-                        }
-                    });
-                    break;
-
-                case 'checkbox':
-                    const boxValue: any = [];
-                    sourceList.value.forEach((item: Options) => {
-                        String(selectLabel.value)
-                            .split(',')
-                            .forEach(value => {
-                                if (value === item.label) {
-                                    boxValue.push(item.value);
-                                }
-                            });
-                    });
-                    checkboxValue.value = boxValue;
-                    lastCheckboxValue.value = boxValue;
-                    break;
-            }
-        } else {
+        if (!selectLabel.value) {
             radioValue.value = '';
             checkboxValue.value = [];
             lastCheckboxValue.value = [];
+        } else {
+            if (props.multiple) {
+                const boxValue: any = [];
+                sourceList.value.forEach((item: Options) => {
+                    String(selectLabel.value)
+                        .split(',')
+                        .forEach(value => {
+                            if (value === item.label) {
+                                boxValue.push(item.value);
+                            }
+                        });
+                });
+
+                checkboxValue.value = boxValue;
+                lastCheckboxValue.value = boxValue;
+            } else {
+                sourceList.value.forEach((item: Options) => {
+                    if (item.label === selectLabel.value) {
+                        radioValue.value = item.value;
+                    }
+                });
+            }
         }
 
         showPopup.value = true;
@@ -262,40 +258,30 @@ export default function useIndex(props: Props, emit: any) {
      * 确认选择
      */
     function handleButtonConfirm() {
-        switch (selectType.value) {
-            case 'radio':
-                let label: string = '';
-                sourceList.value.forEach(item => {
-                    if (String(radioValue.value) === String(item.value)) {
-                        label = item.label;
+        if (props.multiple) {
+            const labelList: string[] = [];
+            sourceList.value.forEach(item => {
+                checkboxValue.value.forEach(value => {
+                    if (value === item.value) {
+                        labelList.push(item.label);
                     }
                 });
+            });
 
-                selectLabel.value = label;
-                emit('update:modelValue', selectLabel.value);
-                emit('change', { value: radioValue.value });
+            selectLabel.value = labelList.toString();
+            emit('update:modelValue', selectLabel.value);
+            emit('change', { value: checkboxValue.value });
+        } else {
+            let label: string = '';
+            sourceList.value.forEach(item => {
+                if (String(radioValue.value) === String(item.value)) {
+                    label = item.label;
+                }
+            });
 
-                // console.log('当前选择的单选框 label:', selectLabel.value);
-                // console.log('当前选择的单选框 value:', checkboxValue.value);
-                break;
-
-            case 'checkbox':
-                const labelList: string[] = [];
-                sourceList.value.forEach(item => {
-                    checkboxValue.value.forEach(value => {
-                        if (value === item.value) {
-                            labelList.push(item.label);
-                        }
-                    });
-                });
-
-                selectLabel.value = labelList.toString();
-                emit('update:modelValue', selectLabel.value);
-                emit('change', { value: checkboxValue.value });
-
-                // console.log('当前选择的复选框 label 字符串:', selectLabel.value);
-                // console.log('当前选择的复选框 value 集合:', checkboxValue.value);
-                break;
+            selectLabel.value = label;
+            emit('update:modelValue', selectLabel.value);
+            emit('change', { value: radioValue.value });
         }
 
         handlePopupClose();
@@ -312,7 +298,7 @@ export default function useIndex(props: Props, emit: any) {
      * 页面渲染
      */
     onBeforeMount(() => {
-        // 单选 or 多选
+        // 单选/多选
         if (props.multiple) {
             selectType.value = 'checkbox';
         } else {

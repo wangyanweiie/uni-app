@@ -89,36 +89,33 @@ export default function useIndex(props: Props, emit: any) {
             handleSearchSelect();
         }
 
-        // 只有 label 时也可反显上一次选择的值
-        if (selectLabel.value) {
-            switch (selectType.value) {
-                case 'radio':
-                    sourceList.value.forEach((item: Options) => {
-                        if (item.label === selectLabel.value) {
-                            radioValue.value = item.value;
-                        }
-                    });
-                    break;
-
-                case 'checkbox':
-                    const boxValue: any = [];
-                    sourceList.value.forEach((item: Options) => {
-                        String(selectLabel.value)
-                            .split(',')
-                            .forEach(value => {
-                                if (value === item.label) {
-                                    boxValue.push(item.value);
-                                }
-                            });
-                    });
-                    checkboxValue.value = boxValue;
-                    lastCheckboxValue.value = boxValue;
-                    break;
-            }
-        } else {
+        // 反显上一次选择的值
+        if (!selectLabel.value) {
             radioValue.value = '';
             checkboxValue.value = [];
             lastCheckboxValue.value = [];
+        } else {
+            if (props.schema?.attributes?.multiple) {
+                const boxValue: any = [];
+                sourceList.value.forEach((item: Options) => {
+                    String(selectLabel.value)
+                        .split(',')
+                        .forEach(value => {
+                            if (value === item.label) {
+                                boxValue.push(item.value);
+                            }
+                        });
+                });
+
+                checkboxValue.value = boxValue;
+                lastCheckboxValue.value = boxValue;
+            } else {
+                sourceList.value.forEach((item: Options) => {
+                    if (item.label === selectLabel.value) {
+                        radioValue.value = item.value;
+                    }
+                });
+            }
         }
 
         showPopup.value = true;
@@ -255,40 +252,36 @@ export default function useIndex(props: Props, emit: any) {
      * 确认选择
      */
     function handleConfirm() {
-        switch (selectType.value) {
-            case 'radio':
-                let label: string = '';
-                sourceList.value.forEach((item: Options) => {
-                    if (String(radioValue.value) === String(item.value)) {
-                        label = item.label;
+        if (props.schema?.attributes?.multiple) {
+            const labelList: string[] = [];
+            sourceList.value.forEach((item: Options) => {
+                checkboxValue.value.forEach(value => {
+                    if (value === item.value) {
+                        labelList.push(item.label);
                     }
                 });
-                selectLabel.value = label;
+            });
 
-                emit('handleSelect', {
-                    value: { label: selectLabel.value, value: radioValue.value },
-                    schema: props.schema,
-                    isClear: false,
-                });
-                break;
+            selectLabel.value = labelList.toString();
+            emit('handleSelect', {
+                value: { label: selectLabel.value, value: checkboxValue.value },
+                schema: props.schema,
+                isClear: false,
+            });
+        } else {
+            let label: string = '';
+            sourceList.value.forEach((item: Options) => {
+                if (String(radioValue.value) === String(item.value)) {
+                    label = item.label;
+                }
+            });
 
-            case 'checkbox':
-                const labelList: string[] = [];
-                sourceList.value.forEach((item: Options) => {
-                    checkboxValue.value.forEach(value => {
-                        if (value === item.value) {
-                            labelList.push(item.label);
-                        }
-                    });
-                });
-                selectLabel.value = labelList.toString();
-
-                emit('handleSelect', {
-                    value: { label: selectLabel.value, value: checkboxValue.value },
-                    schema: props.schema,
-                    isClear: false,
-                });
-                break;
+            selectLabel.value = label;
+            emit('handleSelect', {
+                value: { label: selectLabel.value, value: radioValue.value },
+                schema: props.schema,
+                isClear: false,
+            });
         }
 
         handlePopupClose();
@@ -338,7 +331,7 @@ export default function useIndex(props: Props, emit: any) {
         // 下拉列表赋值
         handleSearchSelect();
 
-        // 单选 or 多选
+        // 单选/多选
         if (props.schema?.attributes?.multiple) {
             selectType.value = 'checkbox';
         } else {

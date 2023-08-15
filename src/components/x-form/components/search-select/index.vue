@@ -33,13 +33,14 @@
                     placeholder="请输入关键字"
                     :input-style="inputStyle"
                     search-icon-size="40rpx"
+                    class="popup__search"
                     @custom="handleSearchSearch"
                     @search="handleSearchSearch"
                     @clear="handleSearchClear"
                 ></u-search>
 
                 <!-- 选择框 -->
-                <view v-if="showList.length" class="select-style">
+                <view v-if="showList.length" class="popup__select">
                     <view v-if="selectType === 'radio'">
                         <u-radio-group v-model="radioValue" placement="column" @change="handleRadioChange">
                             <u-radio
@@ -72,10 +73,10 @@
                         </u-checkbox-group>
                     </view>
                 </view>
-                <view v-else class="empty-style"></view>
+                <view v-else class="popup__empty"></view>
 
                 <!-- 按钮 -->
-                <view class="button-style">
+                <view class="popup__button">
                     <u-button type="info" text="取消" :custom-style="buttonStyle" @click="handleCancel"></u-button>
                     <u-button type="primary" text="确定" :custom-style="buttonStyle" @click="handleConfirm"></u-button>
                 </view>
@@ -165,19 +166,24 @@ defineExpose({
     height: 95vh;
     position: relative;
 
-    .select-style {
-        height: 85%;
+    &__search {
+        padding-bottom: 20rpx;
+    }
+
+    &__select {
+        height: 80%;
         overflow-y: auto;
     }
 
-    .empty-style {
-        height: 85%;
+    &__empty {
+        height: 80%;
     }
 
-    .button-style {
-        margin-top: 30rpx;
-        position: static;
-        bottom: 20rpx;
+    &__button {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 30rpx;
         display: flex;
     }
 }
