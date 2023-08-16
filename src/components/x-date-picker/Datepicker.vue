@@ -192,16 +192,18 @@
                             :hover-stay-time="100"
                             hover-class="picker-btn-active"
                             @click="onCancelTime"
-                            >取消</view
                         >
+                            取消
+                        </view>
                         <view
                             class="picker-btn"
                             :style="{ color }"
                             :hover-stay-time="100"
                             hover-class="picker-btn-active"
                             @click="onConfirmTime"
-                            >确定</view
                         >
+                            确定
+                        </view>
                     </view>
                 </view>
             </view>

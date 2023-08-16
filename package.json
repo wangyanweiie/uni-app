@@ -1,5 +1,5 @@
 {
-    "name": "uni-template",
+    "name": "uni-app",
     "version": "1.0.0",
     "scripts": {
         "serve": "concurrently \"uni\" \"node script/generate-router/index.js\"",

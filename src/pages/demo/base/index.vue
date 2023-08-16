@@ -71,8 +71,7 @@ const form = ref<Record<string, any>>({
     hobby: '',
     course: '',
     date: '',
-    uploads:
-        'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg,http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
+    uploads: 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
     videos: 'http://192.168.3.38:9000/lvling/1691669393119why.mp4',
 });
 
