@@ -13,11 +13,13 @@
         </u-upload>
     </view>
 </template>
+
 <script lang="ts">
 export default {
     name: 'BaseUpload',
 };
 </script>
+
 <script setup lang="ts">
 import useIndex from './useIndex';
 import type { Schema } from '../../interface';

@@ -1,7 +1,7 @@
 import type { Schema, Options } from './interface';
 
 /**
- * 表单项input改变后的回调处理
+ * 表单项 input 改变后的回调处理
  * @param form 表单的值
  * @param event 当前表单项和输入框的值
  * @param schemaList 配置表单

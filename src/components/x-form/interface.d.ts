@@ -112,7 +112,7 @@ export interface ComponentPropsParams {
     form: Record<string, any>;
     schemas: Schema[];
     schema: Schema;
-    result: 'success' | 'error' | 'clear' | '';
+    result: 'success' | 'error' | 'clear' | 'change';
 }
 
 /**
@@ -126,14 +126,14 @@ export interface Schema {
         | 'BaseDivider'
         | 'BaseTitle'
         | 'BaseInput'
+        | 'InputNumber'
         | 'BaseTextarea'
         | 'BaseRadio'
-        | 'BaseSelect'
+        | 'BaseDatePicker'
         | 'BaseUpload'
-        | 'ScanInput'
+        | 'BaseSelect'
         | 'SearchSelect'
-        | 'DatePicker'
-        | 'InputNumber';
+        | 'ScanInput';
 
     /** 字段名 */
     prop: string;
@@ -196,7 +196,7 @@ export interface XFormProps {
 export interface EmitEvent {
     value: string | number;
     schema: Schema;
-    isClear?: boolean;
+    isClear: boolean;
 }
 
 /**
@@ -205,14 +205,15 @@ export interface EmitEvent {
 export interface SelectEvent {
     value: Options;
     schema: Schema;
-    isClear?: boolean;
+    isClear: boolean;
 }
 
 /**
  * handleScanSuccess 方法参数
  */
 export interface ScanSuccessEvent {
-    value: object;
+    value: string;
+    result: object;
     schema: Schema;
     reset: boolean;
 }
@@ -221,6 +222,7 @@ export interface ScanSuccessEvent {
  * handleScanFail 方法参数
  */
 export interface ScanFailEvent {
+    value: string;
     schema: Schema;
     reset: boolean;
     resetParams?: Record<string, any>;

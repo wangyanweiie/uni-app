@@ -83,11 +83,7 @@
         </u-upload>
     </view>
 </template>
-<script lang="ts">
-export default {
-    name: 'Upload',
-};
-</script>
+
 <script setup lang="ts">
 import useIndex from './useIndex';
 

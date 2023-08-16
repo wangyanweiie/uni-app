@@ -45,6 +45,7 @@ export default function useIndex(props: Props, emit: any) {
      */
     async function handleSelect() {
         if (props.schema?.api) {
+            // 动态赋值
             const res: RequestObj = await props.schema?.api({
                 ...props.schema?.apiParams,
             });
@@ -55,6 +56,7 @@ export default function useIndex(props: Props, emit: any) {
                 selectList.value = [];
             }
         } else if (props.schema?.options?.length) {
+            // 静态赋值
             selectList.value = props.schema?.options;
         } else {
             selectList.value = [];

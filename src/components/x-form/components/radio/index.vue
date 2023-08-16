@@ -23,7 +23,7 @@ export default {
 
 <script setup lang="ts">
 import useIndex from './useIndex';
-import type { Schema, Options } from '../../interface';
+import type { Schema } from '../../interface';
 
 /**
  * props

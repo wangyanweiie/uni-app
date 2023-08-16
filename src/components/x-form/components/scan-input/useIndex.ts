@@ -51,12 +51,8 @@ export default function useIndex(props: Props, emit: any) {
             return;
         }
 
+        // 手动赋值到扫码框
         inputValue.value = code;
-        emit('handleEmit', {
-            value: code,
-            schema: props.schema,
-            isClear: false,
-        });
 
         handleSearchCode(code);
     }
@@ -92,9 +88,11 @@ export default function useIndex(props: Props, emit: any) {
         const res: RequestObj = await props.schema.api(parmas);
 
         if (res) {
-            handleScanSuccess(res);
+            handleSuccess(code, res);
         } else {
-            handleScanError();
+            setTimeout(() => {
+                handleError(code);
+            }, 500);
         }
     }
 
@@ -102,13 +100,16 @@ export default function useIndex(props: Props, emit: any) {
      * @description 查询成功处理
      * @param res 扫码成功后接口返回的值
      */
-    function handleScanSuccess(res: RequestObj) {
+    function handleSuccess(code: string | number, res: RequestObj) {
+        console.log('扫码成功');
+
         switch (props.schema?.scanCodeMode) {
             case SCAN_MODE.MODE_ONE:
             case SCAN_MODE.MODE_TWO:
             case SCAN_MODE.MODE_FIVE:
                 emit('handleScanSuccess', {
-                    value: res.data,
+                    value: code,
+                    result: res.data,
                     schema: props.schema,
                     reset: false,
                 });
@@ -119,7 +120,8 @@ export default function useIndex(props: Props, emit: any) {
                 inputValue.value = '';
                 resetFocus();
                 emit('handleScanSuccess', {
-                    value: res.data,
+                    value: code,
+                    result: res.data,
                     schema: props.schema,
                     reset: true,
                 });
@@ -130,46 +132,56 @@ export default function useIndex(props: Props, emit: any) {
     /**
      * 查询失败处理
      */
-    function handleScanError() {
+    function handleError(code: string | number) {
+        console.log('扫码失败');
+
         switch (props.schema?.scanCodeMode) {
             case SCAN_MODE.MODE_ONE:
                 emit('handleScanFail', {
+                    value: code,
                     schema: props.schema,
                     reset: false,
                 });
                 break;
 
             case SCAN_MODE.MODE_TWO:
+                inputValue.value = '';
+                resetFocus();
                 emit('handleScanFail', {
+                    value: code,
                     schema: props.schema,
                     reset: true,
                 });
                 break;
 
             case SCAN_MODE.MODE_THREE:
-                resetFocus();
                 emit('handleScanFail', {
+                    value: code,
                     schema: props.schema,
                     reset: false,
                 });
                 break;
 
             case SCAN_MODE.MODE_FOUR:
-                resetFocus();
                 inputValue.value = '';
+                resetFocus();
                 emit('handleScanFail', {
+                    value: code,
                     schema: props.schema,
                     reset: true,
                 });
                 break;
 
             case SCAN_MODE.MODE_FIVE:
-                resetFocus();
                 inputValue.value = '';
+                resetFocus();
                 emit('handleScanFail', {
+                    value: code,
                     schema: props.schema,
                     reset: true,
-                    resetParams: { [props.schema.prop]: '' },
+                    resetParams: {
+                        [props.schema.prop]: '',
+                    },
                 });
                 break;
         }
@@ -181,11 +193,6 @@ export default function useIndex(props: Props, emit: any) {
     function handlePhotoScan() {
         // 清空条码
         inputValue.value = '';
-        emit('handleEmit', {
-            value: '',
-            schema: props.schema,
-            isClear: true,
-        });
 
         // #ifdef APP-PLUS
         uni.scanCode({
@@ -193,13 +200,10 @@ export default function useIndex(props: Props, emit: any) {
             scanType: ['qrCode', 'barCode'],
             success: ({ res }: any) => {
                 inputValue.value = res;
-                emit('handleEmit', {
-                    value: res,
-                    schema: props.schema,
-                    isClear: false,
-                });
             },
-            fail: error => {
+            fail: (err: any) => {
+                console.log(err);
+
                 uni.showToast({
                     title: '扫码失败',
                     icon: 'none',

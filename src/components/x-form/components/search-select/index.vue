@@ -85,6 +85,12 @@
     </view>
 </template>
 
+<script lang="ts">
+export default {
+    name: 'SearchSelect',
+};
+</script>
+
 <script setup lang="ts">
 import { ref } from 'vue';
 import useIndex from './useIndex';
@@ -145,7 +151,7 @@ const {
  * 暴露的属性与方法
  */
 defineExpose({
-    async setData(val: string | number) {
+    setData(val: string | number) {
         // 处理值
         handleValueAndLabel(val);
 

@@ -37,7 +37,7 @@
 
 <script lang="ts">
 export default {
-    name: 'DatePicker',
+    name: 'BaseDatePicker',
 };
 </script>
 
@@ -59,7 +59,7 @@ const props = withDefaults(
             return {
                 prop: '',
                 label: '',
-                type: 'DatePicker',
+                type: 'BaseDatePicker',
             };
         },
     },

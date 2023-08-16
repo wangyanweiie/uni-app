@@ -61,7 +61,7 @@ export default function useIndex(props: XFormProps, emit: any) {
     }
 
     /**
-     * @description 过滤个别组件 prop 为空 string、null、或者是 hidden 为 true 等情况 (比如 divider、title 等)
+     * @description 过滤组件
      * @param item 表单项配置
      * @return boolean
      */
@@ -94,7 +94,7 @@ export default function useIndex(props: XFormProps, emit: any) {
      */
     function handleUpdateForm() {
         props.schemaList.forEach((schema: Schema) => {
-            if (handleExceptionField(schema)) {
+            if (handleExceptionField(schema) && typeof instanceRef.value[schema.prop]?.setData === 'function') {
                 instanceRef.value[schema.prop].setData(form.value[schema.prop]);
             }
         });
@@ -122,14 +122,14 @@ export default function useIndex(props: XFormProps, emit: any) {
         // 将组件值同步到 form 表单
         handleValue(form.value, event);
 
-        // 清空或者赋值都要触发联动回调
-        if (event.schema.componentProps) {
+        // 清空或者赋值都要触发联动回调，扫码只赋值，联动在扫码成功或者失败的事件中触发
+        if (event.schema.componentProps && event.schema.type !== 'ScanInput') {
             await event.schema.componentProps({
                 value: form.value[event.schema.prop],
                 form: form.value,
                 schemas: props.schemaList,
                 schema: event.schema,
-                result: event.isClear ? 'clear' : 'success',
+                result: event.isClear ? 'clear' : 'change',
             });
 
             // 更新表单及校验规则
@@ -159,7 +159,7 @@ export default function useIndex(props: XFormProps, emit: any) {
                 form: form.value,
                 schemas: props.schemaList,
                 schema: event.schema,
-                result: event.isClear ? 'clear' : 'success',
+                result: event.isClear ? 'clear' : 'change',
             });
 
             // 更新表单及校验规则
@@ -175,21 +175,16 @@ export default function useIndex(props: XFormProps, emit: any) {
      * @param event schema 为回调的表单项，value 是扫码查询后所返回的参数
      */
     async function handleScanSuccess(event: ScanSuccessEvent) {
-        console.log('扫码成功', event);
-
-        // 自定义事件
-        emit('handleScanSuccess', event.value);
-
         // 将扫码结果合并到 form 表单
         form.value = {
             ...form.value,
-            ...event.value,
+            event: event.result,
         };
 
         // 联动回调
         if (event.value && event.schema.componentProps) {
             await event.schema.componentProps({
-                value: form.value[event.schema.prop],
+                value: event.value,
                 form: form.value,
                 schemas: props.schemaList,
                 schema: event.schema,
@@ -203,10 +198,13 @@ export default function useIndex(props: XFormProps, emit: any) {
             });
         }
 
-        // 清空扫码框的值
-        if (event.reset) {
-            form.value[event.schema.prop] = '';
+        // 更新表单字段
+        if (!event.reset) {
+            form.value[event.schema.prop] = event.value;
         }
+
+        // 自定义事件
+        emit('handleScanSuccess', event.value);
     }
 
     /**
@@ -214,12 +212,10 @@ export default function useIndex(props: XFormProps, emit: any) {
      * @param event schema 为回调的表单项，value 是扫码查询后所返回的参数
      */
     async function handleScanFail(event: ScanFailEvent) {
-        console.log('扫码失败', event);
-
         // 联动回调
         if (event.schema.componentProps) {
             await event.schema.componentProps({
-                value: form.value[event.schema.prop],
+                value: event.value,
                 form: form.value,
                 schemas: props.schemaList,
                 schema: event.schema,
@@ -232,12 +228,17 @@ export default function useIndex(props: XFormProps, emit: any) {
             });
         }
 
-        // 重置表单
+        // 更新表单字段
         if (event.reset) {
             nextTick(() => {
                 resetForm(event.resetParams);
             });
+        } else {
+            form.value[event.schema.prop] = event.value;
         }
+
+        // 自定义事件
+        emit('handleScanFail', event.value);
     }
 
     /**

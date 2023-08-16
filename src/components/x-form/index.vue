@@ -51,12 +51,6 @@
     </view>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'XForm',
-};
-</script>
-
 <script setup lang="ts">
 import useIndex from './useIndex';
 import type { Schema } from './interface';
@@ -81,6 +75,7 @@ const props = withDefaults(
  */
 const emit = defineEmits<{
     (e: 'handleScanSuccess', val: Record<string, any>): void;
+    (e: 'handleScanFail'): void;
 }>();
 
 /**

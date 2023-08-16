@@ -1,6 +1,6 @@
 import { ref, nextTick, onBeforeMount } from 'vue';
 import type { Options } from '../../interface';
-import type { Props } from '../interface';
+import type { Props, RequestObj } from '../interface';
 import _ from 'lodash-es';
 
 export default function useIndex(props: Props, emit: any) {
@@ -58,20 +58,24 @@ export default function useIndex(props: Props, emit: any) {
      * 初始化数据列表
      */
     async function handleSearchSelect() {
-        if (props.schema.api) {
+        if (props.schema?.api) {
             // 动态赋值
-            const res: any = await props.schema.api({
+            const res: RequestObj = await props.schema.api({
                 ...props.schema?.apiParams,
             });
+
             if (res && res.data) {
                 // 单选/复选
-                sourceList.value = res.data;
+                sourceList.value = res.data as Options[];
                 showList.value = sourceList.value;
             }
-        } else {
+        } else if (props.schema?.options?.length) {
             // 静态赋值
-            sourceList.value = props.schema.options as Options[];
+            sourceList.value = props.schema.options;
             showList.value = sourceList.value;
+        } else {
+            sourceList.value = [];
+            showList.value = [];
         }
     }
 

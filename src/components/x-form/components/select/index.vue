@@ -56,7 +56,7 @@ const { selectValue, selectList, handleChange, handleSelect } = useIndex(props, 
  * 暴露的属性与方法
  */
 defineExpose({
-    async setData(val: string | number) {
+    setData(val: string | number) {
         selectValue.value = val;
 
         // 更新下拉列表
