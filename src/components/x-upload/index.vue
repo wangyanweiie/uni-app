@@ -1,5 +1,5 @@
 <template>
-    <view class="wrap">
+    <view class="component">
         <!-- 缩略图 -->
         <view class="preview">
             <template v-for="(item, index) in fileList" :key="index">
@@ -164,53 +164,53 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
-.wrap {
+.component {
     width: 100%;
     display: flex;
     align-items: center;
+}
 
-    .preview {
-        max-width: 450rpx;
-        overflow-x: auto;
-        display: flex;
+.preview {
+    max-width: 450rpx;
+    overflow-x: auto;
+    display: flex;
 
-        &__item {
-            width: 80rpx;
-            height: 80rpx;
-            margin: 0 16rpx 16rpx 0;
-            position: relative;
-
-            &__video,
-            &__image {
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-            }
-
-            &__icon {
-                position: absolute;
-                top: 0;
-                right: 0;
-            }
-        }
-    }
-
-    .overlay {
-        width: 100%;
-        height: 100%;
+    &__item {
+        width: 80rpx;
+        height: 80rpx;
+        margin: 0 16rpx 16rpx 0;
         position: relative;
 
-        &__video {
+        &__video,
+        &__image {
             width: 100%;
+            height: 100%;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
+
+        &__icon {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    &__video {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <view class="wrap">
+    <view class="component">
         <!-- 顶部操作区域 -->
         <view class="operation">
             <view v-if="title" class="operation_text"> {{ title }} </view>
@@ -240,91 +240,91 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-.wrap {
+.component {
     width: 100%;
     height: 100%;
     margin-top: 20rpx;
+}
 
-    // 表格顶部操作区域样式
-    .operation {
-        padding-bottom: 20rpx;
+// 表格顶部操作区域样式
+.operation {
+    padding-bottom: 20rpx;
+    display: flex;
+    justify-content: space-between;
+
+    &_text {
+        font-size: 34rpx;
+        font-weight: bold;
         display: flex;
-        justify-content: space-between;
+        align-items: flex-end;
+    }
 
-        &_text {
-            font-size: 34rpx;
-            font-weight: bold;
-            display: flex;
-            align-items: flex-end;
+    &_button {
+        display: flex;
+
+        :deep(.u-button) {
+            margin: 0 10rpx;
+        }
+    }
+}
+
+// 表格主体样式
+.table {
+    margin-bottom: 20rpx;
+
+    &_header {
+        background-color: #f5f6f8;
+
+        &_th {
+            white-space: nowrap;
         }
 
-        &_button {
+        // 必填标识
+        &_required {
+            color: red;
+        }
+    }
+
+    &_content {
+        &_td {
+            view {
+                max-width: 450rpx;
+                white-space: nowrap;
+                overflow-x: auto;
+            }
+        }
+
+        // 图片
+        &_image {
             display: flex;
+            align-items: center;
+            justify-content: center;
+
+            image {
+                width: 60rpx;
+                height: 60rpx;
+                margin-right: 10rpx;
+            }
+        }
+
+        // 操作列
+        &_action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             :deep(.u-button) {
                 margin: 0 10rpx;
             }
         }
     }
+}
 
-    // 表格主体样式
-    .table {
-        margin-bottom: 20rpx;
+.red {
+    background-color: #fad8d6 !important;
+}
 
-        &_header {
-            background-color: #f5f6f8;
-
-            &_th {
-                white-space: nowrap;
-            }
-
-            // 必填标识
-            &_required {
-                color: red;
-            }
-        }
-
-        &_content {
-            &_td {
-                view {
-                    max-width: 450rpx;
-                    white-space: nowrap;
-                    overflow-x: auto;
-                }
-            }
-
-            // 图片
-            &_image {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                image {
-                    width: 60rpx;
-                    height: 60rpx;
-                    margin-right: 10rpx;
-                }
-            }
-
-            // 操作列
-            &_action {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                :deep(.u-button) {
-                    margin: 0 10rpx;
-                }
-            }
-        }
-    }
-
-    .red {
-        background-color: #fad8d6 !important;
-    }
-
-    .yellow {
-        background-color: #ffee8f !important;
-    }
+.yellow {
+    background-color: #ffee8f !important;
 }
 </style>

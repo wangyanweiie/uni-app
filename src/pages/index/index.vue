@@ -1,5 +1,5 @@
 <template>
-    <view class="view-wrap">
+    <view class="view-wrap wrap">
         <view v-for="menu in menuList" :key="menu.label" class="menu">
             <view class="menu__label">
                 <text>{{ menu.label }}</text>
@@ -41,7 +41,7 @@ const { menuList, navigateTo } = useIndex();
     &__label {
         font-size: 32rpx;
         margin-bottom: 10rpx;
-        color: #2196f3;
+        color: #2979ff;
     }
 
     &__item-wrap {
@@ -60,7 +60,7 @@ const { menuList, navigateTo } = useIndex();
         padding: 16rpx;
         margin: 16rpx;
         color: #fff;
-        background: #2196f3;
+        background: #2979ff;
         box-shadow:
             8rpx 8rpx 14rpx #e3dfdf,
             -8rpx -8rpx 14rpx #f7f5f5;

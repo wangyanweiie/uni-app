@@ -1,5 +1,5 @@
 <template>
-    <view class="wrap">
+    <view class="component">
         <u-input
             v-model="inputValue"
             :focus="focusStatus"
@@ -74,7 +74,7 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-.wrap {
+.component {
     width: 100%;
 }
 </style>

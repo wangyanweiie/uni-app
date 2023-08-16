@@ -139,11 +139,9 @@ export default function useIndex(props: Props, emit: any) {
         showPicker,
         dateValue,
         dateType,
-        dateFormat,
         handleOpen,
         handleClear,
         handleCancel,
-        handleDatePickFormat,
         handleConfirm,
     };
 }

@@ -1,5 +1,5 @@
 <template>
-    <view class="wrap">
+    <view class="component">
         <u-radio-group v-model="radioValue" size="34rpx" placement="row" v-bind="schema?.attributes">
             <u-radio
                 v-for="(item, index) in radioList"
@@ -71,7 +71,7 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-.wrap {
+.component {
     width: 100%;
     display: flex;
     align-items: center;

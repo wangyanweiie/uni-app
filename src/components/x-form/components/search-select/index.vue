@@ -1,5 +1,5 @@
 <template>
-    <view class="wrap">
+    <view class="component">
         <u-input
             v-model="selectLabel"
             border="surround"
@@ -156,7 +156,7 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-.wrap {
+.component {
     width: 100%;
 }
 

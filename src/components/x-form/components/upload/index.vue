@@ -1,5 +1,5 @@
 <template>
-    <view class="wrap">
+    <view class="component">
         <u-upload
             name="upload"
             :file-list="fileList"
@@ -64,7 +64,7 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
-.wrap {
+.component {
     width: 100%;
     display: flex;
     align-items: center;

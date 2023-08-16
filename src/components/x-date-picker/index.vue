@@ -1,5 +1,5 @@
 <template>
-    <view class="wrap">
+    <view class="component">
         <u-input
             v-model="dateValue"
             readonly
@@ -84,20 +84,10 @@ const emit = defineEmits<{
 /**
  * useIndex
  */
-const {
-    showPicker,
-    dateValue,
-    dateType,
-    dateFormat,
-    handleOpen,
-    handleClear,
-    handleCancel,
-    handleDatePickFormat,
-    handleConfirm,
-} = useIndex(props, emit);
+const { showPicker, dateValue, dateType, handleOpen, handleClear, handleCancel, handleConfirm } = useIndex(props, emit);
 </script>
 <style lang="scss" scoped>
-.wrap {
+.component {
     width: 100%;
 }
 

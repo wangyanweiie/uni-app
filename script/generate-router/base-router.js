@@ -11,7 +11,7 @@ module.exports = {
     pages: [],
     tabBar: {
         color: '#7A7E83',
-        selectedColor: '#2196f3',
+        selectedColor: '#2979ff',
         backgroundColor: '#fff',
         height: '50px',
         fontSize: '12px',
@@ -33,7 +33,7 @@ module.exports = {
     globalStyle: {
         navigationBarTextStyle: 'black',
         navigationBarTitleText: 'uni-app',
-        navigationBarBackgroundColor: '#F8F8F8',
-        backgroundColor: '#F8F8F8',
+        navigationBarBackgroundColor: '#f3f4f6',
+        backgroundColor: '#f3f4f6',
     },
 };

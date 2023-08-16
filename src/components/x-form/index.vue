@@ -1,5 +1,5 @@
 <template>
-    <view class="form-wrap">
+    <view class="component">
         <u-form ref="formRef" :model="form" :rules="rules" :label-width="labelWidth">
             <uni-row>
                 <uni-col v-for="item in schemas" :key="item.prop" :span="item.span ?? 24">
@@ -120,6 +120,10 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
+.component {
+    width: 100%;
+}
+
 .base-title {
     font-size: 32rpx;
     width: 100%;

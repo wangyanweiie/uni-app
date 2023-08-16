@@ -1,5 +1,5 @@
 <template>
-    <view class="wrap">
+    <view class="component">
         <u-textarea
             v-model="inputValue"
             border="surround"
@@ -61,7 +61,7 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
-.wrap {
+.component {
     width: 100%;
 }
 </style>

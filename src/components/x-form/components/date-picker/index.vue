@@ -1,5 +1,5 @@
 <template>
-    <view class="wrap">
+    <view class="component">
         <u-input
             v-model="dateValue"
             border="surround"
@@ -88,7 +88,7 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
-.wrap {
+.component {
     width: 100%;
 }
 

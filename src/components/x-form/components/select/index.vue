@@ -1,5 +1,5 @@
 <template>
-    <view class="wrap">
+    <view class="component">
         <data-select
             v-model="selectValue"
             :localdata="selectList"
@@ -65,7 +65,7 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
-.wrap {
+.component {
     width: 100%;
 }
 </style>

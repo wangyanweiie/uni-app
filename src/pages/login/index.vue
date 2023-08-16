@@ -58,7 +58,7 @@ const { formRef, form, rules, imageList, companyList, login } = useLogin();
 
 <style lang="scss" scoped>
 .wrap {
-    height: 100vh;
+    height: calc(100vh - 44px);
     background-color: #ecf5ff;
 }
 
@@ -91,11 +91,11 @@ const { formRef, form, rules, imageList, companyList, login } = useLogin();
     position: relative;
 
     image {
+        width: 170rpx;
+        height: 170rpx;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        width: 70%;
-        height: 180rpx;
     }
 }
 </style>
