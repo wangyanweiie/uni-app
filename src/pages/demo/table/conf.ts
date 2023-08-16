@@ -1,4 +1,4 @@
-import { HeaderItem } from '@/components/table/interface';
+import { HeaderItem } from '@/components/x-table/interface';
 
 /**
  * 状态枚举

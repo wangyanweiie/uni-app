@@ -2,7 +2,6 @@ import { onMounted, ref } from 'vue';
 import menuAPI from '@/api/menu-list';
 import RequestAPI from '@/api/login/index';
 import { saveStorage } from '@/utils/uni-storage';
-import { saveForage } from '@/utils/localForage';
 
 import cloud from '@/assets/images/login_cloud.png';
 import order from '@/assets/images/login_order.png';

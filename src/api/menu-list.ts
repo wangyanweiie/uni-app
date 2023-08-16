@@ -1,4 +1,4 @@
-import { get, post } from '@/utils/uni-request';
+import { get } from '@/utils/uni-request';
 
 /**
  * 公共下拉

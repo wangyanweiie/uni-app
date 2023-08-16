@@ -177,6 +177,9 @@ export default function useIndex(props: XFormProps, emit: any) {
     async function handleScanSuccess(event: ScanSuccessEvent) {
         console.log('扫码成功', event);
 
+        // 自定义事件
+        emit('handleScanSuccess', event.value);
+
         // 将扫码结果合并到 form 表单
         form.value = {
             ...form.value,

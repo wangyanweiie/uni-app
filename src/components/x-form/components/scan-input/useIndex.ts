@@ -191,7 +191,7 @@ export default function useIndex(props: Props, emit: any) {
         uni.scanCode({
             onlyFromCamera: true,
             scanType: ['qrCode', 'barCode'],
-            success: ({ res }) => {
+            success: ({ res }: any) => {
                 inputValue.value = res;
                 emit('handleEmit', {
                     value: res,

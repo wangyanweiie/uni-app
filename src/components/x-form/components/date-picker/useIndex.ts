@@ -196,7 +196,6 @@ export default function useIndex(props: { schema: Schema; form: Record<string, a
         showPicker,
         dateValue,
         dateType,
-        dateFormat,
         handleOpen,
         handleClear,
         handleCancel,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app';
-import { getStorage, removeStorage } from '@/utils/uni-storage';
-import RequestAPI from '@/api/login/index';
+import { getStorage } from '@/utils/uni-storage';
+// import RequestAPI from '@/api/login/index';
 
 onShow(() => {
     // console.log('App Show');

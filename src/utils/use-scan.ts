@@ -39,10 +39,11 @@ export default function useScan(searchCode: (code: string) => void) {
         uni.scanCode({
             onlyFromCamera: true,
             scanType: ['qrCode', 'barCode'],
-            success: ({ result }) => {
+            success: ({ result }: any) => {
                 code = result;
             },
-            fail: error => {
+            fail: (err: any) => {
+                console.log(err);
                 uni.showToast({
                     title: '不可扫码',
                     icon: 'none',

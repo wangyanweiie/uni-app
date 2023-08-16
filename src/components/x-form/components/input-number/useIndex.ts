@@ -1,4 +1,4 @@
-import { ref, nextTick, onBeforeMount } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import type { Props } from '../interface';
 import { keepDecimalPrecision } from './hooks';
 

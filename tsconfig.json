@@ -1,21 +1,3 @@
-// {
-//   "extends": "@vue/tsconfig/tsconfig.json",
-//   "compilerOptions": {
-//     "sourceMap": true,
-//     "baseUrl": ".",
-//     "paths": {
-//       "@/*": ["./src/*"]
-//     },
-//     "lib": ["esnext", "dom"],
-//     "types": [
-//       "@dcloudio/types",
-//       "@ttou/uview-typings/v3",
-//       "@ttou/uview-typings/refs"
-//     ],
-//     "typeRoots": ["@/types/index.d.ts"]
-//   },
-//   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
-// }
 {
     "compilerOptions": {
         "target": "esnext",
@@ -29,17 +11,12 @@
         "esModuleInterop": true,
         "lib": ["esnext", "dom"],
         "skipLibCheck": true,
-        "types": [
-            "@dcloudio/types",
-            "node",
-            "jest",
-            "vitest/globals"
-        ],
+        "types": ["@dcloudio/types", "node"],
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"]
         },
-        "allowJs": true,
+        "allowJs": true
     },
     "include": [
         "src/**/*.ts",
@@ -50,13 +27,7 @@
         "build/**/*.ts",
         "build/**/*.d.ts",
         "mock/**/*.ts",
-        "vite.config.ts",
+        "vite.config.ts"
     ],
-    "exclude": [
-        "node_modules",
-        "tests/**/*.ts",
-        "tests/**/*.tsx",
-        "docs",
-        "src/uni_modules"
-    ],
+    "exclude": ["node_modules", "tests/**/*.ts", "tests/**/*.tsx", "docs", "src/uni_modules"]
 }

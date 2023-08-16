@@ -36,11 +36,11 @@ module.exports = {
         'vue/multi-word-component-names': 'off',
         // 不要重复引入一个模块
         'no-duplicate-imports': 'error',
-        // 声明但未使用的变量
-        'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': ['off'],
+        // 声明但未使用的变量，'no-unused-vars' 报错？
+        // 'no-unused-vars': 'warn',
+        '@typescript-eslint/no-unused-vars': ['warn'],
         // any
-        '@typescript-eslint/no-explicit-any': ['off'],
+        '@typescript-eslint/no-explicit-any': ['warn'],
         // this
         '@typescript-eslint/no-this-alias': [
             'error',

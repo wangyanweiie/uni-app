@@ -80,7 +80,7 @@ async function loadData() {
         });
 
         if (res.data) {
-            dataSource.value = res.data?.map((item: Record<string, string | number>) => {
+            dataSource.value = res.data?.map((item: Options) => {
                 return {
                     ...item,
                     text: item.label,
@@ -88,7 +88,7 @@ async function loadData() {
             });
         }
     } else {
-        dataSource.value = props.options.map((item: Record<string, string | number>) => {
+        dataSource.value = props.options.map((item: Options) => {
             return {
                 ...item,
                 text: item.label,

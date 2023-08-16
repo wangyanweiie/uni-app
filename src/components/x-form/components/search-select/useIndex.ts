@@ -354,7 +354,6 @@ export default function useIndex(props: Props, emit: any) {
     return {
         selectType,
         selectLabel,
-        sourceList,
         showPopup,
         keyword,
         radioValue,
@@ -362,7 +361,6 @@ export default function useIndex(props: Props, emit: any) {
         showList,
         handleClear,
         handlePopupOpen,
-        handlePopupClose,
         handleConfirm,
         handleCancel,
         handleSearchSearch,

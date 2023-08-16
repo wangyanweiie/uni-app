@@ -1,4 +1,4 @@
-import type { Schema } from '@/components/form/interface';
+import type { Schema } from '@/components/x-form/interface';
 import MenuListAPI from '@/api/menu-list';
 import RequestAPI from '@/api/demo/index';
 
@@ -27,7 +27,7 @@ export const schemas: Schema[] = [
             clearable: true,
         },
         rules: [{ required: true, message: '扫码框不能为空' }],
-        componentProps: ({ value, form, schemas, schema, result }) => {
+        componentProps: ({ value, form, schemas, schema, result }: any) => {
             if (result === 'success') {
                 console.log('value', value);
                 console.log('form', form);

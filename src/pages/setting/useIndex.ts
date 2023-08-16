@@ -2,7 +2,6 @@ import { onMounted, ref } from 'vue';
 import { BASE_URL } from '@/constant/index';
 import download from '@/utils/uni-download';
 import { getStorage, clearStorage } from '@/utils/uni-storage';
-import { clearForage } from '@/utils/localForage';
 import RequestAPI from '@/api/login/index';
 // import checkUpdates from '@/uni_modules/uni-upgrade-center-app/utils/check-update';
 
@@ -42,7 +41,11 @@ export default function useIndex() {
         uni.navigateTo({
             url: `/pages/setting/change-passward`,
             success: () => {
+                // 清空 localStorage
                 clearStorage();
+
+                // 清空 indexedDB
+                // clearForage();
             },
         });
     }

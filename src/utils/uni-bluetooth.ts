@@ -48,10 +48,10 @@ export class UniBluetooth {
 
         return new Promise((resolve, reject) => {
             uni.openBluetoothAdapter({
-                success: res => {
+                success: (res: any) => {
                     resolve(res);
                 },
-                fail: err => {
+                fail: (err: any) => {
                     reject(err);
                 },
             });
@@ -69,11 +69,11 @@ export class UniBluetooth {
 
         return new Promise((resolve, reject) => {
             uni.getBluetoothAdapterState({
-                success: res => {
+                success: (res: any) => {
                     resolve(res);
                 },
-                fail: error => {
-                    reject(error);
+                fail: (err: any) => {
+                    reject(err);
                 },
             });
         });
@@ -92,10 +92,10 @@ export class UniBluetooth {
         return new Promise((resolve, reject) => {
             uni.startBluetoothDevicesDiscovery({
                 ...options,
-                success: res => {
+                success: (res: any) => {
                     resolve(res);
                 },
-                fail: err => {
+                fail: (err: any) => {
                     reject(err);
                 },
             });
@@ -150,10 +150,10 @@ export class UniBluetooth {
             uni.createBLEConnection({
                 deviceId,
                 timeout,
-                success: res => {
+                success: (res: any) => {
                     resolve(res);
                 },
-                fail: err => {
+                fail: (err: any) => {
                     reject(err);
                 },
             });
@@ -173,10 +173,10 @@ export class UniBluetooth {
         return new Promise((resolve, reject) => {
             uni.closeBLEConnection({
                 deviceId,
-                success: res => {
+                success: (res: any) => {
                     resolve(res);
                 },
-                fail: err => {
+                fail: (err: any) => {
                     reject(err);
                 },
             });
@@ -208,10 +208,10 @@ export class UniBluetooth {
         return new Promise((resolve, reject) => {
             uni.getBLEDeviceServices({
                 deviceId,
-                success: res => {
+                success: (res: any) => {
                     resolve(res);
                 },
-                fail: err => {
+                fail: (err: any) => {
                     reject(err);
                 },
             });
@@ -233,10 +233,10 @@ export class UniBluetooth {
             uni.getBLEDeviceCharacteristics({
                 deviceId,
                 serviceId,
-                success: res => {
+                success: (res: any) => {
                     resolve(res);
                 },
-                fail: err => {
+                fail: (err: any) => {
                     reject(err);
                 },
             });
@@ -262,10 +262,10 @@ export class UniBluetooth {
                 serviceId,
                 value,
                 characteristicId,
-                success: res => {
+                success: (res: any) => {
                     resolve(res);
                 },
-                fail: err => {
+                fail: (err: any) => {
                     reject(err);
                 },
             });
@@ -348,7 +348,7 @@ export class UniBluetooth {
                             sendData();
                         }, gap);
                     })
-                    .catch(err => {
+                    .catch((err: any) => {
                         reject(err);
                     });
 
@@ -412,11 +412,11 @@ export class UniBluetooth {
 
                             resolve(result);
                         })
-                        .catch(charRes => {
+                        .catch((charRes: any) => {
                             reject(charRes);
                         });
                 })
-                .catch(err => {
+                .catch((err: any) => {
                     reject(err);
                 });
         });
@@ -445,11 +445,11 @@ export class UniBluetooth {
 
         return new Promise((resolve, reject) => {
             uni.closeBluetoothAdapter({
-                success: res => {
+                success: (res: any) => {
                     console.log('CLOSE: ', res);
                     resolve(res);
                 },
-                fail: err => {
+                fail: (err: any) => {
                     reject(err);
                 },
             });

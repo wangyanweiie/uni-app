@@ -50,7 +50,7 @@ const emit = defineEmits<{
 /**
  * useIndex
  */
-const { selectValue, selectLabel, selectList, handleChange, handleSelect } = useIndex(props, emit);
+const { selectValue, selectList, handleChange, handleSelect } = useIndex(props, emit);
 
 /**
  * 暴露的属性与方法

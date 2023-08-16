@@ -87,7 +87,6 @@ export default function useIndex(props: Props, emit: any) {
 
     return {
         selectValue,
-        selectLabel,
         selectList,
         handleChange,
         handleSelect,

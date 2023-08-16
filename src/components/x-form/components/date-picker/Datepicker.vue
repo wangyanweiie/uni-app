@@ -474,12 +474,12 @@ export default {
     },
 
     watch: {
-        show(newValue, oldValue) {
+        show(newValue) {
             newValue && this.setValue(this.value);
             this.isShow = newValue;
         },
 
-        value(newValue, oldValue) {
+        value(newValue) {
             setTimeout(() => {
                 this.setValue(newValue);
             }, 0);

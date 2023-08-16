@@ -75,17 +75,8 @@ const emit = defineEmits<{
 /**
  * useIndex
  */
-const {
-    showPicker,
-    dateValue,
-    dateType,
-    dateFormat,
-    handleOpen,
-    handleClear,
-    handleCancel,
-    handleDatePickFormat,
-    handleConfirm,
-} = useIndex(props, emit);
+const { showPicker, dateValue, dateType, handleOpen, handleClear, handleCancel, handleDatePickFormat, handleConfirm } =
+    useIndex(props, emit);
 
 /**
  * 暴露的属性与方法

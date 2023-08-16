@@ -1,4 +1,4 @@
-import { post, get } from '@/utils/uni-request';
+import { get } from '@/utils/uni-request';
 
 export default {
     // 条码信息查看

@@ -124,7 +124,6 @@ const emit = defineEmits<{
 const {
     selectType,
     selectLabel,
-    sourceList,
     showPopup,
     keyword,
     radioValue,
@@ -132,7 +131,6 @@ const {
     showList,
     handleClear,
     handlePopupOpen,
-    handlePopupClose,
     handleConfirm,
     handleCancel,
     handleSearchSearch,
