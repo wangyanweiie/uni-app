@@ -2,43 +2,45 @@
     <view class="component">
         <u-form ref="formRef" :model="form" :rules="rules" :label-width="labelWidth">
             <uni-row>
-                <uni-col v-for="item in schemas" :key="item.prop" :span="item.span ?? 24">
+                <uni-col v-for="schema in schemas" :key="schema.prop" :span="schema.span ?? 24">
                     <!-- 1.分隔线 -->
-                    <view v-if="item.type === 'BaseDivider'">
-                        <u-divider
-                            :text="item.label"
-                            text-color="#2196f3"
-                            text-size="32rpx"
-                            v-bind="item?.attributes"
-                        ></u-divider>
-                    </view>
+                    <u-divider
+                        v-if="schema.type === 'BaseDivider'"
+                        :text="schema.label"
+                        text-color="#2979ff"
+                        text-size="32rpx"
+                        v-bind="schema?.attributes"
+                    ></u-divider>
 
                     <!-- 2.标题 -->
-                    <view v-if="item.type === 'BaseTitle'">
-                        <view class="base-title">{{ item.label }}</view>
-                    </view>
+                    <view v-if="schema.type === 'BaseTitle'" class="title">{{ schema.label }}</view>
 
                     <!-- 3.插槽 -->
-                    <slot v-if="item.type === 'Slot'" :name="item.prop" :form="form" :schema="item"> </slot>
+                    <slot v-if="schema.type === 'Slot'" :name="schema.prop" :form="form" :schema="schema"> </slot>
 
                     <!-- 4.表单子项 -->
                     <u-form-item
-                        v-if="!item.hidden && item.prop"
-                        :key="item.prop"
-                        :label="item.label"
-                        :prop="item.prop"
-                        :required="item.rules ? true : false"
+                        v-if="schema.prop && !schema.hidden"
+                        :key="schema.prop"
+                        :prop="schema.prop"
+                        :label="schema.label"
+                        :required="!!schema.rules"
                     >
                         <!-- ① 插槽 -->
-                        <slot v-if="item.type === 'FormSlot'" :name="item.prop" :form="form" :schema="item"></slot>
+                        <slot
+                            v-if="schema.type === 'FormSlot'"
+                            :name="schema.prop"
+                            :form="form"
+                            :schema="schema"
+                        ></slot>
 
                         <!-- ② 自定义组件 -->
                         <component
-                            :is="components[item.type]"
+                            :is="(components as any)[schema.type]"
                             v-else
-                            :ref="(el: unknown) => handleCompInstance(el, item.prop)"
-                            :schema="item"
+                            :ref="(el: unknown) => handleCompInstance(el, schema.prop)"
                             :form="form"
+                            :schema="schema"
                             @handle-emit="handleEmit"
                             @handle-select="handleSelect"
                             @handle-scan-success="handleScanSuccess"
@@ -50,6 +52,12 @@
         </u-form>
     </view>
 </template>
+
+<script lang="ts">
+export default {
+    name: 'XForm',
+};
+</script>
 
 <script setup lang="ts">
 import useIndex from './useIndex';
@@ -117,12 +125,5 @@ defineExpose({
 <style lang="scss" scoped>
 .component {
     width: 100%;
-}
-
-.base-title {
-    font-size: 32rpx;
-    width: 100%;
-    color: #2196f3;
-    margin: 20rpx 0;
 }
 </style>

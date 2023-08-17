@@ -30,7 +30,7 @@ export interface Attributes {
     /** 是否渲染边框 */
     border: 'surround' | 'bottom' | 'none';
 
-    // ============ BaseInput | ScanInput | InputNumber | SearchSelect | DatePicker ============
+    // ============ BaseInput  | InputNumber | BaseDatePicker| SearchSelect | ScanInput ============
     /** 是否只读 */
     readonly: boolean;
 
@@ -50,7 +50,7 @@ export interface Attributes {
     /** 日期组件处理格式 */
     dateFormat: 'YYYY-MM-DD HH' | 'YYYY-MM-DD HH:mm' | 'YYYY-MM-DD HH:mm:ss';
 
-    // ============ SearchSelect | BaseUpload ============
+    // ============ BaseUpload | SearchSelect ============
     /** 是否多选 */
     multiple: boolean;
 
@@ -81,7 +81,7 @@ export interface Attributes {
     height: string | number;
     /** 是否可删除 */
     deletable: boolean;
-    /** 接收文件的类型，只有微信小程序支持 'media' | 'all'，H5页面支持 'file' */
+    /** 接收文件的类型，只有微信小程序支持 'media' | 'all'，H5 页面支持 'file' */
     // accept: 'all' | 'media' | 'file' | 'image' | 'video';
     accept: 'image' | 'video';
     /** 图片或视频拾取模式 */
@@ -100,19 +100,17 @@ export interface InputSlots {
     content: string;
     /** 其他属性 */
     attribute?: Record<string, any>;
-    /** function */
-    Function?: () => void;
 }
 
 /**
  * schema 联动方法参数类型
  */
 export interface ComponentPropsParams {
-    value: any;
+    value: string | number | string[] | number[];
     form: Record<string, any>;
     schemas: Schema[];
     schema: Schema;
-    result: 'success' | 'error' | 'clear' | 'change';
+    result: 'clear' | 'change' | 'success' | 'fail';
 }
 
 /**

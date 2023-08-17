@@ -92,6 +92,12 @@
     </view>
 </template>
 
+<script lang="ts">
+export default {
+    name: 'XSearchSelect',
+};
+</script>
+
 <script setup lang="ts">
 import { ref } from 'vue';
 import useIndex from './useIndex';

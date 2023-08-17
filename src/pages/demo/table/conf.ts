@@ -8,7 +8,7 @@ enum STATUS {
     '失败' = 2,
 }
 
-export const columnList = [
+export const columnList: HeaderItem = [
     {
         prop: 'index',
         label: '#',
@@ -40,17 +40,17 @@ export const columnList = [
         prop: 'status',
         label: '状态',
         type: 'tag',
-        expression: (data: Record<string, any>, header: HeaderItem) => {
+        expression: (row: Record<string, any>, header: HeaderItem) => {
             let type: string;
 
-            if (data[header.prop] === STATUS['成功']) {
+            if (row[header.prop] === STATUS['成功']) {
                 type = 'success';
             } else {
                 type = 'error';
             }
 
             return {
-                text: STATUS[data[header.prop]],
+                text: STATUS[row[header.prop]],
                 type,
             };
         },
@@ -63,9 +63,9 @@ export const columnList = [
     {
         prop: 'address',
         label: '地址',
-        expression: (data: Record<string, any>, header: HeaderItem) => {
-            if (data[header.prop]) {
-                return data[header.prop];
+        expression: (row: Record<string, any>, header: HeaderItem) => {
+            if (row[header.prop]) {
+                return row[header.prop];
             } else {
                 return '/';
             }
@@ -75,7 +75,7 @@ export const columnList = [
         prop: 'image',
         label: '图片',
         type: 'image',
-        expression: (data: Record<string, any>, header: HeaderItem) => {
+        expression: (row: Record<string, any>, header: HeaderItem) => {
             return ['http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg'];
         },
     },

@@ -27,6 +27,13 @@
         </template> -->
     </u-modal>
 </template>
+
+<script lang="ts">
+export default {
+    name: 'XModal',
+};
+</script>
+
 <script lang="ts" setup>
 import useIndex from './useIndex';
 

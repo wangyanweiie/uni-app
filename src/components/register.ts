@@ -7,13 +7,4 @@ import XSearchSelect from '@/components/x-search-select/index.vue';
 import XModal from '@/components/x-modal/index.vue';
 import XPrintModal from '@/components/x-print-modal/index.vue';
 
-export const components = [
-    { name: 'XForm', value: XForm },
-    { name: 'XTable', value: XTable },
-    { name: 'XDatePicker', value: XDatePicker },
-    { name: 'XUpload', value: XUpload },
-    { name: 'XSelect', value: XSelect },
-    { name: 'XSearchSelect', value: XSearchSelect },
-    { name: 'XModal', value: XModal },
-    { name: 'XPrintModal', value: XPrintModal },
-];
+export const components = [XForm, XTable, XDatePicker, XUpload, XSelect, XSearchSelect, XModal, XPrintModal];

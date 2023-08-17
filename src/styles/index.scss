@@ -1,8 +1,14 @@
+/**
+ * 页面
+ */
 .view-wrap {
     padding: 10rpx 24rpx;
     box-sizing: border-box;
 }
 
+/**
+ * 页面底部按钮
+ */
 .button-wrap {
     display: flex;
     margin: 30rpx 0;
@@ -11,4 +17,14 @@
         flex-grow: 1;
         margin: 0 10rpx;
     }
+}
+
+/**
+ * 标题
+ */
+.title {
+    font-size: 32rpx;
+    width: 100%;
+    color: #2979ff;
+    margin: 20rpx 0;
 }

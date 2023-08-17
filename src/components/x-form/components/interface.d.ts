@@ -13,6 +13,6 @@ export interface Props {
  */
 export interface RequestObj {
     code: number;
-    data: object | Array<any>;
+    data: Record<string, any> | any[];
     message: string;
 }

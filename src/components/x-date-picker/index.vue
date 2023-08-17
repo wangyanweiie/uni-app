@@ -31,6 +31,12 @@
     </view>
 </template>
 
+<script lang="ts">
+export default {
+    name: 'XDatePicker',
+};
+</script>
+
 <script setup lang="ts">
 import useIndex from './useIndex';
 import DatePicker from './Datepicker.vue';

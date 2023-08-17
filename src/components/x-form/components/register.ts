@@ -8,14 +8,14 @@ import BaseSelect from './select/index.vue';
 import SearchSelect from './search-select/index.vue';
 import ScanInput from './scan-input/index.vue';
 
-export const components: any = {
-    BaseInput: BaseInput,
-    InputNumber: InputNumber,
-    BaseTextarea: BaseTextarea,
-    BaseRadio: BaseRadio,
-    BaseDatePicker: BaseDatePicker,
-    BaseUpload: BaseUpload,
-    BaseSelect: BaseSelect,
-    SearchSelect: SearchSelect,
-    ScanInput: ScanInput,
+export const components = {
+    BaseInput,
+    InputNumber,
+    BaseTextarea,
+    BaseRadio,
+    BaseDatePicker,
+    BaseUpload,
+    BaseSelect,
+    SearchSelect,
+    ScanInput,
 };

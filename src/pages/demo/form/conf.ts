@@ -1,4 +1,4 @@
-import type { Schema } from '@/components/x-form/interface';
+import type { ComponentPropsParams, Schema } from '@/components/x-form/interface';
 import MenuListAPI from '@/api/menu-list';
 import RequestAPI from '@/api/demo/index';
 
@@ -24,13 +24,13 @@ export const schemas: Schema[] = [
         scanCodeMode: 'commonScanCode',
         defaultFocus: true,
         rules: [{ required: true, message: '扫码框不能为空' }],
-        componentProps: ({ value, form, schemas, schema, result }: any) => {
+        componentProps: ({ value, form, schemas, schema, result }: ComponentPropsParams) => {
             if (result === 'success') {
-                console.log('value', value);
-                console.log('form', form);
-                console.log('schemas', schemas);
-                console.log('schema', schema);
-                console.log('result', result);
+                console.log('value：', value);
+                console.log('form：', form);
+                console.log('schemas：', schemas);
+                console.log('schema：', schema);
+                console.log('result：', result);
             }
         },
     },
@@ -40,8 +40,20 @@ export const schemas: Schema[] = [
         label: '基础输入框',
         attributes: {
             placeholder: '自动生成',
+            clearable: true,
         },
         rules: [{ required: true, message: '基础输入框不能为空' }],
+        componentProps: ({ value, result }: ComponentPropsParams) => {
+            if (result === 'change') {
+                console.log('value：', value);
+                console.log('result：', result);
+            }
+
+            if (result === 'clear') {
+                console.log('value：', value);
+                console.log('result：', result);
+            }
+        },
     },
     {
         type: 'InputNumber',
@@ -92,13 +104,25 @@ export const schemas: Schema[] = [
         ],
         attributes: {
             placeholder: '自动生成',
+            clearable: true,
         },
         rules: [{ required: true, message: '静态单选下拉框不能为空' }],
+        componentProps: ({ value, result }: ComponentPropsParams) => {
+            if (result === 'change') {
+                console.log('value：', value);
+                console.log('result：', result);
+            }
+
+            if (result === 'clear') {
+                console.log('value：', value);
+                console.log('result：', result);
+            }
+        },
     },
     {
         type: 'BaseSelect',
         prop: 'BaseSelect2',
-        label: '单选下拉框',
+        label: '单选下拉框2',
         labelField: 'BaseSelect2Label',
         api: MenuListAPI.getUserName,
         attributes: {
@@ -126,8 +150,20 @@ export const schemas: Schema[] = [
         attributes: {
             placeholder: '自动生成',
             multiple: true,
+            clearable: true,
         },
         rules: [{ required: true, message: '静态多选下拉框不能为空' }],
+        componentProps: ({ value, result }: ComponentPropsParams) => {
+            if (result === 'change') {
+                console.log('value：', value);
+                console.log('result：', result);
+            }
+
+            if (result === 'clear') {
+                console.log('value：', value);
+                console.log('result：', result);
+            }
+        },
     },
     {
         type: 'SearchSelect',

@@ -117,6 +117,12 @@
     </view>
 </template>
 
+<script lang="ts">
+export default {
+    name: 'XTable',
+};
+</script>
+
 <script setup lang="ts">
 import type { HeaderItem, APIKeyMap } from './interface';
 import useIndex from './useIndex';

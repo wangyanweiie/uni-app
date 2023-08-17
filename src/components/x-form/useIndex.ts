@@ -1,6 +1,6 @@
 import { nextTick, onBeforeMount, ref } from 'vue';
 import { handleValue, handleLabelAndValue } from './handleForm';
-import type { Schema, XFormProps, EmitEvent, SelectEvent, ScanSuccessEvent, ScanFailEvent } from './interface';
+import type { Schema, XFormProps, EmitEvent, SelectEvent, ScanSuccessEvent, ScanFailEvent, Rules } from './interface';
 
 /**
  * useIndex
@@ -8,11 +8,6 @@ import type { Schema, XFormProps, EmitEvent, SelectEvent, ScanSuccessEvent, Scan
  * @param emit 自定义事件
  */
 export default function useIndex(props: XFormProps, emit: any) {
-    /**
-     * 配置表单列表
-     */
-    const schemas = ref<Schema[]>(props.schemaList);
-
     /**
      * 表单 ref
      */
@@ -26,7 +21,12 @@ export default function useIndex(props: XFormProps, emit: any) {
     /**
      * 表单校验
      */
-    const rules = ref<Record<string, any>>({});
+    const rules = ref<Record<string, Rules[]>>({});
+
+    /**
+     * 配置表单列表
+     */
+    const schemas = ref<Schema[]>(props.schemaList);
 
     /**
      * 组件实例对象
@@ -37,7 +37,7 @@ export default function useIndex(props: XFormProps, emit: any) {
      * @description 初始化表单
      */
     function handleInitForm() {
-        props.schemaList.forEach((schema: Schema) => {
+        schemas.value.forEach((schema: Schema) => {
             // 表单值
             if (schema.prop) {
                 form.value[schema.prop] = schema.defaultValue ?? '';
@@ -82,7 +82,7 @@ export default function useIndex(props: XFormProps, emit: any) {
      */
     function handleResetRules() {
         rules.value = {};
-        props.schemaList.forEach((schema: Schema) => {
+        schemas.value.forEach((schema: Schema) => {
             if (handleExceptionField(schema) && schema.rules) {
                 rules.value[schema.prop] = schema.rules;
             }
@@ -93,7 +93,7 @@ export default function useIndex(props: XFormProps, emit: any) {
      * @description 更新表单值
      */
     function handleUpdateForm() {
-        props.schemaList.forEach((schema: Schema) => {
+        schemas.value.forEach((schema: Schema) => {
             if (handleExceptionField(schema) && typeof instanceRef.value[schema.prop]?.setData === 'function') {
                 instanceRef.value[schema.prop].setData(form.value[schema.prop]);
             }
@@ -125,9 +125,9 @@ export default function useIndex(props: XFormProps, emit: any) {
         // 清空或者赋值都要触发联动回调，扫码只赋值，联动在扫码成功或者失败的事件中触发
         if (event.schema.componentProps && event.schema.type !== 'ScanInput') {
             await event.schema.componentProps({
-                value: form.value[event.schema.prop],
+                value: event.value,
                 form: form.value,
-                schemas: props.schemaList,
+                schemas: schemas.value,
                 schema: event.schema,
                 result: event.isClear ? 'clear' : 'change',
             });
@@ -155,9 +155,9 @@ export default function useIndex(props: XFormProps, emit: any) {
         // 清空或者赋值都要触发联动回调
         if (event.schema.componentProps) {
             await event.schema.componentProps({
-                value: form.value[event.schema.prop],
+                value: event.value.value,
                 form: form.value,
-                schemas: props.schemaList,
+                schemas: schemas.value,
                 schema: event.schema,
                 result: event.isClear ? 'clear' : 'change',
             });
@@ -186,7 +186,7 @@ export default function useIndex(props: XFormProps, emit: any) {
             await event.schema.componentProps({
                 value: event.value,
                 form: form.value,
-                schemas: props.schemaList,
+                schemas: schemas.value,
                 schema: event.schema,
                 result: 'success',
             });
@@ -198,13 +198,15 @@ export default function useIndex(props: XFormProps, emit: any) {
             });
         }
 
-        // 更新表单字段
+        // 是否重置表单字段
         if (!event.reset) {
             form.value[event.schema.prop] = event.value;
+        } else {
+            form.value[event.schema.prop] = '';
         }
 
         // 自定义事件
-        emit('handleScanSuccess', event.value);
+        emit('handleScanSuccess', event.result);
     }
 
     /**
@@ -217,9 +219,9 @@ export default function useIndex(props: XFormProps, emit: any) {
             await event.schema.componentProps({
                 value: event.value,
                 form: form.value,
-                schemas: props.schemaList,
+                schemas: schemas.value,
                 schema: event.schema,
-                result: 'error',
+                result: 'fail',
             });
 
             // 更新校验规则
@@ -228,17 +230,15 @@ export default function useIndex(props: XFormProps, emit: any) {
             });
         }
 
-        // 更新表单字段
-        if (event.reset) {
-            nextTick(() => {
-                resetForm(event.resetParams);
-            });
-        } else {
+        // 是否重置表单字段
+        if (!event.reset) {
             form.value[event.schema.prop] = event.value;
+        } else {
+            resetForm(event.resetParams);
         }
 
         // 自定义事件
-        emit('handleScanFail', event.value);
+        emit('handleScanFail');
     }
 
     /**
@@ -246,13 +246,13 @@ export default function useIndex(props: XFormProps, emit: any) {
      * @return 返回表单值
      */
     function getForm() {
-        props.schemaList.forEach((schema: Schema) => {
+        schemas.value.forEach((schema: Schema) => {
             if (handleExceptionField(schema) && typeof instanceRef.value[schema.prop]?.getData === 'function') {
                 form.value[schema.prop] = instanceRef.value[schema.prop].getData();
             }
         });
 
-        props.schemaList.forEach((schema: Schema) => {
+        schemas.value.forEach((schema: Schema) => {
             if (schema.type === 'BaseUpload' && schema.fileList && !Array.isArray(form.value[schema.prop])) {
                 if (Array.isArray(instanceRef.value[schema.prop].fileList)) {
                     form.value[schema.prop] = instanceRef.value[schema.prop].fileList.map(
@@ -295,8 +295,10 @@ export default function useIndex(props: XFormProps, emit: any) {
         } else {
             form.value = {};
             rules.value = {};
-            handleInitForm();
-            handleUpdateForm();
+            nextTick(() => {
+                handleInitForm();
+                handleUpdateForm();
+            });
         }
     }
 

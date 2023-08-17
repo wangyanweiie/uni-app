@@ -34,7 +34,7 @@
         </u-form>
 
         <!-- 弹窗 -->
-        <x-modal v-model="show" title="详情" @confirm="confirmSubmit">
+        <x-modal v-model="show" title="详情" @confirm="handleDetailConfirm">
             <template #default>
                 <view>我是详情</view>
             </template>
@@ -135,13 +135,6 @@ function handleDate(e: any) {
 }
 
 /**
- * 预览
- */
-function handlePreview(e: any) {
-    console.log('preview', e);
-}
-
-/**
  * 是否展示弹窗
  */
 const show = ref<boolean>(false);
@@ -151,6 +144,13 @@ const show = ref<boolean>(false);
  */
 function handleDetail() {
     show.value = true;
+}
+
+/**
+ * 详情确认
+ */
+function handleDetailConfirm() {
+    console.log('我是详情确认');
 }
 
 /**

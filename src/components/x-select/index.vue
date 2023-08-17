@@ -11,6 +11,12 @@
     </view>
 </template>
 
+<script lang="ts">
+export default {
+    name: 'XSelect',
+};
+</script>
+
 <script lang="ts" setup>
 import { onMounted, ref, watch } from 'vue';
 import DataSelect from './dataSelect.vue';

@@ -70,23 +70,18 @@ export function transformEnumToOptions(enumeration: Record<string, string | numb
 }
 
 /**
- * 返回上一页并调用方法
+ * 4.将 '-' 拼接字符串改为驼峰格式
+ * @param str 要转换的字符串
  */
-export function returnLastPage(updateFun: any, params?: Record<string, string | number>) {
-    setTimeout(() => {
-        // 获取当前页
-        const pages = getCurrentPages();
-        // 获取上一页 (上上页: length-3)
-        const beforePage = pages[pages.length - 2];
-        // 返回上一页
-        uni.navigateBack({
-            // 返回上一页 (上上页: 2)
-            delta: 1,
-            // 返回成功
-            success: function () {
-                // 调用上一页的方法，更新表单列表
-                beforePage.$vm[updateFun](params);
-            },
-        });
-    }, 1000);
+export function handleToHumpFormat(str: string) {
+    // 小驼峰格式：x-table ==> xTable
+    // const reg = /[-_](\w)/g;
+    // return str.replace(reg, (initial, item) => {
+    //     return item.toUpperCase();
+    // });
+
+    // 大驼峰格式：x-table ==> XTable
+    const arr = str.split('-');
+    const res = arr.map(item => `${item[0].toUpperCase()}${item.slice(1, item.length)}`).join('');
+    return res;
 }

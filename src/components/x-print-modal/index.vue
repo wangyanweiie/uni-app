@@ -23,6 +23,12 @@
     </u-modal>
 </template>
 
+<script lang="ts">
+export default {
+    name: 'XPrintModal',
+};
+</script>
+
 <script setup lang="ts">
 import { ref, watch, watchEffect } from 'vue';
 import { usePrint, Brand, PrinterLanguage } from './use-print';
