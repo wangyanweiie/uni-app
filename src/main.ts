@@ -20,6 +20,7 @@ export function createApp() {
     for (const [key, component] of Object.entries(components)) {
         const name = key.split('/')[2];
         const componentName = handleToHumpFormat(name);
+
         app.component(componentName, defineAsyncComponent(component as any));
     }
 

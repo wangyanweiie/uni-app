@@ -47,7 +47,7 @@ export default (url: string, options?: any, downloadcallback?: any, finishedcall
             case TASK_STATE['已连接到服务器']:
                 break;
 
-            case TASK_STATE['已接受到数据']:
+            case TASK_STATE['已接受到数据']: {
                 // 更新下载进度
                 const currentProgress =
                     task.downloadedSize && task.totalSize ? task.downloadedSize / task.totalSize : 0;
@@ -58,6 +58,7 @@ export default (url: string, options?: any, downloadcallback?: any, finishedcall
                     downloadcallback(downloadProgress);
                 }
                 break;
+            }
 
             case TASK_STATE['下载完成']:
                 if (finishedcallback) {
