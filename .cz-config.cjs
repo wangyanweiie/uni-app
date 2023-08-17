@@ -41,6 +41,8 @@ module.exports = {
      */
     skipQuestions: ['customScope', 'body', 'footer'],
 
-    // subject 描述文字长度最长是72
+    /**
+     * 描述文字长度限制
+     */
     subjectLimit: 20,
 };

@@ -1,15 +1,15 @@
 import { createSSRApp, defineAsyncComponent } from 'vue';
 import App from './App.vue';
 import uviewPlus from 'uview-plus';
-import { handleToHumpFormat } from '@/utils/hooks';
 // import { components } from '@/components/register';
+import { handleToHumpFormat } from '@/utils/hooks';
 
 export function createApp() {
     const app = createSSRApp(App);
 
     app.use(uviewPlus);
 
-    // 注册组件
+    // 通过声明组件 name 注册组件
     // components.map(item => {
     //     app.component(item.name, item);
     // });
