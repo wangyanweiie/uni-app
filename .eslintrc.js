@@ -68,6 +68,8 @@ module.exports = {
         'no-duplicate-imports': ['error'],
         // 组件名称以驼峰格式命名
         'vue/multi-word-component-names': ['warn'],
+        // 组件名在模板中的命名方式的规则
+        'vue/component-name-in-template-casing': ['error', 'kebab-case'],
         // 声明但未使用的变量
         '@typescript-eslint/no-unused-vars': ['warn'],
         // any
