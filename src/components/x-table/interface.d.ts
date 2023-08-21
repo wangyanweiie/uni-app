@@ -71,8 +71,10 @@ export interface XTableProp {
     selectable: boolean;
     /** 是否渲染斑马纹 */
     stripe: boolean;
-    /** 决定行颜色字段 */
-    colorField: string;
+    /** 表头行颜色 */
+    headerStyle: any;
+    /** 表格行颜色 */
+    rowStyle: any;
     /** 可滑动的最小高度 */
     scrollStyle: any;
 }

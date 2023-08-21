@@ -7,6 +7,7 @@
             :api-params="apiParams"
             :show-index="true"
             :selectable="true"
+            :row-style="handleRowStyle"
             title="日志"
         >
             <!-- 顶部操作 -->
@@ -60,5 +61,16 @@ function handleClose(checkRows: Record<string, any>[]) {
  */
 function handleDelete(rows: Record<string, any>[]) {
     console.log('delete', rows);
+}
+
+/**
+ * 表格行颜色
+ */
+function handleRowStyle(row: Record<string, any>, rowIndex: number) {
+    if (!rowIndex) {
+        return {
+            backgroundColor: '#fad8d6',
+        };
+    }
 }
 </script>

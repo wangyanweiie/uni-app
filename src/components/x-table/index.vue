@@ -23,12 +23,15 @@
             >
                 <!-- 表头行 -->
                 <uni-tr class="table_header">
-                    <template v-for="header in tableHeader" :key="header.prop">
+                    <template v-for="(header, headerIndex) in tableHeader" :key="header.prop">
                         <uni-th
                             :width="header?.width ?? 120"
                             :align="header?.align ?? 'center'"
                             :class="['table_header_th']"
-                            :style="handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#f5f6f8')"
+                            :style="[
+                                handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#f5f6f8'),
+                                typeof headerStyle === 'function' && headerStyle(header, headerIndex),
+                            ]"
                         >
                             <text v-if="header?.required" class="table_header_required">*</text>
                             <text>{{ header.label }}</text>
@@ -38,38 +41,33 @@
 
                 <!-- 表格数据行 -->
                 <uni-tr
-                    v-for="(data, dataIndex) in tableData"
-                    :key="dataIndex"
-                    :class="[
-                        'table_content',
-                        props.colorField && data[props.colorField] === ROW_COLOR['红色'] ? 'red' : '',
-                        props.colorField && data[props.colorField] === ROW_COLOR['黄色'] ? 'yellow' : '',
-                    ]"
-                    @click="handleRowClick(data)"
+                    v-for="(row, rowIndex) in tableData"
+                    :key="rowIndex"
+                    :class="['table_content']"
+                    @click="handleRowClick(row)"
                 >
                     <template v-for="header in tableHeader" :key="header.prop">
                         <uni-td
                             :align="header?.align ?? 'center'"
-                            :style="handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#fff')"
-                            :class="[
-                                'table_content_td',
-                                props.colorField && data[props.colorField] === ROW_COLOR['红色'] ? 'red' : '',
-                                props.colorField && data[props.colorField] === ROW_COLOR['黄色'] ? 'yellow' : '',
+                            :class="['table_content_td']"
+                            :style="[
+                                handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#fff'),
+                                typeof rowStyle === 'function' && rowStyle(row, rowIndex),
                             ]"
                         >
                             <!-- 索引列 -->
-                            <view v-if="header?.prop === 'index'">{{ dataIndex + 1 }}</view>
+                            <view v-if="header?.prop === 'index'">{{ rowIndex + 1 }}</view>
 
                             <!-- 操作列 -->
                             <view v-else-if="header?.prop === 'action'" class="table_content_action">
-                                <slot :name="`${header.prop}`" :row="data" :index="dataIndex" />
+                                <slot :name="`${header.prop}`" :row="row" :index="rowIndex" />
                             </view>
 
                             <!-- 标签 -->
-                            <view v-else-if="header?.type === 'tag' && header?.expression?.(data, header)">
+                            <view v-else-if="header?.type === 'tag' && header?.expression?.(row, header)">
                                 <u-tag
-                                    :text="header?.expression(data, header)?.text"
-                                    :type="header?.expression(data, header)?.type"
+                                    :text="header?.expression(row, header)?.text"
+                                    :type="header?.expression(row, header)?.type"
                                     :plain="true"
                                     :plain-fill="true"
                                     size="mini"
@@ -79,11 +77,11 @@
 
                             <!-- 图片 -->
                             <view
-                                v-else-if="header?.type === 'image' && header?.expression?.(data, header)"
+                                v-else-if="header?.type === 'image' && header?.expression?.(row, header)"
                                 class="table_content_image"
                             >
                                 <image
-                                    v-for="(item, index) in header?.expression(data, header)"
+                                    v-for="(item, index) in header?.expression(row, header)"
                                     :key="index"
                                     :src="item"
                                     @click="handlePreview(item)"
@@ -92,12 +90,12 @@
 
                             <!-- 插槽 -->
                             <view v-else-if="header?.type === 'slot'">
-                                <slot :name="`${header.prop}`" :row="data" :index="dataIndex" />
+                                <slot :name="`${header.prop}`" :row="row" :index="rowIndex" />
                             </view>
 
                             <!-- 文本 -->
                             <view v-else>
-                                {{ header?.expression?.(data, header) ?? data?.[header.prop] }}
+                                {{ header?.expression?.(row, header) ?? row?.[header.prop] }}
                             </view>
                         </uni-td>
                     </template>
@@ -128,14 +126,6 @@ import type { HeaderItem, APIKeyMap } from './interface';
 import useIndex from './useIndex';
 
 /**
- * 行颜色
- */
-enum ROW_COLOR {
-    '红色' = 1,
-    '黄色' = 2,
-}
-
-/**
  * props
  */
 const props = withDefaults(
@@ -164,15 +154,17 @@ const props = withDefaults(
         selectable?: boolean;
         /** 是否渲染斑马纹 */
         stripe?: boolean;
-        /** 决定行颜色字段 */
-        colorField?: string;
+        /** 表头行颜色 */
+        headerStyle?: any;
+        /** 表格行颜色 */
+        rowStyle?: any;
         /** 可滑动的最小高度 */
         scrollStyle?: any;
     }>(),
     {
         title: '数据列表',
         emptyText: '暂无更多数据',
-        api: undefined,
+        api: null,
         apiParams: () => ({}),
         apiKeyMap: () => ({
             queryCurrentPageKey: 'page',
@@ -191,7 +183,8 @@ const props = withDefaults(
         loading: false,
         selectable: false,
         stripe: false,
-        colorField: 'color',
+        headerStyle: null,
+        rowStyle: null,
         scrollStyle: () => ({}),
     },
 );
@@ -324,13 +317,5 @@ defineExpose({
             }
         }
     }
-}
-
-.red {
-    background-color: #fad8d6 !important;
-}
-
-.yellow {
-    background-color: #ffee8f !important;
 }
 </style>

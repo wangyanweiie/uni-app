@@ -8,7 +8,10 @@ enum STATUS {
     '失败' = 2,
 }
 
-export const columnList: HeaderItem = [
+/**
+ * 表格列配置
+ */
+export const columnList: HeaderItem[] = [
     {
         prop: 'index',
         label: '#',
