@@ -35,16 +35,17 @@
     </view>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'BaseDatePicker',
-};
-</script>
-
 <script setup lang="ts">
 import useIndex from './useIndex';
 import DatePicker from './Datepicker.vue';
 import type { Schema } from '../../interface';
+
+/**
+ * 定义组件选项
+ */
+defineOptions({
+    name: 'BaseDatePicker',
+});
 
 /**
  * props

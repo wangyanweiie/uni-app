@@ -65,7 +65,7 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? ['warn'] : ['off'],
         'no-var': ['error'],
         // 不要重复引入一个模块
-        'no-duplicate-imports': ['error'],
+        'no-duplicate-imports': ['warn'],
         // 组件名称以驼峰格式命名
         'vue/multi-word-component-names': ['warn'],
         // 组件名在模板中的命名方式的规则

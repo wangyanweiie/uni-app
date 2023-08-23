@@ -11,17 +11,18 @@
     </view>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'XSelect',
-};
-</script>
-
 <script lang="ts" setup>
 import { onMounted, ref, watch } from 'vue';
 import DataSelect from './dataSelect.vue';
 import { useVModel } from '@vueuse/core';
 import type { Options } from './interface';
+
+/**
+ * 定义组件选项
+ */
+defineOptions({
+    name: 'XSelect',
+});
 
 /**
  * props

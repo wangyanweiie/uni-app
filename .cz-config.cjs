@@ -12,16 +12,16 @@ module.exports = {
         { value: 'test', name: 'test: 测试用例新增、修改' },
         { value: 'chore', name: 'chore: 构建过程或辅助工具的变动' },
         { value: 'build', name: 'build: 影响项目构建或依赖项修改' },
-        { value: 'ci', name: 'revert: 持续集成相关文件修改' },
-        { value: 'workflow', name: 'revert: 工作流相关文件修改' },
-        { value: 'release', name: 'revert: 发布新版本' },
+        { value: 'ci', name: 'ci: 持续集成相关文件修改' },
+        { value: 'workflow', name: 'workflow: 工作流相关文件修改' },
+        { value: 'release', name: 'release: 发布新版本' },
         { value: 'revert', name: 'revert: 版本回退' },
     ],
 
     /**
      * scope
      */
-    scopes: [{ name: 'uni-app' }, { name: 'vue-app' }, { name: 'react-app' }],
+    scopes: [{ name: 'uni-app' }],
 
     /**
      * 消息步骤
@@ -44,5 +44,5 @@ module.exports = {
     /**
      * 描述文字长度限制
      */
-    subjectLimit: 20,
+    subjectLimit: 30,
 };

@@ -28,14 +28,15 @@
     </u-modal>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'XModal',
-};
-</script>
-
 <script lang="ts" setup>
 import useIndex from './useIndex';
+
+/**
+ * 定义组件选项
+ */
+defineOptions({
+    name: 'XModal',
+});
 
 /**
  * props

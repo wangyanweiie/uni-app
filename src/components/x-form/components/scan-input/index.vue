@@ -16,17 +16,21 @@
     </view>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'ScanInput',
-};
-</script>
-
 <script setup lang="ts">
 import useIndex from './useIndex';
 import useScan from './useScan';
 import type { Schema } from '../../interface';
 
+/**
+ * 定义组件选项
+ */
+defineOptions({
+    name: 'ScanInput',
+});
+
+/**
+ * props
+ */
 const props = withDefaults(
     defineProps<{
         schema: Schema;

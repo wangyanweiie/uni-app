@@ -11,7 +11,10 @@
         "esModuleInterop": true,
         "lib": ["esnext", "dom"],
         "skipLibCheck": true,
-        "types": ["@dcloudio/types"],
+        "types": [
+            "@dcloudio/types",
+            "unplugin-vue-define-options/macros-global"
+        ],
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"]

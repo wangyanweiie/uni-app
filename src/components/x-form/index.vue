@@ -53,16 +53,17 @@
     </view>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'XForm',
-};
-</script>
-
 <script setup lang="ts">
 import useIndex from './useIndex';
 import type { Schema } from './interface';
 import { components } from './components/register';
+
+/**
+ * 定义组件选项
+ */
+defineOptions({
+    name: 'XForm',
+});
 
 /**
  * props

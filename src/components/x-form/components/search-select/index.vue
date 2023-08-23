@@ -85,12 +85,6 @@
     </view>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'SearchSelect',
-};
-</script>
-
 <script setup lang="ts">
 import { ref } from 'vue';
 import useIndex from './useIndex';
@@ -101,6 +95,13 @@ const popupStyle = ref({ padding: '20px', width: '80%' });
 const buttonStyle = ref({ margin: '0 5px' });
 const radioStyle = ref({ marginTop: '15px' });
 const checkboxStyle = ref({ marginTop: '15px' });
+
+/**
+ * 定义组件选项
+ */
+defineOptions({
+    name: 'SearchSelect',
+});
 
 /**
  * props

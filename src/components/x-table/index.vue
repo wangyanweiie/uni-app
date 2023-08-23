@@ -115,15 +115,16 @@
     </view>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'XTable',
-};
-</script>
-
 <script setup lang="ts">
 import type { HeaderItem, APIKeyMap } from './interface';
 import useIndex from './useIndex';
+
+/**
+ * 定义组件选项
+ */
+defineOptions({
+    name: 'XTable',
+});
 
 /**
  * props

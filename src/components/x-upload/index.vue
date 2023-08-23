@@ -52,7 +52,7 @@
             </view>
         </u-overlay>
 
-        <!-- 
+        <!--
             上传组件
             通过 :file-list="fileList" 展示的缩略图不可预览视频，故不再传入 fileList，手写预览区；
             而且由于不传入 fileList ，超出最大上传数量后上传按钮不再自动隐藏，需要手动隐藏；
@@ -84,14 +84,15 @@
     </view>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'XUpload',
-};
-</script>
-
 <script setup lang="ts">
 import useIndex from './useIndex';
+
+/**
+ * 定义组件选项
+ */
+defineOptions({
+    name: 'XUpload',
+});
 
 /**
  * props

@@ -11,16 +11,17 @@
     </view>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'BaseSelect',
-};
-</script>
-
 <script setup lang="ts">
 import useIndex from './useIndex';
 import DataSelect from './dataSelect.vue';
 import type { Schema, Options } from '../../interface';
+
+/**
+ * 定义组件选项
+ */
+defineOptions({
+    name: 'BaseSelect',
+});
 
 /**
  * props

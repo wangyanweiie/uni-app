@@ -14,15 +14,16 @@
     </view>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'BaseUpload',
-};
-</script>
-
 <script setup lang="ts">
 import useIndex from './useIndex';
 import type { Schema } from '../../interface';
+
+/**
+ * 定义组件选项
+ */
+defineOptions({
+    name: 'BaseUpload',
+});
 
 /**
  * props

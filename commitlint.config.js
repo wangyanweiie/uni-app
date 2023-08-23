@@ -66,7 +66,7 @@ module.exports = {
          * 'scope-enum'：只允许在列出的枚举值中
          */
         'scope-empty': [2, 'never'],
-        'scope-enum': [2, 'always', ['uni-app', 'vue-app', 'react-app']],
+        'scope-enum': [2, 'always', ['uni-app']],
 
         /**
          * subject
@@ -77,7 +77,7 @@ module.exports = {
          */
         'subject-empty': [2, 'never'],
         'subject-min-length': [2, 'always', 2],
-        'subject-max-length': [2, 'always', 20],
+        'subject-max-length': [2, 'always', 30],
         'subject-case': [
             2,
             'always',
