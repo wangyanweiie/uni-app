@@ -2,7 +2,6 @@
     <view class="component">
         <u-input
             v-model="selectLabel"
-            readonly
             :border="border"
             :placeholder="placeholder"
             :disabled="disabled"

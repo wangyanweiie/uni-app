@@ -4,7 +4,6 @@
             v-model="selectLabel"
             border="surround"
             placeholder="请选择"
-            readonly
             v-bind="schema?.attributes"
             @click="handlePopupOpen"
         >

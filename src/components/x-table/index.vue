@@ -270,6 +270,14 @@ defineExpose({
 
 // 表格主体样式
 .table {
+    :deep(.uni-table-th) {
+        padding: 18rpx 10rpx;
+    }
+
+    :deep(.uni-table-td) {
+        padding: 10rpx;
+    }
+
     margin-bottom: 20rpx;
 
     &_header {

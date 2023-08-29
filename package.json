@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "serve": "concurrently \"uni\" \"node script/generate-router/index.js\"",
-        "serve:cs": "concurrently \"uni --port 5174 --mode cs\" \"node script/generate-router/index.js\"",
+        "cs": "concurrently \"uni --port 5174 --mode cs\" \"node script/generate-router/index.js\"",
         "dev:app": "uni -p app",
         "dev:app-android": "uni -p app-android",
         "dev:app-ios": "uni -p app-ios",

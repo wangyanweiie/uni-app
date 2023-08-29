@@ -1,8 +1,11 @@
-import { createSSRApp, defineAsyncComponent } from 'vue';
+import {
+    createSSRApp,
+    // defineAsyncComponent
+} from 'vue';
 import App from './App.vue';
 import uviewPlus from 'uview-plus';
 import { components } from '@/components/register';
-import { handleToHumpFormat } from '@/utils/hooks';
+// import { handleToHumpFormat } from '@/utils/hooks';
 
 export function createApp() {
     const app = createSSRApp(App);

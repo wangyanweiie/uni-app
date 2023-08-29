@@ -4,7 +4,6 @@
             v-model="dateValue"
             border="surround"
             placeholder="请选择日期"
-            readonly
             v-bind="schema?.attributes"
             @click="handleOpen"
         >
