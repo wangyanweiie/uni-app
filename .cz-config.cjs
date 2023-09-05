@@ -21,7 +21,7 @@ module.exports = {
     /**
      * scope
      */
-    scopes: [{ name: 'uni-app' }],
+    scopes: ['uni-app'],
 
     /**
      * 消息步骤

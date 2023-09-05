@@ -41,7 +41,8 @@
         "type-check": "vue-tsc --noEmit",
         "prepare": "husky install",
         "eslint": "eslint src --ext .vue,.ts,.js --fix",
-        "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md,less,sass,scss,sty}\""
+        "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md,less,sass,scss,sty}\"",
+        "commit": "git add . && git cz"
     },
     "config": {
         "commitizen": {
