@@ -38,9 +38,9 @@
         "build:quickapp-webview": "uni build -p quickapp-webview",
         "build:quickapp-webview-huawei": "uni build -p quickapp-webview-huawei",
         "build:quickapp-webview-union": "uni build -p quickapp-webview-union",
-        "type-check": "vue-tsc --noEmit",
         "prepare": "husky install",
-        "eslint": "eslint src --ext .vue,.ts,.js --fix",
+        "type-check": "vue-tsc --noEmit",
+        "lint": "eslint src --ext .vue,.ts,.js --fix",
         "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md,less,sass,scss,sty}\"",
         "commit": "git add . && git cz"
     },
