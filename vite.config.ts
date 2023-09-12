@@ -8,11 +8,12 @@ uniHot.setupHotJs();
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [uni(), uniHot.createHotVitePlugin(), DefineOptions()],
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),
             '*': path.resolve(''),
         },
     },
+
+    plugins: [uni(), uniHot.createHotVitePlugin(), DefineOptions()],
 });
