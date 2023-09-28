@@ -4,14 +4,14 @@
         <view class="operation">
             <view v-if="title" class="operation_text"> {{ title }} </view>
             <view class="operation_button">
-                <slot name="operation" :check-rows="checkRows" />
+                <slot name="operation" :check-rows-index="checkRowsIndex" :check-rows="checkRows" />
             </view>
         </view>
 
         <!-- 表格 -->
         <scroll-view scroll-y="true" :style="scrollStyle">
             <uni-table
-                ref="uniTableRef"
+                ref="tableRef"
                 :key="key"
                 :type="selectable ? 'selection' : ''"
                 :loading="loading ? tableLoading : false"
@@ -23,7 +23,7 @@
             >
                 <!-- 表头行 -->
                 <uni-tr class="table_header">
-                    <template v-for="(header, headerIndex) in tableHeader" :key="header.prop">
+                    <template v-for="(header, headerIndex) in columns" :key="header.prop">
                         <uni-th
                             :width="header?.width ?? 120"
                             :align="header?.align ?? 'center'"
@@ -46,7 +46,7 @@
                     :class="['table_content']"
                     @click="handleRowClick(row)"
                 >
-                    <template v-for="header in tableHeader" :key="header.prop">
+                    <template v-for="header in columns" :key="header.prop">
                         <uni-td
                             :align="header?.align ?? 'center'"
                             :class="['table_content_td']"
@@ -116,7 +116,7 @@
 </template>
 
 <script setup lang="ts">
-import type { HeaderItem, APIKeyMap } from './interface';
+import type { XTableColumn, APIKeyMap } from './interface';
 import useIndex from './useIndex';
 
 /**
@@ -146,13 +146,15 @@ const props = withDefaults(
         /** 分页设置 */
         paginationProp?: Record<string, number>;
         /** 表头列表 */
-        tableHeader?: HeaderItem[];
+        columns?: XTableColumn[];
         /** 静态表格数据 */
         data?: Record<string, any>[];
         /** 是否渲染 loading */
         loading?: boolean;
         /** 是否可选 */
         selectable?: boolean;
+        /** 已勾选的行索引列表 */
+        selectedList?: number[];
         /** 是否渲染斑马纹 */
         stripe?: boolean;
         /** 表头行颜色 */
@@ -179,10 +181,11 @@ const props = withDefaults(
         paginationProp: () => ({
             pageSize: 10,
         }),
-        tableHeader: () => [],
+        columns: () => [],
         data: () => [],
         loading: false,
         selectable: false,
+        selectedList: () => [],
         stripe: false,
         headerStyle: null,
         rowStyle: null,
@@ -202,9 +205,10 @@ const emit = defineEmits<{
  */
 const {
     key,
-    uniTableRef,
+    tableRef,
     tableLoading,
     tableData,
+    checkRowsIndex,
     checkRows,
     handleRowClick,
     handleSelectionChange,
@@ -221,7 +225,7 @@ const {
  * 子组件暴露的属性与方法
  */
 defineExpose({
-    uniTableRef,
+    tableRef,
     tableData,
     clearSelection,
     validate,

@@ -1,7 +1,7 @@
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 import type {
     XTableProp,
-    HeaderItem,
+    XTableColumn,
     Pagination,
     PaginationChangeParams,
     FixedStyleFunReturn,
@@ -22,7 +22,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
     /**
      * ref
      */
-    const uniTableRef = ref<any>();
+    const tableRef = ref<any>();
 
     /**
      * loading
@@ -37,6 +37,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
     /**
      * 勾选行数据
      */
+    const checkRowsIndex = ref<number[]>([]);
     const checkRows = ref<Record<string, any>[]>([]);
 
     /**
@@ -52,11 +53,13 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
      * @param e $event
      */
     function handleSelectionChange(e: Record<string, any>) {
+        checkRowsIndex.value = [];
         checkRows.value = [];
 
-        // e.detail.index 勾选行的索引列表
         if (e.detail.index.length) {
-            e.detail.index.forEach((item: number) => {
+            // 保存行索引与行数据列表
+            checkRowsIndex.value = e.detail.index;
+            checkRowsIndex.value.forEach((item: number) => {
                 checkRows.value.push(tableData.value[item]);
             });
         }
@@ -66,8 +69,28 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
      * @description 清空勾选行
      */
     function clearSelection() {
+        checkRowsIndex.value = [];
         checkRows.value = [];
-        uniTableRef.value.clearSelection();
+        tableRef.value.clearSelection();
+    }
+
+    /**
+     * 回显勾选行
+     */
+    function handleToggleRow() {
+        if (!props.selectable || !props.selectedList || !props.selectedList.length) {
+            return;
+        }
+
+        nextTick(() => {
+            tableRef.value.toggleRowSelection(props.selectedList, true);
+        });
+
+        // 保存行索引与行数据列表
+        checkRowsIndex.value = props.selectedList;
+        checkRowsIndex.value.forEach((item: number) => {
+            checkRows.value.push(tableData.value[item]);
+        });
     }
 
     /**
@@ -89,8 +112,6 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
      * @param query 查询条件
      */
     async function loadData(query: Record<string, string | number> = {}): Promise<void> {
-        clearSelection();
-
         // 保存请求的查询条件，分页时切换页码时作为入参
         searchData.value = query;
 
@@ -165,6 +186,8 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
 
         key.value++;
         tableLoading.value = false;
+        clearSelection();
+        handleToggleRow();
     }
 
     /**
@@ -233,8 +256,8 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
         let flag: boolean = true;
 
         // "!" => 非空断言操作符，可以断言一个变量一定不为 null 或者 undefined，从而避免出现类型错误
-        const requiredList = props.tableHeader!.filter((headerItem: HeaderItem) => headerItem?.required === true);
-        const requiredPropList = requiredList.map((headerItem: HeaderItem) => headerItem.prop);
+        const requiredList = props.columns!.filter((headerItem: XTableColumn) => headerItem?.required === true);
+        const requiredPropList = requiredList.map((headerItem: XTableColumn) => headerItem.prop);
 
         tableData.value.forEach((item: Record<string, any>, index: number) => {
             rowIndex = index;
@@ -274,7 +297,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
     // const stopWatchdata = watch(
     //     () => props.data,
     //     (newValue: Record<string, any>[]) => {
-    //         loadData({});
+    //         loadData();
     //     },
     //     {
     //         deep: true,
@@ -285,7 +308,7 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
      * 页面挂载
      */
     onMounted(() => {
-        loadData({});
+        loadData();
     });
 
     /**
@@ -297,9 +320,10 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
 
     return {
         key,
-        uniTableRef,
+        tableRef,
         tableLoading,
         tableData,
+        checkRowsIndex,
         checkRows,
         handleRowClick,
         handleSelectionChange,

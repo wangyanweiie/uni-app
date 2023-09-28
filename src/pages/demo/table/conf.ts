@@ -1,4 +1,4 @@
-import { HeaderItem } from '@/components/x-table/interface';
+import { XTableColumn } from '@/components/x-table/interface';
 
 /**
  * 状态枚举
@@ -11,7 +11,7 @@ enum STATUS {
 /**
  * 表格列配置
  */
-export const columnList: HeaderItem[] = [
+export const columnList: XTableColumn[] = [
     {
         prop: 'index',
         label: '#',
@@ -43,7 +43,7 @@ export const columnList: HeaderItem[] = [
         prop: 'status',
         label: '状态',
         type: 'tag',
-        expression: (row: Record<string, any>, header: HeaderItem) => {
+        expression: (row: Record<string, any>, header: XTableColumn) => {
             let type: string;
 
             if (row[header.prop] === STATUS['成功']) {
@@ -66,7 +66,7 @@ export const columnList: HeaderItem[] = [
     {
         prop: 'address',
         label: '地址',
-        expression: (row: Record<string, any>, header: HeaderItem) => {
+        expression: (row: Record<string, any>, header: XTableColumn) => {
             if (row[header.prop]) {
                 return row[header.prop];
             } else {
@@ -78,7 +78,7 @@ export const columnList: HeaderItem[] = [
         prop: 'image',
         label: '图片',
         type: 'image',
-        expression: (row: Record<string, any>, header: HeaderItem) => {
+        expression: (row: Record<string, any>, header: XTableColumn) => {
             return ['http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg'];
         },
     },

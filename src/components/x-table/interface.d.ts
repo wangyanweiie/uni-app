@@ -1,7 +1,7 @@
 /**
  * x-table 表头配置格式
  */
-export interface HeaderItem {
+export interface XTableColumn {
     /** 表头字段名 */
     prop: string;
     /** 表头展示文字 */
@@ -20,7 +20,7 @@ export interface HeaderItem {
     /** 单元格渲染类型 */
     type?: 'tag' | 'image' | 'slot';
     /** 渲染标签/图片/文本格式化的数据处理函数 */
-    expression?: (row: Record<string, any>, header: HeaderItem) => any;
+    expression?: (row: Record<string, any>, header: XTableColumn) => any;
 }
 
 /**
@@ -62,13 +62,15 @@ export interface XTableProp {
     /** 分页设置 */
     paginationProp: Record<string, number>;
     /** 表头列表 */
-    tableHeader: HeaderItem[];
+    columns: XTableColumn[];
     /** 静态表格数据 */
     data: Record<string, any>[];
     /** 是否渲染 loading */
     loading: boolean;
     /** 是否可选 */
     selectable: boolean;
+    /** 已勾选的行索引列表 */
+    selectedList?: number[];
     /** 是否渲染斑马纹 */
     stripe: boolean;
     /** 表头行颜色 */
