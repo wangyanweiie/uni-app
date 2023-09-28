@@ -55,7 +55,11 @@
                 :value="userInfo.printBrand"
                 @click="checkUpdate"
             ></u-cell>
-            <u-cell icon="tags" :icon-style="iconStyle" title="API" size="large" :value="userInfo.api"></u-cell>
+            <u-cell icon="tags" :icon-style="iconStyle" title="baseUrl" size="large">
+                <template #right-icon>
+                    <u-input v-model="userInfo.baseUrl" :disabled="ENV === 'production'" @blur="handleBlur"></u-input>
+                </template>
+            </u-cell>
         </u-cell-group>
 
         <view style="margin: 24rpx">
@@ -71,7 +75,7 @@
                 </view>
                 <view>
                     <view class="download-style_gap">保存路径 : </view>
-                    <view class="download-style_color">Android/data/xmart.xilong.com/downloads/...</view>
+                    <view class="download-style_color">Android/data/...</view>
                 </view>
             </view>
         </u-modal>
@@ -79,10 +83,19 @@
 </template>
 
 <script lang="ts" setup>
+import { ENV } from '@/constant/global';
 import useIndex from './useIndex';
 
-const { userInfo, iconStyle, showProgressModal, downloadProgress, showLogout, checkUpdate, handleChangePassword } =
-    useIndex();
+const {
+    userInfo,
+    iconStyle,
+    showProgressModal,
+    downloadProgress,
+    showLogout,
+    checkUpdate,
+    handleChangePassword,
+    handleBlur,
+} = useIndex();
 </script>
 <style lang="scss" scoped>
 .download-style {

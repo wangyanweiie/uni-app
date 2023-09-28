@@ -1,6 +1,6 @@
 import { ref, onBeforeMount } from 'vue';
 import type { Props } from './interface';
-import { UPLOAD_URL } from '@/constant/index';
+import { UPLOAD_URL } from '@/constant/global';
 
 export default function useIndex(props: Props, emit: any) {
     /**

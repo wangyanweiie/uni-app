@@ -10,7 +10,7 @@
 <script lang="ts" setup>
 import { ref, nextTick } from 'vue';
 import dayjs from 'dayjs';
-import { UPLOAD_URL } from '@/constant/index';
+// import { UPLOAD_URL } from '@/constant/global';
 
 /**
  * 画布宽度
@@ -181,3 +181,4 @@ function preview() {
     }
 }
 </style>
+@/constant/base

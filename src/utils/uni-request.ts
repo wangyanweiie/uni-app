@@ -1,11 +1,7 @@
 import type { HttpType } from '@/interface/http';
 import { getStorage, removeStorage } from '@/utils/uni-storage';
 import { hideLoading, showLoading, showToast } from '@/utils/uni-message';
-
-/**
- * 服务地址
- */
-const BASE_URL = import.meta.env.VITE_API_URL as string;
+import { LOCAL_BASE_URL_KEY, LOCAL_TOKEN_KEY } from '@/constant/global';
 
 /**
  * 请求状态码
@@ -16,8 +12,8 @@ enum CODE_STATUS {
 }
 
 export function HTTP(method: HttpType, url: string, data: any, loading = true) {
-    // 获取 token
-    const token = getStorage('token');
+    const token = getStorage(LOCAL_TOKEN_KEY);
+    const baseUrl = getStorage(LOCAL_BASE_URL_KEY) || (import.meta.env.VITE_API_URL as string);
 
     if (loading) {
         showLoading('请求中', loading);
@@ -25,7 +21,7 @@ export function HTTP(method: HttpType, url: string, data: any, loading = true) {
 
     return new Promise(resolve => {
         uni.request({
-            url: BASE_URL + url,
+            url: baseUrl + url,
             method,
             data,
             dataType: 'json',
@@ -64,7 +60,7 @@ function handleResponse(res: any, resolve: any) {
     } else {
         switch (code) {
             case CODE_STATUS['未登录']:
-                removeStorage('token');
+                removeStorage(LOCAL_TOKEN_KEY);
 
                 uni.showToast({
                     title: '登录失效，请重新登录',

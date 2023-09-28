@@ -1,5 +1,6 @@
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { getStorage } from '@/utils/uni-storage';
+import { LOCAL_PERMISSION_KEY } from '@/constant/global';
 
 interface subMenuItem {
     label: string;
@@ -21,7 +22,7 @@ export default function useIndex() {
     /**
      * 权限数组
      */
-    const authPermission = getStorage('userInfo')?.appPerms ?? [];
+    const authPermission = getStorage(LOCAL_PERMISSION_KEY) ?? [];
 
     /**
      * 菜单列表

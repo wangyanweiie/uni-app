@@ -1,20 +1,15 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app';
 import { getStorage } from '@/utils/uni-storage';
+import { LOCAL_TOKEN_KEY } from './constant/global';
 // import RequestAPI from '@/api/login/index';
 
-onShow(() => {
-    // console.log('App Show');
-});
+onShow(() => {});
 
-onHide(() => {
-    // console.log('App Hide');
-});
+onHide(() => {});
 
 onLaunch(() => {
-    // console.log('App Launch');
-
-    const token = getStorage('token');
+    const token = getStorage(LOCAL_TOKEN_KEY);
 
     // 存在 token
     if (token) {
@@ -22,7 +17,7 @@ onLaunch(() => {
         // const res = await RequestAPI.checkToken();
 
         // if (!res) {
-        //     removeStorage('token');
+        //     removeStorage(LOCAL_TOKEN_KEY);
         //     uni.navigateTo({ url: '/pages/login/index' });
         //     return;
         // }

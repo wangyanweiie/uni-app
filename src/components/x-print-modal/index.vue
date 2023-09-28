@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { ref, watch, watchEffect } from 'vue';
-import { usePrint, Brand, PrinterLanguage } from './use-print';
+import { usePrint } from './use-print';
 import { Buffer } from 'buffer';
 import { getStorage } from '@/utils/uni-storage';
 

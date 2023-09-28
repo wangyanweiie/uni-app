@@ -2,6 +2,7 @@ import { ref } from 'vue';
 import { getStorage, clearStorage } from '@/utils/uni-storage';
 import { showToast } from '@/utils/uni-message';
 import RequestAPI from '@/api/login/index';
+import { LOCAL_USER_INFO_KEY } from '@/constant/global';
 
 interface changePasswordForm {
     oldPassword: string;
@@ -70,7 +71,7 @@ export default function useChangePassword() {
         const data = {
             oldPassword: form.value.oldPassword,
             newPassword: form.value.newPassword,
-            userId: getStorage('userInfo').id,
+            userId: getStorage(LOCAL_USER_INFO_KEY).id,
         };
 
         const res = await RequestAPI.changePassword(data);

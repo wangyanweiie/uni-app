@@ -8,6 +8,7 @@ import order from '@/assets/images/login_order.png';
 import sale from '@/assets/images/login_sale.png';
 import analysis from '@/assets/images/login_analysis.png';
 import { Brand, PrinterLanguage } from '@/components/x-print-modal/use-print';
+import { LOCAL_BASE_URL_KEY, LOCAL_PERMISSION_KEY, LOCAL_TOKEN_KEY, LOCAL_USER_INFO_KEY } from '@/constant/global';
 
 interface loginForm {
     account: string;
@@ -88,21 +89,15 @@ export default function useLogin() {
             return;
         }
 
-        // 存储 token 用户信息以及打印机信息到 localStorage
-        saveStorage('token', res.data.token);
-        saveStorage('userInfo', res.data);
+        // 存储 baseurl、token、用户信息、权限列表以及打印机信息到 localStorage
+        saveStorage(LOCAL_BASE_URL_KEY, import.meta.env.VITE_API_URL);
+        saveStorage(LOCAL_TOKEN_KEY, res.data.token);
+        saveStorage(LOCAL_USER_INFO_KEY, res.data);
+        saveStorage(LOCAL_PERMISSION_KEY, res.data?.appPerms);
         saveStorage('BrandAndLanguage', {
             brand: Brand.Zebra,
             printLanguage: PrinterLanguage.ZPL,
         });
-
-        // 存储 token 与 用户信息到 indexedDB
-        // saveForage('token', res.data.token);
-        // saveForage('userInfo', res.data);
-        // saveForage('BrandAndLanguage', {
-        //     brand: Brand.Zebra,
-        //     printLanguage: PrinterLanguage.ZPL,
-        // });
 
         // 跳转页面
         uni.switchTab({ url: '/pages/index/index' });

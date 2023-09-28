@@ -1,8 +1,8 @@
 import { onMounted, ref } from 'vue';
-import { BASE_URL } from '@/constant/index';
 import download from '@/utils/uni-download';
-import { getStorage, clearStorage } from '@/utils/uni-storage';
+import { getStorage, clearStorage, saveStorage } from '@/utils/uni-storage';
 import RequestAPI from '@/api/login/index';
+import { LOCAL_BASE_URL_KEY, LOCAL_USER_INFO_KEY } from '@/constant/global';
 // import checkUpdates from '@/uni_modules/uni-upgrade-center-app/utils/check-update';
 
 export default function useIndex() {
@@ -16,7 +16,7 @@ export default function useIndex() {
         organizationName: '',
         version: '',
         printBrand: '',
-        api: '',
+        baseUrl: '',
     });
 
     /**
@@ -40,13 +40,6 @@ export default function useIndex() {
     function handleChangePassword() {
         uni.navigateTo({
             url: `/pages/setting/change-passward`,
-            success: () => {
-                // 清空 localStorage
-                clearStorage();
-
-                // 清空 indexedDB
-                // clearForage();
-            },
         });
     }
 
@@ -105,23 +98,31 @@ export default function useIndex() {
             // 清空 localStorage
             clearStorage();
 
-            // 清空 indexedDB
-            // clearForage();
-
             uni.reLaunch({ url: '/pages/login/index' });
         }
+    }
+
+    /**
+     * 改变 baseUrl
+     */
+    function handleBlur(e: string) {
+        if (!e) {
+            return;
+        }
+
+        saveStorage(LOCAL_BASE_URL_KEY, e);
     }
 
     /**
      * 组件挂载
      */
     onMounted(() => {
-        userInfo.value.account = getStorage('userInfo')?.account;
-        userInfo.value.userName = getStorage('userInfo')?.userName;
-        userInfo.value.roles = getStorage('userInfo')?.roles?.toString();
-        userInfo.value.organizationName = getStorage('userInfo')?.companyName;
-        userInfo.value.printBrand = getStorage('BrandAndLanguage').brand;
-        userInfo.value.api = BASE_URL;
+        userInfo.value.baseUrl = getStorage(LOCAL_BASE_URL_KEY);
+        userInfo.value.account = getStorage(LOCAL_USER_INFO_KEY)?.account;
+        userInfo.value.userName = getStorage(LOCAL_USER_INFO_KEY)?.userName;
+        userInfo.value.roles = getStorage(LOCAL_USER_INFO_KEY)?.roles?.toString();
+        userInfo.value.organizationName = getStorage(LOCAL_USER_INFO_KEY)?.companyName;
+        userInfo.value.printBrand = getStorage('BrandAndLanguage')?.brand;
 
         // 获取应用版本
         // #ifdef APP-PLUS
@@ -139,5 +140,6 @@ export default function useIndex() {
         showLogout,
         checkUpdate,
         handleChangePassword,
+        handleBlur,
     };
 }

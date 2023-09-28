@@ -42,7 +42,6 @@ specifiers:
   husky: ^8.0.3
   iconv-lite: ^0.6.3
   lint-staged: ^14.0.1
-  localforage: ^1.10.0
   lodash-es: ^4.17.21
   postcss: ^8.4.28
   postcss-html: ^1.5.0
@@ -79,7 +78,6 @@ dependencies:
   dayjs: 1.11.9
   decimal.js: 10.4.3
   iconv-lite: 0.6.3
-  localforage: 1.10.0
   lodash-es: 4.17.21
   uni-pages-hot-modules: 1.0.3
   uview-plus: 3.1.36
@@ -5652,10 +5650,6 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  /immediate/3.0.6:
-    resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
-    dev: false
-
   /immutable/4.3.2:
     resolution: {integrity: sha512-oGXzbEDem9OOpDWZu88jGiYCvIsLHMvGw+8OXlpsvTFvIQplQbjg1B1cvKg8f7Hoch6+NGjpPsH1Fr+Mc2D1aA==}
 
@@ -5962,12 +5956,6 @@ packages:
   /licia/1.38.2:
     resolution: {integrity: sha512-QsX3fZt88e1KaNdZXTSXqGYNHFXMV8xgfwa3eCTYdv8k4OLQimxwjTdXXej11BdSyUUp0rCZROI8rcTvnZRZ7w==}
 
-  /lie/3.1.1:
-    resolution: {integrity: sha512-RiNhHysUjhrDQntfYSfY4MU24coXXdEOgw9WGcKHNeEwffDYbF//u87M1EWaMGzuFoSbqW0C9C6lEEhDOAswfw==}
-    dependencies:
-      immediate: 3.0.6
-    dev: false
-
   /lilconfig/2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
     engines: {node: '>=10'}
@@ -6034,12 +6022,6 @@ packages:
     resolution: {integrity: sha512-SFppqq5p42fe2qcZQqqEOiVRXl+WCP1MdT6k7BDEW1j++sp5fIY+/fdRQitvKgB5BrBcmrs5m/L0v2FrU5MY1g==}
     engines: {node: '>=14'}
     dev: true
-
-  /localforage/1.10.0:
-    resolution: {integrity: sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==}
-    dependencies:
-      lie: 3.1.1
-    dev: false
 
   /localstorage-polyfill/1.0.1:
     resolution: {integrity: sha512-m4iHVZxFH5734oQcPKU08025gIz2+4bjWR9lulP8ZYxEJR0BpA0w32oJmkzh8y3UI9ci7xCBehQDc3oA1X+VHw==}
