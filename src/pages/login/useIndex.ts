@@ -14,6 +14,7 @@ interface loginForm {
     account: string;
     password: string;
     companyId: string;
+    baseUrl: string;
 }
 
 /**
@@ -42,6 +43,7 @@ export default function useLogin() {
         account: '',
         password: '',
         companyId: '',
+        baseUrl: import.meta.env.VITE_API_URL,
     });
 
     /**
@@ -51,6 +53,7 @@ export default function useLogin() {
         account: [{ required: true, message: '用户名不能为空' }],
         password: [{ required: true, message: '密码不能为空' }],
         companyId: [{ required: true, message: '组织不能为空' }],
+        baseUrl: [{ required: true, message: 'BASE_URL 不能为空' }],
     });
 
     /**
@@ -72,6 +75,17 @@ export default function useLogin() {
     }
 
     /**
+     * 改变 baseUrl
+     */
+    function handleBlur(e: string) {
+        if (!e) {
+            return;
+        }
+
+        saveStorage(LOCAL_BASE_URL_KEY, e);
+    }
+
+    /**
      * 登录
      */
     const login = async () => {
@@ -89,8 +103,6 @@ export default function useLogin() {
             return;
         }
 
-        // 存储 baseurl、token、用户信息、权限列表以及打印机信息到 localStorage
-        saveStorage(LOCAL_BASE_URL_KEY, import.meta.env.VITE_API_URL);
         saveStorage(LOCAL_TOKEN_KEY, res.data.token);
         saveStorage(LOCAL_USER_INFO_KEY, res.data);
         saveStorage(LOCAL_PERMISSION_KEY, res.data?.appPerms);
@@ -107,6 +119,7 @@ export default function useLogin() {
      * 页面挂载
      */
     onMounted(() => {
+        saveStorage(LOCAL_BASE_URL_KEY, import.meta.env.VITE_API_URL);
         getCompanyName();
     });
 
@@ -116,6 +129,7 @@ export default function useLogin() {
         rules,
         imageList,
         companyList,
+        handleBlur,
         login,
     };
 }

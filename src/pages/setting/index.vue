@@ -55,10 +55,10 @@
                 :value="userInfo.printBrand"
                 @click="checkUpdate"
             ></u-cell>
-            <u-cell icon="tags" :icon-style="iconStyle" title="baseUrl" size="large">
-                <template #right-icon>
+            <u-cell icon="tags" :icon-style="iconStyle" title="BASE_URL" size="large" :value="userInfo.baseUrl">
+                <!-- <template #right-icon>
                     <u-input v-model="userInfo.baseUrl" :disabled="ENV === 'production'" @blur="handleBlur"></u-input>
-                </template>
+                </template> -->
             </u-cell>
         </u-cell-group>
 

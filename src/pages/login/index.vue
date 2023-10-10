@@ -12,24 +12,22 @@
             </view>
 
             <u-form ref="formRef" :model="form" :rules="rules" label-width="120rpx" class="login__form">
-                <u-form-item label="用户名" required prop="account">
-                    <u-input
-                        v-model="form.account"
-                        type="text"
-                        placeholder="请输入用户名"
-                        placeholder-style="color:#999"
-                    />
+                <u-form-item prop="account">
+                    <u-input v-model="form.account" type="text" placeholder="用户名" />
                 </u-form-item>
-                <u-form-item label="密码" required prop="password">
-                    <u-input
-                        v-model="form.password"
-                        type="password"
-                        placeholder="请输入密码"
-                        placeholder-style="color:#999"
-                    />
+                <u-form-item prop="password">
+                    <u-input v-model="form.password" type="password" placeholder="密码" />
                 </u-form-item>
-                <u-form-item label="公司" required prop="companyId">
-                    <x-select v-model="form.companyId" :options="companyList" border="none"></x-select>
+                <u-form-item prop="companyId">
+                    <x-select
+                        v-model="form.companyId"
+                        :options="companyList"
+                        placeholder="公司"
+                        border="none"
+                    ></x-select>
+                </u-form-item>
+                <u-form-item v-if="ENV !== 'production'" prop="baseUrl">
+                    <u-input v-model="form.baseUrl" placeholder="BASE_URl" @blur="handleBlur"></u-input>
                 </u-form-item>
             </u-form>
 
@@ -53,7 +51,7 @@
 <script setup lang="ts">
 import useLogin from './useIndex';
 
-const { formRef, form, rules, imageList, companyList, login } = useLogin();
+const { formRef, form, rules, imageList, companyList, handleBlur, login } = useLogin();
 </script>
 
 <style lang="scss" scoped>
