@@ -1,7 +1,7 @@
 import { onMounted, ref } from 'vue';
 import menuAPI from '@/api/menu-list';
 import RequestAPI from '@/api/login/index';
-import { saveStorage } from '@/utils/uni-storage';
+import { getStorage, saveStorage } from '@/utils/uni-storage';
 
 import cloud from '@/assets/images/login_cloud.png';
 import order from '@/assets/images/login_order.png';
@@ -43,7 +43,7 @@ export default function useLogin() {
         account: '',
         password: '',
         companyId: '',
-        baseUrl: import.meta.env.VITE_API_URL,
+        baseUrl: getStorage(LOCAL_BASE_URL_KEY) ?? import.meta.env.VITE_API_URL,
     });
 
     /**
@@ -119,7 +119,10 @@ export default function useLogin() {
      * 页面挂载
      */
     onMounted(() => {
-        saveStorage(LOCAL_BASE_URL_KEY, import.meta.env.VITE_API_URL);
+        if (!getStorage(LOCAL_BASE_URL_KEY)) {
+            saveStorage(LOCAL_BASE_URL_KEY, import.meta.env.VITE_API_URL);
+        }
+
         getCompanyName();
     });
 
