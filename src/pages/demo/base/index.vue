@@ -49,6 +49,7 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { returnLastPage } from '@/utils/hooks';
 
 /**
  * 保存/提交枚举
@@ -184,5 +185,7 @@ function confirmSubmit(status: number) {
         ...form.value,
         status,
     });
+
+    returnLastPage();
 }
 </script>

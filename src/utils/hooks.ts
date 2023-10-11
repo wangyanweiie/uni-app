@@ -92,3 +92,25 @@ export function handleToHumpFormat(str: string, type: 'min' | 'max') {
         }
     }
 }
+
+/**
+ * 返回上一页并调用方法
+ */
+export function returnLastPage(callback = (params: any) => console.log(params)) {
+    setTimeout(() => {
+        // 获取当前页
+        const pages = getCurrentPages();
+        // 获取上一页 (上上页: length-3)
+        const beforePage = pages[pages.length - 2];
+        // 返回上一页
+        uni.navigateBack({
+            // 返回上一页 (上上页: 2)
+            delta: 1,
+            // 返回成功
+            success: function () {
+                // 调用上一页的方法，beforePage.$vm.function();
+                callback(beforePage);
+            },
+        });
+    }, 1000);
+}

@@ -43,7 +43,9 @@ export default function useLogin() {
         account: '',
         password: '',
         companyId: '',
-        baseUrl: getStorage(LOCAL_BASE_URL_KEY) ?? import.meta.env.VITE_API_URL,
+        // m ?? n：只有当左侧 m 值为 null/undefined 时才返回 n的值，为 0/空字符串/false 都返回 m 的值
+        // m || n：左侧 m 的值为真时返回 m 的值，否则都返回 n 的值
+        baseUrl: getStorage(LOCAL_BASE_URL_KEY) || import.meta.env.VITE_API_URL,
     });
 
     /**
