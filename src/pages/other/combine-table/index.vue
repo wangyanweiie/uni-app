@@ -3,7 +3,7 @@
         <table class="table" :cellspacing="0" :cellpadding="4" width="100%">
             <tr align="center">
                 <template v-for="(headerItem, headerIndex) in tableHeader" :key="headerIndex">
-                    <th :width="headerItem?.width ?? 150" :align="headerItem?.align ?? 'center'" class="table_th">
+                    <th :width="headerItem?.width || 150" :align="headerItem?.align || 'center'" class="table_th">
                         {{ headerItem.label }}
                     </th>
                 </template>
@@ -15,7 +15,7 @@
                     <td
                         v-if="!dataItem[`${headerItem.prop}Dis`]"
                         :rowspan="dataItem[`${headerItem.prop}Span`]"
-                        :align="headerItem?.align ?? 'center'"
+                        :align="headerItem?.align || 'center'"
                         class="table_td"
                     >
                         {{ dataItem?.[headerItem.prop] }}

@@ -2,7 +2,7 @@
     <view class="component">
         <u-form ref="formRef" :model="form" :rules="rules" :label-width="labelWidth">
             <uni-row>
-                <uni-col v-for="schema in schemas" :key="schema.prop" :span="schema.span ?? 24">
+                <uni-col v-for="schema in schemas" :key="schema.prop" :span="schema.span || 24">
                     <!-- 1.分隔线 -->
                     <u-divider
                         v-if="schema.type === 'BaseDivider'"

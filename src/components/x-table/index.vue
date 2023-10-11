@@ -25,8 +25,8 @@
                 <uni-tr class="table_header">
                     <template v-for="(header, headerIndex) in columns" :key="header.prop">
                         <uni-th
-                            :width="header?.width ?? 120"
-                            :align="header?.align ?? 'center'"
+                            :width="header?.width || 120"
+                            :align="header?.align || 'center'"
                             :class="['table_header_th']"
                             :style="[
                                 handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#f5f6f8'),
@@ -48,7 +48,7 @@
                 >
                     <template v-for="header in columns" :key="header.prop">
                         <uni-td
-                            :align="header?.align ?? 'center'"
+                            :align="header?.align || 'center'"
                             :class="['table_content_td']"
                             :style="[
                                 handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#fff'),
