@@ -19,9 +19,7 @@ export default function useIndex(props: Props, emit: any) {
      * 监听 props
      */
     watchEffect(() => {
-        if (props.modelValue) {
-            selectLabel.value = props.modelValue;
-        }
+        selectLabel.value = props.modelValue;
     });
 
     /**
