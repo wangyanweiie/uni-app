@@ -36,22 +36,19 @@ export default function useIndex() {
                     {
                         label: 'Base',
                         value: 'Base',
-                        icon: 'more-dot-fill',
-                        // icon: 'iconfont-tiaomashuru',
+                        icon: 'iconfont-jichukecheng',
                         path: '/pages/demo/base/index',
                     },
                     {
                         label: 'Form',
                         value: 'Form',
-                        icon: 'order',
-                        // icon: 'iconfont-gongdan1',
+                        icon: 'iconfont-17',
                         path: '/pages/demo/form/index',
                     },
                     {
                         label: 'Table',
                         value: 'Table',
-                        icon: 'list',
-                        // icon: 'iconfont-lishijilu',
+                        icon: 'iconfont-biaoge1',
                         path: '/pages/demo/table/index',
                     },
                 ],
@@ -63,20 +60,27 @@ export default function useIndex() {
                     {
                         label: 'watermark',
                         value: 'sycs',
-                        icon: 'thumb-up',
+                        // icon: 'thumb-up',
+                        icon: 'iconfont-a-ziyuan315',
                         path: '/pages/other/watermark/index',
-                    },
-                    {
-                        label: 'Combine',
-                        value: 'Combine',
-                        icon: 'thumb-up',
-                        path: '/pages/other/combine-table/index',
                     },
                     {
                         label: 'WebView',
                         value: 'WebView',
-                        icon: 'thumb-up',
+                        icon: 'iconfont-Web',
                         path: '/pages/other/web-view/index',
+                    },
+                    {
+                        label: 'Circulate',
+                        value: 'Circulate',
+                        icon: 'iconfont-24gl-repeat',
+                        path: '/pages/other/circulate-form/index',
+                    },
+                    {
+                        label: 'Combine',
+                        value: 'Combine',
+                        icon: 'iconfont-merge',
+                        path: '/pages/other/combine-table/index',
                     },
                 ],
             },
@@ -97,9 +101,9 @@ export default function useIndex() {
     /**
      * 跳转页面
      */
-    function navigateTo(subMenu: subMenuItem) {
+    function navigateTo(item: subMenuItem) {
         uni.navigateTo({
-            url: subMenu.path,
+            url: item.path,
         });
     }
 

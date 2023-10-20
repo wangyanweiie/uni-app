@@ -63,8 +63,11 @@ module.exports = {
     rules: {
         'no-console': process.env.NODE_ENV === 'production' ? ['warn'] : ['off'],
         'no-debugger': process.env.NODE_ENV === 'production' ? ['warn'] : ['off'],
+        // 使用 var
         'no-var': ['error'],
-        // 不要重复引入一个模块
+        // 使用不必要的转义字符
+        'no-useless-escape': ['warn'],
+        // 重复引入一个模块
         'no-duplicate-imports': ['warn'],
         // 组件名称以驼峰格式命名
         'vue/multi-word-component-names': ['off'],
@@ -74,7 +77,7 @@ module.exports = {
         '@typescript-eslint/no-var-requires': ['off'],
         // 声明但未使用的变量
         '@typescript-eslint/no-unused-vars': ['warn'],
-        // any
+        // any 类型
         '@typescript-eslint/no-explicit-any': ['warn'],
         // this
         '@typescript-eslint/no-this-alias': [

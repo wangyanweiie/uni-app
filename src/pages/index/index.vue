@@ -8,18 +8,18 @@
             <view class="menu__item-wrap">
                 <view v-for="sub in menu.subMenu" :key="sub.value" class="menu__item" @click="navigateTo(sub)">
                     <!-- u-icon 自定义字体图标暂不可用 -->
-                    <!-- <u-icon color="#fff" :name="sub.icon" size="50rpx"></u-icon> -->
-                    <u-icon color="#2979ff" :name="sub.icon" size="50rpx"></u-icon>
+                    <!-- <u-icon color="#2979ff" :name="sub.icon" size="50rpx"></u-icon> -->
 
                     <!-- uni-icons 可使用自定义字体图标 -->
-                    <!-- <uni-icons
+                    <uni-icons
                         class="menu__item__icon"
-                        color="#fff"
+                        color="#2979ff"
                         custom-prefix="iconfont"
                         :type="sub.icon"
-                        size="40rpx"
+                        size="50rpx"
                     >
-                    </uni-icons> -->
+                    </uni-icons>
+
                     <view class="menu__item__label">
                         <text>
                             {{ sub.label }}
