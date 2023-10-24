@@ -18,6 +18,18 @@ module.exports = [
         },
     },
     {
+        path: 'pages/other/circulate-form/check-one',
+        style: {
+            navigationBarTitleText: '同步校验',
+        },
+    },
+    {
+        path: 'pages/other/circulate-form/check-two',
+        style: {
+            navigationBarTitleText: '依次校验',
+        },
+    },
+    {
         path: 'pages/other/combine-table/index',
         style: {
             navigationBarTitleText: '合并单元格',

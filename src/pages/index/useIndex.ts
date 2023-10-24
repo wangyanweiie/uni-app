@@ -58,26 +58,25 @@ export default function useIndex() {
                 value: 'other',
                 subMenu: [
                     {
-                        label: 'watermark',
-                        value: 'sycs',
-                        // icon: 'thumb-up',
-                        icon: 'iconfont-a-ziyuan315',
-                        path: '/pages/other/watermark/index',
-                    },
-                    {
                         label: 'WebView',
                         value: 'WebView',
                         icon: 'iconfont-Web',
                         path: '/pages/other/web-view/index',
                     },
                     {
-                        label: 'Circulate',
+                        label: '水印图片',
+                        value: 'watermark',
+                        icon: 'iconfont-a-ziyuan315',
+                        path: '/pages/other/watermark/index',
+                    },
+                    {
+                        label: '循环表单',
                         value: 'Circulate',
                         icon: 'iconfont-24gl-repeat',
                         path: '/pages/other/circulate-form/index',
                     },
                     {
-                        label: 'Combine',
+                        label: '合并表格',
                         value: 'Combine',
                         icon: 'iconfont-merge',
                         path: '/pages/other/combine-table/index',
