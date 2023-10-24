@@ -1,7 +1,7 @@
 <template>
     <view class="view-wrap">
         <u-form ref="formRef" :model="form" :rules="rules" label-position="left" label-width="150rpx">
-            <view v-for="(item, index) in form.list" :key="index">
+            <view v-for="(item, index) in form.list" :key="index" class="item-wrap">
                 <view class="title">
                     <view class="title__text">{{ `子表单 ${index + 1}` }}</view>
                     <view v-if="index + 1 === form.list.length" class="title__button">
@@ -130,6 +130,13 @@ onMounted(() => {
 });
 </script>
 <style scoped lang="scss">
+.item-wrap {
+    padding: 20rpx;
+    border: 2rpx solid #eee;
+    border-radius: 10rpx;
+    margin-bottom: 20rpx;
+}
+
 .title {
     display: flex;
     justify-content: space-around;
@@ -145,7 +152,7 @@ onMounted(() => {
         display: flex;
 
         &__item {
-            margin-right: 5px;
+            margin-right: 10rpx;
         }
     }
 }

@@ -6,6 +6,8 @@
             :placeholder="placeholder"
             :disabled="disabled"
             :clear="clearable"
+            :prefix-icon="prefixIcon"
+            :prefix-icon-style="prefixIconStyle"
             @change="handleChange"
         ></data-select>
     </view>
@@ -43,19 +45,21 @@ const props = withDefaults(
         apiParams?: Record<string, string | number>;
         /** 单选/复选框静态列表 */
         options?: Options[];
+        /** 前缀图标 */
+        prefixIcon?: string;
+        /** 前缀图标样式 */
+        prefixIconStyle?: Record<string, string>;
     }>(),
     {
         modelValue: '',
         api: '',
-        apiParams: () => {
-            return {};
-        },
-        options: () => {
-            return [];
-        },
+        apiParams: () => ({}),
+        options: () => [],
         placeholder: '请选择',
         disabled: false,
         clearable: false,
+        prefixIcon: '',
+        prefixIconStyle: () => ({}),
     },
 );
 

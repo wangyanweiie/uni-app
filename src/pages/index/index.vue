@@ -45,10 +45,10 @@ const { menuList, navigateTo } = useIndex();
     padding: 20rpx 10rpx;
     margin-bottom: 30rpx;
     background-color: #fff;
-    border-radius: 30rpx;
+    border-radius: 20rpx;
     box-shadow:
-        8rpx 8rpx 14rpx #e3dfdf,
-        -8rpx -8rpx 14rpx #f7f5f5;
+        8rpx 8rpx 8rpx #e3dfdf,
+        -8rpx -8rpx 8rpx #f7f5f5;
 
     &__label {
         font-size: 32rpx;
@@ -57,9 +57,9 @@ const { menuList, navigateTo } = useIndex();
     }
 
     &__item-wrap {
+        width: 100%;
         display: flex;
         flex-wrap: wrap;
-        width: 100%;
     }
 
     &__item {

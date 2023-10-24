@@ -1,6 +1,6 @@
 <template>
     <view class="view-wrap">
-        <view v-for="(formItem, formIndex) in formList" :key="formIndex">
+        <view v-for="(formItem, formIndex) in formList" :key="formIndex" class="item-wrap">
             <view class="title">
                 <view class="title__text">{{ `子表单 ${formIndex + 1}` }}</view>
                 <view v-if="formIndex + 1 === formList.length" class="title__button">
@@ -145,6 +145,13 @@ async function handleSubmit() {
 }
 </script>
 <style scoped lang="scss">
+.item-wrap {
+    padding: 20rpx;
+    border: 2rpx solid #eee;
+    border-radius: 10rpx;
+    margin-bottom: 20rpx;
+}
+
 .title {
     display: flex;
     justify-content: space-around;
@@ -160,7 +167,7 @@ async function handleSubmit() {
         display: flex;
 
         &__item {
-            margin-right: 5px;
+            margin-right: 10rpx;
         }
     }
 }

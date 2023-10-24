@@ -21,6 +21,8 @@
                         :style="{ fontSize: '14px' }"
                         :placeholder="typePlaceholder"
                         :disabled="disabled"
+                        :prefix-icon="prefixIcon"
+                        :prefix-icon-style="prefixIconStyle"
                         @change="handleFuzzySearch"
                     ></u-input>
 
@@ -126,6 +128,18 @@ export default {
         format: {
             type: String,
             default: '',
+        },
+        /** 前缀图标 */
+        prefixIcon: {
+            type: String,
+            default: '',
+        },
+        /** 前缀图标样式 */
+        prefixIconStyle: {
+            type: Object,
+            default() {
+                return {};
+            },
         },
     },
     emits: ['change', 'input', 'update:modelValue'],

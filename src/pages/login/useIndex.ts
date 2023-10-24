@@ -2,11 +2,6 @@ import { onMounted, ref } from 'vue';
 import menuAPI from '@/api/menu-list';
 import RequestAPI from '@/api/login/index';
 import { getStorage, saveStorage } from '@/utils/uni-storage';
-
-import cloud from '@/assets/images/login_cloud.png';
-import order from '@/assets/images/login_order.png';
-import sale from '@/assets/images/login_sale.png';
-import analysis from '@/assets/images/login_analysis.png';
 import { Brand, PrinterLanguage } from '@/components/x-print-modal/use-print';
 import { LOCAL_BASE_URL_KEY, LOCAL_PERMISSION_KEY, LOCAL_TOKEN_KEY, LOCAL_USER_INFO_KEY } from '@/constant/global';
 
@@ -22,14 +17,11 @@ interface loginForm {
  */
 export default function useLogin() {
     /**
-     * 图片列表
+     * 前缀图标样式
      */
-    const imageList = ref<any>({
-        cloud: cloud,
-        order: order,
-        sale: sale,
-        analysis: analysis,
-    });
+    const prefixIconStyle = {
+        fontSize: '40rpx',
+    };
 
     /**
      * form ref
@@ -55,7 +47,7 @@ export default function useLogin() {
         account: [{ required: true, message: '用户名不能为空' }],
         password: [{ required: true, message: '密码不能为空' }],
         companyId: [{ required: true, message: '组织不能为空' }],
-        baseUrl: [{ required: true, message: 'BASE_URL 不能为空' }],
+        baseUrl: [{ required: true, message: 'URL 不能为空' }],
     });
 
     /**
@@ -129,10 +121,10 @@ export default function useLogin() {
     });
 
     return {
+        prefixIconStyle,
         form,
         formRef,
         rules,
-        imageList,
         companyList,
         handleBlur,
         login,

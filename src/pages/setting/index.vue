@@ -55,9 +55,14 @@
                 :value="userInfo.printBrand"
                 @click="checkUpdate"
             ></u-cell>
-            <u-cell icon="tags" :icon-style="iconStyle" title="BASE_URL" size="large">
+            <u-cell icon="tags" :icon-style="iconStyle" title="URL" size="large">
                 <template #right-icon>
-                    <u-input v-if="ENV !== 'production'" v-model="userInfo.baseUrl" @blur="handleBlur"></u-input>
+                    <u-input
+                        v-if="ENV !== 'production'"
+                        v-model="userInfo.baseUrl"
+                        style="max-width: 400rpx"
+                        @blur="handleBlur"
+                    ></u-input>
                     <span v-else>{{ userInfo.baseUrl }}</span>
                 </template>
             </u-cell>
