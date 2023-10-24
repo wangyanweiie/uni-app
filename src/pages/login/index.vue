@@ -49,6 +49,7 @@
 </template>
 
 <script setup lang="ts">
+import { ENV } from '@/constant/global';
 import useLogin from './useIndex';
 
 const { formRef, form, rules, imageList, companyList, handleBlur, login } = useLogin();

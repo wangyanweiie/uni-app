@@ -3,7 +3,7 @@
  */
 export interface FormInstance {
     /** 校验 */
-    validate: (valid?: any) => Promise<boolean>;
+    validate: () => Promise<boolean>;
     /** 设置校验规则 */
     setRules: (rules: Record<string, FormRule[]>) => void;
     /** 清空校验 */

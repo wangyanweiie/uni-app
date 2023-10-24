@@ -23,7 +23,10 @@
             </view>
 
             <u-form-item label="性别" required prop="sex">
-                <u-input v-model="form.sex" placeholder="请输入性别" clearable></u-input>
+                <u-radio-group v-model="form.sex" size="34rpx" placement="row">
+                    <u-radio label="男" :name="1" label-size="28rpx" :custom-style="{ marginRight: '40rpx' }"></u-radio>
+                    <u-radio label="女" :name="2" label-size="28rpx" :custom-style="{ marginRight: '40rpx' }"></u-radio>
+                </u-radio-group>
             </u-form-item>
         </u-form>
 
@@ -96,24 +99,28 @@ function deleteFormItem(index: number) {
  * 提交
  */
 async function handleSubmit() {
-    let formValid = false;
+    const valid = await formRef.value!.validate();
 
-    await formRef.value!.validate((valid: any) => {
-        formValid = valid;
-    });
-
-    if (!formValid) {
+    if (!valid) {
         return false;
     }
 
-    console.log('form', form.value);
+    uni.showModal({
+        title: '',
+        content: '是否确认提交？',
+        success: res => {
+            if (res.confirm) {
+                console.log('form', form.value);
+            }
+        },
+    });
 }
 
 /**
  * 页面渲染
  */
 onMounted(() => {
-    // 手动触发监听，生成 rules
+    // 首次手动触发监听，生成 rules
     form.value.list = [
         {
             name: '',
