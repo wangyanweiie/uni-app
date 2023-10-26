@@ -32,6 +32,12 @@
       }
     },
     {
+      "path": "pages/demo/description/index",
+      "style": {
+        "navigationBarTitleText": "描述列"
+      }
+    },
+    {
       "path": "pages/index/index",
       "style": {
         "navigationBarTitleText": "首页"
@@ -47,18 +53,6 @@
       "path": "pages/setting/change-passward",
       "style": {
         "navigationBarTitleText": "修改密码"
-      }
-    },
-    {
-      "path": "pages/other/watermark/index",
-      "style": {
-        "navigationBarTitleText": "图片水印"
-      }
-    },
-    {
-      "path": "pages/other/web-view/index",
-      "style": {
-        "navigationBarTitleText": "WebView"
       }
     },
     {
@@ -83,6 +77,24 @@
       "path": "pages/other/combine-table/index",
       "style": {
         "navigationBarTitleText": "合并单元格"
+      }
+    },
+    {
+      "path": "pages/other/watermark/index",
+      "style": {
+        "navigationBarTitleText": "图片水印"
+      }
+    },
+    {
+      "path": "pages/other/preview/index",
+      "style": {
+        "navigationBarTitleText": "文件预览"
+      }
+    },
+    {
+      "path": "pages/other/web-view/index",
+      "style": {
+        "navigationBarTitleText": "WebView"
       }
     }
   ],

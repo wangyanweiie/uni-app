@@ -81,7 +81,7 @@
                 </view>
                 <view>
                     <view class="download-style_gap">保存路径 : </view>
-                    <view class="download-style_color">Android/data/...</view>
+                    <view class="download-style_color">Android/data/</view>
                 </view>
             </view>
         </u-modal>

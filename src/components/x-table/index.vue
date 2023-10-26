@@ -247,7 +247,6 @@ defineExpose({
 .component {
     width: 100%;
     height: 100%;
-    margin-top: 20rpx;
 }
 
 // 表格顶部操作区域样式

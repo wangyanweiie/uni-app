@@ -17,4 +17,10 @@ module.exports = [
             navigationBarTitleText: '表格',
         },
     },
+    {
+        path: 'pages/demo/description/index',
+        style: {
+            navigationBarTitleText: '描述列',
+        },
+    },
 ];

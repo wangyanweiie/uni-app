@@ -51,24 +51,18 @@ export default function useIndex() {
                         icon: 'iconfont-biaoge1',
                         path: '/pages/demo/table/index',
                     },
+                    {
+                        label: 'Description',
+                        value: 'Description',
+                        icon: '',
+                        path: '/pages/demo/description/index',
+                    },
                 ],
             },
             {
                 label: 'other',
                 value: 'other',
                 subMenu: [
-                    {
-                        label: 'WebView',
-                        value: 'WebView',
-                        icon: 'iconfont-Web',
-                        path: '/pages/other/web-view/index',
-                    },
-                    {
-                        label: '水印图片',
-                        value: 'watermark',
-                        icon: 'iconfont-a-ziyuan315',
-                        path: '/pages/other/watermark/index',
-                    },
                     {
                         label: '循环表单',
                         value: 'Circulate',
@@ -80,6 +74,24 @@ export default function useIndex() {
                         value: 'Combine',
                         icon: 'iconfont-merge',
                         path: '/pages/other/combine-table/index',
+                    },
+                    {
+                        label: '图片水印',
+                        value: 'watermark',
+                        icon: 'iconfont-a-ziyuan315',
+                        path: '/pages/other/watermark/index',
+                    },
+                    {
+                        label: '文件预览',
+                        value: 'preview',
+                        icon: 'iconfont-a-ziyuan315',
+                        path: '/pages/other/preview/index',
+                    },
+                    {
+                        label: 'WebView',
+                        value: 'WebView',
+                        icon: 'iconfont-Web',
+                        path: '/pages/other/web-view/index',
                     },
                 ],
             },

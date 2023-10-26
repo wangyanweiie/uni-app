@@ -1,6 +1,6 @@
 <template>
     <view class="view-wrap wrap">
-        <u-button type="info" class="wrap__btn" @click="getImg">获取图片</u-button>
+        <u-button type="primary" class="wrap__btn" @click="getImg">获取图片</u-button>
 
         <canvas class="wrap__canvas" :style="{ width: w + 'px', height: h + 'px' }" canvas-id="firstCanvas"></canvas>
         <image mode="aspectFill" :src="src" @click="preview"></image>
