@@ -1,14 +1,14 @@
 <template>
     <view class="component">
-        <!-- 顶部操作区域 -->
+        <!-- 顶部区域 -->
         <view class="operation">
             <view v-if="title" class="operation_text"> {{ title }} </view>
             <view class="operation_button">
-                <slot name="operation" :check-rows-index="checkRowsIndex" :check-rows="checkRows" />
+                <slot name="operation" :check-rows="checkRows" :check-rows-index="checkRowsIndex" />
             </view>
         </view>
 
-        <!-- 表格 -->
+        <!-- 表格区域 -->
         <scroll-view scroll-y="true" :style="scrollStyle">
             <uni-table
                 ref="tableRef"
@@ -23,18 +23,18 @@
             >
                 <!-- 表头行 -->
                 <uni-tr class="table_header">
-                    <template v-for="(header, headerIndex) in columns" :key="header.prop">
+                    <template v-for="(column, columnIndex) in columns" :key="column.prop">
                         <uni-th
-                            :width="header?.width || 120"
-                            :align="header?.align || 'center'"
+                            :width="column?.width || 120"
+                            :align="column?.align || 'center'"
                             :class="['table_header_th']"
                             :style="[
-                                handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#f5f6f8'),
-                                typeof headerStyle === 'function' && headerStyle(header, headerIndex),
+                                handleFixed(column?.fixedProps?.direction, column?.fixedProps?.distance, '#f5f6f8'),
+                                typeof headerStyle === 'function' && headerStyle(column, columnIndex),
                             ]"
                         >
-                            <text v-if="header?.required" class="table_header_required">*</text>
-                            <text>{{ header.label }}</text>
+                            <text v-if="column?.required" class="table_header_required">*</text>
+                            <text>{{ column.label }}</text>
                         </uni-th>
                     </template>
                 </uni-tr>
@@ -46,28 +46,28 @@
                     :class="['table_content']"
                     @click="handleRowClick(row)"
                 >
-                    <template v-for="header in columns" :key="header.prop">
+                    <template v-for="column in columns" :key="column.prop">
                         <uni-td
-                            :align="header?.align || 'center'"
+                            :align="column?.align || 'center'"
                             :class="['table_content_td']"
                             :style="[
-                                handleFixed(header?.fixedProps?.direction, header?.fixedProps?.distance, '#fff'),
+                                handleFixed(column?.fixedProps?.direction, column?.fixedProps?.distance, '#fff'),
                                 typeof rowStyle === 'function' && rowStyle(row, rowIndex),
                             ]"
                         >
                             <!-- 索引列 -->
-                            <view v-if="header?.prop === 'index'">{{ rowIndex + 1 }}</view>
+                            <view v-if="column?.prop === 'index'">{{ rowIndex + 1 }}</view>
 
                             <!-- 操作列 -->
-                            <view v-else-if="header?.prop === 'action'" class="table_content_action">
-                                <slot :name="`${header.prop}`" :row="row" :index="rowIndex" />
+                            <view v-else-if="column?.prop === 'action'" class="table_content_action">
+                                <slot :name="`${column.prop}`" :row="row" :index="rowIndex" />
                             </view>
 
                             <!-- 标签 -->
-                            <view v-else-if="header?.type === 'tag' && header?.expression?.(row, header)">
+                            <view v-else-if="column?.type === 'tag' && column?.expression?.(row, column)">
                                 <u-tag
-                                    :text="header?.expression(row, header)?.text"
-                                    :type="header?.expression(row, header)?.type"
+                                    :text="column?.expression(row, column)?.text"
+                                    :type="column?.expression(row, column)?.type"
                                     :plain="true"
                                     :plain-fill="true"
                                     size="mini"
@@ -77,25 +77,25 @@
 
                             <!-- 图片 -->
                             <view
-                                v-else-if="header?.type === 'image' && header?.expression?.(row, header)"
+                                v-else-if="column?.type === 'image' && column?.expression?.(row, column)"
                                 class="table_content_image"
                             >
                                 <image
-                                    v-for="(item, index) in header?.expression(row, header)"
-                                    :key="index"
-                                    :src="item"
-                                    @click="handlePreview(item)"
+                                    v-for="(imgUrl, imgIndex) in column?.expression(row, column)"
+                                    :key="imgIndex"
+                                    :src="imgUrl"
+                                    @click="handlePreview(imgUrl)"
                                 ></image>
                             </view>
 
                             <!-- 插槽 -->
-                            <view v-else-if="header?.type === 'slot'">
-                                <slot :name="`${header.prop}`" :row="row" :index="rowIndex" />
+                            <view v-else-if="column?.type === 'slot'">
+                                <slot :name="`${column.prop}`" :row="row" :index="rowIndex" />
                             </view>
 
                             <!-- 文本 -->
                             <view v-else>
-                                {{ header?.expression?.(row, header) ?? row?.[header.prop] }}
+                                {{ column?.expression?.(row, column) ?? row?.[column.prop] }}
                             </view>
                         </uni-td>
                     </template>
@@ -311,7 +311,7 @@ defineExpose({
             align-items: center;
             justify-content: center;
 
-            image {
+            :deep(image) {
                 width: 60rpx;
                 height: 60rpx;
                 margin-right: 10rpx;

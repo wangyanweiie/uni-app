@@ -1,9 +1,9 @@
-import { XTableColumn } from '@/components/x-table/interface';
+import { XDescriptionColumn } from '@/components/x-descriptions/interface';
 
 /**
  * 状态枚举
  */
-enum STATUS {
+export enum STATUS {
     '成功' = 1,
     '失败' = 2,
 }
@@ -11,16 +11,10 @@ enum STATUS {
 /**
  * 表格列配置
  */
-export const columnList: XTableColumn[] = [
-    {
-        prop: 'index',
-        label: '#',
-        width: 50,
-    },
+export const columnList: XDescriptionColumn[] = [
     {
         prop: 'addTime',
         label: '登录时间',
-        width: 200,
     },
     {
         prop: 'terminalName',
@@ -37,13 +31,12 @@ export const columnList: XTableColumn[] = [
     {
         prop: 'deptNames',
         label: '部门',
-        width: 200,
     },
     {
         prop: 'status',
         label: '状态',
         type: 'tag',
-        expression: (row: Record<string, any>, header: XTableColumn) => {
+        expression: (row: Record<string, any>, header: XDescriptionColumn) => {
             let type: string;
 
             if (row[header.prop] === STATUS['成功']) {
@@ -61,12 +54,11 @@ export const columnList: XTableColumn[] = [
     {
         prop: 'ip',
         label: 'IP',
-        width: 200,
     },
     {
         prop: 'address',
         label: '地址',
-        expression: (row: Record<string, any>, header: XTableColumn) => {
+        expression: (row: Record<string, any>, header: XDescriptionColumn) => {
             if (row[header.prop]) {
                 return row[header.prop];
             } else {
@@ -78,15 +70,8 @@ export const columnList: XTableColumn[] = [
         prop: 'image',
         label: '图片',
         type: 'image',
-        expression: (row: Record<string, any>, header: XTableColumn) => {
+        expression: (row: Record<string, any>, header: XDescriptionColumn) => {
             return ['http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg'];
         },
-    },
-    {
-        prop: 'action',
-        label: '操作',
-        // fixedProps: {
-        //     direction: 'right',
-        // },
     },
 ];

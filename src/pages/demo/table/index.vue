@@ -11,14 +11,12 @@
             :selected-list="[0, 1]"
             title="日志"
         >
-            <!-- 顶部操作 -->
             <template #operation="{ checkRows }">
-                <u-button type="warning" size="small" @click="handleClose(checkRows)"> 关闭 </u-button>
+                <u-button type="error" size="small" @click="handleClose(checkRows)"> 关闭 </u-button>
             </template>
 
-            <!-- 操作列 -->
             <template #action="{ row }">
-                <u-button type="primary" size="small" style="width: 120rpx" @click="openDetail(row)"> 详情 </u-button>
+                <u-button type="warning" size="small" style="width: 120rpx" @click="openDetail(row)"> 详情 </u-button>
             </template>
         </x-table>
     </view>

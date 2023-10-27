@@ -1,6 +1,6 @@
 import XForm from '@/components/x-form/index.vue';
 import XTable from '@/components/x-table/index.vue';
-import XDescription from '@/components/x-description/index.vue';
+import XDescriptions from '@/components/x-descriptions/index.vue';
 import XDatePicker from '@/components/x-date-picker/index.vue';
 import XUpload from '@/components/x-upload/index.vue';
 import XSelect from '@/components/x-select/index.vue';
@@ -11,7 +11,7 @@ import XPrintModal from '@/components/x-print-modal/index.vue';
 export const components = [
     XForm,
     XTable,
-    XDescription,
+    XDescriptions,
     XDatePicker,
     XUpload,
     XSelect,

@@ -54,7 +54,7 @@ export default function useIndex() {
                     {
                         label: 'Description',
                         value: 'Description',
-                        icon: '',
+                        icon: 'iconfont-wenzimiaoshu',
                         path: '/pages/demo/description/index',
                     },
                 ],
@@ -84,7 +84,7 @@ export default function useIndex() {
                     {
                         label: '文件预览',
                         value: 'preview',
-                        icon: 'iconfont-a-ziyuan315',
+                        icon: 'iconfont-24gl-folderOpen',
                         path: '/pages/other/preview/index',
                     },
                     {
