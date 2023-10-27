@@ -297,11 +297,12 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
     // const stopWatchdata = watch(
     //     () => props.data,
     //     (newValue: Record<string, any>[]) => {
+    //         console.log(newValue);
     //         loadData();
     //     },
     //     {
     //         deep: true,
-    //     }
+    //     },
     // );
 
     /**

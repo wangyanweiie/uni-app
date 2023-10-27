@@ -170,6 +170,7 @@ export default function useIndex(props: Partial<XDescriptionProp>, emit: any) {
     const stopWatchdata = watch(
         () => props.data as Record<string, any>[],
         (newValue: Record<string, any>[]) => {
+            console.log(newValue);
             loadData();
         },
         {

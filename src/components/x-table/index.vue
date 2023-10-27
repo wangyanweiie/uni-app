@@ -311,7 +311,7 @@ defineExpose({
             align-items: center;
             justify-content: center;
 
-            :deep(image) {
+            image {
                 width: 60rpx;
                 height: 60rpx;
                 margin-right: 10rpx;

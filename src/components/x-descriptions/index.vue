@@ -8,10 +8,10 @@
         >
             <!-- 顶部区域 -->
             <view class="top">
-                <view class="top_left">
+                <view class="top__left">
                     <slot name="topLeft" :row="row" :index="rowIndex"></slot>
                 </view>
-                <view class="top_right">
+                <view class="top__right">
                     <slot name="topRight" :row="row" :index="rowIndex"></slot>
                 </view>
             </view>
@@ -25,11 +25,11 @@
                         :key="columnIndex"
                         :span="colSpan(childColumns)"
                     >
-                        <view class="main_title">
+                        <view class="main__title">
                             {{ column.label }}
                         </view>
 
-                        <view class="main_text">
+                        <view class="main__text">
                             <!-- 标签 -->
                             <view v-if="column?.type === 'tag' && column?.expression?.(row, column)">
                                 <u-tag
@@ -45,7 +45,7 @@
                             <!-- 图片 -->
                             <view
                                 v-else-if="column?.type === 'image' && column?.expression?.(row, column)"
-                                class="main_text_image"
+                                class="main__text__image"
                             >
                                 <image
                                     v-for="(imgUrl, imgIndex) in column?.expression(row, column)"
@@ -183,7 +183,7 @@ defineExpose({
         justify-content: space-between;
         align-items: center;
 
-        &_left {
+        &__left {
             font-size: 24rpx;
             color: #707070;
 
@@ -192,7 +192,7 @@ defineExpose({
             }
         }
 
-        &_right {
+        &__right {
             display: flex;
         }
     }
@@ -203,7 +203,7 @@ defineExpose({
         text-align: center;
         margin: 10rpx 0;
 
-        &_title {
+        &__title {
             font-size: 28rpx;
             font-weight: bold;
             color: #8f939c;
@@ -211,7 +211,7 @@ defineExpose({
             background-color: #f5f6f8;
         }
 
-        &_text {
+        &__text {
             font-size: 24rpx;
             margin: 10rpx 0;
             color: #8f939c;
@@ -219,13 +219,12 @@ defineExpose({
             overflow: auto;
             padding: 0 10rpx;
 
-            // 图片
-            &_image {
+            &__image {
                 display: flex;
                 align-items: center;
                 justify-content: center;
 
-                :deep(image) {
+                image {
                     width: 40rpx;
                     height: 40rpx;
                     margin-right: 10rpx;
@@ -243,7 +242,8 @@ defineExpose({
 
 .pagination {
     position: sticky;
-    bottom: 10rpx;
+    bottom: 0rpx;
     background-color: #fff;
+    padding: 10rpx;
 }
 </style>

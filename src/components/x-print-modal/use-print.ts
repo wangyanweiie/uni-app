@@ -5,16 +5,6 @@ import * as iconv from 'iconv-lite';
 import { Buffer } from 'buffer';
 
 /**
- * 打印机品牌常量
- */
-export enum Brand {
-    Zebra = '斑马(Zebra)',
-    Gainscha = '佳博(Gainscha)',
-    Deli = '得力(Deli)',
-    Unknown = '未知',
-}
-
-/**
  * 打印机品牌类型别名
  */
 type Brands = `${Brand}`;
@@ -25,32 +15,6 @@ type Brands = `${Brand}`;
 interface BaseOption {
     brand: Brands;
 }
-
-/**
- * 打印机语言
- */
-export enum PrinterLanguage {
-    TSPL,
-    CPCL,
-    ZPL,
-}
-
-/**
- * 默认编码
- */
-const DEFAULT_ENCODING = 'GB18030';
-
-/**
- * 斑马打印机特定可写特征值
- * @description link pdf page 5 top.
- * @link https://www.zebra.com/content/dam/zebra/software/en/application-notes/AppNote-BlueToothLE-v4.pdf
- */
-const ZEBRA_WRITABLE_CHARACTERISTIC_ID = '38eb4a82-c570-11e3-9507-0002a5d5c51b';
-
-/**
- * 得力打印机特定可写特征值
- */
-// const DELI_WRITABLE_CHARACTERISTIC_ID = '49535343-6DAA-4D02-ABF6-19569ACA69FE';
 
 /**
  * 斑马打印机配置
@@ -98,6 +62,42 @@ interface ServiceIdCharacteristicId {
     /** 特征值ID */
     characteristicId: string;
 }
+
+/**
+ * 打印机品牌常量
+ */
+export enum Brand {
+    Zebra = '斑马(Zebra)',
+    Gainscha = '佳博(Gainscha)',
+    Deli = '得力(Deli)',
+    Unknown = '未知',
+}
+
+/**
+ * 打印机语言
+ */
+export enum PrinterLanguage {
+    TSPL,
+    CPCL,
+    ZPL,
+}
+
+/**
+ * 默认编码
+ */
+const DEFAULT_ENCODING = 'GB18030';
+
+/**
+ * 斑马打印机特定可写特征值
+ * @description link pdf page 5 top.
+ * @link https://www.zebra.com/content/dam/zebra/software/en/application-notes/AppNote-BlueToothLE-v4.pdf
+ */
+const ZEBRA_WRITABLE_CHARACTERISTIC_ID = '38eb4a82-c570-11e3-9507-0002a5d5c51b';
+
+/**
+ * 得力打印机特定可写特征值
+ */
+// const DELI_WRITABLE_CHARACTERISTIC_ID = '49535343-6DAA-4D02-ABF6-19569ACA69FE';
 
 /**
  * 弹出提示信息
