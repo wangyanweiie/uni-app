@@ -1,6 +1,5 @@
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, computed } from 'vue';
 import type { Props } from './interface';
-import { UPLOAD_URL } from '@/constant/global';
 
 export default function useIndex(props: Props, emit: any) {
     /**
@@ -11,7 +10,10 @@ export default function useIndex(props: Props, emit: any) {
     /**
      * 图片路径
      */
-    const uploadValue = ref<string>('');
+    const uploadValue = computed<string>({
+        get: () => '',
+        set: newValue => emit('update:modelValue', newValue),
+    });
 
     /**
      * 是否展示遮罩层
@@ -57,7 +59,6 @@ export default function useIndex(props: Props, emit: any) {
         }
 
         uploadValue.value = fileList.value.map((item: any) => item.url).join(',');
-        emit('update:modelValue', uploadValue.value);
     }
 
     /**
@@ -68,7 +69,7 @@ export default function useIndex(props: Props, emit: any) {
     async function handleUpload(url: string) {
         return new Promise(resolve => {
             uni.uploadFile({
-                url: UPLOAD_URL,
+                url: props.uploadUrl,
                 filePath: url,
                 name: 'file',
                 success: res => {
@@ -89,7 +90,6 @@ export default function useIndex(props: Props, emit: any) {
     function handleDelete(e: any) {
         fileList.value.splice(e.index, 1);
         uploadValue.value = fileList.value.map((item: any) => item.url).join(',');
-        emit('update:modelValue', uploadValue.value);
     }
 
     /**
@@ -121,7 +121,6 @@ export default function useIndex(props: Props, emit: any) {
                 if (res.confirm) {
                     fileList.value.splice(index, 1);
                     uploadValue.value = fileList.value.map((item: any) => item.url).join(',');
-                    emit('update:modelValue', uploadValue.value);
                 }
             },
         });
@@ -141,17 +140,15 @@ export default function useIndex(props: Props, emit: any) {
             });
 
             uploadValue.value = fileList.value.map((item: any) => item.url).toString();
-            emit('update:modelValue', uploadValue.value);
         } else if (params && typeof params === 'string') {
             fileList.value = params.split(',').map((item: string) => {
                 return {
-                    name: item.split('_')[item.split('_').length - 1],
+                    name: item.split('/')[item.split('/').length - 1],
                     url: item,
                 };
             });
 
             uploadValue.value = fileList.value.map((item: any) => item.url).toString();
-            emit('update:modelValue', uploadValue.value);
         } else {
             fileList.value = [];
             uploadValue.value = '';

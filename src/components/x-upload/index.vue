@@ -86,6 +86,7 @@
 
 <script setup lang="ts">
 import useIndex from './useIndex';
+import { UPLOAD_URL } from '@/constant/global';
 
 /**
  * 定义组件选项
@@ -99,6 +100,8 @@ defineOptions({
  */
 const props = withDefaults(
     defineProps<{
+        /** 上传地址 */
+        uploadUrl: string;
         /** 双向绑定的值 */
         modelValue: string;
         /** 是否可多选 */
@@ -124,6 +127,7 @@ const props = withDefaults(
         capture?: ['album'] | ['camera'] | ['album', 'camera'];
     }>(),
     {
+        uploadUrl: UPLOAD_URL,
         modelValue: '',
         multiple: false,
         maxCount: 5,
