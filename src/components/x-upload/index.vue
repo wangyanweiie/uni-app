@@ -1,5 +1,5 @@
 <template>
-    <view class="component">
+    <view :key="modelValue" class="component">
         <!-- 缩略图 -->
         <view class="preview">
             <template v-for="(item, index) in fileList" :key="index">
@@ -38,12 +38,13 @@
         </view>
 
         <!-- 遮罩层：预览视频 -->
-        <u-overlay :show="showOverlay" opacity="1" @click="showOverlay = false">
+        <u-overlay :show="showOverlay" opacity="1" @click="handleCloseOverlay">
             <view class="overlay">
                 <video
+                    id="videoId"
                     :src="videoUrl"
                     :autoplay="true"
-                    :loop="true"
+                    :loop="false"
                     :controls="false"
                     :show-play-btn="false"
                     :show-center-play-btn="false"
@@ -100,10 +101,10 @@ defineOptions({
  */
 const props = withDefaults(
     defineProps<{
-        /** 上传地址 */
-        uploadUrl: string;
         /** 双向绑定的值 */
         modelValue: string;
+        /** 上传地址 */
+        uploadUrl?: string;
         /** 是否可多选 */
         multiple?: boolean;
         /** 最大上传数量 */
@@ -127,8 +128,8 @@ const props = withDefaults(
         capture?: ['album'] | ['camera'] | ['album', 'camera'];
     }>(),
     {
-        uploadUrl: UPLOAD_URL,
         modelValue: '',
+        uploadUrl: UPLOAD_URL,
         multiple: false,
         maxCount: 5,
         previewImage: true,
@@ -161,6 +162,7 @@ const {
     handleImagePreview,
     handleVideoPreview,
     handleItemDelete,
+    handleCloseOverlay,
 } = useIndex(props, emit);
 
 /**

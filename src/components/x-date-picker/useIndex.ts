@@ -117,6 +117,9 @@ export default function useIndex(props: Props, emit: any) {
         dateValue.value = '';
 
         emit('update:modelValue', dateValue.value);
+        emit('change', {
+            value: '',
+        });
         emit('clear');
     }
 

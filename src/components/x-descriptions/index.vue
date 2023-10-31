@@ -1,5 +1,11 @@
 <template>
-    <view :key="key" class="component">
+    <view class="component">
+        <!-- 查询条件 -->
+        <view class="search">
+            <slot name="search"> </slot>
+        </view>
+
+        <!-- 描述列 -->
         <view
             v-for="(row, rowIndex) in descriptionsData"
             :key="rowIndex"
@@ -16,7 +22,7 @@
                 </view>
             </view>
 
-            <!-- 描述列主体区域 -->
+            <!-- 主体区域 -->
             <view class="main">
                 <!-- chunk：将数组拆分成多个 size 长度的区块，并将这些区块组成一个新数组 -->
                 <uni-row v-for="(childColumns, childColumnsIndex) in chunk(columns, size)" :key="childColumnsIndex">
@@ -76,15 +82,16 @@
         </view>
 
         <!-- 分页 -->
-        <uni-pagination
-            v-if="pagination.pageSize !== -1 && descriptionsData.length"
-            show-icon
-            :page-size="pagination.pageSize"
-            :current="pagination.page"
-            :total="pagination.total"
-            class="pagination"
-            @change="handlePaginationChange"
-        />
+        <view class="pagination">
+            <uni-pagination
+                v-if="pagination.pageSize !== -1 && descriptionsData.length"
+                show-icon
+                :page-size="pagination.pageSize"
+                :current="pagination.page"
+                :total="pagination.total"
+                @change="handlePaginationChange"
+            />
+        </view>
     </view>
 </template>
 
@@ -169,6 +176,14 @@ defineExpose({
     position: relative;
 }
 
+.search {
+    position: sticky;
+    top: 88rpx;
+    z-index: 2;
+    padding: 10rpx 0;
+    background-color: #fff;
+}
+
 .description {
     border: 1px solid #eee;
     border-radius: 14rpx;
@@ -243,7 +258,8 @@ defineExpose({
 .pagination {
     position: sticky;
     bottom: 0rpx;
-    background-color: #fff;
+    z-index: 2;
     padding: 10rpx;
+    background-color: #fff;
 }
 </style>

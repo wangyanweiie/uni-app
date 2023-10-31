@@ -227,6 +227,8 @@ const {
 defineExpose({
     tableRef,
     tableData,
+    checkRowsIndex,
+    checkRows,
     clearSelection,
     validate,
 

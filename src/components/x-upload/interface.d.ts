@@ -2,10 +2,10 @@
  * upload props
  */
 export interface Props {
-    /** 上传地址 */
-    uploadUrl: string;
     /** 双向绑定的值 */
     modelValue: string;
+    /** 上传地址 */
+    uploadUrl?: string;
     /** 是否可多选 */
     multiple?: boolean;
     /** 最大上传数量 */

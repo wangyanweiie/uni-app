@@ -69,7 +69,7 @@ export default function useIndex(props: Props, emit: any) {
     async function handleUpload(url: string) {
         return new Promise(resolve => {
             uni.uploadFile({
-                url: props.uploadUrl,
+                url: props.uploadUrl as string,
                 filePath: url,
                 name: 'file',
                 success: res => {
@@ -127,6 +127,13 @@ export default function useIndex(props: Props, emit: any) {
     }
 
     /**
+     * 关闭遮罩层
+     */
+    function handleCloseOverlay() {
+        showOverlay.value = false;
+    }
+
+    /**
      * @description 用于处理表单赋值或者是默认值，将其转化为可渲染的数据
      * @param params 图片地址
      */
@@ -173,5 +180,6 @@ export default function useIndex(props: Props, emit: any) {
         handleImagePreview,
         handleVideoPreview,
         handleItemDelete,
+        handleCloseOverlay,
     };
 }
