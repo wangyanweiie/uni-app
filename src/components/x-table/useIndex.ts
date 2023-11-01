@@ -76,9 +76,10 @@ export default function useIndex(props: Partial<XTableProp>, emit: any) {
 
     /**
      * 回显勾选行
+     * 分页表格不可回显
      */
     function handleToggleRow() {
-        if (!props.selectable || !props.selectedList || !props.selectedList.length) {
+        if (!props.selectable || !props.selectedList || !props.selectedList.length || props.dividePage) {
             return;
         }
 

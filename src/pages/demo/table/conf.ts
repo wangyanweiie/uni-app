@@ -43,17 +43,17 @@ export const columnList: XTableColumn[] = [
         prop: 'status',
         label: '状态',
         type: 'tag',
-        expression: (row: Record<string, any>, header: XTableColumn) => {
+        expression: (row: Record<string, any>, column: XTableColumn) => {
             let type: string;
 
-            if (row[header.prop] === STATUS['成功']) {
+            if (row[column.prop] === STATUS['成功']) {
                 type = 'success';
             } else {
                 type = 'error';
             }
 
             return {
-                text: STATUS[row[header.prop]],
+                text: STATUS[row[column.prop]],
                 type,
             };
         },
@@ -66,9 +66,9 @@ export const columnList: XTableColumn[] = [
     {
         prop: 'address',
         label: '地址',
-        expression: (row: Record<string, any>, header: XTableColumn) => {
-            if (row[header.prop]) {
-                return row[header.prop];
+        expression: (row: Record<string, any>, column: XTableColumn) => {
+            if (row[column.prop]) {
+                return row[column.prop];
             } else {
                 return '/';
             }
@@ -78,15 +78,15 @@ export const columnList: XTableColumn[] = [
         prop: 'image',
         label: '图片',
         type: 'image',
-        expression: (row: Record<string, any>, header: XTableColumn) => {
-            return ['http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg'];
+        expression: (row: Record<string, any>, column: XTableColumn) => {
+            return [
+                'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
+                'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
+            ];
         },
     },
     {
         prop: 'action',
         label: '操作',
-        // fixedProps: {
-        //     direction: 'right',
-        // },
     },
 ];

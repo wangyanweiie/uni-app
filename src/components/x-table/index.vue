@@ -104,14 +104,15 @@
         </scroll-view>
 
         <!-- 分页 -->
-        <uni-pagination
-            v-if="pagination.pageSize !== -1 && tableData.length"
-            show-icon
-            :page-size="pagination.pageSize"
-            :current="pagination.page"
-            :total="pagination.total"
-            @change="handlePaginationChange"
-        />
+        <view v-if="pagination.pageSize !== -1 && tableData.length" class="pagination">
+            <uni-pagination
+                show-icon
+                :page-size="pagination.pageSize"
+                :current="pagination.page"
+                :total="pagination.total"
+                @change="handlePaginationChange"
+            />
+        </view>
     </view>
 </template>
 
@@ -251,7 +252,7 @@ defineExpose({
     height: 100%;
 }
 
-// 表格顶部操作区域样式
+// 操作区样式
 .operation {
     padding-bottom: 20rpx;
     display: flex;
@@ -280,10 +281,8 @@ defineExpose({
     }
 
     :deep(.uni-table-td) {
-        padding: 10rpx;
+        padding: 6rpx;
     }
-
-    margin-bottom: 20rpx;
 
     &_header {
         background-color: #f5f6f8;
@@ -292,7 +291,6 @@ defineExpose({
             white-space: nowrap;
         }
 
-        // 必填标识
         &_required {
             color: red;
         }
@@ -307,12 +305,7 @@ defineExpose({
             }
         }
 
-        // 图片
         &_image {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
             image {
                 width: 60rpx;
                 height: 60rpx;
@@ -320,7 +313,6 @@ defineExpose({
             }
         }
 
-        // 操作列
         &_action {
             display: flex;
             align-items: center;
@@ -331,5 +323,10 @@ defineExpose({
             }
         }
     }
+}
+
+// 分页样式
+.pagination {
+    margin-top: 20rpx;
 }
 </style>

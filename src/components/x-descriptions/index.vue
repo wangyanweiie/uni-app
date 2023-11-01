@@ -176,14 +176,16 @@ defineExpose({
     position: relative;
 }
 
+// 查询样式
 .search {
     position: sticky;
-    top: 88rpx;
+    top: 0rpx;
     z-index: 2;
     padding: 10rpx 0;
     background-color: #fff;
 }
 
+// 描述列主体样式
 .description {
     border: 1px solid #eee;
     border-radius: 14rpx;
@@ -255,6 +257,7 @@ defineExpose({
     }
 }
 
+// 分页样式
 .pagination {
     position: sticky;
     bottom: 0rpx;

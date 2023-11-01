@@ -8,7 +8,6 @@
             :show-index="true"
             :selectable="true"
             :row-style="handleRowStyle"
-            :selected-list="[0, 1]"
             title="日志"
         >
             <template #operation="{ checkRows }">
