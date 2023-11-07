@@ -17,11 +17,16 @@
             <template #action="{ row }">
                 <u-button type="warning" size="small" style="width: 120rpx" @click="openDetail(row)"> 详情 </u-button>
             </template>
+
+            <template #addTimeSlot="{ row }">
+                {{ dayjs(row.addTime).format('YYYY-MM-DD') }}
+            </template>
         </x-table>
     </view>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
+import dayjs from 'dayjs';
 import RequestAPI from './api';
 import { columnList } from './conf';
 

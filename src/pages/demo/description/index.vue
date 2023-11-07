@@ -56,11 +56,16 @@
                     size="mini"
                 ></u-tag>
             </template>
+
+            <template #addTimeSlot="{ row }">
+                {{ dayjs(row.addTime).format('YYYY-MM-DD') }}
+            </template>
         </x-descriptions>
     </view>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
+import dayjs from 'dayjs';
 import RequestAPI from './api';
 import { STATUS, columnList } from './conf';
 

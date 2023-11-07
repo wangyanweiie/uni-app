@@ -7,9 +7,9 @@ export interface XDescriptionColumn {
     /** 展示文字 */
     label: string;
     /** 单元格渲染类型 */
-    type?: 'tag' | 'image' | 'slot';
+    renderType?: 'tag' | 'image';
     /** 渲染标签/文本格式化的数据处理函数 */
-    expression?: (row: Record<string, any>, column: XDescriptionColumn) => any;
+    formatter?: (row: Record<string, any>, column: XDescriptionColumn) => any;
 }
 
 /**

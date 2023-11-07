@@ -35,8 +35,8 @@ export const columnList: XDescriptionColumn[] = [
     {
         prop: 'status',
         label: '状态',
-        type: 'tag',
-        expression: (row: Record<string, any>, column: XDescriptionColumn) => {
+        renderType: 'tag',
+        formatter: (row: Record<string, any>, column: XDescriptionColumn) => {
             let type: string;
 
             if (row[column.prop] === STATUS['成功']) {
@@ -58,7 +58,7 @@ export const columnList: XDescriptionColumn[] = [
     {
         prop: 'address',
         label: '地址',
-        expression: (row: Record<string, any>, column: XDescriptionColumn) => {
+        formatter: (row: Record<string, any>, column: XDescriptionColumn) => {
             if (row[column.prop]) {
                 return row[column.prop];
             } else {
@@ -69,8 +69,8 @@ export const columnList: XDescriptionColumn[] = [
     {
         prop: 'image',
         label: '图片',
-        type: 'image',
-        expression: (row: Record<string, any>, column: XDescriptionColumn) => {
+        renderType: 'image',
+        formatter: (row: Record<string, any>, column: XDescriptionColumn) => {
             return [
                 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
                 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',

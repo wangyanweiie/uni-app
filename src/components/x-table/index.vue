@@ -63,39 +63,38 @@
                                 <slot :name="`${column.prop}`" :row="row" :index="rowIndex" />
                             </view>
 
-                            <!-- 标签 -->
-                            <view v-else-if="column?.type === 'tag' && column?.expression?.(row, column)">
-                                <u-tag
-                                    :text="column?.expression(row, column)?.text"
-                                    :type="column?.expression(row, column)?.type"
-                                    :plain="true"
-                                    :plain-fill="true"
-                                    size="mini"
-                                >
-                                </u-tag>
-                            </view>
-
-                            <!-- 图片 -->
-                            <view
-                                v-else-if="column?.type === 'image' && column?.expression?.(row, column)"
-                                class="table_content_image"
-                            >
-                                <image
-                                    v-for="(imgUrl, imgIndex) in column?.expression(row, column)"
-                                    :key="imgIndex"
-                                    :src="imgUrl"
-                                    @click="handlePreview(imgUrl)"
-                                ></image>
-                            </view>
-
-                            <!-- 插槽 -->
-                            <view v-else-if="column?.type === 'slot'">
-                                <slot :name="`${column.prop}`" :row="row" :index="rowIndex" />
-                            </view>
-
-                            <!-- 文本 -->
                             <view v-else>
-                                {{ column?.expression?.(row, column) ?? row?.[column.prop] }}
+                                <slot :name="`${column.prop}Slot`" :row="row" :index="rowIndex">
+                                    <!-- 标签 -->
+                                    <view v-if="column?.renderType === 'tag' && column?.formatter?.(row, column)">
+                                        <u-tag
+                                            :text="column?.formatter(row, column)?.text"
+                                            :type="column?.formatter(row, column)?.type"
+                                            :plain="true"
+                                            :plain-fill="true"
+                                            size="mini"
+                                        >
+                                        </u-tag>
+                                    </view>
+
+                                    <!-- 图片 -->
+                                    <view
+                                        v-else-if="column?.renderType === 'image' && column?.formatter?.(row, column)"
+                                        class="table_content_image"
+                                    >
+                                        <image
+                                            v-for="(imgUrl, imgIndex) in column?.formatter(row, column)"
+                                            :key="imgIndex"
+                                            :src="imgUrl"
+                                            @click="handlePreview(imgUrl)"
+                                        ></image>
+                                    </view>
+
+                                    <!-- 文本 -->
+                                    <view v-else>
+                                        {{ column?.formatter?.(row, column) ?? row?.[column.prop] }}
+                                    </view>
+                                </slot>
                             </view>
                         </uni-td>
                     </template>

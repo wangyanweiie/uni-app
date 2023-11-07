@@ -18,9 +18,9 @@ export interface XTableColumn {
         distance?: string;
     };
     /** 单元格渲染类型 */
-    type?: 'tag' | 'image' | 'slot';
+    renderType?: 'tag' | 'image';
     /** 渲染标签/图片/文本格式化的数据处理函数 */
-    expression?: (row: Record<string, any>, header: XTableColumn) => any;
+    formatter?: (row: Record<string, any>, column: XTableColumn) => any;
 }
 
 /**

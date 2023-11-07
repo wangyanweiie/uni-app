@@ -3,9 +3,13 @@ import { XTableColumn } from '@/components/x-table/interface';
 /**
  * 状态枚举
  */
-enum STATUS {
+enum STATUS_TEXT {
     '成功' = 1,
     '失败' = 2,
+}
+enum STATUS_TYPE {
+    'success' = 1,
+    'error' = 2,
 }
 
 /**
@@ -42,19 +46,11 @@ export const columnList: XTableColumn[] = [
     {
         prop: 'status',
         label: '状态',
-        type: 'tag',
-        expression: (row: Record<string, any>, column: XTableColumn) => {
-            let type: string;
-
-            if (row[column.prop] === STATUS['成功']) {
-                type = 'success';
-            } else {
-                type = 'error';
-            }
-
+        renderType: 'tag',
+        formatter: (row: Record<string, any>, column: XTableColumn) => {
             return {
-                text: STATUS[row[column.prop]],
-                type,
+                text: STATUS_TEXT[row[column.prop]],
+                type: STATUS_TYPE[row[column.prop]],
             };
         },
     },
@@ -66,7 +62,7 @@ export const columnList: XTableColumn[] = [
     {
         prop: 'address',
         label: '地址',
-        expression: (row: Record<string, any>, column: XTableColumn) => {
+        formatter: (row: Record<string, any>, column: XTableColumn) => {
             if (row[column.prop]) {
                 return row[column.prop];
             } else {
@@ -77,8 +73,8 @@ export const columnList: XTableColumn[] = [
     {
         prop: 'image',
         label: '图片',
-        type: 'image',
-        expression: (row: Record<string, any>, column: XTableColumn) => {
+        renderType: 'image',
+        formatter: (row: Record<string, any>, column: XTableColumn) => {
             return [
                 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
                 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
