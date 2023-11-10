@@ -113,10 +113,7 @@ export default function useLogin() {
      * 页面挂载
      */
     onMounted(() => {
-        if (!getStorage(LOCAL_BASE_URL_KEY)) {
-            saveStorage(LOCAL_BASE_URL_KEY, import.meta.env.VITE_API_URL);
-        }
-
+        saveStorage(LOCAL_BASE_URL_KEY, import.meta.env.VITE_API_URL);
         getCompanyName();
     });
 

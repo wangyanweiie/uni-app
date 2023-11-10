@@ -95,9 +95,7 @@ export default function useIndex() {
         const res = await RequestAPI.logout();
 
         if (res) {
-            // 清空 localStorage
             clearStorage();
-
             uni.reLaunch({ url: '/pages/login/index' });
         }
     }
