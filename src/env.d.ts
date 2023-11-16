@@ -11,6 +11,7 @@ declare module 'uview-plus';
 declare module 'lodash-es';
 declare module '@vueuse/core';
 declare module 'uni-pages-hot-modules';
+declare module 'image-tools';
 
 declare module 'uview-plus' {
     global {

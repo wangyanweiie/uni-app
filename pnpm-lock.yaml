@@ -41,6 +41,7 @@ specifiers:
   eslint-plugin-vue: ^9.17.0
   husky: ^8.0.3
   iconv-lite: ^0.6.3
+  image-tools: ^1.4.0
   lint-staged: ^14.0.1
   lodash-es: ^4.17.21
   postcss: ^8.4.28
@@ -78,6 +79,7 @@ dependencies:
   dayjs: 1.11.9
   decimal.js: 10.4.3
   iconv-lite: 0.6.3
+  image-tools: 1.4.0
   lodash-es: 4.17.21
   uni-pages-hot-modules: 1.0.3
   uview-plus: 3.1.36
@@ -5649,6 +5651,10 @@ packages:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
     dev: true
+
+  /image-tools/1.4.0:
+    resolution: {integrity: sha512-TKtvJ6iUwM0mfaD4keMnk1ENHFC470QEjBfA3IlvKdEOufzvWbjbaoNcoyYq6HlViF8+d5tOS1ooE6j7CHf1lQ==}
+    dev: false
 
   /immutable/4.3.2:
     resolution: {integrity: sha512-oGXzbEDem9OOpDWZu88jGiYCvIsLHMvGw+8OXlpsvTFvIQplQbjg1B1cvKg8f7Hoch6+NGjpPsH1Fr+Mc2D1aA==}

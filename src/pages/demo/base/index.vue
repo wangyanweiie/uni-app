@@ -31,6 +31,9 @@
             <u-form-item label="视频" required prop="videos">
                 <x-upload v-model="form.videos" accept="video"></x-upload>
             </u-form-item>
+            <u-form-item label="签名" required prop="signatureUrl">
+                <x-signature v-model="form.signatureUrl"></x-signature>
+            </u-form-item>
         </u-form>
 
         <!-- 弹窗 -->
@@ -74,6 +77,7 @@ const form = ref<Record<string, any>>({
     date: '',
     uploads: 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
     videos: 'http://192.168.3.38:9000/lvling/1691669393119why.mp4',
+    signatureUrl: 'http://192.168.3.38:9000/lvling/1700128282214f415343b2a3948068973c2150822130c.jpg',
 });
 
 /**
@@ -86,6 +90,7 @@ const rules = ref({
     date: [{ required: true, message: '日期不能为空' }],
     uploads: [{ required: true, message: '图片不能为空' }],
     videos: [{ required: true, message: '视频不能为空' }],
+    signatureUrl: [{ required: true, message: '签名不能为空' }],
 });
 
 /**

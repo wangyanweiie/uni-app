@@ -7,6 +7,7 @@ import XSelect from '@/components/x-select/index.vue';
 import XSearchSelect from '@/components/x-search-select/index.vue';
 import XModal from '@/components/x-modal/index.vue';
 import XPrintModal from '@/components/x-print-modal/index.vue';
+import XSignature from '@/components/x-signature/index.vue';
 
 export const components = [
     XForm,
@@ -18,4 +19,5 @@ export const components = [
     XSearchSelect,
     XModal,
     XPrintModal,
+    XSignature,
 ];
