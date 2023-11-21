@@ -7,6 +7,10 @@ export enum STATUS {
     '成功' = 1,
     '失败' = 2,
 }
+enum STATUS_TYPE {
+    'success' = 1,
+    'error' = 2,
+}
 
 /**
  * 表格列配置
@@ -36,18 +40,10 @@ export const columnList: XDescriptionColumn[] = [
         prop: 'status',
         label: '状态',
         renderType: 'tag',
-        formatter: (row: Record<string, any>, column: XDescriptionColumn) => {
-            let type: string;
-
-            if (row[column.prop] === STATUS['成功']) {
-                type = 'success';
-            } else {
-                type = 'error';
-            }
-
+        formatter: (row: Record<string, any>, column: XDescriptionColumn, cellValue: any) => {
             return {
-                text: STATUS[row[column.prop]],
-                type,
+                text: STATUS[cellValue] ?? '',
+                type: STATUS_TYPE[cellValue] ?? '',
             };
         },
     },
@@ -58,19 +54,15 @@ export const columnList: XDescriptionColumn[] = [
     {
         prop: 'address',
         label: '地址',
-        formatter: (row: Record<string, any>, column: XDescriptionColumn) => {
-            if (row[column.prop]) {
-                return row[column.prop];
-            } else {
-                return '/';
-            }
+        formatter: (row: Record<string, any>, column: XDescriptionColumn, cellValue: any) => {
+            return cellValue ?? '/';
         },
     },
     {
         prop: 'image',
         label: '图片',
         renderType: 'image',
-        formatter: (row: Record<string, any>, column: XDescriptionColumn) => {
+        formatter: (row: Record<string, any>, column: XDescriptionColumn, cellValue: any) => {
             return [
                 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
                 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',

@@ -64,12 +64,22 @@
                             </view>
 
                             <view v-else>
-                                <slot :name="`${column.prop}Slot`" :row="row" :index="rowIndex">
+                                <slot
+                                    :name="`${column.prop}Slot`"
+                                    :row="row"
+                                    :column="column"
+                                    :cell-value="row[column.prop]"
+                                >
                                     <!-- 标签 -->
-                                    <view v-if="column?.renderType === 'tag' && column?.formatter?.(row, column)">
+                                    <view
+                                        v-if="
+                                            column?.renderType === 'tag' &&
+                                            column?.formatter?.(row, column, row[column.prop])
+                                        "
+                                    >
                                         <u-tag
-                                            :text="column?.formatter(row, column)?.text"
-                                            :type="column?.formatter(row, column)?.type"
+                                            :text="column?.formatter(row, column, row[column.prop])?.text"
+                                            :type="column?.formatter(row, column, row[column.prop])?.type"
                                             :plain="true"
                                             :plain-fill="true"
                                             size="mini"
@@ -79,11 +89,18 @@
 
                                     <!-- 图片 -->
                                     <view
-                                        v-else-if="column?.renderType === 'image' && column?.formatter?.(row, column)"
+                                        v-else-if="
+                                            column?.renderType === 'image' &&
+                                            column?.formatter?.(row, column, row[column.prop])
+                                        "
                                         class="table_content_image"
                                     >
                                         <image
-                                            v-for="(imgUrl, imgIndex) in column?.formatter(row, column)"
+                                            v-for="(imgUrl, imgIndex) in column?.formatter(
+                                                row,
+                                                column,
+                                                row[column.prop],
+                                            )"
                                             :key="imgIndex"
                                             :src="imgUrl"
                                             @click="handlePreview(imgUrl)"
@@ -92,7 +109,7 @@
 
                                     <!-- 文本 -->
                                     <view v-else>
-                                        {{ column?.formatter?.(row, column) ?? row?.[column.prop] }}
+                                        {{ column?.formatter?.(row, column, row[column.prop]) ?? row[column.prop] }}
                                     </view>
                                 </slot>
                             </view>

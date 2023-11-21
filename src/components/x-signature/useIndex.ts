@@ -129,7 +129,7 @@ export default function useIndex(props: Props, emit: any) {
     /**
      * 完成绘画并输出路径
      */
-    function finishCanvas() {
+    function uploadCanvas() {
         // 把当前画布指定区域的内容导出生成指定大小的图片，并返回文件路径
         uni.canvasToTempFilePath({
             canvasId: 'canvasId',
@@ -244,7 +244,7 @@ export default function useIndex(props: Props, emit: any) {
         handleTouchstart,
         handleTouchmove,
         handleTouchend,
-        finishCanvas,
+        uploadCanvas,
         clearCanvas,
         closePopup,
         preview,

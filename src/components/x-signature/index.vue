@@ -24,7 +24,7 @@
             ></canvas>
 
             <view class="button-wrap">
-                <u-button type="primary" class="button-wrap__item" @click="finishCanvas">上传</u-button>
+                <u-button type="primary" class="button-wrap__item" @click="uploadCanvas">上传</u-button>
                 <u-button type="error" class="button-wrap__item" @click="clearCanvas">清空</u-button>
                 <u-button type="info" class="button-wrap__item" @click="closePopup">关闭</u-button>
             </view>
@@ -83,7 +83,7 @@ const {
     handleTouchstart,
     handleTouchmove,
     handleTouchend,
-    finishCanvas,
+    uploadCanvas,
     clearCanvas,
     closePopup,
     preview,

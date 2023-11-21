@@ -47,10 +47,10 @@ export const columnList: XTableColumn[] = [
         prop: 'status',
         label: '状态',
         renderType: 'tag',
-        formatter: (row: Record<string, any>, column: XTableColumn) => {
+        formatter: (row: Record<string, any>, column: XTableColumn, cellValue: any) => {
             return {
-                text: STATUS_TEXT[row[column.prop]],
-                type: STATUS_TYPE[row[column.prop]],
+                text: STATUS_TEXT[cellValue] ?? '',
+                type: STATUS_TYPE[cellValue] ?? '',
             };
         },
     },
@@ -62,19 +62,15 @@ export const columnList: XTableColumn[] = [
     {
         prop: 'address',
         label: '地址',
-        formatter: (row: Record<string, any>, column: XTableColumn) => {
-            if (row[column.prop]) {
-                return row[column.prop];
-            } else {
-                return '/';
-            }
+        formatter: (row: Record<string, any>, column: XTableColumn, cellValue: any) => {
+            return cellValue ?? '/';
         },
     },
     {
         prop: 'image',
         label: '图片',
         renderType: 'image',
-        formatter: (row: Record<string, any>, column: XTableColumn) => {
+        formatter: (row: Record<string, any>, column: XTableColumn, cellValue: any) => {
             return [
                 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
                 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',

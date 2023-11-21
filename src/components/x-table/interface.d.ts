@@ -20,7 +20,7 @@ export interface XTableColumn {
     /** 单元格渲染类型 */
     renderType?: 'tag' | 'image';
     /** 渲染标签/图片/文本格式化的数据处理函数 */
-    formatter?: (row: Record<string, any>, column: XTableColumn) => any;
+    formatter?: (row: Record<string, any>, column: XTableColumn, cellValue: any) => any;
 }
 
 /**
