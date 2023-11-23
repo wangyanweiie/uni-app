@@ -1,33 +1,50 @@
 <script setup lang="ts">
-import { onLaunch, onShow, onHide } from '@dcloudio/uni-app';
-import { getStorage } from '@/utils/uni-storage';
+import { onLaunch } from '@dcloudio/uni-app';
+import { getStorage, removeStorage } from '@/utils/uni-storage';
 import { LOCAL_TOKEN_KEY } from './constant/global';
-// import RequestAPI from '@/api/login/index';
+import RequestAPI from '@/api/login/index';
 
-onShow(() => {});
-
-onHide(() => {});
-
-onLaunch(() => {
+/**
+ * 校验 token 是否存在
+ */
+async function checkTokenIsExit() {
     const token = getStorage(LOCAL_TOKEN_KEY);
 
-    // 存在 token
-    if (token) {
-        // 校验 token 有效性
-        // const res = await RequestAPI.checkToken();
-
-        // if (!res) {
-        //     removeStorage(LOCAL_TOKEN_KEY);
-        //     uni.navigateTo({ url: '/pages/login/index' });
-        //     return;
-        // }
-
-        // 跳转到首页
-        uni.switchTab({ url: '/pages/index/index' });
-    } else {
-        // 不存在 token，跳转到登录页
-        uni.navigateTo({ url: '/pages/login/index' });
+    if (!token) {
+        // 若不存在，跳转至登录页
+        uni.navigateTo({
+            url: '/pages/login/index',
+        });
+        return;
     }
+
+    // 若存在，则校验 token 有效性
+    await checkTokenIsValid();
+}
+
+/**
+ * 校验 token 是否有效
+ */
+async function checkTokenIsValid() {
+    // const res = await RequestAPI.checkToken();
+
+    // if (!res) {
+    //     // 若无效，清空 token 并跳转至登录页
+    //     removeStorage(LOCAL_TOKEN_KEY);
+    //     uni.navigateTo({
+    //         url: '/pages/login/index',
+    //     });
+    //     return;
+    // }
+
+    // 若有效，则跳转至首页
+    uni.switchTab({
+        url: '/pages/index/index',
+    });
+}
+
+onLaunch(() => {
+    checkTokenIsExit();
 });
 </script>
 <style lang="scss">

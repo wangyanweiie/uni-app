@@ -75,12 +75,12 @@ export default function useIndex() {
                         icon: 'iconfont-merge',
                         path: '/pages/other/combine-table/index',
                     },
-                    {
-                        label: '图片水印',
-                        value: 'watermark',
-                        icon: 'iconfont-a-ziyuan315',
-                        path: '/pages/other/watermark/index',
-                    },
+                    // {
+                    //     label: '图片水印',
+                    //     value: 'watermark',
+                    //     icon: 'iconfont-a-ziyuan315',
+                    //     path: '/pages/other/watermark/index',
+                    // },
                     {
                         label: '文件预览',
                         value: 'preview',

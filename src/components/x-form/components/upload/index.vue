@@ -2,9 +2,11 @@
     <view class="component">
         <u-upload
             name="upload"
-            :file-list="fileList"
             width="80rpx"
             height="80rpx"
+            accept="image"
+            :size-type="['original']"
+            :file-list="fileList"
             v-bind="schema?.attributes"
             @delete="handleDelete"
             @after-read="handleAfterRead"

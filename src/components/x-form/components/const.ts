@@ -1,9 +1,4 @@
 /**
- * 上传路径
- */
-export const UPLOAD_URL = `${import.meta.env.VITE_API_URL}/api/upload`;
-
-/**
  * 扫码模式
  */
 export const SCAN_MODE = {

@@ -10,7 +10,6 @@
 <script lang="ts" setup>
 import { ref, nextTick } from 'vue';
 import dayjs from 'dayjs';
-// import { UPLOAD_URL } from '@/constant/global';
 
 /**
  * 画布宽度
@@ -113,32 +112,6 @@ function setImg(url: string) {
         },
     });
 }
-
-/**
- * 上传图片
- * @param url 图片路径
- */
-// async function uploadFile(url: string) {
-//     return new Promise(resolve => {
-//         uni.uploadFile({
-//             url: UPLOAD_URL,
-//             filePath: url,
-//             name: 'file',
-//             // 用于让后端区分是 APP 上传还是 PC 上传
-//             formData: {
-//                 appSign: 'app',
-//             },
-//             success: res => {
-//                 src.value = JSON.parse(res.data).data;
-//                 resolve(JSON.parse(res.data).data);
-//             },
-//             fail: err => {
-//                 console.log(err);
-//                 resolve(false);
-//             },
-//         });
-//     });
-// }
 
 /**
  * 预览图片

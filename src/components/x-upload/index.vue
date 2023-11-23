@@ -71,7 +71,8 @@
             :disabled="disabled"
             :accept="accept"
             :capture="capture"
-            class="upload"
+            :compressed="false"
+            :size-type="['original']"
             @after-read="handleAfterRead"
             @delete="handleDelete"
         >
