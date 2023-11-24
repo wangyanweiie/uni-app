@@ -6,6 +6,10 @@ export interface Props {
     modelValue: string;
     /** 上传地址 */
     uploadUrl?: string;
+    /** 内部预览图宽度 */
+    width?: string | number;
+    /** 内部预览图高度 */
+    height?: string | number;
     /** 是否可多选 */
     multiple?: boolean;
     /** 最大上传数量 */
@@ -14,10 +18,6 @@ export interface Props {
     previewImage?: boolean;
     /** 是否展示内部预览图 */
     previewFullImage?: boolean;
-    /** 内部预览图宽度 */
-    width?: string | number;
-    /** 内部预览图高度 */
-    height?: string | number;
     /** 是否可删除 */
     deletable?: boolean;
     /** 是否禁用上传，只预览 */
@@ -27,4 +27,26 @@ export interface Props {
     accept?: 'image' | 'video';
     /** 图片或视频拾取模式 */
     capture?: ['album'] | ['camera'] | ['album', 'camera'];
+}
+
+/**
+ * file
+ */
+export interface File {
+    name: string;
+    url: string;
+    size?: number;
+    type?: string;
+    thumb?: string;
+    status?: string;
+    message?: string;
+}
+
+/**
+ * function-event
+ */
+export interface Event {
+    file: File;
+    name: string;
+    index: number;
 }

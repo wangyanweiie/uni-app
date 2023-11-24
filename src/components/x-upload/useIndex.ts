@@ -1,19 +1,11 @@
-import { ref, onBeforeMount, computed } from 'vue';
-import type { Props } from './interface';
+import { ref, onBeforeMount, watchEffect } from 'vue';
+import type { Props, File, Event } from './interface';
 
 export default function useIndex(props: Props, emit: any) {
     /**
-     * 图片路径列表
+     * 图片列表
      */
-    const fileList = ref<any[]>([]);
-
-    /**
-     * 图片路径
-     */
-    const uploadValue = computed<string>({
-        get: () => '',
-        set: newValue => emit('update:modelValue', newValue),
-    });
+    const fileList = ref<File[]>([]);
 
     /**
      * 是否展示遮罩层
@@ -29,11 +21,11 @@ export default function useIndex(props: Props, emit: any) {
      * @description 读取图片后的处理函数
      * @param e index，name，file
      */
-    async function handleAfterRead(e: { file: any; name: string; index: number }) {
-        const list: any = [].concat(e.file);
+    async function handleAfterRead(e: Event) {
+        const list: File[] = ([] as File[]).concat(e.file);
         let length = fileList.value.length;
 
-        list.map((item: any) => {
+        list.map((item: File) => {
             fileList.value.push({
                 ...item,
                 status: 'uploading',
@@ -57,8 +49,6 @@ export default function useIndex(props: Props, emit: any) {
 
             length++;
         }
-
-        uploadValue.value = fileList.value.map((item: any) => item.url).join(',');
     }
 
     /**
@@ -84,15 +74,6 @@ export default function useIndex(props: Props, emit: any) {
     }
 
     /**
-     * @description 删除图片回调
-     * @param e 当前项的 index，name，file
-     */
-    function handleDelete(e: any) {
-        fileList.value.splice(e.index, 1);
-        uploadValue.value = fileList.value.map((item: any) => item.url).join(',');
-    }
-
-    /**
      * 图片预览
      */
     function handleImagePreview(url: string) {
@@ -111,16 +92,22 @@ export default function useIndex(props: Props, emit: any) {
     }
 
     /**
+     * @description 删除图片回调
+     * @param e 当前项的 index，name，file
+     */
+    function handleDelete(e: Event) {
+        fileList.value.splice(e.index, 1);
+    }
+
+    /**
      * 删除图片/视频
      */
     function handleItemDelete(index: number) {
         uni.showModal({
-            title: '',
             content: '是否确认删除？',
             success: res => {
                 if (res.confirm) {
                     fileList.value.splice(index, 1);
-                    uploadValue.value = fileList.value.map((item: any) => item.url).join(',');
                 }
             },
         });
@@ -137,30 +124,33 @@ export default function useIndex(props: Props, emit: any) {
      * @description 用于处理表单赋值或者是默认值，将其转化为可渲染的数据
      * @param params 图片地址
      */
-    function handleInit(params: any) {
-        if (Array.isArray(params)) {
-            fileList.value = params.map((item: { sourceFilePath: string; sourceFileName: string }) => {
+    function handleInit(params: string | string[]) {
+        if (Array.isArray(params) && params.length > 0) {
+            fileList.value = params.map((url: string) => {
                 return {
-                    name: item.sourceFileName,
-                    url: item.sourceFilePath,
+                    name: url.split('/')[url.split('/').length - 1],
+                    url: url,
                 };
             });
-
-            uploadValue.value = fileList.value.map((item: any) => item.url).toString();
         } else if (params && typeof params === 'string') {
-            fileList.value = params.split(',').map((item: string) => {
+            fileList.value = params.split(',').map((url: string) => {
                 return {
-                    name: item.split('/')[item.split('/').length - 1],
-                    url: item,
+                    name: url.split('/')[url.split('/').length - 1],
+                    url: url,
                 };
             });
-
-            uploadValue.value = fileList.value.map((item: any) => item.url).toString();
         } else {
             fileList.value = [];
-            uploadValue.value = '';
         }
     }
+
+    /**
+     * 监听
+     */
+    watchEffect(() => {
+        const value = fileList.value.map((item: File) => item.url);
+        emit('update:modelValue', value);
+    });
 
     /**
      * 页面渲染之前
@@ -176,9 +166,9 @@ export default function useIndex(props: Props, emit: any) {
         showOverlay,
         videoUrl,
         handleAfterRead,
-        handleDelete,
         handleImagePreview,
         handleVideoPreview,
+        handleDelete,
         handleItemDelete,
         handleCloseOverlay,
     };

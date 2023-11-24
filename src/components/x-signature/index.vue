@@ -1,13 +1,12 @@
 <template>
     <view class="component">
-        <view class="operation" @click="openPopup">
-            <view class="operation__placeholder"> {{ placeholder }} </view>
-
-            <view v-show="signatureUrl" class="operation__image" @click.stop="preview(signatureUrl)">
-                <image mode="aspectFill" :src="signatureUrl"></image>
+        <view class="operation">
+            <view class="operation__placeholder">
+                <view v-if="!signatureUrl" @click="openPopup"> 点击签名 </view>
+                <view v-else style="color: #5ac725" @click="preview(signatureUrl)"> 查看签名 </view>
             </view>
 
-            <view v-show="signatureUrl && clearable && !disabled" class="operation__icon" @click.stop="handleClear">
+            <view v-show="signatureUrl && clearable && !disabled" class="operation__icon" @click="handleClear">
                 <u-icon name="close-circle-fill" color="#C6C7CB" size="40rpx"></u-icon>
             </view>
         </view>
@@ -48,8 +47,6 @@ const props = withDefaults(
     defineProps<{
         /** 双向绑定的值，生成的签名路径 */
         modelValue: string;
-        /** 提示文字 */
-        placeholder?: string;
         /** 是否可清空 */
         clearable?: boolean;
         /** 是否禁用 */
@@ -57,7 +54,6 @@ const props = withDefaults(
     }>(),
     {
         modelValue: '',
-        placeholder: '请点击签名',
         clearable: true,
         disabled: false,
     },
@@ -105,19 +101,11 @@ const {
     border-radius: 10rpx;
 
     &__placeholder {
-        max-width: 400rpx;
         white-space: nowrap;
         overflow-x: auto;
         color: #ececec;
         text-align: center;
         margin-right: 20rpx;
-    }
-
-    &__image {
-        image {
-            width: 60rpx;
-            height: 60rpx;
-        }
     }
 
     &__icon {

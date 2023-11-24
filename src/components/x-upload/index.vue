@@ -57,16 +57,16 @@
             上传组件
             通过 :file-list="fileList" 展示的缩略图不可预览视频，故不再传入 fileList，手写预览区；
             而且由于不传入 fileList ，超出最大上传数量后上传按钮不再自动隐藏，需要手动隐藏；
-            PS：此时传入的 previewImage、previewFullImage 参数不再起作用；
+            PS：此时 u-upload 的 previewImage、previewFullImage、delete 属性不再起作用；
          -->
         <u-upload
             name="upload"
+            :width="width"
+            :height="height"
             :multiple="multiple"
             :max-count="maxCount"
             :preview-image="previewImage"
             :preview-full-image="previewFullImage"
-            :width="width"
-            :height="height"
             :deletable="deletable && !disabled"
             :disabled="disabled"
             :accept="accept"
@@ -106,6 +106,10 @@ const props = withDefaults(
         modelValue: string;
         /** 上传地址 */
         uploadUrl?: string;
+        /** 内部预览图宽度 */
+        width?: string | number;
+        /** 内部预览图高度 */
+        height?: string | number;
         /** 是否可多选 */
         multiple?: boolean;
         /** 最大上传数量 */
@@ -114,10 +118,6 @@ const props = withDefaults(
         previewImage?: boolean;
         /** 是否展示内部预览图 */
         previewFullImage?: boolean;
-        /** 内部预览图宽度 */
-        width?: string | number;
-        /** 内部预览图高度 */
-        height?: string | number;
         /** 是否可删除 */
         deletable?: boolean;
         /** 是否禁用上传，只预览 */
@@ -131,12 +131,12 @@ const props = withDefaults(
     {
         modelValue: '',
         uploadUrl: UPLOAD_URL,
+        width: '80rpx',
+        height: '80rpx',
         multiple: false,
         maxCount: 5,
         previewImage: true,
         previewFullImage: true,
-        width: '80rpx',
-        height: '80rpx',
         deletable: true,
         disabled: false,
         accept: 'image',
@@ -159,9 +159,9 @@ const {
     showOverlay,
     videoUrl,
     handleAfterRead,
-    handleDelete,
     handleImagePreview,
     handleVideoPreview,
+    handleDelete,
     handleItemDelete,
     handleCloseOverlay,
 } = useIndex(props, emit);
