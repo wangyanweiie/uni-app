@@ -1,11 +1,19 @@
-import { ref, onBeforeMount, watchEffect } from 'vue';
+import { ref, onBeforeMount, computed } from 'vue';
 import type { Props, File, Event } from './interface';
 
 export default function useIndex(props: Props, emit: any) {
     /**
-     * 图片列表
+     * 图片信息列表
      */
     const fileList = ref<File[]>([]);
+
+    /**
+     * 图片路径列表
+     */
+    const uploadValue = computed<string[]>({
+        get: () => [],
+        set: newValue => emit('update:modelValue', newValue),
+    });
 
     /**
      * 是否展示遮罩层
@@ -49,6 +57,8 @@ export default function useIndex(props: Props, emit: any) {
 
             length++;
         }
+
+        uploadValue.value = fileList.value.length ? fileList.value.map((item: File) => item.url) : [];
     }
 
     /**
@@ -87,8 +97,8 @@ export default function useIndex(props: Props, emit: any) {
      * 视频预览
      */
     function handleVideoPreview(url: string) {
-        videoUrl.value = url;
         showOverlay.value = true;
+        videoUrl.value = url;
     }
 
     /**
@@ -97,6 +107,7 @@ export default function useIndex(props: Props, emit: any) {
      */
     function handleDelete(e: Event) {
         fileList.value.splice(e.index, 1);
+        uploadValue.value = fileList.value.length ? fileList.value.map((item: File) => item.url) : [];
     }
 
     /**
@@ -108,6 +119,7 @@ export default function useIndex(props: Props, emit: any) {
             success: res => {
                 if (res.confirm) {
                     fileList.value.splice(index, 1);
+                    uploadValue.value = fileList.value.length ? fileList.value.map((item: File) => item.url) : [];
                 }
             },
         });
@@ -124,16 +136,9 @@ export default function useIndex(props: Props, emit: any) {
      * @description 用于处理表单赋值或者是默认值，将其转化为可渲染的数据
      * @param params 图片地址
      */
-    function handleInit(params: string | string[]) {
+    function handleInit(params: string[]) {
         if (Array.isArray(params) && params.length > 0) {
             fileList.value = params.map((url: string) => {
-                return {
-                    name: url.split('/')[url.split('/').length - 1],
-                    url: url,
-                };
-            });
-        } else if (params && typeof params === 'string') {
-            fileList.value = params.split(',').map((url: string) => {
                 return {
                     name: url.split('/')[url.split('/').length - 1],
                     url: url,
@@ -142,15 +147,9 @@ export default function useIndex(props: Props, emit: any) {
         } else {
             fileList.value = [];
         }
-    }
 
-    /**
-     * 监听
-     */
-    watchEffect(() => {
-        const value = fileList.value.map((item: File) => item.url);
-        emit('update:modelValue', value);
-    });
+        uploadValue.value = fileList.value.length ? fileList.value.map((item: File) => item.url) : [];
+    }
 
     /**
      * 页面渲染之前

@@ -20,11 +20,6 @@
         <template #default>
             <slot name="default"></slot>
         </template>
-
-        <!-- 自定义按钮 -->
-        <!-- <template #confirmButton>
-            <slot name="confirmButton"></slot>
-        </template> -->
     </u-modal>
 </template>
 

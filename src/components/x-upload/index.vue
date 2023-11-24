@@ -1,8 +1,8 @@
 <template>
-    <view :key="modelValue" class="component">
+    <view class="component">
         <!-- 缩略图 -->
         <view class="preview">
-            <template v-for="(item, index) in fileList" :key="index">
+            <template v-for="(item, index) in fileList" :key="item.url">
                 <view class="preview__item">
                     <!-- 视频 -->
                     <u-image
@@ -41,12 +41,11 @@
         <u-overlay :show="showOverlay" opacity="1" @click="handleCloseOverlay">
             <view class="overlay">
                 <video
-                    id="videoId"
+                    :id="videoUrl"
                     :src="videoUrl"
                     :autoplay="true"
                     :loop="false"
                     :controls="false"
-                    :show-play-btn="false"
                     :show-center-play-btn="false"
                     class="overlay__video"
                 ></video>
@@ -103,7 +102,7 @@ defineOptions({
 const props = withDefaults(
     defineProps<{
         /** 双向绑定的值 */
-        modelValue: string;
+        modelValue: string[];
         /** 上传地址 */
         uploadUrl?: string;
         /** 内部预览图宽度 */
@@ -129,7 +128,7 @@ const props = withDefaults(
         capture?: ['album'] | ['camera'] | ['album', 'camera'];
     }>(),
     {
-        modelValue: '',
+        modelValue: () => [],
         uploadUrl: UPLOAD_URL,
         width: '80rpx',
         height: '80rpx',

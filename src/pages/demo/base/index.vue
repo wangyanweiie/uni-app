@@ -25,11 +25,11 @@
                     @change="handleDate"
                 ></x-date-picker>
             </u-form-item>
-            <u-form-item label="图片" required prop="uploads">
-                <x-upload v-model="form.uploads"></x-upload>
+            <u-form-item label="图片" required prop="uploadList">
+                <x-upload v-model="form.uploadList"></x-upload>
             </u-form-item>
-            <u-form-item label="视频" required prop="videos">
-                <x-upload v-model="form.videos" accept="video"></x-upload>
+            <u-form-item label="视频" required prop="videoList">
+                <x-upload v-model="form.videoList" accept="video"></x-upload>
             </u-form-item>
             <u-form-item label="签名" required prop="signatureUrl">
                 <x-signature v-model="form.signatureUrl"></x-signature>
@@ -75,8 +75,8 @@ const form = ref<Record<string, any>>({
     hobby: '',
     course: '',
     date: '',
-    uploads: 'http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg',
-    videos: 'http://192.168.3.38:9000/lvling/1691669393119why.mp4',
+    uploadList: ['http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg'],
+    videoList: ['http://192.168.3.38:9000/lvling/1691669393119why.mp4'],
     signatureUrl: 'http://192.168.3.38:9000/lvling/1700128282214f415343b2a3948068973c2150822130c.jpg',
 });
 
@@ -88,8 +88,8 @@ const rules = ref({
     hobby: [{ required: true, message: '爱好不能为空' }],
     course: [{ required: true, message: '课程不能为空' }],
     date: [{ required: true, message: '日期不能为空' }],
-    uploads: [{ required: true, message: '图片不能为空' }],
-    videos: [{ required: true, message: '视频不能为空' }],
+    uploadList: [{ required: true, message: '图片不能为空' }],
+    videoList: [{ required: true, message: '视频不能为空' }],
     signatureUrl: [{ required: true, message: '签名不能为空' }],
 });
 

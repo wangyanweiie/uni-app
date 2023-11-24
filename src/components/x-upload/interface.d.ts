@@ -3,7 +3,7 @@
  */
 export interface Props {
     /** 双向绑定的值 */
-    modelValue: string;
+    modelValue: string[];
     /** 上传地址 */
     uploadUrl?: string;
     /** 内部预览图宽度 */
