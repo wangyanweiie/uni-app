@@ -77,7 +77,7 @@ const form = ref<Record<string, any>>({
     date: '',
     uploadList: ['http://192.168.3.38:9000/lvling/1691377252283mhgg.jpg'],
     videoList: ['http://192.168.3.38:9000/lvling/1691669393119why.mp4'],
-    signatureUrl: 'http://192.168.3.38:9000/lvling/1700128282214f415343b2a3948068973c2150822130c.jpg',
+    signatureUrl: 'http://192.168.3.38:9000/lvling/170106405853943b8a124fc2e41d28f2929bf3f855591.jpg',
 });
 
 /**

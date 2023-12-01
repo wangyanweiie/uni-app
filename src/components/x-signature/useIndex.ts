@@ -1,4 +1,4 @@
-import { ref, watchEffect } from 'vue';
+import { computed, ref } from 'vue';
 import { pathToBase64 } from 'image-tools';
 import { showToast } from '@/utils/uni-message';
 import RequestAPI from '@/api/upload';
@@ -13,13 +13,9 @@ export default function useIndex(props: Props, emit: any) {
     /**
      * 生成签名的路径
      */
-    const signatureUrl = ref<string>('');
-
-    /**
-     * 监听 props
-     */
-    watchEffect(() => {
-        signatureUrl.value = props.modelValue;
+    const signatureUrl = computed<string>({
+        get: () => props.modelValue,
+        set: newValue => emit('update:modelValue', newValue),
     });
 
     /**
@@ -76,7 +72,7 @@ export default function useIndex(props: Props, emit: any) {
         const startPoint = { X: startX, Y: startY };
         points.value.push(startPoint);
 
-        // 开始创建一个路径，需要调用fill或者stroke才会使用路径进行填充或描边
+        // 开始创建一个路径，需要调用 fill 或者 stroke 才会使用路径进行填充或描边
         canvasContext.value.beginPath();
     }
 
@@ -138,7 +134,7 @@ export default function useIndex(props: Props, emit: any) {
             // 输出图片高度
             destHeight: 500,
             // 目标文件类型，'png' | 'jpg'
-            fileType: 'png',
+            fileType: 'jpg',
             // 图片质量，取值范围为 (0, 1]，不在范围内时当作 1 处理
             quality: 1,
             // 成功回调
@@ -155,9 +151,8 @@ export default function useIndex(props: Props, emit: any) {
                         return;
                     }
 
-                    showToast('上传成功');
                     signatureUrl.value = result.data || '';
-                    emit('update:modelValue', signatureUrl.value);
+                    showToast('上传成功');
                     emit('confirm', result.data);
                     closePopup();
                 });
@@ -173,9 +168,8 @@ export default function useIndex(props: Props, emit: any) {
                     return;
                 }
 
-                showToast('上传成功');
                 signatureUrl.value = result.data || '';
-                emit('update:modelValue', signatureUrl.value);
+                showToast('上传成功');
                 emit('confirm', result.data);
                 closePopup();
                 //#endif
@@ -233,7 +227,6 @@ export default function useIndex(props: Props, emit: any) {
      */
     function handleClear() {
         signatureUrl.value = '';
-        emit('update:modelValue', signatureUrl.value);
         emit('clear');
     }
 
