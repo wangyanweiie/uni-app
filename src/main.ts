@@ -1,18 +1,19 @@
 import { createSSRApp, defineAsyncComponent } from 'vue';
 import App from './App.vue';
 import uviewPlus from 'uview-plus';
-import { components } from '@/components/register';
+import registerComponents from '@/components';
 // import { handleToHumpFormat } from '@/utils/hooks';
+import i18n from '@/i18n/index';
 
 export function createApp() {
     const app = createSSRApp(App);
 
     app.use(uviewPlus);
 
+    app.use(i18n);
+
     // 通过声明组件 name 注册组件
-    components.map(item => {
-        app.component(item.name, item);
-    });
+    app.use(registerComponents);
 
     /**
      * FIXME: 通过 defineAsyncComponent 异步注册指定路径下的组件 => 真机运行/打包报错
