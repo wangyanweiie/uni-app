@@ -1,0 +1,8 @@
+{
+    "menu": {
+        "home": "home",
+        "setting": "setting",
+        "demo": "demo",
+        "other": "other"
+    }
+}

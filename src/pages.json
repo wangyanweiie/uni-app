@@ -1,128 +1,128 @@
 {
-  "easycom": {
-    "autoscan": true,
-    "custom": {
-      "^u-(.*)": "uview-plus/components/u-$1/u-$1.vue",
-      "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+    "easycom": {
+        "autoscan": true,
+        "custom": {
+            "^u-(.*)": "uview-plus/components/u-$1/u-$1.vue",
+            "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+        }
+    },
+    "pages": [
+        {
+            "path": "pages/login/index",
+            "style": {
+                "navigationBarTitleText": "登录"
+            }
+        },
+        {
+            "path": "pages/demo/base/index",
+            "style": {
+                "navigationBarTitleText": "Base"
+            }
+        },
+        {
+            "path": "pages/demo/form/index",
+            "style": {
+                "navigationBarTitleText": "表单"
+            }
+        },
+        {
+            "path": "pages/demo/table/index",
+            "style": {
+                "navigationBarTitleText": "表格"
+            }
+        },
+        {
+            "path": "pages/demo/description/index",
+            "style": {
+                "navigationBarTitleText": "描述列"
+            }
+        },
+        {
+            "path": "pages/index/index",
+            "style": {
+                "navigationBarTitleText": "%menu.home%"
+            }
+        },
+        {
+            "path": "pages/setting/index",
+            "style": {
+                "navigationBarTitleText": "%menu.setting%"
+            }
+        },
+        {
+            "path": "pages/setting/change-passward",
+            "style": {
+                "navigationBarTitleText": "修改密码"
+            }
+        },
+        {
+            "path": "pages/other/circulate-form/index",
+            "style": {
+                "navigationBarTitleText": "循环表单校验"
+            }
+        },
+        {
+            "path": "pages/other/circulate-form/check-one",
+            "style": {
+                "navigationBarTitleText": "同步校验"
+            }
+        },
+        {
+            "path": "pages/other/circulate-form/check-two",
+            "style": {
+                "navigationBarTitleText": "依次校验"
+            }
+        },
+        {
+            "path": "pages/other/combine-table/index",
+            "style": {
+                "navigationBarTitleText": "合并单元格"
+            }
+        },
+        {
+            "path": "pages/other/watermark/index",
+            "style": {
+                "navigationBarTitleText": "图片水印"
+            }
+        },
+        {
+            "path": "pages/other/preview/index",
+            "style": {
+                "navigationBarTitleText": "文件预览"
+            }
+        },
+        {
+            "path": "pages/other/web-view/index",
+            "style": {
+                "navigationBarTitleText": "WebView"
+            }
+        }
+    ],
+    "tabBar": {
+        "color": "#7A7E83",
+        "selectedColor": "#2979ff",
+        "backgroundColor": "#fff",
+        "height": "50px",
+        "fontSize": "12px",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "iconPath": "static/product.png",
+                "text": "%menu.home%",
+                "selectedIconPath": "static/product-active.png"
+            },
+            {
+                "pagePath": "pages/setting/index",
+                "iconPath": "static/setting.png",
+                "text": "%menu.setting%",
+                "selectedIconPath": "static/setting-active.png"
+            }
+        ]
+    },
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "uni-app",
+        "navigationBarBackgroundColor": "#f3f4f6",
+        "backgroundColor": "#f3f4f6"
     }
-  },
-  "pages": [
-    {
-      "path": "pages/login/index",
-      "style": {
-        "navigationBarTitleText": "登录"
-      }
-    },
-    {
-      "path": "pages/demo/base/index",
-      "style": {
-        "navigationBarTitleText": "Base"
-      }
-    },
-    {
-      "path": "pages/demo/form/index",
-      "style": {
-        "navigationBarTitleText": "表单"
-      }
-    },
-    {
-      "path": "pages/demo/table/index",
-      "style": {
-        "navigationBarTitleText": "表格"
-      }
-    },
-    {
-      "path": "pages/demo/description/index",
-      "style": {
-        "navigationBarTitleText": "描述列"
-      }
-    },
-    {
-      "path": "pages/index/index",
-      "style": {
-        "navigationBarTitleText": "首页"
-      }
-    },
-    {
-      "path": "pages/setting/index",
-      "style": {
-        "navigationBarTitleText": "设置"
-      }
-    },
-    {
-      "path": "pages/setting/change-passward",
-      "style": {
-        "navigationBarTitleText": "修改密码"
-      }
-    },
-    {
-      "path": "pages/other/circulate-form/index",
-      "style": {
-        "navigationBarTitleText": "循环表单校验"
-      }
-    },
-    {
-      "path": "pages/other/circulate-form/check-one",
-      "style": {
-        "navigationBarTitleText": "同步校验"
-      }
-    },
-    {
-      "path": "pages/other/circulate-form/check-two",
-      "style": {
-        "navigationBarTitleText": "依次校验"
-      }
-    },
-    {
-      "path": "pages/other/combine-table/index",
-      "style": {
-        "navigationBarTitleText": "合并单元格"
-      }
-    },
-    {
-      "path": "pages/other/watermark/index",
-      "style": {
-        "navigationBarTitleText": "图片水印"
-      }
-    },
-    {
-      "path": "pages/other/preview/index",
-      "style": {
-        "navigationBarTitleText": "文件预览"
-      }
-    },
-    {
-      "path": "pages/other/web-view/index",
-      "style": {
-        "navigationBarTitleText": "WebView"
-      }
-    }
-  ],
-  "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#2979ff",
-    "backgroundColor": "#fff",
-    "height": "50px",
-    "fontSize": "12px",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "iconPath": "static/product.png",
-        "text": "生产",
-        "selectedIconPath": "static/product-active.png"
-      },
-      {
-        "pagePath": "pages/setting/index",
-        "iconPath": "static/setting.png",
-        "text": "设置",
-        "selectedIconPath": "static/setting-active.png"
-      }
-    ]
-  },
-  "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#f3f4f6",
-    "backgroundColor": "#f3f4f6"
-  }
 }

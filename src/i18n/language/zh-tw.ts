@@ -1,4 +1,17 @@
 export default {
+    setting: {
+        account: '賬號',
+        userName: '用戶名',
+        role: '角色',
+        company: '公司',
+        changePassword: '修改密碼',
+        appVersion: '應用版本',
+        updateVersion: '升級版本',
+        printEquip: '打印設備',
+        language: '語言',
+        url: 'URL',
+        logOut: '退出登錄',
+    },
     button: {
         export: '導出',
         import: '導入',

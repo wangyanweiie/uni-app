@@ -1,11 +1,14 @@
 import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import download from '@/utils/uni-download';
 import { getStorage, clearStorage, saveStorage } from '@/utils/uni-storage';
 import RequestAPI from '@/api/login/index';
-import { LOCAL_BASE_URL_KEY, LOCAL_USER_INFO_KEY } from '@/constant/global';
+import { LOCAL_BASE_URL_KEY, LOCAL_LANGUAGE_KEY, LOCAL_USER_INFO_KEY } from '@/constant/global';
 // import checkUpdates from '@/uni_modules/uni-upgrade-center-app/utils/check-update';
 
 export default function useIndex() {
+    const i18 = useI18n();
+
     /**
      * 展示信息
      */
@@ -17,12 +20,22 @@ export default function useIndex() {
         version: '',
         printBrand: '',
         baseUrl: '',
+        language: 'zh-cn',
     });
 
     /**
      * icon style
      */
     const iconStyle = ref<any>({ fontSize: '40rpx' });
+
+    /**
+     * 语言数组
+     */
+    const languageList = [
+        { label: '中文简体', value: 'zh-cn' },
+        { label: '中文繁体', value: 'zh-tw' },
+        { label: '英文', value: 'en' },
+    ];
 
     /**
      * 下载进度弹窗是否展示
@@ -33,6 +46,15 @@ export default function useIndex() {
      * 下载进度
      */
     const downloadProgress = ref<string>('');
+
+    /**
+     * 设置语言
+     */
+    function setLanguage(obj: any) {
+        console.log(obj);
+        i18.locale.value = obj.value;
+        saveStorage(LOCAL_LANGUAGE_KEY, obj.value);
+    }
 
     /**
      * 修改密码
@@ -133,8 +155,10 @@ export default function useIndex() {
     return {
         userInfo,
         iconStyle,
+        languageList,
         showProgressModal,
         downloadProgress,
+        setLanguage,
         showLogout,
         checkUpdate,
         handleChangePassword,

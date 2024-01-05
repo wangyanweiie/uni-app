@@ -291,8 +291,8 @@ export default {
                 return this.collection.indexOf('app-list') > 0
                     ? `${label}(${value})`
                     : label
-                    ? label
-                    : `未命名${channel_code}`;
+                      ? label
+                      : `未命名${channel_code}`;
             }
         },
 
