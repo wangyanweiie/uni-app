@@ -2,7 +2,7 @@ import { createSSRApp } from 'vue';
 import App from './App.vue';
 import uviewPlus from 'uview-plus';
 import registerComponents from '@/components';
-import i18n from '@/i18n/index';
+import i18n from '@/locale';
 
 export function createApp() {
     const app = createSSRApp(App);

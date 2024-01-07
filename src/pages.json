@@ -16,7 +16,7 @@
         {
             "path": "pages/demo/base/index",
             "style": {
-                "navigationBarTitleText": "Base"
+                "navigationBarTitleText": "基础"
             }
         },
         {
@@ -40,13 +40,13 @@
         {
             "path": "pages/index/index",
             "style": {
-                "navigationBarTitleText": "%menu.home%"
+                "navigationBarTitleText": "%navigationBar.home%"
             }
         },
         {
             "path": "pages/setting/index",
             "style": {
-                "navigationBarTitleText": "%menu.setting%"
+                "navigationBarTitleText": "%navigationBar.setting%"
             }
         },
         {
@@ -107,14 +107,14 @@
         "list": [
             {
                 "pagePath": "pages/index/index",
+                "text": "%tabBar.home%",
                 "iconPath": "static/product.png",
-                "text": "%menu.home%",
                 "selectedIconPath": "static/product-active.png"
             },
             {
                 "pagePath": "pages/setting/index",
+                "text": "%tabBar.setting%",
                 "iconPath": "static/setting.png",
-                "text": "%menu.setting%",
                 "selectedIconPath": "static/setting-active.png"
             }
         ]

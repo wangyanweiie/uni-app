@@ -1,0 +1,24 @@
+{
+    "navigationBar.home": "首页",
+    "navigationBar.setting": "设置",
+
+    "navigationBar": {
+        "home": "首页",
+        "setting": "设置"
+    },
+
+    "tabBar.home": "首页",
+    "tabBar.setting": "设置",
+
+    "setting.account": "账号",
+    "setting.userName": "用户名",
+    "setting.role": "角色",
+    "setting.company": "公司",
+    "setting.changePassword": "修改密码",
+    "setting.appVersion": "应用版本",
+    "setting.updateVersion": "升级版本",
+    "setting.printEquip": "打印设备",
+    "setting.language": "语言",
+    "setting.url": "URL",
+    "setting.logOut": "退出登录"
+}

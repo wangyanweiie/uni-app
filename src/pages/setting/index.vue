@@ -59,7 +59,6 @@
                 :title="$t('setting.printEquip')"
                 size="large"
                 :value="userInfo.printBrand"
-                @click="checkUpdate"
             ></u-cell>
             <u-cell icon="tags" :icon-style="iconStyle" :title="$t('setting.language')" size="large">
                 <template #right-icon>

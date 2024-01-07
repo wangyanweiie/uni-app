@@ -1,0 +1,19 @@
+{
+    "navigationBar.home": "首頁",
+    "navigationBar.setting": "設置",
+
+    "tabBar.home": "首頁",
+    "tabBar.setting": "設置",
+
+    "setting.account": "賬號",
+    "setting.userName": "用戶名",
+    "setting.role": "角色",
+    "setting.company": "公司",
+    "setting.changePassword": "修改密碼",
+    "setting.appVersion": "應用版本",
+    "setting.updateVersion": "升級版本",
+    "setting.printEquip": "打印設備",
+    "setting.language": "語言",
+    "setting.url": "URL",
+    "setting.logOut": "退出登錄"
+}

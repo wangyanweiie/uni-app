@@ -1,13 +1,13 @@
 import { createI18n } from 'vue-i18n';
-import zhCn from './language/zh-cn';
-import zhTw from './language/zh-tw';
-import en from './language/en';
 import { getStorage } from '@/utils/uni-storage';
 import { LOCAL_LANGUAGE_KEY } from '@/constant/global';
+import zhHans from './zh-Hans.json';
+import zhHant from './zh-Hant.json';
+import en from './en.json';
 
 const messages = {
-    'zh-cn': zhCn,
-    'zh-tw': zhTw,
+    'zh-Hans': zhHans,
+    'zh-Hant': zhHant,
     en: en,
 };
 
@@ -15,9 +15,11 @@ const i18n = createI18n({
     // 使用 composition API
     legacy: false,
     // 语言
-    locale: getStorage(LOCAL_LANGUAGE_KEY) || 'zh-cn',
+    // locale: getStorage(LOCAL_LANGUAGE_KEY) || 'zh-cn',
+    locale: uni.getLocale(),
     // 表明使用全局 t 函数
     globalInjection: true,
+    // 语言包
     messages,
 });
 

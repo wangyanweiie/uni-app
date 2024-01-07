@@ -1,8 +1,19 @@
 {
-    "menu": {
-        "home": "home",
-        "setting": "setting",
-        "demo": "demo",
-        "other": "other"
-    }
+    "navigationBar.home": "home",
+    "navigationBar.setting": "setting",
+
+    "tabBar.home": "home",
+    "tabBar.setting": "setting",
+
+    "setting.account": "account",
+    "setting.userName": "user name",
+    "setting.role": "role",
+    "setting.company": "company",
+    "setting.changePassword": "change password",
+    "setting.appVersion": "app version",
+    "setting.updateVersion": "update version",
+    "setting.printEquip": "print equipment",
+    "setting.language": "language",
+    "setting.url": "url",
+    "setting.logOut": "log out"
 }
