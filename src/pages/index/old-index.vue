@@ -8,10 +8,10 @@
             <view class="menu__item-wrap">
                 <view v-for="sub in menu.subMenu" :key="sub.value" class="menu__item" @click="navigateTo(sub)">
                     <!-- u-icon 自定义字体图标暂不可用 -->
-                    <u-icon color="#fff" :name="sub.icon" size="50rpx"></u-icon>
+                    <!-- <u-icon color="#fff" :name="sub.icon" size="54rpx"></u-icon> -->
 
                     <!-- uni-icons 可使用自定义字体图标 -->
-                    <!-- <uni-icons color="#fff" custom-prefix="iconfont" :type="sub.icon" size="40rpx"> </uni-icons> -->
+                    <uni-icons color="#fff" custom-prefix="iconfont" :type="sub.icon" size="54rpx"> </uni-icons>
                     <view class="menu__item__label">
                         <text>
                             {{ sub.label }}
@@ -33,6 +33,7 @@ const { menuList, navigateTo } = useIndex();
 
     &__label {
         font-size: 32rpx;
+        font-weight: bold;
         margin-bottom: 10rpx;
         color: #2979ff;
     }
@@ -61,7 +62,7 @@ const { menuList, navigateTo } = useIndex();
 
         &__label {
             margin-top: 10rpx;
-            font-size: 28rpx;
+            font-size: 30rpx;
 
             text {
                 white-space: nowrap;

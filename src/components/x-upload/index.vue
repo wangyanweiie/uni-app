@@ -187,7 +187,7 @@ defineExpose({
     &__item {
         width: 80rpx;
         height: 80rpx;
-        margin: 0 16rpx 16rpx 0;
+        margin-right: 16rpx;
         position: relative;
 
         &__video,

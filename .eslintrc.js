@@ -45,10 +45,10 @@ module.exports = {
      *   - 'plugin:prettier/recommended'：prettier 推荐的规则
      */
     extends: [
+        'prettier',
         'eslint:recommended',
         'plugin:vue/vue3-recommended',
         'plugin:@typescript-eslint/recommended',
-        'prettier',
         'plugin:prettier/recommended',
         'eslint-config-prettier',
     ],

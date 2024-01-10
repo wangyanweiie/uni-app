@@ -5,28 +5,19 @@
                 icon="account-fill"
                 :icon-style="iconStyle"
                 :title="$t('setting.account')"
-                size="large"
                 :value="userInfo.account"
             ></u-cell>
             <u-cell
                 icon="account"
                 :icon-style="iconStyle"
                 :title="$t('setting.userName')"
-                size="large"
                 :value="userInfo.userName"
             ></u-cell>
-            <u-cell
-                icon="list"
-                :icon-style="iconStyle"
-                :title="$t('setting.role')"
-                size="large"
-                :value="userInfo.roles"
-            ></u-cell>
+            <u-cell icon="list" :icon-style="iconStyle" :title="$t('setting.role')" :value="userInfo.roles"></u-cell>
             <u-cell
                 icon="share"
                 :icon-style="iconStyle"
                 :title="$t('setting.company')"
-                size="large"
                 :value="userInfo.organizationName"
             ></u-cell>
             <u-cell
@@ -34,7 +25,6 @@
                 :icon-style="iconStyle"
                 :right-icon-style="iconStyle"
                 :title="$t('setting.changePassword')"
-                size="large"
                 is-link
                 @click="handleChangePassword"
             ></u-cell>
@@ -42,14 +32,12 @@
                 icon="attach"
                 :icon-style="iconStyle"
                 :title="$t('setting.appVersion')"
-                size="large"
                 :value="userInfo.version"
             ></u-cell>
             <u-cell
                 icon="reload"
                 :icon-style="iconStyle"
                 :title="$t('setting.updateVersion')"
-                size="large"
                 clickable
                 @click="checkUpdate"
             ></u-cell>
@@ -57,10 +45,9 @@
                 icon="coupon"
                 :icon-style="iconStyle"
                 :title="$t('setting.printEquip')"
-                size="large"
                 :value="userInfo.printBrand"
             ></u-cell>
-            <u-cell icon="tags" :icon-style="iconStyle" :title="$t('setting.language')" size="large">
+            <u-cell icon="bookmark" :icon-style="iconStyle" :title="$t('setting.language')">
                 <template #right-icon>
                     <x-select
                         v-model="userInfo.language"
@@ -70,7 +57,7 @@
                     ></x-select>
                 </template>
             </u-cell>
-            <u-cell icon="tags" :icon-style="iconStyle" :title="$t('setting.url')" size="large">
+            <u-cell icon="tags" :icon-style="iconStyle" :title="$t('setting.url')">
                 <template #right-icon>
                     <u-input
                         v-if="ENV !== 'production'"

@@ -16,7 +16,7 @@
                         color="#2979ff"
                         custom-prefix="iconfont"
                         :type="sub.icon"
-                        size="50rpx"
+                        size="54rpx"
                     >
                     </uni-icons>
 
@@ -76,7 +76,7 @@ const { menuList, navigateTo } = useIndex();
 
         &__label {
             margin-top: 10rpx;
-            font-size: 28rpx;
+            font-size: 30rpx;
 
             text {
                 white-space: nowrap;

@@ -1,6 +1,7 @@
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { getStorage } from '@/utils/uni-storage';
 import { LOCAL_PERMISSION_KEY } from '@/constant/global';
+import i18n from '@/locale';
 
 interface subMenuItem {
     label: string;
@@ -15,6 +16,8 @@ interface menuItem {
     subMenu: subMenuItem[];
 }
 
+const { t } = i18n.global;
+
 /**
  * useIndex
  */
@@ -27,32 +30,32 @@ export default function useIndex() {
     /**
      * 菜单列表
      */
-    const menuList = ref<menuItem[]>(
-        [
+    const menuList = computed<menuItem[]>(
+        () => [
             {
-                label: 'demo',
+                label: t('menu.demo'),
                 value: 'demo',
                 subMenu: [
                     {
-                        label: '基础',
+                        label: t('menu.base'),
                         value: 'Base',
                         icon: 'iconfont-jichukecheng',
                         path: '/pages/demo/base/index',
                     },
                     {
-                        label: '表单',
+                        label: t('menu.form'),
                         value: 'Form',
                         icon: 'iconfont-17',
                         path: '/pages/demo/form/index',
                     },
                     {
-                        label: '表格',
+                        label: t('menu.table'),
                         value: 'Table',
                         icon: 'iconfont-biaoge1',
                         path: '/pages/demo/table/index',
                     },
                     {
-                        label: '描述列',
+                        label: t('menu.description'),
                         value: 'Description',
                         icon: 'iconfont-wenzimiaoshu',
                         path: '/pages/demo/description/index',
@@ -60,39 +63,21 @@ export default function useIndex() {
                 ],
             },
             {
-                label: 'other',
+                label: t('menu.other'),
                 value: 'other',
                 subMenu: [
                     {
-                        label: '循环表单',
+                        label: t('menu.circulateForm'),
                         value: 'Circulate',
                         icon: 'iconfont-24gl-repeat',
                         path: '/pages/other/circulate-form/index',
                     },
                     {
-                        label: '合并表格',
+                        label: t('menu.combineTable'),
                         value: 'Combine',
                         icon: 'iconfont-merge',
                         path: '/pages/other/combine-table/index',
                     },
-                    // {
-                    //     label: '图片水印',
-                    //     value: 'watermark',
-                    //     icon: 'iconfont-a-ziyuan315',
-                    //     path: '/pages/other/watermark/index',
-                    // },
-                    // {
-                    //     label: '文件预览',
-                    //     value: 'preview',
-                    //     icon: 'iconfont-24gl-folderOpen',
-                    //     path: '/pages/other/preview/index',
-                    // },
-                    // {
-                    //     label: 'WebView',
-                    //     value: 'WebView',
-                    //     icon: 'iconfont-Web',
-                    //     path: '/pages/other/web-view/index',
-                    // },
                 ],
             },
         ],

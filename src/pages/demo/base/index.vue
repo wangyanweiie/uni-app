@@ -44,9 +44,15 @@
         </x-modal>
 
         <view class="button-wrap">
-            <u-button class="button-wrap__item" type="warning" @click="handleDetail">详情</u-button>
-            <u-button class="button-wrap__item" type="primary" @click="confirmSubmit(STATUS['保存'])">保存</u-button>
-            <u-button class="button-wrap__item" type="success" @click="handleSubmit">提交</u-button>
+            <u-button class="button-wrap__item" type="warning" @click="handleDetail">
+                {{ $t('button.detail') }}
+            </u-button>
+            <u-button class="button-wrap__item" type="primary" @click="confirmSubmit(STATUS['保存'])">
+                {{ $t('button.save') }}
+            </u-button>
+            <u-button class="button-wrap__item" type="success" @click="handleSubmit">
+                {{ $t('button.submit') }}
+            </u-button>
         </view>
     </view>
 </template>

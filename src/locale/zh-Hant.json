@@ -5,6 +5,20 @@
     "tabBar.home": "首頁",
     "tabBar.setting": "設置",
 
+    "menu.demo": "示例",
+    "menu.other": "其他",
+    "menu.base": "基礎",
+    "menu.table": "表格",
+    "menu.form": "表單",
+    "menu.description": "描述列",
+    "menu.circulateForm": "循環表單",
+    "menu.combineTable": "合並表格",
+
+    "button.save": "保存",
+    "button.submit": "提交",
+    "button.detail": "詳情",
+    "button.close": "關閉",
+
     "setting.account": "賬號",
     "setting.userName": "用戶名",
     "setting.role": "角色",

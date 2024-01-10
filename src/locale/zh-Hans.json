@@ -2,13 +2,22 @@
     "navigationBar.home": "首页",
     "navigationBar.setting": "设置",
 
-    "navigationBar": {
-        "home": "首页",
-        "setting": "设置"
-    },
-
     "tabBar.home": "首页",
     "tabBar.setting": "设置",
+
+    "menu.demo": "示例",
+    "menu.other": "其他",
+    "menu.base": "基础",
+    "menu.table": "表格",
+    "menu.form": "表单",
+    "menu.description": "描述列",
+    "menu.circulateForm": "循环表单",
+    "menu.combineTable": "合并表格",
+
+    "button.save": "保存",
+    "button.submit": "提交",
+    "button.detail": "详情",
+    "button.close": "关闭",
 
     "setting.account": "账号",
     "setting.userName": "用户名",

@@ -5,6 +5,20 @@
     "tabBar.home": "home",
     "tabBar.setting": "setting",
 
+    "menu.demo": "demo",
+    "menu.other": "other",
+    "menu.base": "base",
+    "menu.table": "table",
+    "menu.form": "form",
+    "menu.description": "description",
+    "menu.circulateForm": "circulate form",
+    "menu.combineTable": "combine table",
+
+    "button.save": "save",
+    "button.submit": "submit",
+    "button.detail": "detail",
+    "button.close": "close",
+
     "setting.account": "account",
     "setting.userName": "user name",
     "setting.role": "role",
