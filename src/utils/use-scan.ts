@@ -74,9 +74,9 @@ export default function useScan(searchCode: (code: string) => void) {
     const receiver = ref<PlusAndroidInstanceObject | null>(null);
 
     /**
-     * 初始化广播扫码并监听
+     * 初始化广播扫码并注册监听
      */
-    function initAndListen() {
+    function initListener() {
         if (!nativeMain.value) {
             // 获取原生对象
             nativeMain.value = plus.android.runtimeMainActivity();
@@ -111,6 +111,13 @@ export default function useScan(searchCode: (code: string) => void) {
     }
 
     /**
+     * 注销监听，和 initListener() 方法配套使用
+     */
+    function removeListener(): void {
+        nativeMain.value.unregisterReceiver(receiver.value);
+    }
+
+    /**
      * 处理扫码枪扫码事件
      */
     function handlePDAScan(code: string) {
@@ -124,24 +131,20 @@ export default function useScan(searchCode: (code: string) => void) {
     }
 
     /**
-     * 页面挂载后，调用 initAndListen() 方法，进行初始化广播扫码并监听
+     * 页面挂载
      */
     onMounted(() => {
-        // #ifdef H5
-        // console.log('H5');
-        // #endif
         // #ifdef APP-PLUS
-        // console.log('APP-PLUS');
-        initAndListen();
+        initListener();
         // #endif
     });
 
     /**
-     * 页面销毁后，注销监听，和 initAndListen() 方法配套使用
+     * 页面卸载
      */
     onUnmounted(() => {
         // #ifdef APP-PLUS
-        nativeMain.value.unregisterReceiver(receiver.value);
+        removeListener();
         // #endif
     });
 

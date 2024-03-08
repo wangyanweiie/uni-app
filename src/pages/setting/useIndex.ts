@@ -5,7 +5,7 @@ import { getStorage, saveStorage, removeStorage } from '@/utils/uni-storage';
 import RequestAPI from '@/api/login/index';
 import {
     LOCAL_BASE_URL_KEY,
-    LOCAL_LANGUAGE_KEY,
+    // LOCAL_LANGUAGE_KEY,
     LOCAL_PERMISSION_KEY,
     LOCAL_TOKEN_KEY,
     LOCAL_USER_INFO_KEY,
@@ -60,7 +60,6 @@ export default function useIndex() {
     function setLanguage(obj: any) {
         i18.locale.value = obj.value;
         uni.setLocale(obj.value);
-        saveStorage(LOCAL_LANGUAGE_KEY, obj.value);
     }
 
     /**
