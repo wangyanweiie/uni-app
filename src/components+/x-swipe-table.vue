@@ -33,44 +33,29 @@
                                 v-if="item[childrenKey] && item[childrenKey].length > 0"
                                 @click.stop="handleCollapse(item)"
                             >
-                                <u-icon
-                                    v-if="item.collapsed"
-                                    name="plus"
-                                    size="12px"
-                                    class="icon"
-                                ></u-icon>
+                                <u-icon v-if="item.collapsed" name="plus" size="12px" class="icon"></u-icon>
                                 <u-icon v-else name="minus" size="12px" class="icon"></u-icon>
                             </view>
                             <view v-else-if="isNest">
                                 <u-icon name="bag" size="12px" class="icon"></u-icon>
                             </view>
                         </uni-col>
-                        <uni-col
-                            v-for="(col, idx) in columns"
-                            :key="idx"
-                            class="td"
-                            :span="colSpan(col.span, idx)"
-                        >
+                        <uni-col v-for="(col, idx) in columns" :key="idx" class="td" :span="colSpan(col.span, idx)">
                             <span v-if="!colEditable(col, item)">
                                 <span v-if="col.render">
                                     <span
                                         @tap.stop="
                                             handleTap(
                                                 col,
-                                                col.render
-                                                    ? col.render(item[col.prop], item, index)
-                                                    : '',
+                                                col.render ? col.render(item[col.prop], item, index) : '',
                                                 item,
-                                                index
+                                                index,
                                             )
                                         "
                                         v-html="col.render(item[col.prop], item, index)"
                                     ></span>
                                 </span>
-                                <span
-                                    v-else
-                                    @tap.stop="handleTap(col, item[col.prop] ?? '', item, index)"
-                                >
+                                <span v-else @tap.stop="handleTap(col, item[col.prop] ?? '', item, index)">
                                     {{ item[col.prop] ?? '' }}
                                 </span>
                             </span>
@@ -103,10 +88,10 @@
 
 <script setup lang="ts">
 import { set } from 'lodash-es';
-import type { Numeric } from 'src/constant/global';
-import { showToast } from 'src/utils/u-toast';
+import type { Numeric } from 'src/constant/base';
+import { showToast } from 'src/utils/uni-message';
 import { ref, watchEffect, computed } from 'vue';
-import type { Recordable, SwipeOption } from './interface';
+import type { Recordable, SwipeOption } from './interface/interface';
 
 /**
  * x-swipe column
@@ -159,7 +144,7 @@ const props = withDefaults(
         nestable: false,
         isNest: false,
         childrenKey: 'children',
-    }
+    },
 );
 
 const emits = defineEmits<{
@@ -180,7 +165,7 @@ const isEmpty = computed<boolean>(() => list.value.length === 0);
  * 监听表格数据
  */
 watchEffect(() => {
-    list.value = props.data?.map((item) => {
+    list.value = props.data?.map(item => {
         return {
             ...item,
             collapsed: !item[props.childrenKey],
@@ -211,7 +196,7 @@ function colEditable(col: XSwipeColumn, row: Recordable): boolean | undefined {
 }
 
 function handleTap(col: XSwipeColumn, value: string, item: any, index: number): void {
-    if (!!col.onClick) {
+    if (col.onClick) {
         col.onClick(value, item, index);
     }
 

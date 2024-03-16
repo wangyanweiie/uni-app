@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { getColSpan, getSystemWidth } from 'src/utils/system-info';
+import { getColSpan } from 'src/utils/system-info';
 import { onBeforeUnmount, nextTick, onMounted, ref } from 'vue';
 
 /**
@@ -68,7 +68,7 @@ const props = withDefaults(
         columns: () => [],
         data: () => ({}),
         actions: () => [],
-    }
+    },
 );
 
 /**
@@ -147,7 +147,7 @@ onMounted(async () => {
 
     colSpan.value = getColSpan(system.windowWidth);
 
-    uni.onWindowResize((res) => {
+    uni.onWindowResize(res => {
         colSpan.value = getColSpan(res.size.windowWidth);
     });
 

@@ -1,13 +1,5 @@
-import type { Numeric } from 'src/constant/global';
 import type { CSSProperties } from 'vue';
-
-/**
- * list ref
- */
-export interface XListInstance {
-    load: (data: any) => Promise<void>;
-    refresh: () => Promise<void>;
-}
+import type { Numeric } from 'src/constant/base';
 
 export type RuleTrigger = 'change' | 'blur';
 
@@ -23,7 +15,7 @@ export interface FormRule {
 }
 
 /**
- * rule
+ * 单选下拉选项
  */
 export interface PickerOption {
     label: string;
@@ -78,6 +70,14 @@ export interface FormInstance {
 }
 
 /**
+ * list ref
+ */
+export interface XListInstance {
+    load: (data: any) => Promise<void>;
+    refresh: () => Promise<void>;
+}
+
+/**
  * component type
  */
 export type componentType =
@@ -93,7 +93,7 @@ export type componentType =
     | 'Title';
 
 /**
- * 单选按钮组/下拉选择器 type
+ * 单选按钮组 /下拉选择器 type
  */
 export type OptionsItem = {
     label: string;
@@ -118,7 +118,7 @@ export type formSchema = {
         value: boolean | string | number | any,
         selectForm: selectFormProp,
         form: Recordable,
-        schema: formSchema
+        schema: formSchema,
     ) => any;
     required?: boolean;
     dynamicDisabled?: boolean | ((form: Recordable) => boolean);
@@ -134,13 +134,9 @@ export interface formRefProp extends HTMLElement {
  * cascader-tab
  */
 export interface XCascaderTab {
-    /**
-     * 显示名称
-     */
+    /** 显示名称 */
     name?: Numeric;
-    /**
-     * 选中下标
-     */
+    /** 选中下标 */
     selectedValue?: Numeric;
 }
 

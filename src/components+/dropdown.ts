@@ -1,8 +1,8 @@
-import type { Numeric } from 'src/constant/global';
 import type { Ref } from 'vue';
+import type { Numeric } from 'src/constant/base';
 
 /**
- * 下拉菜单PROVIDE/INJECT KEY
+ * 下拉菜单 PROVIDE/INJECT KEY
  */
 export const DROPDOWN_MENU = Symbol('dropdown-menu');
 

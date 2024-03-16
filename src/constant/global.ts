@@ -18,3 +18,8 @@ export const ENV = import.meta.env.MODE;
  * 上传接口
  */
 export const UPLOAD_URL = `${getStorage(LOCAL_BASE_URL_KEY) || (import.meta.env.VITE_API_URL as string)}/api/upload`;
+
+/**
+ * 防抖时间
+ */
+export const DEBOUNCE_DURATION = 2000;

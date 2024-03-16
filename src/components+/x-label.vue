@@ -11,7 +11,7 @@ withDefaults(
     }>(),
     {
         label: '',
-    }
+    },
 );
 </script>
 

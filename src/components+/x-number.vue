@@ -14,22 +14,31 @@
 </template>
 
 <script setup lang="ts">
-import { isUndefined } from 'lodash-es';
 import { computed, useAttrs } from 'vue';
 
 const props = withDefaults(
     defineProps<{
-        modelValue?: any;
+        /** 双向绑定 */
+        modelValue?: number | string;
+        /** 表单标题 */
         label?: string;
+        /** 表单属性 */
         prop?: string;
+        /** 是否必填 */
         required?: boolean;
+        /** 占位符 */
         placeholder?: string;
+        /** 是否可清空 */
         clearable?: boolean;
+        /** 是否禁用 */
         disabled?: boolean;
+        /** 表单标题宽度 */
         labelWidth?: string;
-        show?: boolean;
+        /** 最小值 */
         min?: number;
+        /** 最大值 */
         max?: number;
+        /** 精度 */
         precision?: number;
     }>(),
     {
@@ -41,34 +50,42 @@ const props = withDefaults(
         clearable: false,
         disabled: false,
         labelWidth: '90px',
-        show: false,
         min: undefined,
         max: undefined,
         precision: undefined,
-    }
+    },
 );
 
 const emits = defineEmits<{
-    (e: 'update:modelValue', value: any): void;
+    (e: 'update:modelValue', value: number | string): void;
 }>();
 
-const inputData = computed<any>({
+/**
+ * 输入框数据
+ */
+const inputData = computed<number | string>({
     get: () => props.modelValue,
-    set: (value) => emits('update:modelValue', value),
+    set: value => emits('update:modelValue', value),
 });
 
 const attr = useAttrs() as any;
 
+/**
+ * 失去焦点事件
+ */
 function handleBlur() {
-    if (!isUndefined(props.min) && Number(inputData.value) <= props.min) {
+    // 最小值
+    if (props.min && Number(inputData.value) <= props.min) {
         inputData.value = props.min;
     }
 
-    if (!isUndefined(props.max) && Number(inputData.value) >= props.max) {
+    // 最大值
+    if (props.max && Number(inputData.value) >= props.max) {
         inputData.value = props.max;
     }
 
-    if (!isUndefined(props.precision)) {
+    // 精度
+    if (props.precision) {
         inputData.value = Number(inputData.value).toFixed(props.precision);
     }
 

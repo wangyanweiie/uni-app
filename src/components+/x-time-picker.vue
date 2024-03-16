@@ -15,11 +15,17 @@ import { computed } from 'vue';
 
 const props = withDefaults(
     defineProps<{
-        modelValue?: any;
+        /** 双向绑定 */
+        modelValue?: string;
+        /** 表单标题 */
         label?: string;
+        /** 表单属性 */
         prop?: string;
+        /** 是否必填 */
         required?: boolean;
+        /** 占位符 */
         placeholder?: string;
+        /** 是否禁用 */
         disabled?: boolean;
     }>(),
     {
@@ -29,19 +35,28 @@ const props = withDefaults(
         required: false,
         placeholder: '',
         disabled: false,
-    }
+    },
 );
 
 const emits = defineEmits<{
-    (e: 'update:modelValue', value: any): void;
+    (e: 'update:modelValue', value: string): void;
 }>();
 
-const dateData = computed<string>(() => props.modelValue);
+/**
+ * 日期
+ */
+const dateData = computed<string>(() => props.modelValue ?? '');
 
+/**
+ * 改变日期
+ */
 function handleChange(value: any): void {
     emits('update:modelValue', value.detail.value);
 }
 
+/**
+ * 取消日期
+ */
 function handleCancel(): void {
     emits('update:modelValue', '');
 }

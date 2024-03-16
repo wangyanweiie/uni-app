@@ -14,12 +14,12 @@ import { DROPDOWN_MENU, type DropdownMenuProvider } from './dropdown';
 const activeChildId = ref<number>(-1);
 
 /**
- * dropdown menu 下的children
+ * dropdown menu 下的 children
  */
 const children = ref<number[]>([]);
 
 /**
- * 添加child
+ * 添加 child
  */
 function addChild(child?: number): void {
     if (child === undefined) {

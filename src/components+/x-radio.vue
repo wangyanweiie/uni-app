@@ -1,11 +1,5 @@
 <template>
-    <u-form-item
-        :id="$attrs.id ?? prop"
-        :label="label"
-        :prop="prop"
-        :required="required"
-        :label-width="labelWidth"
-    >
+    <u-form-item :id="$attrs.id ?? prop" :label="label" :prop="prop" :required="required" :label-width="labelWidth">
         <u-radio-group
             :id="$attrs.id ?? prop"
             v-model="radioData"
@@ -27,17 +21,26 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PickerOption } from './interface';
+import type { PickerOption } from './interface/interface';
+import { Numeric } from '@/constant/base';
 
 const props = withDefaults(
     defineProps<{
-        modelValue?: any;
+        /** 双向绑定 */
+        modelValue?: Numeric;
+        /** 表单标题 */
         label?: string;
+        /** 表单属性 */
         prop?: string;
+        /** 是否必填 */
         required?: boolean;
+        /** 是否禁用 */
         disabled?: boolean;
+        /** 选项列表 */
         options?: PickerOption[];
+        /** 表单标题宽度 */
         labelWidth?: string;
+        /** 其他属性 */
         uProps?: any;
     }>(),
     {
@@ -49,17 +52,20 @@ const props = withDefaults(
         options: () => [],
         labelWidth: undefined,
         uProps: undefined,
-    }
+    },
 );
 
 const emits = defineEmits<{
-    (e: 'update:modelValue', value: any): void;
-    (e: 'groupChange', value: any): void;
+    (e: 'update:modelValue', value: Numeric): void;
+    (e: 'groupChange', value: Numeric): void;
 }>();
 
-const radioData = computed<any>({
-    get: () => props.modelValue,
-    set: (value) => {
+/**
+ * 单选框数据
+ */
+const radioData = computed<Numeric>({
+    get: () => props.modelValue ?? '',
+    set: value => {
         emits('update:modelValue', value);
     },
 });
@@ -68,7 +74,7 @@ const radioData = computed<any>({
  * 改变任意单选框触发
  * @param value 当前选择值
  */
-function handleGroupChange(value: any) {
+function handleGroupChange(value: Numeric) {
     emits('groupChange', value);
 }
 </script>

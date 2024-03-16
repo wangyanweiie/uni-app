@@ -10,14 +10,19 @@
 <script setup lang="ts">
 import { onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app';
 import { computed, onMounted, ref, watch } from 'vue';
-import type { Recordable } from './interface';
+import type { Recordable } from './interface/interface';
 
 const props = withDefaults(
     defineProps<{
+        /** 查询接口 */
         api?: (data?: any) => Promise<any>;
+        /** 查询条件 */
         searchData?: any;
+        /** 查询接口参数 */
         defaultParams?: any;
+        /** 没有数据时显示 */
         emptyText?: string;
+        /** 数据列表 */
         data?: any[];
     }>(),
     {
@@ -26,7 +31,7 @@ const props = withDefaults(
         defaultParams: undefined,
         emptyText: '暂无数据',
         data: () => [],
-    }
+    },
 );
 
 /**
@@ -166,7 +171,7 @@ watch(
     },
     {
         deep: true,
-    }
+    },
 );
 
 /**

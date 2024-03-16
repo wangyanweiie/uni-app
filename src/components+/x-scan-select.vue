@@ -18,12 +18,15 @@
             </template>
         </u-input>
 
+        <!-- 打开下拉区域 -->
         <template #right>
             <u-icon name="arrow-down" size="20px" @click="openSelect"></u-icon>
         </template>
 
+        <!-- 下拉区域 -->
         <uni-popup ref="popupRef" type="bottom">
             <view class="popup">
+                <!-- 查询 -->
                 <view class="search-line">
                     <view class="action action--error" @click="handleClear">
                         <text>{{ searchCancelText }}</text>
@@ -37,14 +40,12 @@
                     ></u-search>
                 </view>
 
+                <!-- 列表 -->
                 <view class="select-list">
                     <view v-if="loading" class="loading">
-                        <u-loading-icon
-                            :text="loadingText"
-                            size="25px"
-                            text-size="16px"
-                        ></u-loading-icon>
+                        <u-loading-icon :text="loadingText" size="25px" text-size="16px"></u-loading-icon>
                     </view>
+
                     <view
                         v-for="(item, index) in searchList"
                         :key="index"
@@ -53,13 +54,7 @@
                         @click="handleSelect(item)"
                     >
                         <text>{{ item.label }}</text>
-
-                        <u-icon
-                            v-if="isActive(item)"
-                            name="checkmark"
-                            color="#2979ff"
-                            size="14px"
-                        ></u-icon>
+                        <u-icon v-if="isActive(item)" name="checkmark" color="#2979ff" size="14px"></u-icon>
                     </view>
                 </view>
             </view>
@@ -69,50 +64,68 @@
 
 <script setup lang="ts">
 import { onMounted, watchEffect, watch, computed, nextTick, ref } from 'vue';
-import { useScan } from './use-scan';
-import type { LabelValueItem } from 'src/constant/global';
+import type { LabelValueItem, Numeric } from 'src/constant/base';
+import { useScan } from './hooks/use-scan';
 
 const props = withDefaults(
     defineProps<{
+        /** 双向绑定 */
         modelValue?: any;
-        prop?: string;
+        /** 表单标题 */
         label?: string;
-        required?: boolean;
-        clearable?: boolean;
+        /** 表单属性 */
+        prop?: string;
+        /** 条码值 */
         codeValue?: string;
-        options?: any[];
+        /** 下拉选项 */
+        options?: Record<string, Numeric>[];
+        /** 下拉接口 */
         api?: (data: any) => Promise<any>;
-        params?: any;
+        /** 下拉接口请求参数 */
+        params?: Record<string, Numeric>;
+        /** 下拉选项的 label 属性名 */
         labelKey?: string;
+        /** 下拉选项的 value 属性名 */
         valueKey?: string;
+        /** 是否必填 */
+        required?: boolean;
+        /** 是否聚焦 */
         focus?: boolean;
+        /** 是否可清空 */
+        clearable?: boolean;
+        /** 是否禁用 */
         disabled?: boolean;
-        prefetch?: boolean;
+        /** 是否预加载 */
+        preloadData?: boolean;
+        /** 占位符 */
         placeholder?: string;
+        /** 清空按钮文本 */
         searchCancelText?: string;
+        /** 查询框占位符 */
         searchPlaceholder?: string;
+        /** 加载中文本 */
         loadingText?: string;
     }>(),
     {
         modelValue: undefined,
         prop: undefined,
         label: '',
-        required: false,
-        clearable: false,
         codeValue: undefined,
         options: () => [],
         api: undefined,
         params: undefined,
         labelKey: 'label',
         valueKey: 'value',
+        required: false,
         focus: true,
+        clearable: false,
         disabled: false,
-        prefetch: false,
+        preloadData: false,
         placeholder: '请扫码/选择',
         searchCancelText: '清空',
         searchPlaceholder: '请输入关键字',
         loadingText: '加载中',
-    }
+    },
 );
 
 const emits = defineEmits<{
@@ -124,14 +137,14 @@ const emits = defineEmits<{
 }>();
 
 /**
- * 选中项
+ * 当前选中项
  */
 function isActive(item: LabelValueItem): boolean {
     return props.codeValue === item.value;
 }
 
 /**
- *  V-MODEL
+ * 双向绑定
  */
 const code = computed<string | undefined>({
     get: () => props.modelValue,
@@ -139,26 +152,32 @@ const code = computed<string | undefined>({
 });
 
 /**
- * value 值
+ * 条码值
  */
 const codeValue = computed<string | undefined>({
     get: () => props.codeValue ?? '',
     set: (value?: string) => emits('update:codeValue', value),
 });
 
+/**
+ * 下拉列表
+ */
+const list = ref<LabelValueItem[]>([]);
+
 const loading = ref<boolean>(false);
 
 /**
  * 获取接口数据
  */
-async function fetch(): Promise<boolean> {
+async function loadData(): Promise<void> {
     if (!props.api) {
-        list.value = props.options.map((item) => ({
+        list.value = props.options.map(item => ({
             ...item,
-            label: item[props.labelKey] ?? '',
+            label: item[props.labelKey] as string,
             value: item[props.valueKey] ?? '',
         }));
-        return false;
+
+        return;
     }
 
     loading.value = true;
@@ -166,7 +185,7 @@ async function fetch(): Promise<boolean> {
 
     if (!res) {
         loading.value = false;
-        return false;
+        return;
     }
 
     list.value = res.data.map((item: any) => ({
@@ -176,7 +195,7 @@ async function fetch(): Promise<boolean> {
     }));
 
     loading.value = false;
-    return true;
+    return;
 }
 
 const popupRef = ref();
@@ -189,29 +208,40 @@ async function openSelect(): Promise<void> {
         return;
     }
 
-    fetch();
+    loadData();
     popupRef.value.open();
 }
 
+/**
+ * 扫码
+ */
 function handleConfirm(): void {
     emits('scan', code.value);
 }
 
 /**
- * 点击处理
+ * 手动扫码
  */
 function handleScanClick(): void {
     uni.scanCode({
-        success: (res) => {
+        success: res => {
             code.value = res.result;
-
             emits('scan', code.value);
         },
     });
 }
 
 /**
- * 清空事件
+ * 清空条码
+ */
+function clear(): void {
+    code.value = undefined;
+    codeValue.value = undefined;
+    list.value = [];
+}
+
+/**
+ * 清空
  */
 function handleClear(): void {
     clear();
@@ -220,27 +250,21 @@ function handleClear(): void {
 }
 
 /**
- * 清除
+ * 改变条码
  */
-function clear(): void {
-    code.value = undefined;
-    codeValue.value = undefined;
-
-    list.value = [];
+function handleChange(value: string) {
+    if (!value) {
+        codeValue.value = '';
+    }
 }
 
 const searchValue = ref<string>('');
 
 /**
- * 下拉列表
- */
-const list = ref<LabelValueItem[]>([]);
-
-/**
- * 搜索列表
+ * 查询列表
  */
 const searchList = computed(() => {
-    return list.value.filter((item) => item.label.includes(searchValue.value));
+    return list.value.filter(item => item.label.includes(searchValue.value));
 });
 
 /**
@@ -248,37 +272,51 @@ const searchList = computed(() => {
  */
 function handleSelect(item: LabelValueItem): void {
     code.value = item.label;
-    codeValue.value = item.value;
+    codeValue.value = item.value as string;
 
     emits('update:modelValue', item.label);
-    emits('update:codeValue', item.value);
+    emits('update:codeValue', item.value as string);
 
-    popupRef.value.close();
     searchValue.value = '';
+    popupRef.value.close();
     emits('confirm', item);
 }
 
-const scanFocus = ref<boolean>(props.focus);
-
-const flag = ref<boolean>(false);
-
 /**
- * 调用scan
+ * use scan
  */
-const { initListener, removeListener } = useScan((res) => {
+const { initListener, removeListener } = useScan(res => {
     emits('scan', res.code);
 });
 
-watch(
-    () => flag.value,
-    (newValue) => {
-        // #ifdef APP-PLUS
-        removeListener();
-        initListener(newValue);
-        // #endif
-    }
-);
+/**
+ * 扫码聚焦状态
+ */
+const scanFocus = ref<boolean>(props.focus);
 
+/**
+ * 扫码标识状态
+ */
+const scanFlag = ref<boolean>(false);
+
+/**
+ * 聚焦事件
+ */
+
+function handleFocus() {
+    scanFlag.value = true;
+}
+
+/**
+ * 失焦事件
+ */
+function handleBlur() {
+    scanFlag.value = false;
+}
+
+/**
+ * 重置扫码聚焦状态
+ */
 function resetFocus(): void {
     scanFocus.value = false;
     nextTick(() => {
@@ -287,25 +325,24 @@ function resetFocus(): void {
     });
 }
 
-function handleFocus() {
-    flag.value = true;
-}
-
-function handleBlur() {
-    flag.value = false;
-}
-
-function handleChange(value: string) {
-    if (!value) {
-        codeValue.value = '';
-    }
-}
+/**
+ * 监听扫码
+ */
+watch(
+    () => scanFlag.value,
+    newValue => {
+        // #ifdef APP-PLUS
+        removeListener();
+        initListener(newValue);
+        // #endif
+    },
+);
 
 /**
  * 同步label
  */
 watchEffect(() => {
-    const matchedOptions = list.value.find((item) => item.value === props.codeValue);
+    const matchedOptions = list.value.find(item => item.value === props.codeValue);
 
     code.value = matchedOptions?.label;
 });
@@ -316,8 +353,8 @@ defineExpose({
 });
 
 onMounted(() => {
-    if (props.prefetch) {
-        fetch();
+    if (props.preloadData) {
+        loadData();
     }
 });
 </script>

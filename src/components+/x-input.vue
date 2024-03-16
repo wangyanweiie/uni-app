@@ -16,17 +16,25 @@ import { computed } from 'vue';
 
 const props = withDefaults(
     defineProps<{
-        modelValue?: any;
+        /** 双向绑定 */
+        modelValue?: string;
+        /** 表单标题 */
         label?: string;
+        /** 表单属性 */
         prop?: string;
+        /** 是否必填 */
         required?: boolean;
+        /** 占位符 */
         placeholder?: string;
+        /** 是否可清空 */
         clearable?: boolean;
+        /** 是否禁用 */
         disabled?: boolean;
+        /** 是否显示边框 */
         show?: boolean;
     }>(),
     {
-        modelValue: undefined,
+        modelValue: '',
         label: '',
         prop: '',
         required: false,
@@ -34,18 +42,24 @@ const props = withDefaults(
         clearable: false,
         disabled: false,
         show: false,
-    }
+    },
 );
 
 const emits = defineEmits<{
-    (e: 'update:modelValue', value: any): void;
+    (e: 'update:modelValue', value: string): void;
 }>();
 
-const inputData = computed<any>({
-    get: () => props.modelValue,
-    set: (value) => emits('update:modelValue', value),
+/**
+ * 输入框数据
+ */
+const inputData = computed<string>({
+    get: () => props.modelValue ?? '',
+    set: value => emits('update:modelValue', value),
 });
 
+/**
+ * 是否显示边框
+ */
 const isShow = computed(() => {
     return props.show === true ? 'none' : 'surround';
 });

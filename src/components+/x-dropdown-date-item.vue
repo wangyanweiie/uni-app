@@ -16,15 +16,18 @@ import { computed, ref, watchEffect } from 'vue';
 
 const props = withDefaults(
     defineProps<{
+        /** 开始时间 */
         startTime?: string;
+        /** 结束时间 */
         endTime?: string;
+        /** 标题 */
         title?: string;
     }>(),
     {
         startTime: '',
         endTime: '',
         title: '日期范围',
-    }
+    },
 );
 
 // emits
@@ -39,9 +42,7 @@ const datetime = ref<string[]>([]);
 /**
  * 是否为空值
  */
-const isEmpty = computed<boolean>(
-    () => datetime.value.length === 0 || datetime.value.every((date) => !date)
-);
+const isEmpty = computed<boolean>(() => datetime.value.length === 0 || datetime.value.every(date => !date));
 
 /**
  * 展示标题
@@ -72,6 +73,9 @@ function handleClear(): void {
     emits('change', []);
 }
 
+/**
+ * 监听
+ */
 watchEffect(() => {
     datetime.value = [props.startTime, props.endTime];
 });

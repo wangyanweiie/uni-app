@@ -26,16 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Numeric } from 'src/constant/global';
-import {
-    type CSSProperties,
-    getCurrentInstance,
-    watchEffect,
-    onMounted,
-    computed,
-    inject,
-    ref,
-} from 'vue';
+import { type CSSProperties, getCurrentInstance, watchEffect, onMounted, computed, inject, ref } from 'vue';
+import type { Numeric } from 'src/constant/base';
 import { DROPDOWN_MENU, type DropdownItem, type DropdownMenuProvider } from './dropdown';
 
 const instance = getCurrentInstance();
@@ -45,9 +37,13 @@ providers?.addChild(instance?.uid);
 
 const props = withDefaults(
     defineProps<{
+        /** 双向绑定 */
         modelValue: any;
+        /** 标题 */
         label?: string;
+        /** 空数据提示 */
         emptyText?: string;
+        /** 下拉列表 */
         options?: DropdownItem[];
     }>(),
     {
@@ -55,7 +51,7 @@ const props = withDefaults(
         label: '',
         emptyText: '暂无数据',
         options: () => [],
-    }
+    },
 );
 
 const emits = defineEmits<{
@@ -107,7 +103,7 @@ function selected(item: DropdownItem): boolean {
 const selectedLabel = ref<string>();
 
 watchEffect(() => {
-    const matchedItem = props.options.find((col) => col.value === props.modelValue);
+    const matchedItem = props.options.find(col => col.value === props.modelValue);
 
     if (matchedItem) {
         selectedLabel.value = matchedItem.label;
@@ -136,7 +132,8 @@ onMounted(() => {
 
     query
         .select('.item')
-        .boundingClientRect((data) => {
+        .boundingClientRect(data => {
+            // eslint-disable-next-line no-undef
             const { top } = data as UniApp.NodeInfo;
 
             itemTop.value = top ?? 0;

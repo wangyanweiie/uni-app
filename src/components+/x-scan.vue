@@ -29,20 +29,28 @@ import { useScan } from './hooks/use-scan';
 
 const props = withDefaults(
     defineProps<{
+        /** 双向绑定 */
         modelValue: any;
-        prop?: string;
+        /** 表单标题 */
         label: string;
-        placeholder?: string;
+        /** 表单属性 */
+        prop?: string;
+        /** 是否必填 */
         required?: boolean;
+        /** 占位符 */
+        placeholder?: string;
+        /** 是否聚焦 */
         focus?: boolean;
+        /** 是否可清空 */
         clearable?: boolean;
+        /** 其他属性 */
         uProps?: Record<string, any>;
     }>(),
     {
         modelValue: undefined,
         prop: undefined,
-        placeholder: '请扫码/手输',
         required: false,
+        placeholder: '请扫码/手输',
         focus: true,
         clearable: true,
         uProps: undefined,
