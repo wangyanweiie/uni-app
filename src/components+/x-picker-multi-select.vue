@@ -73,9 +73,9 @@ const props = withDefaults(
         labelKey?: string;
         /** value key */
         valueKey?: string;
-        /** 下拉接口 */
+        /** 查询接口 */
         api?: (data: any) => Promise<any>;
-        /** 下拉接口参数 */
+        /** 查询接口参数 */
         params?: any;
         /** 下拉列表 */
         options?: any[];

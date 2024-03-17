@@ -95,9 +95,9 @@ const props = withDefaults(
         valueKey?: string;
         /** children key */
         childrenKey?: string;
-        /** 下拉接口 */
+        /** 查询接口 */
         api?: (data: any) => Promise<any>;
-        /** 下拉接口参数 */
+        /** 查询接口参数 */
         params?: Record<string, string>;
         /** 下拉列表 */
         options?: any[];

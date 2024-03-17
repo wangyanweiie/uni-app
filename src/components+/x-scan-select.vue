@@ -79,9 +79,9 @@ const props = withDefaults(
         codeValue?: string;
         /** 下拉选项 */
         options?: Record<string, Numeric>[];
-        /** 下拉接口 */
+        /** 查询接口 */
         api?: (data: any) => Promise<any>;
-        /** 下拉接口请求参数 */
+        /** 查询接口请求参数 */
         params?: Record<string, Numeric>;
         /** 下拉选项的 label 属性名 */
         labelKey?: string;

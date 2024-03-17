@@ -45,9 +45,9 @@ const props = withDefaults(
         modelValue: any;
         /** label 文本 */
         text?: string;
-        /** 下拉接口 */
+        /** 查询接口 */
         api?: (data?: any) => Promise<any>;
-        /** 下拉接口参数 */
+        /** 查询接口参数 */
         apiParams?: Record<string, string>;
         /** 下拉列表 */
         options?: PickerOption[];

@@ -7,6 +7,7 @@
 <script setup lang="ts">
 withDefaults(
     defineProps<{
+        /** label */
         label?: string;
     }>(),
     {
