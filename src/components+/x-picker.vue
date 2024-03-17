@@ -2,7 +2,6 @@
     <view>
         <u-form-item :id="$attrs.id ?? prop" :required="required" :label="label" :prop="prop">
             <u-input
-                ref="inputRef"
                 v-model="labelName"
                 clearable
                 readonly
@@ -34,25 +33,39 @@
 
 <script setup lang="ts">
 import { ref, watchEffect, onMounted, computed } from 'vue';
-import type { Numeric } from 'src/constant/global';
+import type { Numeric } from 'src/constant/base';
 import type { PickerOption } from './interface';
 
-// FIXME 触发表单change事件有问题
-
+/**
+ * FIXME: 触发表单 change 事件有问题
+ */
 const props = withDefaults(
     defineProps<{
+        /** 双向绑定 */
         modelValue: any;
+        /** label 文本 */
         text?: string;
+        /** 下拉接口 */
         api?: (data?: any) => Promise<any>;
-        apiParams?: any;
+        /** 下拉接口参数 */
+        apiParams?: Record<string, string>;
+        /** 下拉列表 */
         options?: PickerOption[];
+        /** 表单标题 */
         label?: string;
+        /** 表单属性 */
         prop?: string;
+        /** 占位符 */
         placeholder?: string;
+        /** 是否必填 */
         required?: boolean;
+        /** 是否禁用 */
         disabled?: boolean;
+        /** 前缀图标 */
         prefixIcon?: string;
+        /** 取消文本 */
         cancelText?: string;
+        /** 确认文本 */
         confirmText?: string;
     }>(),
     {
@@ -68,7 +81,7 @@ const props = withDefaults(
         prefixIcon: undefined,
         cancelText: '清空',
         confirmText: '确定',
-    }
+    },
 );
 
 const emits = defineEmits<{
@@ -78,20 +91,26 @@ const emits = defineEmits<{
     (e: 'clear'): void;
 }>();
 
+/**
+ * label
+ */
 const labelName = ref<Numeric | undefined>();
 
+/**
+ * 下拉框是否显示
+ */
 const pickerVisible = ref<boolean>(false);
 
+/**
+ * 下拉列表
+ */
 const pickerColumns = ref<any[]>(props.options);
-
 const uPickerColumns = computed<string[][]>(() => {
-    return [pickerColumns.value?.map((col) => col.label) ?? []];
+    return [pickerColumns.value?.map(col => col.label) ?? []];
 });
 
-const selected = ref<string[]>();
-
 /**
- * 打开
+ * 打开下拉框
  */
 async function handleOpen(): Promise<void> {
     if (props.disabled) {
@@ -103,18 +122,24 @@ async function handleOpen(): Promise<void> {
         return;
     }
 
-    const res = await getAPIData();
+    const res = await loadData();
 
     if (res) {
         pickerVisible.value = true;
     }
 }
 
+/**
+ * 关闭下拉框
+ */
 function handleClose(): void {
     pickerVisible.value = false;
 }
 
-const inputRef = ref<any>();
+/**
+ * 选中值
+ */
+const selected = ref<string[]>();
 
 /**
  * 确认选中
@@ -125,12 +150,11 @@ function handleConfirm(data: { indexs: number[] }): void {
     if (indexs && pickerColumns.value) {
         const { value } = pickerColumns.value[indexs[0]];
 
-        // 更新text
-        const matchedOption = pickerColumns.value.find((option) => option.value === value);
+        // 更新 text
+        const matchedOption = pickerColumns.value.find(option => option.value === value);
 
         if (matchedOption) {
             labelName.value = matchedOption.label;
-
             selected.value = [matchedOption.value];
         } else {
             labelName.value = undefined;
@@ -155,7 +179,10 @@ function handleClear(): void {
     pickerVisible.value = false;
 }
 
-async function getAPIData(): Promise<boolean> {
+/**
+ * 请求下拉列表
+ */
+async function loadData(): Promise<boolean> {
     if (!props.api) {
         return false;
     }
@@ -167,18 +194,21 @@ async function getAPIData(): Promise<boolean> {
     }
 
     pickerColumns.value = res.data;
-
     return true;
 }
 
+/**
+ * FIXME: 监听，待优化
+ */
 watchEffect(() => {
     if (!props.api) {
         pickerColumns.value = props.options;
     }
+
     labelName.value = props.text;
 
-    // 更新text
-    const matchedOption = pickerColumns.value.find((option) => option.value === props.modelValue);
+    // 更新 text
+    const matchedOption = pickerColumns.value.find(option => option.value === props.modelValue);
 
     if (matchedOption) {
         labelName.value = matchedOption.label;
@@ -188,7 +218,7 @@ watchEffect(() => {
         selected.value = [];
     }
 
-    const matchedLabelOption = pickerColumns.value.find((option) => option.label === props.text);
+    const matchedLabelOption = pickerColumns.value.find(option => option.label === props.text);
 
     if (matchedLabelOption) {
         emits('update:modelValue', matchedLabelOption.value);
@@ -199,8 +229,11 @@ watchEffect(() => {
     }
 });
 
+/**
+ * 页面挂载
+ */
 onMounted(() => {
-    getAPIData();
+    loadData();
 });
 </script>
 
@@ -209,3 +242,4 @@ onMounted(() => {
     margin-left: 10px;
 }
 </style>
+./interface

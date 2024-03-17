@@ -1,10 +1,6 @@
 <template>
     <u-form-item :id="$attrs.id ?? prop" :prop="prop" :label="label" :required="required">
-        <u-input
-            v-model="inputLabel"
-            :placeholder="placeholder ?? `请选择${label ?? ''}`"
-            :disabled="disabled"
-        >
+        <u-input v-model="inputLabel" :placeholder="placeholder ?? `请选择${label ?? ''}`" :disabled="disabled">
         </u-input>
 
         <template #right>
@@ -33,11 +29,7 @@
 
             <view class="select-list">
                 <view v-if="loading" class="loading">
-                    <u-loading-icon
-                        :text="loadingText"
-                        size="25px"
-                        text-size="16px"
-                    ></u-loading-icon>
+                    <u-loading-icon :text="loadingText" size="25px" text-size="16px"></u-loading-icon>
                 </view>
                 <view
                     v-for="(item, index) in searchList"
@@ -61,27 +53,43 @@
 </template>
 
 <script setup lang="ts">
-import type { LabelValueItem } from 'src/constant/global';
-import { findItem } from 'src/utils/tools';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
+import type { LabelValueItem } from 'src/constant/base';
+import { findItem } from 'src/utils/tools';
 
 const props = withDefaults(
     defineProps<{
-        prop?: string;
+        /** 表单标题 */
         label?: string;
+        /** 表单属性 */
+        prop?: string;
+        /** 是否必填 */
         required?: boolean;
-        labelValue?: any[];
+        /** label */
+        labelValue?: string[];
+        /** value */
         codeValue?: any;
-        api?: (data: any) => Promise<any>;
-        options?: any[];
+        /** label key */
         labelKey?: string;
+        /** value key */
         valueKey?: string;
+        /** 下拉接口 */
+        api?: (data: any) => Promise<any>;
+        /** 下拉接口参数 */
         params?: any;
+        /** 下拉列表 */
+        options?: any[];
+        /** 占位符 */
         placeholder?: string;
+        /** 是否禁用 */
         disabled?: boolean;
+        /** 取消查询文本 */
         searchCancelText?: string;
+        /** 确定查询文本 */
         searchConfirmText?: string;
+        /** 查询占位符 */
         searchPlaceholder?: string;
+        /** 加载中文本 */
         loadingText?: string;
     }>(),
     {
@@ -89,20 +97,20 @@ const props = withDefaults(
         prop: undefined,
         label: '',
         required: false,
-        params: undefined,
         labelValue: () => [],
         codeValue: () => [] || '',
         labelKey: 'label',
         valueKey: 'value',
-        options: () => [],
         api: undefined,
+        params: undefined,
+        options: () => [],
         placeholder: '选择/查询',
         disabled: false,
         searchCancelText: '清空',
         searchConfirmText: '确定',
         searchPlaceholder: '请输入关键字',
         loadingText: '加载中',
-    }
+    },
 );
 
 const emits = defineEmits<{
@@ -112,12 +120,17 @@ const emits = defineEmits<{
     (e: 'clear'): void;
 }>();
 
+/**
+ * label
+ */
+const labelString = ref<string[]>([]);
 const inputLabel = computed(() => {
     return labelString.value.toString();
 });
 
-const labelString = ref<string[]>([]);
-
+/**
+ * value
+ */
 const codeValue = computed<any>({
     get: () => props.codeValue,
     set: (value?: any) => {
@@ -125,39 +138,32 @@ const codeValue = computed<any>({
     },
 });
 
-watch(
-    () => props.labelValue,
-    (newValue) => {
-        labelString.value = newValue;
-    }
-);
 /**
  * 下拉列表
  */
 const list = ref<LabelValueItem[]>([]);
-
 const loading = ref<boolean>(false);
 
 /**
- * 获取接口数据
+ * 请求接口数据
  */
-async function fetch(): Promise<boolean> {
+async function loadData(): Promise<void> {
     if (!props.api) {
-        list.value = props.options?.map((item) => ({
+        list.value = props.options?.map(item => ({
             ...item,
             label: item[props.labelKey] ?? '',
             value: item[props.valueKey] ?? '',
         }));
-        return false;
+
+        return;
     }
 
     loading.value = true;
-
     const res = await props.api(props.params);
 
     if (!res) {
         loading.value = false;
-        return false;
+        return;
     }
 
     list.value = res.data.map((item: any) => ({
@@ -167,15 +173,19 @@ async function fetch(): Promise<boolean> {
     }));
 
     loading.value = false;
-    return true;
+    return;
 }
+
+/**
+ * 弹出框是否展示
+ */
+const visible = ref<boolean>(false);
 
 /**
  * 打开弹出框
  */
-const visible = ref<boolean>(false);
 async function openSelect(): Promise<void> {
-    fetch();
+    loadData();
     visible.value = true;
 }
 
@@ -191,23 +201,29 @@ function handleClear(): void {
     emits('clear');
 }
 
+/**
+ * 查询值
+ */
 const searchValue = ref<string>('');
 
 /**
- * 搜索列表
+ * 查询列表
  */
 const searchList = computed(() => {
-    return list.value.filter((item) => item.label.includes(searchValue.value));
+    return list.value.filter(item => item.label.includes(searchValue.value));
 });
 
 /**
- * 选中
+ * 确认选择
  */
 function handleSelect(item: any): void {
     codeValue.value = findItem(codeValue.value, item.value);
     labelString.value = findItem(labelString.value, item.label);
 }
 
+/**
+ * 确定事件
+ */
 function handleConfirm(): void {
     emits('update:labelValue', labelString.value);
     emits('update:codeValue', codeValue.value);
@@ -215,18 +231,33 @@ function handleConfirm(): void {
     visible.value = false;
 }
 
+/**
+ * 关闭事件
+ */
 function handleClose() {
     visible.value = false;
 }
 
-watchEffect(() => {
-    const matchedItem = list.value.filter((item) => codeValue.value.includes(item.value));
+/**
+ * 监听
+ */
+watch(
+    () => props.labelValue,
+    newValue => {
+        labelString.value = newValue;
+    },
+);
 
+watchEffect(() => {
+    const matchedItem = list.value.filter(item => codeValue.value.includes(item.value));
     labelString.value = matchedItem.map((item: any) => item.label);
 });
 
+/**
+ * 页面挂载
+ */
 onMounted(() => {
-    fetch();
+    loadData();
 });
 </script>
 

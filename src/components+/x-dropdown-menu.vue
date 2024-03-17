@@ -30,7 +30,7 @@ function addChild(child?: number): void {
 }
 
 /**
- * 提供给子组件 状态和方法
+ * 提供给子组件状态和方法
  */
 provide<DropdownMenuProvider>(DROPDOWN_MENU, { activeChildId, addChild });
 </script>

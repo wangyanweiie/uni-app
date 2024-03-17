@@ -1,12 +1,6 @@
 <template>
     <u-form-item :id="$attrs.id ?? prop" :prop="prop" :label="label" :required="required">
-        <u-input
-            v-model="optionLabel"
-            clearable
-            readonly
-            border="none"
-            :placeholder="placeholder"
-        ></u-input>
+        <u-input v-model="optionLabel" clearable readonly border="none" :placeholder="placeholder"></u-input>
 
         <template #right>
             <u-icon name="arrow-right" size="20px" @click="openSelect"></u-icon>
@@ -36,11 +30,7 @@
 
                 <view class="select-list">
                     <view v-if="loading" class="loading">
-                        <u-loading-icon
-                            :text="loadingText"
-                            size="25px"
-                            text-size="16px"
-                        ></u-loading-icon>
+                        <u-loading-icon :text="loadingText" size="25px" text-size="16px"></u-loading-icon>
                     </view>
 
                     <view v-if="searchValue" class="search">
@@ -53,12 +43,7 @@
                         >
                             <text>{{ item.label }}</text>
 
-                            <u-icon
-                                v-if="isSearchActive(item)"
-                                name="checkmark"
-                                color="#2979ff"
-                                size="14px"
-                            ></u-icon>
+                            <u-icon v-if="isSearchActive(item)" name="checkmark" color="#2979ff" size="14px"></u-icon>
                         </view>
                     </view>
 
@@ -72,12 +57,7 @@
                         >
                             <text>{{ item.label }}</text>
 
-                            <u-icon
-                                v-if="isActive(item)"
-                                name="checkmark"
-                                color="#2979ff"
-                                size="14px"
-                            ></u-icon>
+                            <u-icon v-if="isActive(item)" name="checkmark" color="#2979ff" size="14px"></u-icon>
                         </view>
                     </view>
                 </view>
@@ -87,8 +67,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Numeric } from 'src/constant/global';
 import { computed, onMounted, ref } from 'vue';
+import type { Numeric } from 'src/constant/base';
 import type { PopupInstance, XCascaderOption, XCascaderTab } from './interface';
 
 const DEFAULT_TAB: XCascaderTab = {
@@ -97,23 +77,41 @@ const DEFAULT_TAB: XCascaderTab = {
 
 const props = withDefaults(
     defineProps<{
+        /** 双向绑定 */
         modelValue?: any;
+        /** label */
         labelValue?: any;
-        prop?: string;
+        /** 表单标题 */
         label?: string;
+        /** 表单属性 */
+        prop?: string;
+        /** 是否必填 */
         required?: boolean;
-        labelKey?: string;
-        valueKey?: string;
-        childrenKey?: string;
-        options?: any[];
-        api?: (data: any) => Promise<any>;
-        params?: any;
-        returnType?: 'node' | 'nodes';
-        prefetch?: boolean;
+        /** 占位符 */
         placeholder?: string;
+        /** label key */
+        labelKey?: string;
+        /** value key */
+        valueKey?: string;
+        /** children key */
+        childrenKey?: string;
+        /** 下拉接口 */
+        api?: (data: any) => Promise<any>;
+        /** 下拉接口参数 */
+        params?: Record<string, string>;
+        /** 下拉列表 */
+        options?: any[];
+        /** 返回类型 */
+        returnType?: 'node' | 'nodes';
+        /** 是否预加载数据 */
+        preloadData?: boolean;
+        /** 取消查询文本 */
         searchCancelText?: string;
+        /** 确认查询文本 */
         searchConfirmText?: string;
+        /** 查询占位符 */
         searchPlaceholder?: string;
+        /** 加载中文本 */
         loadingText?: string;
     }>(),
     {
@@ -129,13 +127,13 @@ const props = withDefaults(
         api: undefined,
         params: undefined,
         returnType: 'node',
-        prefetch: false,
+        preloadData: false,
         placeholder: '点击选择',
         searchCancelText: '清空',
         searchConfirmText: '确定',
         searchPlaceholder: '请输入关键字',
         loadingText: '加载中',
-    }
+    },
 );
 
 const emits = defineEmits<{
@@ -144,16 +142,14 @@ const emits = defineEmits<{
 }>();
 
 /**
- * 选中项label值
+ * label
  */
 const optionLabel = ref<Numeric | undefined>();
 
-const popupRef = ref<PopupInstance>();
-
 /**
- * 查询字符串
+ * 弹窗实例
  */
-const searchValue = ref<string>('');
+const popupRef = ref<PopupInstance>();
 
 /**
  * 下拉列表
@@ -173,7 +169,7 @@ const currentList = computed<XCascaderOption[]>(() => {
 });
 
 /**
- * 搜索选项类型
+ * 查询选项类型
  */
 interface SearchOption {
     label?: Numeric;
@@ -181,26 +177,30 @@ interface SearchOption {
 }
 
 /**
- * 搜索列表
+ * 查询字符串
  */
+const searchValue = ref<string>('');
 
+/**
+ * 查询列表
+ */
 const searchList = computed<SearchOption[]>(() =>
-    searchAllList.value.filter((item) => {
+    searchAllList.value.filter(item => {
         if (item.label) {
             return item.label.toString().includes(searchValue.value);
         }
 
         return false;
-    })
+    }),
 );
 
 /**
- * 搜索总表
+ * 查询所有列表
  */
 const searchAllList = ref<SearchOption[]>([]);
 
 /**
- * 级联tab
+ * 级联 tab
  */
 const tabs = computed<XCascaderTab[]>(() => {
     if (selectedItems.value.length === 0) {
@@ -208,8 +208,7 @@ const tabs = computed<XCascaderTab[]>(() => {
     }
 
     const lastItem = selectedItems.value[selectedItems.value.length - 1];
-
-    const tabList: XCascaderTab[] = selectedItems.value.map((item) => ({
+    const tabList: XCascaderTab[] = selectedItems.value.map(item => ({
         name: item.label,
         selectedValue: item.value,
     }));
@@ -222,7 +221,7 @@ const tabs = computed<XCascaderTab[]>(() => {
 });
 
 /**
- * 当前tab下标
+ * 当前 tab下标
  */
 const currentTabIndex = ref<number>(0);
 
@@ -234,30 +233,28 @@ const selectedItems = ref<XCascaderOption[]>([]);
 /**
  * 初始化赋值
  */
-function init() {
+function handleInit() {
     if (props.returnType === 'node') {
-        const matchedItem = searchAllList.value.find(
-            (item) => item.value.slice(-1)[0].value === props.modelValue
-        );
+        const matchedItem = searchAllList.value.find(item => item.value.slice(-1)[0].value === props.modelValue);
 
         if (matchedItem) {
             selectedItems.value = matchedItem.value;
             optionLabel.value = matchedItem.value.slice(-1)[0].label;
-
             currentTabIndex.value = selectedItems.value.length - 1;
         }
     }
 
     if (props.returnType === 'nodes') {
         const externalValue = props.modelValue;
+
         if (externalValue && Array.isArray(externalValue)) {
-            const matchedItem = searchAllList.value.find((item) =>
-                item.value.every((val) => externalValue.includes(val.value ?? ''))
+            const matchedItem = searchAllList.value.find(item =>
+                item.value.every(val => externalValue.includes(val.value ?? '')),
             );
 
             if (matchedItem) {
                 selectedItems.value = matchedItem.value;
-                optionLabel.value = matchedItem.value.map((val) => val.label).join('/');
+                optionLabel.value = matchedItem.value.map(val => val.label).join('/');
                 currentTabIndex.value = selectedItems.value.length - 1;
             }
         }
@@ -267,21 +264,21 @@ function init() {
 const loading = ref<boolean>(false);
 
 /**
- * 生成搜索数组
+ * 生成查询数组
  */
 function generateSearchList(): void {
     const result: SearchOption[] = [];
 
     const getList = (list: XCascaderOption[], parents?: XCascaderOption[]) => {
         result.push(
-            ...list.map((item) => {
+            ...list.map(item => {
                 if (item.children) {
                     getList(item.children, parents ? [...parents, item] : [item]);
                 }
 
                 if (parents && parents.length > 0) {
                     return {
-                        label: [...parents.map((p) => p.label), item.label].join('/'),
+                        label: [...parents.map(p => p.label), item.label].join('/'),
                         value: [...parents, item],
                     };
                 } else {
@@ -290,20 +287,19 @@ function generateSearchList(): void {
                         value: [item],
                     };
                 }
-            })
+            }),
         );
     };
 
     getList(list.value);
-
     searchAllList.value = result;
 }
 
 /**
- * 转换数组为可用list
+ * 转换数组为可用 list
  */
 function transformList(list: any[]): XCascaderOption[] {
-    return list.map((item) => {
+    return list.map(item => {
         const childList = item[props.childrenKey];
 
         if (childList && childList.length > 0) {
@@ -326,12 +322,11 @@ function transformList(list: any[]): XCascaderOption[] {
 /**
  * 获取接口数据
  */
-async function fetch(): Promise<boolean> {
+async function loadData(): Promise<void> {
     if (!props.api) {
         list.value = transformList(props.options);
         generateSearchList();
-
-        return false;
+        return;
     }
 
     loading.value = true;
@@ -339,26 +334,22 @@ async function fetch(): Promise<boolean> {
 
     if (!res) {
         loading.value = false;
-        return false;
+        return;
     }
 
     list.value = transformList(res.data);
-
-    generateSearchList();
-
     loading.value = false;
-    return true;
+    generateSearchList();
+    return;
 }
 
 /**
  * 打开选择器
  */
 async function openSelect(): Promise<void> {
-    await fetch();
-
+    loadData();
+    handleInit();
     popupRef.value?.open();
-
-    init();
 }
 
 /**
@@ -373,7 +364,6 @@ function handleTabClick({ index }: any): void {
  */
 function handleSelect(item: XCascaderOption): void {
     selectedItems.value = selectedItems.value.slice(0, currentTabIndex.value);
-
     selectedItems.value.push(item);
 
     if (item.children) {
@@ -382,7 +372,7 @@ function handleSelect(item: XCascaderOption): void {
 }
 
 /**
- * 选中搜索列表
+ * 选中查询列表
  */
 function handleSelectSearchItem(item: SearchOption): void {
     selectedItems.value = item.value;
@@ -396,21 +386,19 @@ function isActive(item: XCascaderOption): boolean {
 }
 
 /**
- * 搜索列表选中值
+ * 查询列表选中值
  */
 function isSearchActive(item: SearchOption): boolean {
-    return selectedItems.value.every((selectedItem) => item.value.includes(selectedItem));
+    return selectedItems.value.every(selectedItem => item.value.includes(selectedItem));
 }
 
 /**
  * 清空
  */
 function handleClear(): void {
-    emits('update:modelValue', undefined);
-
     optionLabel.value = undefined;
     emits('update:labelValue', undefined);
-
+    emits('update:modelValue', undefined);
     popupRef.value?.close();
 }
 
@@ -424,22 +412,19 @@ function handleConfirm(): void {
 
     if (props.returnType === 'node') {
         const lastItem = selectedItems.value[selectedItems.value.length - 1];
+        optionLabel.value = lastItem.label;
 
         emits('update:modelValue', lastItem.value);
-
-        // v-model:label
-        optionLabel.value = lastItem.label;
         emits('update:labelValue', lastItem.label);
     }
 
     if (props.returnType === 'nodes') {
         emits(
             'update:modelValue',
-            selectedItems.value.map((val) => val.value ?? '')
+            selectedItems.value.map(val => val.value ?? ''),
         );
 
-        // v-model:label
-        const label = selectedItems.value.map((val) => val.label).join('/');
+        const label = selectedItems.value.map(val => val.label).join('/');
         optionLabel.value = label;
         emits('update:labelValue', label);
     }
@@ -447,9 +432,12 @@ function handleConfirm(): void {
     popupRef.value?.close();
 }
 
+/**
+ * 页面挂载
+ */
 onMounted(() => {
-    if (props.prefetch) {
-        fetch();
+    if (props.preloadData) {
+        loadData();
     }
 });
 </script>
@@ -518,3 +506,4 @@ onMounted(() => {
     align-items: center;
 }
 </style>
+./interface

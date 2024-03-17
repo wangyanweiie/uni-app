@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app';
 import { computed, onMounted, ref, watch } from 'vue';
-import type { Recordable } from './interface/interface';
+import type { Recordable } from './interface';
 
 const props = withDefaults(
     defineProps<{
@@ -188,3 +188,4 @@ defineExpose<{ refresh: () => Promise<void> }>({
     background-color: transparent;
 }
 </style>
+./interface

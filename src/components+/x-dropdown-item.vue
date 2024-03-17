@@ -6,6 +6,7 @@
 
         <view v-if="visible" class="down" :style="dropdownStyle">
             <view class="mask"></view>
+
             <view class="list" :style="listStyle">
                 <view
                     v-for="(item, index) in options"
@@ -60,6 +61,9 @@ const emits = defineEmits<{
     (e: 'update:label', value?: string): void;
 }>();
 
+/**
+ * 点击事件
+ */
 function handleClick(): void {
     if (!providers || !instance) {
         return;
@@ -74,7 +78,6 @@ function handleClick(): void {
 }
 
 const visible = computed<boolean>(() => providers?.activeChildId.value === instance?.uid);
-
 const isEmpty = computed<boolean>(() => props.options.length === 0);
 
 /**
@@ -82,10 +85,16 @@ const isEmpty = computed<boolean>(() => props.options.length === 0);
  */
 const itemTop = ref<number>(0);
 
+/**
+ * 下拉样式
+ */
 const dropdownStyle = computed<CSSProperties>(() => ({
     height: `calc(100vh - ${itemTop.value + 93}px)`,
 }));
 
+/**
+ * 下拉列表样式
+ */
 const listStyle = computed<CSSProperties>(() => ({
     maxHeight: `calc(100vh - ${itemTop.value + 93}px)`,
 }));
@@ -98,21 +107,7 @@ function selected(item: DropdownItem): boolean {
 }
 
 /**
- * label 展示
- */
-const selectedLabel = ref<string>();
-
-watchEffect(() => {
-    const matchedItem = props.options.find(col => col.value === props.modelValue);
-
-    if (matchedItem) {
-        selectedLabel.value = matchedItem.label;
-        emits('update:label', matchedItem.label);
-    }
-});
-
-/**
- * 选中
+ * 确认选中
  */
 function handleSelect(item: DropdownItem): void {
     if (props.modelValue !== item.value) {
@@ -126,6 +121,26 @@ function handleSelect(item: DropdownItem): void {
     }
 }
 
+/**
+ * label 展示
+ */
+const selectedLabel = ref<string>();
+
+/**
+ * 监听
+ */
+watchEffect(() => {
+    const matchedItem = props.options.find(col => col.value === props.modelValue);
+
+    if (matchedItem) {
+        selectedLabel.value = matchedItem.label;
+        emits('update:label', matchedItem.label);
+    }
+});
+
+/**
+ * 页面挂载
+ */
 onMounted(() => {
     const ins = getCurrentInstance();
     const query = uni.createSelectorQuery().in(ins);
@@ -135,7 +150,6 @@ onMounted(() => {
         .boundingClientRect(data => {
             // eslint-disable-next-line no-undef
             const { top } = data as UniApp.NodeInfo;
-
             itemTop.value = top ?? 0;
         })
         .exec();

@@ -91,7 +91,7 @@ import { set } from 'lodash-es';
 import type { Numeric } from 'src/constant/base';
 import { showToast } from 'src/utils/uni-message';
 import { ref, watchEffect, computed } from 'vue';
-import type { Recordable, SwipeOption } from './interface/interface';
+import type { Recordable, SwipeOption } from './interface';
 
 /**
  * x-swipe column
@@ -291,3 +291,4 @@ function handleCollapse(item: any): void {
     font-weight: 600;
 }
 </style>
+./interface

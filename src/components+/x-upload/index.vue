@@ -42,7 +42,7 @@
 <script lang="ts" setup>
 import { ref, watchEffect } from 'vue';
 import { showToast } from 'src/utils/uni-message';
-import type { UploadFileOption } from '../interface/interface';
+import type { UploadFileOption } from '../interface';
 import { chooseFileType, chooseImage, chooseVideo } from './use-upload';
 
 /**
@@ -301,3 +301,4 @@ watchEffect(() => {
     height: 100%;
 }
 </style>
+../interface

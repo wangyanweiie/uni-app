@@ -30,8 +30,8 @@
 </template>
 
 <script setup lang="ts">
-import { getColSpan } from 'src/utils/system-info';
 import { onBeforeUnmount, nextTick, onMounted, ref } from 'vue';
+import { getColSpan } from 'src/utils/system-info';
 
 /**
  * 卡片关闭操作栏事件名称
@@ -60,8 +60,11 @@ export interface CardAction {
 
 const props = withDefaults(
     defineProps<{
+        /** 卡片列配置 */
         columns: CardColumn[];
+        /** 卡片数据 */
         data: any;
+        /** 卡片操作 */
         actions?: CardAction[];
     }>(),
     {
@@ -83,7 +86,7 @@ function renderData(col: CardColumn): string {
 }
 
 /**
- * tap事件
+ * tap 事件
  */
 function handleTap(e: any, col: CardColumn): void {
     if (!col.toast) {
@@ -95,7 +98,6 @@ function handleTap(e: any, col: CardColumn): void {
     }
 
     e.stopPropagation();
-
     uni.showToast({
         title: props.data[col.prop],
         mask: false,
@@ -109,7 +111,7 @@ function handleTap(e: any, col: CardColumn): void {
 const colSpan = ref<number>(12);
 
 /**
- * 操作栏显示
+ * 操作栏是否显示
  */
 const actionVisible = ref<boolean>(false);
 
@@ -142,9 +144,11 @@ function handleCardClick(): void {
     uni.$emit(CardCloseActionEventName);
 }
 
+/**
+ * 页面挂载
+ */
 onMounted(async () => {
     const system = await uni.getSystemInfo();
-
     colSpan.value = getColSpan(system.windowWidth);
 
     uni.onWindowResize(res => {
@@ -155,6 +159,9 @@ onMounted(async () => {
     uni.$on(CardCloseActionEventName, () => closeAction());
 });
 
+/**
+ * 页面挂载前
+ */
 onBeforeUnmount(() => {
     uni.offWindowResize(() => {
         console.log('取消监听');

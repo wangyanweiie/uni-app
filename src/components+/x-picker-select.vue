@@ -33,11 +33,7 @@
 
                 <view class="select-list">
                     <view v-if="loading" class="loading">
-                        <u-loading-icon
-                            :text="loadingText"
-                            size="25px"
-                            text-size="16px"
-                        ></u-loading-icon>
+                        <u-loading-icon :text="loadingText" size="25px" text-size="16px"></u-loading-icon>
                     </view>
                     <view
                         v-for="(item, index) in searchList"
@@ -48,12 +44,7 @@
                     >
                         <text>{{ item.label }}</text>
 
-                        <u-icon
-                            v-if="isActive(item)"
-                            name="checkmark"
-                            color="#2979ff"
-                            size="14px"
-                        ></u-icon>
+                        <u-icon v-if="isActive(item)" name="checkmark" color="#2979ff" size="14px"></u-icon>
                     </view>
                 </view>
             </view>
@@ -105,7 +96,7 @@ const props = withDefaults(
         searchCancelText: '清空',
         searchPlaceholder: '请输入关键字',
         loadingText: '加载中',
-    }
+    },
 );
 
 const emits = defineEmits<{
@@ -144,7 +135,7 @@ const loading = ref<boolean>(false);
  */
 async function fetch(): Promise<boolean> {
     if (!props.api) {
-        list.value = props.options?.map((item) => ({
+        list.value = props.options?.map(item => ({
             ...item,
             label: item[props.labelKey] ?? '',
             value: item[props.valueKey] ?? '',
@@ -201,7 +192,7 @@ const searchValue = ref<string>('');
  * 搜索列表
  */
 const searchList = computed(() => {
-    return list.value.filter((item) => item.label.includes(searchValue.value));
+    return list.value.filter(item => item.label.includes(searchValue.value));
 });
 
 /**
@@ -226,7 +217,7 @@ function handleSelect(item: LabelValueItem): void {
 }
 
 watchEffect(() => {
-    const matchedItem = list.value.find((item) => item.value === codeValue.value);
+    const matchedItem = list.value.find(item => item.value === codeValue.value);
 
     labelString.value = matchedItem?.label;
     emits('update:labelValue', labelString.value);
@@ -236,7 +227,7 @@ watch(
     () => props.options,
     () => {
         fetch();
-    }
+    },
 );
 
 onMounted(() => {

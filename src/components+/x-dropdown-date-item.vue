@@ -56,7 +56,7 @@ const displayTitle = computed<string>(() => {
 });
 
 /**
- * 修改时间
+ * 改变时间
  */
 function handleChange(value: string[]) {
     emits('update:startTime', value[0]);

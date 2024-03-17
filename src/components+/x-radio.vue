@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PickerOption } from './interface/interface';
+import type { PickerOption } from './interface';
 import { Numeric } from '@/constant/base';
 
 const props = withDefaults(
@@ -84,3 +84,4 @@ function handleGroupChange(value: Numeric) {
     margin-right: 10px;
 }
 </style>
+./interface
