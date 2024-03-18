@@ -55,7 +55,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import type { LabelValueItem } from 'src/constant/base';
-import { findItem } from 'src/utils/tools';
 
 const props = withDefaults(
     defineProps<{
@@ -212,6 +211,22 @@ const searchValue = ref<string>('');
 const searchList = computed(() => {
     return list.value.filter(item => item.label.includes(searchValue.value));
 });
+
+/**
+ * 从数组中查询一个值
+ * 如果存在则删除该值，不存在则添加该值
+ */
+function findItem(arr: any[], id: any) {
+    const result = arr.findIndex(item => item === id);
+
+    if (result === -1) {
+        arr.push(id);
+    } else {
+        arr.splice(result, 1);
+    }
+
+    return arr;
+}
 
 /**
  * 确认选择

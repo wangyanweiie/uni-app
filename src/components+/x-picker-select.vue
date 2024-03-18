@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import type { LabelValueItem } from 'src/constant/global';
+import type { LabelValueItem } from 'src/constant/base';
 import { onMounted, watchEffect, computed, ref, watch } from 'vue';
 
 const props = withDefaults(
@@ -207,10 +207,10 @@ function isActive(item: LabelValueItem): boolean {
  */
 function handleSelect(item: LabelValueItem): void {
     labelString.value = item.label;
-    codeValue.value = item.value;
+    codeValue.value = item.value as string;
 
     emits('update:labelValue', item.label);
-    emits('update:modelValue', item.value);
+    emits('update:modelValue', item.value as string);
     emits('confirm', item);
 
     popupRef.value.close();
