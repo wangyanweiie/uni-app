@@ -1,4 +1,8 @@
+// uni.request
 import { get, post } from '@/utils/uni-request';
+
+// axios
+// import { get, post } from '@/utils/use-axios';
 
 export default {
     /**

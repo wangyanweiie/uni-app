@@ -97,9 +97,16 @@ export default function useLogin() {
             return;
         }
 
+        // uni.request
         saveStorage(LOCAL_TOKEN_KEY, res.data.token);
         saveStorage(LOCAL_USER_INFO_KEY, res.data);
         saveStorage(LOCAL_PERMISSION_KEY, res.data?.appPerms);
+
+        // axios
+        // saveStorage(LOCAL_TOKEN_KEY, res.token);
+        // saveStorage(LOCAL_USER_INFO_KEY, res);
+        // saveStorage(LOCAL_PERMISSION_KEY, res?.appPerms);
+
         saveStorage('BrandAndLanguage', {
             brand: Brand.Zebra,
             printLanguage: PrinterLanguage.ZPL,

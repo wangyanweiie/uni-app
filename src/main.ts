@@ -1,8 +1,8 @@
 import { createSSRApp } from 'vue';
-import App from './App.vue';
 import uviewPlus from 'uview-plus';
 import registerComponents from '@/components';
 import i18n from '@/locale';
+import App from './App.vue';
 
 export function createApp() {
     const app = createSSRApp(App);
@@ -30,5 +30,3 @@ export function createApp() {
         app,
     };
 }
-
-uni.$u.config.unit = 'rpx';
