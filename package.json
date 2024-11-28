@@ -76,10 +76,12 @@
         "iconv-lite": "^0.6.3",
         "image-tools": "^1.4.0",
         "lodash-es": "^4.17.21",
+        "sweetalert2": "^11.14.5",
         "uni-pages-hot-modules": "^1.0.3",
         "uview-plus": "^3.1.36",
         "vue": "^3.3.4",
-        "vue-i18n": "^9.2.2"
+        "vue-i18n": "^9.2.2",
+        "vue-toastification": "^2.0.0-rc.5"
     },
     "devDependencies": {
         "@commitlint/cli": "^17.7.1",
@@ -105,8 +107,8 @@
         "postcss": "^8.4.28",
         "postcss-html": "^1.5.0",
         "prettier": "^3.0.1",
-        "sass": "^1.66.1",
-        "sass-loader": "^13.3.2",
+        "sass": "1.63.2",
+        "sass-loader": "10.4.1",
         "typescript": "^5.1.6",
         "unplugin-vue-define-options": "^1.4.1",
         "vite": "4.4.9",
