@@ -1,6 +1,6 @@
 # uni-app-template
 
-vue3 + ts + + uni-app + uviewPlus + vite  + eslint + preitter + husky + commitlint + cz-config
+vue3 + ts + + uni-app + uviewPlus + vite + eslint + preitter + husky + commitlint + cz-config
 
 ## 准备工作
 

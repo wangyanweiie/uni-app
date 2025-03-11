@@ -6,9 +6,9 @@
 
 ## 二、源代码
 
-*PS：由于循环表单可能是可以动态增删的，当添加时子表单时会触发 watch 事件从而同步更新 rules；但是当删除子表单时 rules 中并不会同步删除该子表单对应的校验规则，所以需要在删除事件中根据该子表单的索引在rules中手动删除对应的校验规则；这样才可以保持循环表单与校验规则的一致性。*
+_PS：由于循环表单可能是可以动态增删的，当添加时子表单时会触发 watch 事件从而同步更新 rules；但是当删除子表单时 rules 中并不会同步删除该子表单对应的校验规则，所以需要在删除事件中根据该子表单的索引在rules中手动删除对应的校验规则；这样才可以保持循环表单与校验规则的一致性。_
 
-``` html
+```html
 <template>
     <view class="view-wrap">
         <u-form ref="formRef" :model="form" :rules="rules" label-position="left" label-width="150rpx">
@@ -48,7 +48,7 @@
 </template>
 ```
 
-``` typescript
+```typescript
 <script lang="ts" setup>
 import type { FormInstance, FormRule } from '@/interface/form';
 import { ref, watch, onMounted } from 'vue';
@@ -149,7 +149,7 @@ onMounted(() => {
 </script>
 ```
 
-``` scss
+```scss
 <style scoped lang="scss">
 .item-wrap {
     padding: 20rpx;

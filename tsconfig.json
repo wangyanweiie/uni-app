@@ -9,16 +9,9 @@
      * 如果一个 glob 模式里的某部分只包含 * 或 .*，那么仅有支持的文件扩展名类型被包含在内
      *（比如默认 .ts，.tsx，和 .d.ts， 如果 allowJs 设置为 true 还包含 .js 和 .jsx）
      */
-    "include": [
-        "src/**/*",
-        "src/**/*.vue",
-        "vite.config.ts"
-    ],
+    "include": ["src/**/*", "src/**/*.vue", "vite.config.ts"],
 
-    "exclude": [
-        "node_modules/**/*",
-        "src/uni_modules/**/*"
-    ],
+    "exclude": ["node_modules/**/*", "src/uni_modules/**/*"],
 
     // 编译选项
     "compilerOptions": {
@@ -37,24 +30,16 @@
         // 支持使用 import 的方式引入 commonjs 包
         "esModuleInterop": true,
         // 指定编译时要使用的内置库
-        "lib": [
-            "esnext",
-            "dom"
-        ],
+        "lib": ["esnext", "dom"],
         // 跳过库文件校验
         "skipLibCheck": true,
         // 默认所有可见的 "@types" 包会在编译过程中被包含进来，若指定了 types，只有被列出来的包才会被包含进来
-        "types": [
-            "@dcloudio/types",
-            "unplugin-vue-define-options/macros-global"
-        ],
+        "types": ["@dcloudio/types", "unplugin-vue-define-options/macros-global"],
         // 解析非相对模块名的基准目录
         "baseUrl": ".",
         // "paths" 是相对于 "baseUrl" 进行解析
         "paths": {
             "@/*": ["src/*"]
         }
-    },
-
-
+    }
 }

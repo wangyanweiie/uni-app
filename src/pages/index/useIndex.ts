@@ -78,6 +78,12 @@ export default function useIndex() {
                         icon: 'iconfont-merge',
                         path: '/pages/other/combine-table/index',
                     },
+                    {
+                        label: t('menu.btPrint'),
+                        value: 'Combine',
+                        icon: 'iconfont-24gl-printer',
+                        path: '/pages/other/print/index',
+                    },
                 ],
             },
         ],

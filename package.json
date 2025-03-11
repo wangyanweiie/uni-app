@@ -73,15 +73,16 @@
         "clipboard": "^2.0.11",
         "dayjs": "^1.11.9",
         "decimal.js": "^10.4.3",
+        "html2canvas": "^1.4.1",
         "iconv-lite": "^0.6.3",
         "image-tools": "^1.4.0",
         "lodash-es": "^4.17.21",
         "sweetalert2": "^11.14.5",
         "uni-pages-hot-modules": "^1.0.3",
+        "uqrcodejs": "^4.0.7",
         "uview-plus": "^3.1.36",
         "vue": "^3.3.4",
-        "vue-i18n": "^9.2.2",
-        "vue-toastification": "^2.0.0-rc.5"
+        "vue-i18n": "^9.2.2"
     },
     "devDependencies": {
         "@commitlint/cli": "^17.7.1",

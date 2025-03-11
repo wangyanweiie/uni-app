@@ -41,4 +41,10 @@ module.exports = [
             navigationBarTitleText: 'WebView',
         },
     },
+    {
+        path: 'pages/other/print/index',
+        style: {
+            navigationBarTitleText: '经典蓝牙打印',
+        },
+    },
 ];

@@ -7,7 +7,8 @@ import XUpload from '@/components/x-upload/index.vue';
 import XSelect from '@/components/x-select/index.vue';
 import XSearchSelect from '@/components/x-search-select/index.vue';
 import XModal from '@/components/x-modal/index.vue';
-import XPrintModal from '@/components/x-print-modal/index.vue';
+import XPrintModalBle from '@/components/x-print-modal-ble/index.vue';
+import XPrintModalBt from '@/components/x-print-modal-bt/index.vue';
 import XSignature from '@/components/x-signature/index.vue';
 
 interface ComponentItem {
@@ -24,7 +25,8 @@ const components = shallowRef<ComponentItem[]>([
     { name: 'XSelect', component: XSelect },
     { name: 'XSearchSelect', component: XSearchSelect },
     { name: 'XModal', component: XModal },
-    { name: 'XPrintModal', component: XPrintModal },
+    { name: 'XPrintModalBle', component: XPrintModalBle },
+    { name: 'XPrintModalBt', component: XPrintModalBt },
     { name: 'XSignature', component: XSignature },
 ]);
 

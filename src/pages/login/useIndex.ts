@@ -2,7 +2,7 @@ import { onMounted, ref } from 'vue';
 import menuAPI from '@/api/menu-list';
 import RequestAPI from '@/api/login/index';
 import { getStorage, saveStorage } from '@/utils/uni-storage';
-import { Brand, PrinterLanguage } from '@/components/x-print-modal/use-print';
+import { Brand, PrinterLanguage } from '@/components/x-print-modal-ble/use-print';
 import { LOCAL_BASE_URL_KEY, LOCAL_PERMISSION_KEY, LOCAL_TOKEN_KEY, LOCAL_USER_INFO_KEY } from '@/constant/global';
 
 interface loginForm {

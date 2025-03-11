@@ -5,7 +5,8 @@ import XUpload from '@/components/x-upload/index.vue';
 import XSelect from '@/components/x-select/index.vue';
 import XSearchSelect from '@/components/x-search-select/index.vue';
 import XModal from '@/components/x-modal/index.vue';
-import XPrintModal from '@/components/x-print-modal/index.vue';
+import XPrintModalBle from '@/components/x-print-modal-ble/index.vue';
+import XPrintModalBt from '@/components/x-print-modal-bt/index.vue';
 
 declare module 'vue' {
     export interface GlobalComponents {
@@ -16,7 +17,8 @@ declare module 'vue' {
         XSelect: typeof XSelect;
         XSearchSelect: typeof XSearchSelect;
         XModal: typeof XModal;
-        XPrintModal: typeof XPrintModal;
+        XPrintModalBle: typeof XPrintModalBle;
+        XPrintModalBt: typeof XPrintModalBt;
     }
 }
 
