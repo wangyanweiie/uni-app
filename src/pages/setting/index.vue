@@ -41,12 +41,12 @@
                 clickable
                 @click="checkUpdate"
             ></u-cell>
-            <u-cell
+            <!-- <u-cell
                 icon="coupon"
                 :icon-style="iconStyle"
                 :title="$t('setting.printEquip')"
                 :value="userInfo.printBrand"
-            ></u-cell>
+            ></u-cell> -->
             <u-cell icon="bookmark" :icon-style="iconStyle" :title="$t('setting.language')">
                 <template #right-icon>
                     <x-select

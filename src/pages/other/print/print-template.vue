@@ -6,7 +6,7 @@
                     <tr class="table__tr">
                         <td class="table__td" width="25%">样品名称</td>
                         <td class="table__td" colspan="4" width="45%">
-                            {{ printDate.sampleName }}
+                            {{ data.sampleName }}
                         </td>
                         <td class="table__td" rowspan="7" colspan="2" width="30%">
                             <canvas
@@ -19,37 +19,37 @@
                     <tr class="table__tr">
                         <td class="table__td">样品编号</td>
                         <td class="table__td" colspan="4">
-                            {{ printDate.sampleNum }}
+                            {{ data.sampleNum }}
                         </td>
                     </tr>
                     <tr class="table__tr">
                         <td class="table__td">检测编号</td>
                         <td class="table__td" colspan="4">
-                            {{ printDate.checkNum }}
+                            {{ data.checkNum }}
                         </td>
                     </tr>
                     <tr class="table__tr">
                         <td class="table__td">项目</td>
                         <td class="table__td" colspan="2">
-                            {{ printDate.itemName }}
+                            {{ data.itemName }}
                         </td>
                     </tr>
                     <tr class="table__tr">
                         <td class="table__td">特殊情况</td>
                         <td class="table__td" colspan="2">
-                            {{ printDate.specialSituation }}
+                            {{ data.specialSituation }}
                         </td>
                     </tr>
                     <tr class="table__tr">
                         <td class="table__td">送样时间</td>
                         <td class="table__td">
-                            {{ printDate.sendSampleTime }}
+                            {{ data.sendSampleTime }}
                         </td>
                     </tr>
                     <tr class="table__tr">
                         <td class="table__td">送样人</td>
                         <td class="table__td">
-                            {{ printDate.sendSampleOperator }}
+                            {{ data.sendSampleOperator }}
                         </td>
                     </tr>
                 </table>
@@ -57,47 +57,39 @@
         </html2canvas>
 
         <view class="container__btn">
-            <u-button type="primary" :disabled="btnStatus" @click="handleBTPrint"> 蓝牙打印 </u-button>
+            <u-button type="primary" @click="handleBTPrint"> 蓝牙打印 </u-button>
         </view>
 
-        <u-toast ref="uToastRef" />
+        <x-print-modal-bt v-model="showModal" :print-data="printData"></x-print-modal-bt>
     </view>
 </template>
 
 <script lang="ts" setup>
 import UQRCode from 'uqrcodejs';
 import html2canvas from '@/components/html2canvas/html2canvas.vue';
-import plugintest from '@/utils/print-plugin.js';
 import { onMounted, ref } from 'vue';
-import { showToast } from '../../../utils/uni-message';
-
-export interface PrintDate {
-    sampleName?: string;
-    sampleNum?: string;
-    checkNum?: string;
-    itemName?: string;
-    specialSituation?: string;
-    sendSampleTime?: string;
-    sendSampleOperator?: string;
-    qrcode?: string;
-}
 
 /**
  * props
  */
 const props = withDefaults(
     defineProps<{
-        printDate: PrintDate;
+        data: Record<string, unknown>;
     }>(),
     {
-        printDate: undefined,
+        data: undefined,
     },
 );
 
-/**
- * 按钮状态
- */
-const btnStatus = ref<boolean>(false);
+const printData = ref<Record<string, unknown>>({
+    bluetoothName: '',
+    bluetoothMac: '',
+    data: '',
+    row: 0,
+    col: 0,
+    targetWeight: 60,
+    targetHeight: 40,
+});
 
 /**
  * domId
@@ -105,19 +97,19 @@ const btnStatus = ref<boolean>(false);
 const domId = ref<string>('');
 
 /**
- * imageData
- */
-const imageData = ref<string>('');
-
-/**
  * html2canvas 实例
  */
 const html2canvasRef = ref();
 
 /**
- * 提示组件实例
+ * imageData
  */
-const uToastRef = ref();
+const imageData = ref<string>('');
+
+/**
+ * 弹窗是否展示
+ */
+const showModal = ref<boolean>(false);
 
 /**
  * 渲染二维码
@@ -128,7 +120,7 @@ function generateQRCode() {
 
     // 设置二维码内容
     // qr.data = 'https://uqrcode.cn/doc';
-    qr.data = props.printDate.qrcode;
+    qr.data = props.data.qrcode;
 
     // 设置二维码大小，必须与canvas设置的宽高一致
     qr.size = 50;
@@ -169,69 +161,12 @@ function handleRenderFinished(data: string) {
  * 蓝牙打印
  */
 async function handleBTPrint() {
-    btnStatus.value = true;
-
-    const printerData = {
-        bluetoothName: '',
-        bluetoothMac: '',
-        data: '',
-    };
-
-    printerData.bluetoothName = uni.getStorageSync('BTPrintName');
-    printerData.bluetoothMac = uni.getStorageSync('BTPrintMAC');
-    printerData.data = imageData.value;
-
-    uni.showLoading({
-        title: '打印中....',
-    });
-
     // #ifdef APP-PLUS
-    plugintest.AddPrintFunction(
-        printerData,
-        (result: any) => {
-            // 3、打印机异常
-            if (JSON.stringify(result) === '["3"]') {
-                uToastRef.value.show({
-                    title: '打印机异常或未连接，请重新连接！',
-                    type: 'warning',
-                    icon: false,
-                });
-            } else if (JSON.stringify(result) === '["5"]') {
-                uToastRef.value.show({
-                    title: '打印成功！',
-                    type: 'success',
-                    icon: false,
-                });
-            } else if (JSON.stringify(result) === '["1"]') {
-                uToastRef.value.show({
-                    title: '蓝牙重新连接成功, 请再次点击蓝牙打印！',
-                    type: 'success',
-                    icon: false,
-                });
-            }
-
-            uni.hideLoading();
-            btnStatus.value = false;
-        },
-        (result: any) => {
-            uni.hideLoading();
-            btnStatus.value = false;
-
-            // 3、打印机异常
-            if (JSON.stringify(result) === '["3"]') {
-                uToastRef.value.show({
-                    title: '打印机异常，蓝牙连接失败，请重新连接！',
-                    type: 'warning',
-                    icon: false,
-                });
-            }
-        },
-    );
+    printData.value.data = imageData.value;
+    showModal.value = true;
     // #endif
 
     // #ifdef H5
-    btnStatus.value = false;
-
     uni.showToast({
         title: '请在APP中使用蓝牙打印功能！',
         icon: 'none',

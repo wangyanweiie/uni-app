@@ -25,7 +25,7 @@
 //     const _BARCODE = 'plugintest';
 
 //     const plugintest = {
-//         GetBlueToothListFunction(num, successCallback, errorCallback) {
+//         GetBlueToothListFunction(data, successCallback, errorCallback) {
 //             const success =
 //                 typeof successCallback !== 'function'
 //                     ? null
@@ -42,10 +42,10 @@
 
 //             const callbackID = plus.bridge.callbackId(success, fail);
 
-//             return plus.bridge.exec(_BARCODE, 'getBluetoothList', [callbackID, num]);
+//             return plus.bridge.exec(_BARCODE, 'getBluetoothList', [callbackID, data]);
 //         },
 
-//         GetCidFunction(num, successCallback, errorCallback) {
+//         GetCidFunction(data, successCallback, errorCallback) {
 //             const success =
 //                 typeof successCallback !== 'function'
 //                     ? null
@@ -62,10 +62,10 @@
 
 //             const callbackID = plus.bridge.callbackId(success, fail);
 
-//             return plus.bridge.exec(_BARCODE, 'getCid', [callbackID, num]);
+//             return plus.bridge.exec(_BARCODE, 'getCid', [callbackID, data]);
 //         },
 
-//         ConnBluetoothFunction(num, successCallback, errorCallback) {
+//         ConnBluetoothFunction(data, successCallback, errorCallback) {
 //             const success =
 //                 typeof successCallback !== 'function'
 //                     ? null
@@ -82,10 +82,10 @@
 
 //             const callbackID = plus.bridge.callbackId(success, fail);
 
-//             return plus.bridge.exec(_BARCODE, 'connBluetooth', [callbackID, num]);
+//             return plus.bridge.exec(_BARCODE, 'connBluetooth', [callbackID, data]);
 //         },
 
-//         AddPrintFunction(num, successCallback, errorCallback) {
+//         AddPrintFunction(data, successCallback, errorCallback) {
 //             const success =
 //                 typeof successCallback !== 'function'
 //                     ? null
@@ -102,7 +102,7 @@
 
 //             const callbackID = plus.bridge.callbackId(success, fail);
 
-//             return plus.bridge.exec(_BARCODE, 'sentMsgPrint', [callbackID, num]);
+//             return plus.bridge.exec(_BARCODE, 'sentMsgPrint', [callbackID, data]);
 //         },
 //     };
 
@@ -113,7 +113,7 @@
 const _BARCODE = 'plugintest';
 
 const plugintest = {
-    GetBlueToothListFunction(num, successCallback, errorCallback) {
+    GetBlueToothListFunction(data, successCallback, errorCallback) {
         const success =
             typeof successCallback !== 'function'
                 ? null
@@ -130,10 +130,10 @@ const plugintest = {
 
         const callbackID = plus.bridge.callbackId(success, fail);
 
-        return plus.bridge.exec(_BARCODE, 'getBluetoothList', [callbackID, num]);
+        return plus.bridge.exec(_BARCODE, 'getBluetoothList', [callbackID, data]);
     },
 
-    GetCidFunction(num, successCallback, errorCallback) {
+    GetCidFunction(data, successCallback, errorCallback) {
         const success =
             typeof successCallback !== 'function'
                 ? null
@@ -150,10 +150,10 @@ const plugintest = {
 
         const callbackID = plus.bridge.callbackId(success, fail);
 
-        return plus.bridge.exec(_BARCODE, 'getCid', [callbackID, num]);
+        return plus.bridge.exec(_BARCODE, 'getCid', [callbackID, data]);
     },
 
-    ConnBluetoothFunction(num, successCallback, errorCallback) {
+    ConnBluetoothFunction(data, successCallback, errorCallback) {
         const success =
             typeof successCallback !== 'function'
                 ? null
@@ -170,10 +170,10 @@ const plugintest = {
 
         const callbackID = plus.bridge.callbackId(success, fail);
 
-        return plus.bridge.exec(_BARCODE, 'connBluetooth', [callbackID, num]);
+        return plus.bridge.exec(_BARCODE, 'connBluetooth', [callbackID, data]);
     },
 
-    AddPrintFunction(num, successCallback, errorCallback) {
+    AddPrintFunction(data, successCallback, errorCallback) {
         const success =
             typeof successCallback !== 'function'
                 ? null
@@ -190,7 +190,7 @@ const plugintest = {
 
         const callbackID = plus.bridge.callbackId(success, fail);
 
-        return plus.bridge.exec(_BARCODE, 'sentMsgPrint', [callbackID, num]);
+        return plus.bridge.exec(_BARCODE, 'sentMsgPrint', [callbackID, data]);
     },
 };
 

@@ -8,10 +8,10 @@ const fs = require('fs');
  */
 
 fs.cp(
-    '../../../dist/resources/__UNI__A0E2751/www',
+    './dist/resources/__UNI__E140D76/www',
 
     // 拷贝到 as 指定目录
-    'E:\\company\\All_APP\\xilong_app_bundle_project\\simpleDemo\\src\\main\\assets\\apps\\__UNI__E140D76\\www',
+    'E:\\company\\All_APP\\x-mart_az\\app\\src\\main\\assets\\apps\\__UNI__E140D76\\www',
 
     // 拷贝整个目录，包括子目录
     { recursive: true },

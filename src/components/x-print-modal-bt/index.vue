@@ -30,13 +30,11 @@ import usePrint from './use-print';
 const props = withDefaults(
     defineProps<{
         modelValue: boolean;
-        printData: Record<string, unknown>[];
+        printData: Record<string, unknown>;
     }>(),
     {
         modelValue: false,
-        printData: () => {
-            return [];
-        },
+        printData: undefined,
     },
 );
 
@@ -50,6 +48,11 @@ const emits = defineEmits<{
 const show = ref<boolean>(false);
 
 /**
+ * 打印数据
+ */
+const data = ref<Record<string, unknown>>({});
+
+/**
  * 打印相关方法
  */
 const { handleSavePrintServiceMAC, devices, handleConnectServiceMAC, handlePrintServiceMAC, activeClass } = usePrint();
@@ -58,7 +61,7 @@ const { handleSavePrintServiceMAC, devices, handleConnectServiceMAC, handlePrint
  * 确认打印
  */
 async function confirmPrint(): Promise<void> {
-    const res = await handlePrintServiceMAC(props.printData);
+    const res = await handlePrintServiceMAC(data.value);
 
     if (!res) {
         return;
@@ -83,8 +86,18 @@ async function cancelPrint(): Promise<void> {
  */
 watch(
     () => props.modelValue,
-    (value: boolean) => {
-        show.value = value;
+    (newValue: boolean) => {
+        show.value = newValue;
+    },
+);
+
+watch(
+    () => props.printData,
+    (newValue: Record<string, unknown>) => {
+        data.value = newValue;
+    },
+    {
+        deep: true,
     },
 );
 
@@ -97,8 +110,9 @@ watchEffect(() => {
 
 <style lang="scss" scoped>
 .bluetooth-list {
-    height: 600rpx;
+    height: 500rpx;
     width: 100%;
+    font-size: 16px;
     overflow-y: scroll;
 }
 

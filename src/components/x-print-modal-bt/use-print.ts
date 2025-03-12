@@ -38,7 +38,7 @@ export default function usePrint() {
             () => {
                 uni.showToast({
                     title: '暂无打印设备',
-                    duration: 2000,
+                    icon: 'none',
                 });
             },
         );
@@ -52,10 +52,11 @@ export default function usePrint() {
     /**
      * 连接蓝牙 MAC 地址
      */
-    function handleConnectServiceMAC(e: any, mask = true) {
+    function handleConnectServiceMAC(e: any) {
         if (connTimes.value == 0) {
             uni.showToast({
                 title: '蓝牙连接中...',
+                icon: 'none',
                 duration: 10000,
             });
         }
@@ -65,7 +66,6 @@ export default function usePrint() {
         const printerData = {
             bluetoothName: '',
             bluetoothMac: '',
-            data: '',
         };
 
         printerData.bluetoothName = e.bluetoothName;
@@ -87,7 +87,7 @@ export default function usePrint() {
 
                     uni.showToast({
                         title: '蓝牙连接成功！',
-                        duration: 2000,
+                        icon: 'none',
                     });
                 } else if (JSON.stringify(result) === '["3"]') {
                     currentDevice.value = {
@@ -98,7 +98,7 @@ export default function usePrint() {
                     if (connTimes.value > 5) {
                         uni.showToast({
                             title: '打印机异常，请重新连接！',
-                            duration: 2000,
+                            icon: 'none',
                         });
 
                         return;
@@ -117,7 +117,7 @@ export default function usePrint() {
                 if (connTimes.value > 5) {
                     uni.showToast({
                         title: '蓝牙连接失败，请重新连接！',
-                        duration: 2000,
+                        icon: 'none',
                     });
                     return;
                 }
@@ -130,11 +130,9 @@ export default function usePrint() {
     /**
      * 打印
      */
-    async function handlePrintServiceMAC(printString: Record<string, unknown>[]) {
+    async function handlePrintServiceMAC(printString: Record<string, unknown>) {
         const printerData = {
-            bluetoothName: '',
-            bluetoothMac: '',
-            data: printString,
+            ...printString,
         };
 
         printerData.bluetoothName = currentDevice.value.bluetoothName;
@@ -149,24 +147,21 @@ export default function usePrint() {
                 if (JSON.stringify(result) === '["3"]') {
                     uni.showToast({
                         title: '打印机异常，请重新连接！',
-                        type: 'warning',
-                        duration: 1000,
+                        icon: 'none',
                     });
 
                     returnResult.value = false;
                 } else if (JSON.stringify(result) === '["5"]') {
                     uni.showToast({
                         title: '打印成功！',
-                        type: 'success',
-                        duration: 1000,
+                        icon: 'none',
                     });
 
                     returnResult.value = true;
                 } else if (JSON.stringify(result) === '["1"]') {
                     uni.showToast({
                         title: '蓝牙重新连接成功, 请再次点击蓝牙打印！',
-                        type: 'success',
-                        duration: 1000,
+                        icon: 'none',
                     });
 
                     returnResult.value = false;
@@ -177,13 +172,14 @@ export default function usePrint() {
                 if (JSON.stringify(result) === '["3"]') {
                     uni.showToast({
                         title: '打印机异常，请重新连接！',
-                        type: 'warning',
+                        icon: 'none',
                     });
 
                     returnResult.value = false;
                 }
             },
         );
+
         return returnResult.value;
     }
 

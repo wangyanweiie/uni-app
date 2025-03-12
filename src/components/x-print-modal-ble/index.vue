@@ -127,8 +127,9 @@ async function cancelPrint(): Promise<void> {
 
 <style lang="scss" scoped>
 .bluetooth-list {
-    height: 600rpx;
+    height: 500rpx;
     width: 100%;
+    font-size: 16px;
     overflow-y: scroll;
 }
 
@@ -136,10 +137,10 @@ async function cancelPrint(): Promise<void> {
     width: 100%;
     height: 80rpx;
     line-height: 80rpx;
-    color: #222;
+    color: $u-main-color;
 
     &--active {
-        color: rgb(11, 43, 230);
+        color: $u-primary;
     }
 }
 </style>
