@@ -10,46 +10,44 @@
                                 {{ data.sampleName }}
                             </td>
                             <td class="template-table-td" rowspan="7" colspan="2">
-                                <canvas
-                                    id="qrcode"
-                                    canvas-id="qrcode"
-                                    style="width: 15mm; height: 15mm; margin-left: 1mm"
-                                ></canvas>
+                                <view class="qrcode">
+                                    <canvas id="qrcode" canvas-id="qrcode" style="width: 15mm; height: 15mm"></canvas>
+                                </view>
                             </td>
                         </tr>
                         <tr>
                             <td class="template-table-td">样品编号</td>
-                            <td class="template-table-td" colspan="4">
+                            <td class="template-table-td">
                                 {{ data.sampleNum }}
                             </td>
                         </tr>
                         <tr>
                             <td class="template-table-td">检测编号</td>
-                            <td class="template-table-td" colspan="4">
+                            <td class="template-table-td">
                                 {{ data.checkNum }}
                             </td>
                         </tr>
                         <tr>
                             <td class="template-table-td">项目</td>
-                            <td class="template-table-td" colspan="4">
+                            <td class="template-table-td">
                                 {{ data.itemName }}
                             </td>
                         </tr>
                         <tr>
                             <td class="template-table-td">特殊情况</td>
-                            <td class="template-table-td" colspan="4">
+                            <td class="template-table-td">
                                 {{ data.specialSituation }}
                             </td>
                         </tr>
                         <tr>
                             <td class="template-table-td">送样时间</td>
-                            <td class="template-table-td" colspan="4">
+                            <td class="template-table-td">
                                 {{ data.sendSampleTime }}
                             </td>
                         </tr>
                         <tr>
                             <td class="template-table-td">送样人</td>
-                            <td class="template-table-td" colspan="4">
+                            <td class="template-table-td">
                                 {{ data.sendSampleOperator }}
                             </td>
                         </tr>
@@ -120,7 +118,7 @@ function generateQRCode() {
     qr.data = props.data.qrcode;
 
     // 设置二维码大小，必须与canvas设置的宽高一致
-    qr.size = 50;
+    qr.size = 55;
 
     // 调用制作二维码方法
     qr.make();
@@ -193,8 +191,8 @@ onMounted(() => {
     width: 60mm;
     height: 40mm;
     text-align: center;
-    font-weight: bold;
-    font-size: 12px;
+    font-size: 11px;
+    // font-weight: bold;
 
     &-inner {
         width: 60mm;
@@ -211,6 +209,12 @@ onMounted(() => {
 
         &-td {
             border: 1px solid #000;
+        }
+
+        .qrcode {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 }
