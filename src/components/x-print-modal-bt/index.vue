@@ -34,7 +34,7 @@ const props = withDefaults(
     }>(),
     {
         modelValue: false,
-        printData: undefined,
+        printData: () => ({}),
     },
 );
 
@@ -50,7 +50,7 @@ const show = ref<boolean>(false);
 /**
  * 打印数据
  */
-const data = ref<Record<string, unknown>>({});
+// const data = ref<Record<string, unknown>>({});
 
 /**
  * 打印相关方法
@@ -61,7 +61,7 @@ const { handleSavePrintServiceMAC, devices, handleConnectServiceMAC, handlePrint
  * 确认打印
  */
 async function confirmPrint(): Promise<void> {
-    const res = await handlePrintServiceMAC(data.value);
+    const res = await handlePrintServiceMAC(props.printData);
 
     if (!res) {
         return;
@@ -91,15 +91,15 @@ watch(
     },
 );
 
-watch(
-    () => props.printData,
-    (newValue: Record<string, unknown>) => {
-        data.value = newValue;
-    },
-    {
-        deep: true,
-    },
-);
+// watch(
+//     () => props.printData,
+//     (newValue: Record<string, unknown>) => {
+//         data.value = newValue;
+//     },
+//     {
+//         deep: true,
+//     },
+// );
 
 watchEffect(() => {
     if (show.value === true) {

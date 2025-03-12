@@ -83,6 +83,7 @@ function handleCreate(domId: string) {
                 height: shareContent?.offsetHeight, // 防止白边
                 logging: true,
                 useCORS: true,
+                scale: window.devicePixelRatio < 3 ? window.devicePixelRatio : 2,
             });
 
             const base64 = canvas.toDataURL('image/png', 1);

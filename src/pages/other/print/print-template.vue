@@ -1,62 +1,64 @@
 <template>
     <view class="container">
-        <html2canvas ref="html2canvasRef" :dom-id="domId" @render-finish="handleRenderFinished">
-            <view class="container__border">
-                <table class="container__table" :border="2">
-                    <tr class="table__tr">
-                        <td class="table__td" width="25%">样品名称</td>
-                        <td class="table__td" colspan="4" width="45%">
-                            {{ data.sampleName }}
-                        </td>
-                        <td class="table__td" rowspan="7" colspan="2" width="30%">
-                            <canvas
-                                id="qrcode"
-                                canvas-id="qrcode"
-                                style="width: 15mm; height: 15mm; margin-left: 1mm"
-                            ></canvas>
-                        </td>
-                    </tr>
-                    <tr class="table__tr">
-                        <td class="table__td">样品编号</td>
-                        <td class="table__td" colspan="4">
-                            {{ data.sampleNum }}
-                        </td>
-                    </tr>
-                    <tr class="table__tr">
-                        <td class="table__td">检测编号</td>
-                        <td class="table__td" colspan="4">
-                            {{ data.checkNum }}
-                        </td>
-                    </tr>
-                    <tr class="table__tr">
-                        <td class="table__td">项目</td>
-                        <td class="table__td" colspan="2">
-                            {{ data.itemName }}
-                        </td>
-                    </tr>
-                    <tr class="table__tr">
-                        <td class="table__td">特殊情况</td>
-                        <td class="table__td" colspan="2">
-                            {{ data.specialSituation }}
-                        </td>
-                    </tr>
-                    <tr class="table__tr">
-                        <td class="table__td">送样时间</td>
-                        <td class="table__td">
-                            {{ data.sendSampleTime }}
-                        </td>
-                    </tr>
-                    <tr class="table__tr">
-                        <td class="table__td">送样人</td>
-                        <td class="table__td">
-                            {{ data.sendSampleOperator }}
-                        </td>
-                    </tr>
-                </table>
-            </view>
-        </html2canvas>
+        <view class="template">
+            <html2canvas ref="html2canvasRef" :dom-id="domId" @render-finish="handleRenderFinished">
+                <view class="template-inner">
+                    <table class="template-table" :border="1">
+                        <tr>
+                            <td class="template-table-td">样品名称</td>
+                            <td class="template-table-td" colspan="4">
+                                {{ data.sampleName }}
+                            </td>
+                            <td class="template-table-td" rowspan="7" colspan="2">
+                                <canvas
+                                    id="qrcode"
+                                    canvas-id="qrcode"
+                                    style="width: 15mm; height: 15mm; margin-left: 1mm"
+                                ></canvas>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="template-table-td">样品编号</td>
+                            <td class="template-table-td" colspan="4">
+                                {{ data.sampleNum }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="template-table-td">检测编号</td>
+                            <td class="template-table-td" colspan="4">
+                                {{ data.checkNum }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="template-table-td">项目</td>
+                            <td class="template-table-td" colspan="4">
+                                {{ data.itemName }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="template-table-td">特殊情况</td>
+                            <td class="template-table-td" colspan="4">
+                                {{ data.specialSituation }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="template-table-td">送样时间</td>
+                            <td class="template-table-td" colspan="4">
+                                {{ data.sendSampleTime }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="template-table-td">送样人</td>
+                            <td class="template-table-td" colspan="4">
+                                {{ data.sendSampleOperator }}
+                            </td>
+                        </tr>
+                    </table>
+                </view>
+            </html2canvas>
+        </view>
 
-        <view class="container__btn">
+        <view class="button">
             <u-button type="primary" @click="handleBTPrint"> 蓝牙打印 </u-button>
         </view>
 
@@ -85,10 +87,10 @@ const printData = ref<Record<string, unknown>>({
     bluetoothName: '',
     bluetoothMac: '',
     data: '',
-    row: 0,
-    col: 0,
-    targetWeight: 60,
-    targetHeight: 40,
+    row: 20,
+    col: 20,
+    targetWeight: 660,
+    targetHeight: 440,
 });
 
 /**
@@ -100,11 +102,6 @@ const domId = ref<string>('');
  * html2canvas 实例
  */
 const html2canvasRef = ref();
-
-/**
- * imageData
- */
-const imageData = ref<string>('');
 
 /**
  * 弹窗是否展示
@@ -152,25 +149,28 @@ function handleGenerateImage() {
  * 成功生成图片
  */
 function handleRenderFinished(data: string) {
-    console.log('renderFinish', data);
+    printData.value = Object.assign({}, printData.value, {
+        data,
+    });
 
-    imageData.value = data;
+    console.log('render-finished', printData.value);
 }
 
 /**
  * 蓝牙打印
  */
 async function handleBTPrint() {
-    // #ifdef APP-PLUS
-    printData.value.data = imageData.value;
     showModal.value = true;
+
+    // #ifdef APP-PLUS
+    // showModal.value = true;
     // #endif
 
     // #ifdef H5
-    uni.showToast({
-        title: '请在APP中使用蓝牙打印功能！',
-        icon: 'none',
-    });
+    // uni.showToast({
+    //     title: '请在APP中使用蓝牙打印功能！',
+    //     icon: 'none',
+    // });
     // #endif
 }
 
@@ -184,22 +184,24 @@ onMounted(() => {
 
 <style lang="scss">
 .container {
-    width: 100vw;
+    width: 100%;
     height: calc(100vh - 55px);
     position: relative;
+}
+
+.template {
+    width: 60mm;
+    height: 40mm;
     text-align: center;
     font-weight: bold;
-    font-size: 10px;
-    overflow: scroll;
+    font-size: 12px;
 
-    &__border {
+    &-inner {
         width: 60mm;
         height: 40mm;
-        border: 0px solid #393939;
-        background-color: gainsboro;
     }
 
-    &__table {
+    &-table {
         margin: 1mm;
         position: absolute;
         padding: 2mm;
@@ -207,17 +209,17 @@ onMounted(() => {
         height: 38mm;
         border-collapse: collapse;
 
-        &__td {
-            border: 0px solid #000;
+        &-td {
+            border: 1px solid #000;
         }
     }
+}
 
-    &__btn {
-        position: absolute;
-        bottom: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+.button {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

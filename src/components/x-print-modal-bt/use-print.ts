@@ -128,12 +128,12 @@ export default function usePrint() {
     }
 
     /**
-     * 打印
+     * 打印方法
      */
-    async function handlePrintServiceMAC(printString: Record<string, unknown>) {
-        const printerData = {
-            ...printString,
-        };
+    async function handlePrintServiceMAC(data: Record<string, unknown>) {
+        console.log('handlePrintServiceMAC', data);
+
+        const printerData = { ...data };
 
         printerData.bluetoothName = currentDevice.value.bluetoothName;
         printerData.bluetoothMac = currentDevice.value.bluetoothMac;
