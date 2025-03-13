@@ -1,6 +1,6 @@
 <template>
     <view class="view-wrap">
-        <print-template :data="data"></print-template>
+        <print-template :data-source="dataSource"></print-template>
     </view>
 </template>
 
@@ -8,7 +8,7 @@
 import { ref } from 'vue';
 import PrintTemplate from './print-template.vue';
 
-interface Data {
+interface DataSource {
     sampleName?: string;
     sampleNum?: string;
     checkNum?: string;
@@ -19,14 +19,14 @@ interface Data {
     qrcode?: string;
 }
 
-const data = ref<Data>({
+const dataSource = ref<DataSource>({
     sampleName: 'YP-2025031101',
     sampleNum: 'YP-2025031101',
     checkNum: 'JC-2025031101',
     itemName: '项目1',
     specialSituation: '加急',
     sendSampleTime: '2025/03/11',
-    sendSampleOperator: '张三',
+    sendSampleOperator: 'wyw',
     qrcode: 'YP-2025031101/JC-2025031101',
 });
 </script>

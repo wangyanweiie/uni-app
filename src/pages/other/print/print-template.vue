@@ -7,9 +7,9 @@
                         <tr>
                             <td class="template-table-td">样品名称</td>
                             <td class="template-table-td" colspan="4">
-                                {{ data.sampleName }}
+                                {{ dataSource.sampleName }}
                             </td>
-                            <td class="template-table-td" rowspan="7" colspan="2">
+                            <td class="template-table-td bottom right" rowspan="7" colspan="2">
                                 <view class="qrcode">
                                     <canvas id="qrcode" canvas-id="qrcode" style="width: 15mm; height: 15mm"></canvas>
                                 </view>
@@ -18,37 +18,37 @@
                         <tr>
                             <td class="template-table-td">样品编号</td>
                             <td class="template-table-td">
-                                {{ data.sampleNum }}
+                                {{ dataSource.sampleNum }}
                             </td>
                         </tr>
                         <tr>
                             <td class="template-table-td">检测编号</td>
                             <td class="template-table-td">
-                                {{ data.checkNum }}
+                                {{ dataSource.checkNum }}
                             </td>
                         </tr>
                         <tr>
                             <td class="template-table-td">项目</td>
                             <td class="template-table-td">
-                                {{ data.itemName }}
+                                {{ dataSource.itemName }}
                             </td>
                         </tr>
                         <tr>
                             <td class="template-table-td">特殊情况</td>
                             <td class="template-table-td">
-                                {{ data.specialSituation }}
+                                {{ dataSource.specialSituation }}
                             </td>
                         </tr>
                         <tr>
                             <td class="template-table-td">送样时间</td>
                             <td class="template-table-td">
-                                {{ data.sendSampleTime }}
+                                {{ dataSource.sendSampleTime }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="template-table-td">送样人</td>
-                            <td class="template-table-td">
-                                {{ data.sendSampleOperator }}
+                            <td class="template-table-td bottom">送样人</td>
+                            <td class="template-table-td bottom">
+                                {{ dataSource.sendSampleOperator }}
                             </td>
                         </tr>
                     </table>
@@ -67,20 +67,26 @@
 <script lang="ts" setup>
 import UQRCode from 'uqrcodejs';
 import html2canvas from '@/components/html2canvas/html2canvas.vue';
+import html2canvasWeb from '@/components/html2canvas/html2canvas-web.vue';
 import { onMounted, ref } from 'vue';
+import { showToast } from '@/utils/uni-message';
 
 /**
  * props
  */
 const props = withDefaults(
     defineProps<{
-        data: Record<string, unknown>;
+        /** 数据源 */
+        dataSource: Record<string, unknown>;
     }>(),
     {
-        data: undefined,
+        dataSource: undefined,
     },
 );
 
+/**
+ * 打印数据
+ */
 const printData = ref<Record<string, unknown>>({
     bluetoothName: '',
     bluetoothMac: '',
@@ -115,7 +121,7 @@ function generateQRCode() {
 
     // 设置二维码内容
     // qr.data = 'https://uqrcode.cn/doc';
-    qr.data = props.data.qrcode;
+    qr.data = props.dataSource.qrcode;
 
     // 设置二维码大小，必须与canvas设置的宽高一致
     qr.size = 55;
@@ -147,9 +153,7 @@ function handleGenerateImage() {
  * 成功生成图片
  */
 function handleRenderFinished(data: string) {
-    printData.value = Object.assign({}, printData.value, {
-        data,
-    });
+    printData.value.data = data;
 
     console.log('render-finished', printData.value);
 }
@@ -158,17 +162,12 @@ function handleRenderFinished(data: string) {
  * 蓝牙打印
  */
 async function handleBTPrint() {
-    showModal.value = true;
-
     // #ifdef APP-PLUS
-    // showModal.value = true;
+    showModal.value = true;
     // #endif
 
     // #ifdef H5
-    // uni.showToast({
-    //     title: '请在APP中使用蓝牙打印功能！',
-    //     icon: 'none',
-    // });
+    showToast('请在APP中使用蓝牙打印功能！');
     // #endif
 }
 
@@ -192,7 +191,7 @@ onMounted(() => {
     height: 40mm;
     text-align: center;
     font-size: 11px;
-    // font-weight: bold;
+    font-weight: bold;
 
     &-inner {
         width: 60mm;
@@ -208,7 +207,8 @@ onMounted(() => {
         border-collapse: collapse;
 
         &-td {
-            border: 1px solid #000;
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
         }
 
         .qrcode {
@@ -216,6 +216,14 @@ onMounted(() => {
             justify-content: center;
             align-items: center;
         }
+    }
+
+    .bottom {
+        border-bottom: 1px solid #000;
+    }
+
+    .right {
+        border-right: 1px solid #000;
     }
 }
 

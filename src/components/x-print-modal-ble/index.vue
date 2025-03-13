@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, watchEffect } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
 import { usePrint } from './use-print';
 import { Buffer } from 'buffer';
 import { getStorage } from '@/utils/uni-storage';
@@ -63,28 +63,11 @@ const emits = defineEmits<{
 }>();
 
 /**
- * 弹窗是否展示
+ * 是否显示
  */
-const show = ref<boolean>(false);
-
-/**
- * 更新弹窗状态
- */
-watch(
-    () => props.modelValue,
-    (value: boolean) => {
-        show.value = value;
-    },
-);
-
-/**
- * 监听一次
- */
-watchEffect(() => {
-    if (props.modelValue === true) {
-        // 开启搜索蓝牙
-        startBluetoothSearch();
-    }
+const show = computed<boolean>({
+    get: () => props.modelValue,
+    set: newValue => emits('update:modelValue', newValue),
 });
 
 /**
@@ -107,7 +90,6 @@ async function confirmPrint(): Promise<void> {
     closeBluetooth();
 
     show.value = false;
-    emits('update:modelValue', false);
 }
 
 /**
@@ -121,8 +103,17 @@ async function cancelPrint(): Promise<void> {
     closeBluetooth();
 
     show.value = false;
-    emits('update:modelValue', false);
 }
+
+/**
+ * 监听
+ */
+watchEffect(() => {
+    if (props.modelValue === true) {
+        // 开启搜索蓝牙
+        startBluetoothSearch();
+    }
+});
 </script>
 
 <style lang="scss" scoped>

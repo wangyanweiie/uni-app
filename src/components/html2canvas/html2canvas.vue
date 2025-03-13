@@ -1,112 +1,90 @@
 <template>
-    <view>
-        <view :id="domId">
-            <slot />
-        </view>
+    <view class="html2canvas" :prop="domId" :change:prop="html2canvas.handleCreate">
+        <slot />
     </view>
 </template>
 
-<script lang="ts" setup>
-import html2canvas from 'html2canvas';
-import { watch } from 'vue';
-
-/**
- * 定义组件选项
- */
-defineOptions({
+<script>
+export default {
     name: 'Html2canvas',
-});
 
-/**
- * props
- */
-const props = withDefaults(
-    defineProps<{
-        domId: string;
-    }>(),
-    {
-        domId: '',
+    props: {
+        domId: {
+            type: String,
+            required: true,
+        },
     },
-);
 
-/**
- * emit
- */
-const emit = defineEmits<{
-    (e: 'renderFinish', value: any): void;
-}>();
+    emits: ['renderFinish'],
 
-/**
- * 渲染完成
- */
-function renderFinish(base64: any) {
-    try {
-        emit('renderFinish', base64);
-    } catch (e) {
-        console.log('html2canvas error', e);
-    }
-}
+    methods: {
+        /**
+         * 渲染完成
+         */
+        async renderFinish(base64) {
+            try {
+                this.$emit('renderFinish', base64);
+            } catch (e) {
+                console.log('html2canvas error', e);
+            }
+        },
 
-/**
- * 正在生成
- */
-function showLoading() {
-    uni.showToast({
-        title: '正在生成',
-        icon: 'none',
-        mask: true,
-        duration: 2000,
-    });
-}
-
-/**
- * 隐藏生成
- */
-function hideLoading() {
-    uni.hideToast();
-}
-
-/**
- * 创建图片
- */
-function handleCreate(domId: string) {
-    console.log('handleCreate', domId);
-
-    try {
-        showLoading();
-
-        const timeout = setTimeout(async () => {
-            const shareContent: any = document.getElementById(domId);
-
-            const canvas = await html2canvas(shareContent, {
-                width: shareContent?.offsetWidth, // 设置 canvas 尺寸与所截图尺寸相同，防止白边
-                height: shareContent?.offsetHeight, // 防止白边
-                logging: true,
-                useCORS: true,
-                scale: window.devicePixelRatio < 3 ? window.devicePixelRatio : 2,
+        /**
+         * show loading
+         */
+        showLoading() {
+            uni.showToast({
+                title: '正在生成',
+                icon: 'none',
             });
+        },
 
-            const base64 = canvas.toDataURL('image/png', 1);
+        /**
+         * hide loading
+         */
+        hideLoading() {
+            uni.hideToast();
+        },
+    },
+};
+</script>
 
-            renderFinish(base64);
-            hideLoading();
+<script module="html2canvas" lang="renderjs">
+import html2canvas from 'html2canvas';
 
-            clearTimeout(timeout);
-        }, 500);
-    } catch (error) {
-        console.log(error);
+export default {
+    methods: {
+        /**
+         * 创建图片
+         */
+        async handleCreate(domId) {
+            if (!domId) {
+                return;
+            }
+
+            try {
+                this.$ownerInstance.callMethod('showLoading', true);
+
+                const timeout = setTimeout(async ()=> {
+                    const shareContent = document.querySelector(domId);
+                    const canvas = await html2canvas(shareContent,{
+                        width: shareContent?.offsetWidth, // 设置 canvas 尺寸与所截图尺寸相同，防止白边
+                        height: shareContent?.offsetHeight, // 防止白边
+                        logging: true,
+                        useCORS: true
+                    });
+
+                    const base64 = canvas.toDataURL('image/png', 1);
+
+                    this.$ownerInstance.callMethod('renderFinish', base64);
+                    this.$ownerInstance.callMethod('hideLoading', true);
+
+                    clearTimeout(timeout);
+                }, 500);
+            } catch(error){
+                console.log(error)
+            }
+        }
     }
 }
-
-/**
- * 监听 domId
- */
-watch(
-    () => props.domId,
-    newValue => {
-        if (newValue) {
-            handleCreate(newValue);
-        }
-    },
-);
 </script>

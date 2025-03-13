@@ -24,12 +24,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, watchEffect } from 'vue';
+import { computed, watchEffect } from 'vue';
 import usePrint from './use-print';
 
 const props = withDefaults(
     defineProps<{
+        /** 是否展示 */
         modelValue: boolean;
+        /** 打印数据 */
         printData: Record<string, unknown>;
     }>(),
     {
@@ -45,12 +47,10 @@ const emits = defineEmits<{
 /**
  * 是否显示
  */
-const show = ref<boolean>(false);
-
-/**
- * 打印数据
- */
-// const data = ref<Record<string, unknown>>({});
+const show = computed<boolean>({
+    get: () => props.modelValue,
+    set: newValue => emits('update:modelValue', newValue),
+});
 
 /**
  * 打印相关方法
@@ -68,8 +68,6 @@ async function confirmPrint(): Promise<void> {
     }
 
     show.value = false;
-
-    emits('update:modelValue', false);
 }
 
 /**
@@ -77,32 +75,13 @@ async function confirmPrint(): Promise<void> {
  */
 async function cancelPrint(): Promise<void> {
     show.value = false;
-
-    emits('update:modelValue', false);
 }
 
 /**
  * 监听
  */
-watch(
-    () => props.modelValue,
-    (newValue: boolean) => {
-        show.value = newValue;
-    },
-);
-
-// watch(
-//     () => props.printData,
-//     (newValue: Record<string, unknown>) => {
-//         data.value = newValue;
-//     },
-//     {
-//         deep: true,
-//     },
-// );
-
 watchEffect(() => {
-    if (show.value === true) {
+    if (props.modelValue === true) {
         handleSavePrintServiceMAC();
     }
 });
