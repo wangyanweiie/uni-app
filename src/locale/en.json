@@ -13,6 +13,7 @@
     "menu.description": "description",
     "menu.circulateForm": "circulate form",
     "menu.combineTable": "combine table",
+    "menu.btPrint": "bt print",
 
     "button.save": "save",
     "button.submit": "submit",

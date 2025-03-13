@@ -13,6 +13,7 @@
     "menu.description": "描述列",
     "menu.circulateForm": "循環表單",
     "menu.combineTable": "合並表格",
+    "menu.btPrint": "經典藍牙打印",
 
     "button.save": "保存",
     "button.submit": "提交",
