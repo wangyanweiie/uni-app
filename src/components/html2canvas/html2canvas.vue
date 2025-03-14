@@ -1,6 +1,7 @@
 <template>
-    <!-- prop 是自定义的数据字段名，要与 chang 后的保持一致，canvasModule 是 renderjs 的 module 名称 -->
-    <view :id="domId" :prop="domId" :change:prop="canvasModule.handleCreate" class="html2canvas">
+    <!-- prop 是自定义的数据字段名，要与 chang 后的保持一致，html2canvas 是 renderjs 的 module 名称 -->
+    <!-- TODO: 使用 :change:prop 写法，uni 直接运行可以正确生成 base64，生成资源文件后用基座打包报错？ -->
+    <view :id="domId" :prop="domId" class="html2canvas" :change:prop="html2canvas.create">
         <slot />
     </view>
 </template>
@@ -50,8 +51,8 @@ export default {
 };
 </script>
 
-<!-- renderjs 目前仅支持内联使用 -->
-<script module="canvasModule" lang="renderjs">
+<!-- renderjs 目前仅支持内联使用，vue3 项目不支持 setup script 用法 -->
+<script module="html2canvas" lang="renderjs">
 import html2canvas from 'html2canvas';
 
 export default {
@@ -59,18 +60,23 @@ export default {
         /**
          * 创建图片
          * 与 script 通信
+         * @param newValue
+         * @param oldValue
+         * @param ownerInstance
+         * @param instance
          */
-        async handleCreate(newValue, oldValue, ownerInstance, instance) {
+        async create(newValue) {
             if (!newValue) {
                 return;
             }
 
-            console.log('newValue', newValue);
-            console.log('oldValue', oldValue);
-            console.log('ownerInstance', ownerInstance);
-            console.log('instance', instance);
+            // console.log('newValue', newValue);
+            // console.log('oldValue', oldValue);
+            // console.log('ownerInstance', ownerInstance);
+            // console.log('instance', instance);
 
             try {
+                // this.$ownerInstance.callMethod() 仅支持调用逻辑层 vue 选项式中的 methods 中定义的方法。
                 this.$ownerInstance.callMethod('showLoading', true);
 
                 const timeout = setTimeout(async ()=> {

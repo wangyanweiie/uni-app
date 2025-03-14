@@ -8,10 +8,10 @@ const fs = require('fs');
  */
 
 fs.cp(
-    './unpackage/resources/__UNI__E140D76/www',
+    './dist/resources/__UNI__E140D76/www',
 
     // 拷贝到 as 指定目录
-    'E:\\company\\All_APP\\android-app-bundle-project\\app\\src\\main\\assets\\apps\\__UNI__E140D76\\www',
+    'E:\\Project\\android-app-bundle-project\\app\\src\\main\\assets\\apps\\__UNI__E140D76\\www',
 
     // 拷贝整个目录，包括子目录
     { recursive: true },

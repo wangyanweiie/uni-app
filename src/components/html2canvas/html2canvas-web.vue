@@ -65,8 +65,8 @@ function hideLoading() {
 /**
  * 创建图片
  */
-function handleCreate(domId: string) {
-    console.log('handleCreate', domId);
+function create(domId: string) {
+    console.log('create', domId);
 
     try {
         showLoading();
@@ -101,7 +101,7 @@ watch(
     () => props.domId,
     newValue => {
         if (newValue) {
-            handleCreate(newValue);
+            create(newValue);
         }
     },
 );

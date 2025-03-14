@@ -57,17 +57,17 @@ export default function usePrint() {
 
         connTimes.value += 1;
 
-        const printerData = {
+        const printData = {
             bluetoothName: '',
             bluetoothMac: '',
         };
 
-        printerData.bluetoothName = e.bluetoothName;
-        printerData.bluetoothMac = e.bluetoothMac;
+        printData.bluetoothName = e.bluetoothName;
+        printData.bluetoothMac = e.bluetoothMac;
 
         plugintest.ConnBluetoothFunction(
             // 打印数据
-            printerData,
+            printData,
             // 成功回调
             (result: any) => {
                 if (JSON.stringify(result) === '["1"]') {
@@ -75,8 +75,8 @@ export default function usePrint() {
 
                     // 保存蓝牙名称和 MAC 地址
                     currentDevice.value = {
-                        bluetoothName: printerData.bluetoothName,
-                        bluetoothMac: printerData.bluetoothMac,
+                        bluetoothName: printData.bluetoothName,
+                        bluetoothMac: printData.bluetoothMac,
                     };
 
                     showToast('蓝牙连接成功！');
@@ -119,16 +119,21 @@ export default function usePrint() {
     async function handlePrintServiceMAC(data: Record<string, unknown>) {
         console.log('handlePrintServiceMAC', data);
 
-        const printerData = { ...data };
+        const printData = { ...data };
 
-        printerData.bluetoothName = currentDevice.value.bluetoothName;
-        printerData.bluetoothMac = currentDevice.value.bluetoothMac;
+        printData.bluetoothName = currentDevice.value.bluetoothName;
+        printData.bluetoothMac = currentDevice.value.bluetoothMac;
+
+        if (!printData.data) {
+            showToast('图片的 base64 值为空不可打印！');
+            return;
+        }
 
         const returnResult = ref<boolean>(true);
 
         await plugintest.AddPrintFunction(
             // 打印数据
-            printerData,
+            printData,
             // 成功回调
             (result: any) => {
                 if (JSON.stringify(result) === '["4"]') {
